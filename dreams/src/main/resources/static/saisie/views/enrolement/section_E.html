@@ -19,11 +19,11 @@
       <strong><em>(Si NON, passer à la    question F04 du SECTION F) </em></strong></p></td>
     <td colspan="2">
       <div class="form-check">
-        <input name="radio28" type="radio" class="with-gap" id="radio216" >
+        <input value="OUI" ng-model="enrolE._01_rela_sexuel" ng-change="changerelasex('oui')" name="radio28" type="radio" class="with-gap" id="radio216" >
         <label for="radio216">Oui</label>
       </div>  
       <div class="form-check">
-        <input name="radio28" type="radio" class="with-gap" id="radio217" >
+        <input value="NON" ng-model="enrolE._01_rela_sexuel" ng-change="changerelasex('non')" name="radio28" type="radio" class="with-gap" id="radio217" >
         <label for="radio217">Non</label>
       </div>
       </td>
@@ -32,14 +32,14 @@
     <td width="5%"><p><em>E02</em></p></td>
     <td colspan="2"><p><em>A quel âge avez-vous eu des relations sexuelles pour la    première fois&nbsp;?</em></p></td>
     <td colspan="2"><p>
-      <input type="number" name="number" id="number">
+      <input ng-model="enrolE._02_ag_sexuel" string-to-number type="number" name="number" id="number">
     <em> An(s)</em></p></td>
   </tr>
   <tr>
     <td width="5%"><p><em>E03</em></p></td>
     <td colspan="2"><p><em>Combien de partenaires sexuels avez-vous eu au cours    des 12 derniers mois&nbsp;? </em></p></td>
     <td colspan="2"><p>
-      <input type="number" name="number2" id="number2">
+      <input ng-model="enrolE._03_nbr_part_sexuel" string-to-number type="number" name="number2" id="number2">
     <em> <strong>(SI 0 partenaire passer au SECTION 6)</strong></em></p></td>
   </tr>
   <tr>
@@ -47,11 +47,13 @@
     <td colspan="2"><p><em>Avez-vous un partenaire sexuel actuellement&nbsp;?</em></p></td>
     <td colspan="2">
       <div class="form-check">
-        <input name="radio29" type="radio" class="with-gap" id="radio218" >
+        <input value="OUI" ng-model="enrolE._04_part_sexuel
+" ng-change="changepatsexactu('oui')" name="radio29" type="radio" class="with-gap" id="radio218" >
         <label for="radio218">Oui</label>
       </div>  
       <div class="form-check">
-        <input name="radio29" type="radio" class="with-gap" id="radio219" >
+        <input value="NON" ng-model="enrolE._04_part_sexuel
+" ng-change="changepatsexactu('non')" name="radio29" type="radio" class="with-gap" id="radio219" >
         <label for="radio219">Non</label>
       </div>
       </td>
@@ -72,42 +74,42 @@
     <td width="44%"><p><em>Cette    personne est-elle du même âge, plus jeune ou plus âgée que vous&nbsp;?</em></p></td>
     <td width="13%">
       <div class="form-check">
-        <input name="radio30" type="radio" class="with-gap" id="radio220" >
+        <input value="MemeAG" ng-model="enrolE._05_P1_age_parte" ng-change="changepatsexactu('non')" name="radio30" type="radio" class="with-gap" id="radio220" >
         <label for="radio">Même Age</label>
       </div>  
       <div class="form-check">
-        <input name="radio30" type="radio" class="with-gap" id="radio221" >
+        <input value="PlusJEUNE" ng-model="enrolE._05_P1_age_parte" ng-change="changepatsexactu('non')" name="radio30" type="radio" class="with-gap" id="radio221" >
         <label for="radio221">Plus jeune</label>
       </div>
       <div class="form-check">
-        <input name="radio30" type="radio" class="with-gap" id="radio222" >
+        <input value="PlusAG" ng-model="enrolE._05_P1_age_parte" ng-change="changepatsexactu('non')" name="radio30" type="radio" class="with-gap" id="radio222" >
         <label for="radio222">Plus Agée</label>
 		</div>
       </td>
     <td width="19%">
        <div class="form-check">
-        <input name="radio31" type="radio" class="with-gap" id="radio223" >
+        <input value="MemeAG" ng-model="enrolE._05_P2_age_parte" ng-change="changepatsexactu('non')" name="radio31" type="radio" class="with-gap" id="radio223" >
         <label for="radio223">Même Age</label>
       </div>  
       <div class="form-check">
-        <input name="radio31" type="radio" class="with-gap" id="radio224" >
+        <input value="PlusJEUNE" ng-model="enrolE._05_P2_age_parte" ng-change="changepatsexactu('non')" name="radio31" type="radio" class="with-gap" id="radio224" >
         <label for="radio224">Plus jeune</label>
       </div>
       <div class="form-check">
-        <input name="radio31" type="radio" class="with-gap" id="radio225" >
+        <input value="PlusAG" ng-model="enrolE._05_P2_age_parte" ng-change="changepatsexactu('non')" name="radio31" type="radio" class="with-gap" id="radio225" >
         <label for="radio225">Plus Agée</label>
 		</div></td>
     <td width="19%">
        <div class="form-check">
-        <input name="radio32" type="radio" class="with-gap" id="radio226" >
+        <input value="MemeAG" ng-model="enrolE._05_P3_age_parte" ng-change="changepatsexactu('non')" name="radio32" type="radio" class="with-gap" id="radio226" >
         <label for="radio226">Même Age</label>
       </div>  
       <div class="form-check">
-        <input name="radio32" type="radio" class="with-gap" id="radio227" >
+        <input value="PlusJEUNE" ng-model="enrolE._05_P3_age_parte" ng-change="changepatsexactu('non')" name="radio32" type="radio" class="with-gap" id="radio227" >
         <label for="radio22è">Plus jeune</label>
       </div>
       <div class="form-check">
-        <input name="radio32" type="radio" class="with-gap" id="radio228" >
+        <input value="PlusAG" ng-model="enrolE._05_P3_age_parte" ng-change="changepatsexactu('non')" name="radio32" type="radio" class="with-gap" id="radio228" >
         <label for="radio228">Plus Agée</label>
 		</div></td>
   </tr>
@@ -116,29 +118,29 @@
     <td width="44%"><p><em>Connaissez-vous    le statut VIH de ce partenaire&nbsp;?</em></p></td>
     <td width="13%">
          <div class="form-check">
-        <input name="radio33" type="radio" class="with-gap" id="radio229" >
+        <input value="OUI" ng-model="enrolE._06_P1_statut_part" ng-change="changepatsexactu('non')" name="radio33" type="radio" class="with-gap" id="radio229" >
         <label for="radio229">Oui</label>
       </div>  
       <div class="form-check">
-        <input name="radio33" type="radio" class="with-gap" id="radio230" >
+        <input value="NON" ng-model="enrolE._06_P1_statut_part" ng-change="changepatsexactu('non')" name="radio33" type="radio" class="with-gap" id="radio230" >
         <label for="radio230">Non</label>
       </div></td>
     <td width="19%">
          <div class="form-check">
-        <input name="radio34" type="radio" class="with-gap" id="radio231" >
+        <input value="OUI" ng-model="enrolE._06_P2_statut_part" ng-change="changepatsexactu('non')" name="radio34" type="radio" class="with-gap" id="radio231" >
         <label for="radio231">Oui</label>
       </div>  
       <div class="form-check">
-        <input name="radio34" type="radio" class="with-gap" id="radio232" >
+        <input value="NON" ng-model="enrolE._06_P2_statut_part" ng-change="changepatsexactu('non')" name="radio34" type="radio" class="with-gap" id="radio232" >
         <label for="radio232">Non</label>
       </div></td>
     <td width="19%">
         <div class="form-check">
-        <input name="radio35" type="radio" class="with-gap" id="radio233" >
+        <input value="OUI" ng-model="enrolE._06_P3_statut_part" ng-change="changepatsexactu('non')" name="radio35" type="radio" class="with-gap" id="radio233" >
         <label for="radio233">Oui</label>
       </div>  
       <div class="form-check">
-        <input name="radio35" type="radio" class="with-gap" id="radio234" >
+        <input value="NON" ng-model="enrolE._06_P3_statut_part" ng-change="changepatsexactu('non')" name="radio35" type="radio" class="with-gap" id="radio234" >
         <label for="radio234">Non</label>
       </div></td>
   </tr>
@@ -147,41 +149,41 @@
     <td width="44%"><p><em>À quelle    fréquence avez-vous utilisé / utilisez-vous un préservatif avec ce partenaire&nbsp;?</em></p></td>
     <td width="13%">
        <div class="form-check">
-        <input name="radio36" type="radio" class="with-gap" id="radio235" >
+        <input value="TJRS" ng-model="enrolE._07_P1_frequence_protect" ng-change="changepatsexactu('non')" name="radio36" type="radio" class="with-gap" id="radio235" >
         <label for="radio235">Toujours</label>
       </div>  
       <div class="form-check">
-        <input name="radio36" type="radio" class="with-gap" id="radio236" >
+        <input value="PFOIS" ng-model="enrolE._07_P1_frequence_protect" ng-change="changepatsexactu('non')" name="radio36" type="radio" class="with-gap" id="radio236" >
         <label for="radio236">Parfois</label>
       </div>
       <div class="form-check">
-        <input name="radio36" type="radio" class="with-gap" id="radio237" >
+        <input value="JAM" ng-model="enrolE._07_P1_frequence_protect" ng-change="changepatsexactu('non')" name="radio36" type="radio" class="with-gap" id="radio237" >
         <label for="radio237">Jamais</label>
 		</div></td>
     <td width="19%">
          <div class="form-check">
-        <input name="radio37" type="radio" class="with-gap" id="radio238" >
+        <input value="TJRS" ng-model="enrolE._07_P2_frequence_protect" ng-change="changepatsexactu('non')" name="radio37" type="radio" class="with-gap" id="radio238" >
         <label for="radio238">Toujours</label>
       </div>  
       <div class="form-check">
-        <input name="radio37" type="radio" class="with-gap" id="radio239" >
+        <input value="PFOIS" ng-model="enrolE._07_P2_frequence_protect" ng-change="changepatsexactu('non')" name="radio37" type="radio" class="with-gap" id="radio239" >
         <label for="radio239">Parfois</label>
       </div>
       <div class="form-check">
-        <input name="radio37" type="radio" class="with-gap" id="radio240" >
+        <input value="JAM" ng-model="enrolE._07_P2_frequence_protect" ng-change="changepatsexactu('non')" name="radio37" type="radio" class="with-gap" id="radio240" >
         <label for="radio240">Jamais</label>
 		</div></td>
     <td width="19%">
          <div class="form-check">
-        <input name="radio38" type="radio" class="with-gap" id="radio241" >
+        <input value="TJRS" ng-model="enrolE._07_P3_frequence_protect" ng-change="changepatsexactu('non')" name="radio38" type="radio" class="with-gap" id="radio241" >
         <label for="radio241">Toujours</label>
       </div>  
       <div class="form-check">
-        <input name="radio38" type="radio" class="with-gap" id="radio242" >
+        <input value="PFOIS" ng-model="enrolE._07_P3_frequence_protect" ng-change="changepatsexactu('non')" name="radio38" type="radio" class="with-gap" id="radio242" >
         <label for="radio242">Parfois</label>
       </div>
       <div class="form-check">
-        <input name="radio38" type="radio" class="with-gap" id="radio243" >
+        <input value="JAM" ng-model="enrolE._07_P3_frequence_protect" ng-change="changepatsexactu('non')" name="radio38" type="radio" class="with-gap" id="radio243" >
         <label for="radio243">Jamais</label>
 		</div></td>
   </tr>
@@ -190,14 +192,19 @@
     <td colspan="2"><p><em>Au cours des 12 derniers mois, avez-vous reçu de l&rsquo;argent,    des cadeaux ou des faveurs en échange de relations sexuelles&nbsp;?</em></p></td>
     <td colspan="2">
        <div class="form-check">
-        <input name="radio39" type="radio" class="with-gap" id="radio244" >
+        <input value="OUI" ng-model="enrolE._08_echange_sexe" ng-change="changerecargen('oui')" name="radio39" type="radio" class="with-gap" id="radio244" >
         <label for="radio244">Oui</label>
       </div>  
       <div class="form-check">
-        <input name="radio39" type="radio" class="with-gap" id="radio245" >
+        <input value="NON" ng-model="enrolE._08_echange_sexe" ng-change="changerecargen('non')" name="radio39" type="radio" class="with-gap" id="radio245" >
         <label for="radio245">Non</label>
       </div></td>
   </tr>
+  <td height="29" colspan="4" valign="top" bgcolor="#FFFFFF"><p>&nbsp;</p>
+      <div class="text-center py-4 mt-3">
+      <button class="btn btn-cyan" type="submit" ng-click="previewPage()">Précédant</button>
+        <button class="btn btn-cyan" type="submit" ng-click="savePage()">Suivant</button>
+  </div>
 </table>
 </body>
 </html>

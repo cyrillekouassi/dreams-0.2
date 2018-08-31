@@ -20,49 +20,54 @@
       <p><em>(Lire et expliquer au client s'il y a lieu) </em></p></td>
     <td width="41%">
       <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox248" >
+		<input value="EduSEXUEL" ng-model="participation.EduSEXUEL" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox248" >
 		<label class="form-check-label" for="checkbox248">Education sexuelle complète</label>
 		</div>
      
       <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox249" >
+		<input value="CrCompVIE" ng-model="participation.CrCompVIE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox249" >
 		<label class="form-check-label" for="checkbox249">Cours de compétence de vie</label>
 		</div>
      
       <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox250" >
+		<input value="BusiPLUS" ng-model="participation.BusiPLUS" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox250" >
 		<label class="form-check-label" for="checkbox250">Business Plus</label>
 		</div>
      
       <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox251" >
+		<input value="CCC" ng-model="participation.CCC" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox251" >
 		<label class="form-check-label" for="checkbox251">CCC</label>
+		</div>
+    
+     <div class="form-check">
+		<input value="OEV" ng-model="participation.OEV" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox251" >
+		<label class="form-check-label" for="checkbox251">OEV</label>
 		</div>
      
       <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox252" >
+		<input value="FamilleDAB" ng-model="participation.FamilleDAB" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox252" >
 		<label class="form-check-label" for="checkbox252">Famille d&rsquo;abord</label>
 		</div>
      
       <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox253" >
+		<input value="SanteREPROD" ng-model="participation.SanteREPROD" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox253" >
 		<label class="form-check-label" for="checkbox253">Santé de la reproduction</label>
 		</div>
      
       <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox254" >
+		<input value="SASA" ng-model="participation.SASA" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox254" >
 		<label class="form-check-label" for="checkbox254">SASA</label>
 		</div>
      
       <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox255" >
+		<input value="AUC" ng-model="participation.AUC" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox255" >
 		<label class="form-check-label" for="checkbox255">Aucun</label>
 		</div>
     
      <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox256" >
+		<input value="AUT" ng-model="participation.AUT" type="checkbox" class="filled-in form-check-input" id="checkbox256" >
 		<label class="form-check-label" for="checkbox256">Autres porgrammes(Préciser)</label>	
-		<input type="text" name="textfield2" id="textfield2">
+		<input ng-model="enrolIJK._01_a_autre_program" type="text" name="textfield2" id="textfield2">
     </div></td>
   </tr>
   <tr>
@@ -76,11 +81,11 @@
     <td width="50%" colspan="2"><p><em>Faites-vous partie d&rsquo;une association&nbsp;?</em></p></td>
     <td width="41%">
       <div class="form-check">
-        <input name="radio63" type="radio" class="with-gap" id="radio302" >
+        <input value="OUI" ng-model="enrolIJK._01_vie_assossiative" ng-change="" name="radio63" type="radio" class="with-gap" id="radio302" >
         <label for="radio302">Oui</label>
       </div>  
       <div class="form-check">
-        <input name="radio63" type="radio" class="with-gap" id="radio303" >
+        <input value="NON" ng-model="enrolIJK._01_vie_assossiative" ng-change="" name="radio63" type="radio" class="with-gap" id="radio303" >
         <label for="radio303">Non</label>
     </div></td>
   </tr>
@@ -89,11 +94,11 @@
     <td width="50%" colspan="2"><p><em>Avez-vous des amis (es) ?</em></p></td>
     <td width="41%">
       <div class="form-check">
-        <input name="radio64" type="radio" class="with-gap" id="radio304" >
+        <input value="OUI" ng-model="enrolIJK._02_amis" ng-change="" name="radio64" type="radio" class="with-gap" id="radio304" >
         <label for="radio304">Oui</label>
       </div>  
       <div class="form-check">
-        <input name="radio64" type="radio" class="with-gap" id="radio305" >
+        <input value="NON" ng-model="enrolIJK._02_amis" ng-change="" name="radio64" type="radio" class="with-gap" id="radio305" >
         <label for="radio305">Non</label>
     </div></td>
   </tr>
@@ -102,11 +107,11 @@
     <td width="50%" colspan="2"><p><em>Faites-vous partie d&rsquo;un réseau social (Facebook,    Twitter, Instagram, Snap tchat, WhatsApp, Viber)</em></p></td>
     <td width="41%">
        <div class="form-check">
-        <input name="radio65" type="radio" class="with-gap" id="radio306" >
+        <input value="OUI" ng-model="enrolIJK._03_reseau_social" ng-change="" name="radio65" type="radio" class="with-gap" id="radio306" >
         <label for="radio306">Oui</label>
       </div>  
       <div class="form-check">
-        <input name="radio65" type="radio" class="with-gap" id="radio307" >
+        <input value="NON" ng-model="enrolIJK._03_reseau_social" ng-change="" name="radio65" type="radio" class="with-gap" id="radio307" >
         <label for="radio307">Non</label>
     </div>
     </td>
@@ -115,11 +120,11 @@
     <td width="8%"><p><em>J04</em></p></td>
     <td width="50%" colspan="2"><p><em>Avez-vous une personne de confiance dans votre    entourage&nbsp;?</em></p></td>
     <td width="41%"><div class="form-check">
-        <input name="radio66" type="radio" class="with-gap" id="radio308" >
+        <input value="OUI" ng-model="enrolIJK._04_person_confiance" ng-change="" name="radio66" type="radio" class="with-gap" id="radio308" >
         <label for="radio308">Oui</label>
       </div>  
       <div class="form-check">
-        <input name="radio66" type="radio" class="with-gap" id="radio309" >
+        <input value="NON" ng-model="enrolIJK._04_person_confiance" ng-change="" name="radio66" type="radio" class="with-gap" id="radio309" >
         <label for="radio309">Non</label>
     </div></td>
   </tr>
@@ -127,11 +132,11 @@
     <td width="8%"><p><em>J05</em></p></td>
     <td width="50%" colspan="2"><p><em>Faites-vous partie d&rsquo;un groupe d&rsquo;épargne&nbsp;?</em></p></td>
     <td width="41%"><div class="form-check">
-        <input name="radio" type="radio" class="with-gap" id="radio310" >
+        <input value="OUI" ng-model="enrolIJK._05_group_epargn" ng-change="" name="radio" type="radio" class="with-gap" id="radio310" >
         <label for="radio310">Oui</label>
       </div>  
       <div class="form-check">
-        <input name="radio67" type="radio" class="with-gap" id="radio311" >
+        <input value="NON" ng-model="enrolIJK._05_group_epargn" ng-change="" name="radio67" type="radio" class="with-gap" id="radio311" >
         <label for="radio311">Non</label>
     </div></td>
   </tr>
@@ -139,11 +144,11 @@
     <td width="8%"><p><em>J06</em></p></td>
     <td width="50%" colspan="2"><p><em>Vous est-il arrivé de dire non quand le groupe auquel    vous appartenez a dit oui&nbsp;?</em></p></td>
     <td width="41%"><div class="form-check">
-        <input name="radio68" type="radio" class="with-gap" id="radio312" >
+        <input value="OUI" ng-model="enrolIJK._06_refus_ide_group" ng-change="" name="radio68" type="radio" class="with-gap" id="radio312" >
         <label for="radio312">Oui</label>
       </div>  
       <div class="form-check">
-        <input name="radio68" type="radio" class="with-gap" id="radio313" >
+        <input value="NON" ng-model="enrolIJK._06_refus_ide_group" ng-change="" name="radio68" type="radio" class="with-gap" id="radio313" >
         <label for="radio313">Non</label>
     </div></td>
   </tr>
@@ -151,11 +156,11 @@
     <td width="8%"><p><em>J07</em></p></td>
     <td width="50%" colspan="2"><p><em>Etes-vous souvent triste et angoissée sans    raison&nbsp;?</em></p></td>
     <td width="41%"><div class="form-check">
-        <input name="radio69" type="radio" class="with-gap" id="radio314" >
+        <input value="OUI" ng-model="enrolIJK._07_trist_angoiss" ng-change="" name="radio69" type="radio" class="with-gap" id="radio314" >
         <label for="radio314">Oui</label>
       </div>  
       <div class="form-check">
-        <input name="radio69" type="radio" class="with-gap" id="radio315" >
+        <input value="NON" ng-model="enrolIJK._07_trist_angoiss" ng-change="" name="radio69" type="radio" class="with-gap" id="radio315" >
         <label for="radio315">Non</label>
     </div></td>
   </tr>
@@ -169,7 +174,7 @@
     <td width="8%" colspan="2"><p><em>K01</em></p></td>
     <td width="50%"><p><em>Quel est le nombre de repas que vous prenez par    jour&nbsp;?</em></p></td>
     <td width="41%"><p><strong> </strong>
-      <input type="number" name="number" id="number">
+      <input ng-model="enrolIJK._01_nbre_repas" string-to-number type="number" name="number" id="number">
     </p></td>
   </tr>
   <tr>
@@ -177,22 +182,22 @@
     <td width="50%"><p><em>Les éléments suivants font ils parties de vos repas quotidien?</em></p></td>
     <td width="41%">
       <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox257" >
+		<input value="PoissonVIANDE" ng-model="repas.PoissonVIANDE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox257" >
 		<label class="form-check-label" for="checkbox257">Poisson ou viande</label>
 		</div>
      
       <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox258" >
+		<input value="LEGUME" ng-model="repas.LEGUME" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox258" >
 		<label class="form-check-label" for="checkbox258">Légumes</label>
 		</div>
      
       <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox259" >
+		<input value="FRUIT" ng-model="repas.FRUIT" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox259" >
 		<label class="form-check-label" for="checkbox259">Fruits</label>
 		</div>
      
       <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox260" >
+		<input value="AUC" ng-model="repas.AUC" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox260" >
 		<label class="form-check-label" for="checkbox260">Aucun</label>
       </div></td>
   </tr>
@@ -201,14 +206,12 @@
       <textarea name="textarea" id="textarea"></textarea>
     </p></td>
   </tr>
-  <tr>
-    <td width="58%" colspan="3"><p><strong><em>Enrôlement par: </em></strong>
-        <input type="text" name="textfield2" id="textfield2">
-    </p></td>
-    <td width="41%"><p><strong><em>Date:</em></strong>
-      <input type="date" name="date" id="date">
-    </p></td>
-  </tr>
+ 
+  <td height="29" colspan="4" valign="top" bgcolor="#FFFFFF"><p>&nbsp;</p>
+      <div class="text-center py-4 mt-3">
+      <button class="btn btn-cyan" type="submit" ng-click="previewPage()">Précédant</button>
+        <button class="btn btn-cyan" type="submit" ng-click="savePage()">Enregistrer</button>
+  </div>
 </table>
 </body>
 </html>
