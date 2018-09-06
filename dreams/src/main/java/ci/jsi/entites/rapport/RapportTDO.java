@@ -5,7 +5,7 @@ public class RapportTDO {
 	private String organisation;
 	private String element;
 	private String periode;
-	private int valeurs;
+	private double valeurs;
 	
 	
 	public RapportTDO() {
@@ -38,12 +38,12 @@ public class RapportTDO {
 	}
 
 
-	public int getValeurs() {
+	public double getValeurs() {
 		return valeurs;
 	}
 
 
-	public void setValeurs(int valeurs) {
+	public void setValeurs(double valeurs) {
 		this.valeurs = valeurs;
 	}
 	

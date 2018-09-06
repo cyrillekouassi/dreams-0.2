@@ -386,6 +386,10 @@ public class DataValueConvert {
 	}
 
 	public Instance updateInstance(Instance instance, DataInstance dataInstance) {
+		
+		if(dataInstance.getDateActivite().equals("") || dataInstance.getDateActivite() == null) {
+			return instance;
+		}
 		Date newDate = null;
 		newDate = convertDate.getDateParse(dataInstance.getDateActivite());
 		if(newDate.equals(instance.getDateActivite())) {

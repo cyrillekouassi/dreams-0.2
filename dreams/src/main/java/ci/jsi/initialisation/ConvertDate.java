@@ -19,6 +19,9 @@ public class ConvertDate {
 	}
 	
 	public Date getDateParse(String date) {
+		if(date == null || !date.equals("")){
+			return null;
+		}
 		Date notreDate = null;
 		try {
 			if(date.length() == 10) {

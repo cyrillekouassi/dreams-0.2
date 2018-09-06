@@ -29,13 +29,13 @@ public class Rapport {
 	private Option option;
 	
 	private String periode;
-	private int valeurs;
+	private double valeurs;
 	
 	public Rapport() {
 		
 	}
 
-	public Rapport(Organisation organisation, Element element, Option option, String periode, int valeurs) {
+	public Rapport(Organisation organisation, Element element, Option option, String periode, double valeurs) {
 		super();
 		this.organisation = organisation;
 		this.element = element;
@@ -84,11 +84,11 @@ public class Rapport {
 		this.periode = periode;
 	}
 
-	public int getValeurs() {
+	public double getValeurs() {
 		return valeurs;
 	}
 
-	public void setValeurs(int valeurs) {
+	public void setValeurs(double valeurs) {
 		this.valeurs = valeurs;
 	}
 	
