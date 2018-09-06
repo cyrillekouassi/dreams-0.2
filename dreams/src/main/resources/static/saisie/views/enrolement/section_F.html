@@ -18,11 +18,11 @@
     <td width="48%"><p><em>Avez-vous déjà été mise enceinte&nbsp;?</em></p></td>
     <td width="43%">
       <div class="form-check">
-        <input name="radio40" type="radio" class="with-gap" id="radio246" >
+        <input value="OUI" ng-model="enrolF._01_deja_enceinte" ng-change="changemienceint('oui')" name="radio40" type="radio" class="with-gap" id="radio246" >
         <label for="radio246">Oui</label>
       </div>  
       <div class="form-check">
-        <input name="radio40" type="radio" class="with-gap" id="radio247" >
+        <input value="NON" ng-model="enrolF._01_deja_enceinte" ng-change="changemienceint('non')" name="radio40" type="radio" class="with-gap" id="radio247" >
         <label for="radio247">Non</label>
       </div></td>
   </tr>
@@ -32,15 +32,15 @@
       <strong><em>(Si NON ou Ne sait    pas, passer à F04)</em></strong></p></td>
     <td width="43%">
       <div class="form-check">
-        <input name="radio41" type="radio" class="with-gap" id="radio248" >
+        <input value="OUI" ng-model="enrolF._02_enceinte" ng-change="changeacenceint('oui')" name="radio41" type="radio" class="with-gap" id="radio248" >
         <label for="radio248">Oui</label>
       </div>  
       <div class="form-check">
-        <input name="radio41" type="radio" class="with-gap" id="radio249" >
+        <input value="NON" ng-model="enrolF._02_enceinte" ng-change="changeacenceint('oui')" name="radio41" type="radio" class="with-gap" id="radio249" >
         <label for="radio249">Non</label>
       </div>
       <div class="form-check">
-      	<input name="radio41" type="radio" class="with-gap" id="radio250" >
+      	<input value="NeSP" ng-model="enrolF._02_enceinte" ng-change="changerelasex('oui')" name="radio41" type="radio" class="with-gap" id="radio250" >
       	<label for="radio250">Je ne sais pas</label>
       </div> </td>
   </tr>
@@ -50,64 +50,62 @@
       <strong><em>(Si NON, passer à F04)</em></strong></p></td>
     <td width="43%">
       <div class="form-check">
-        <input name="radio42" type="radio" class="with-gap" id="radio251" >
+        <input value="OUI" ng-model="enrolF._03_suivi_gross" ng-change="changerelasex('oui')" name="radio42" type="radio" class="with-gap" id="radio251" >
         <label for="radio251">Oui</label>
       </div>  
       <div class="form-check">
-        <input name="radio42" type="radio" class="with-gap" id="radio252" >
+        <input value="NON" ng-model="enrolF._03_suivi_gross" ng-change="changerelasex('oui')" name="radio42" type="radio" class="with-gap" id="radio252" >
         <label for="radio252">Non</label>
       </div>
       <em>Si oui Préciser </em>
-      <input type="text" name="textfield" id="textfield">
+      <input ng-model="enrolF._03_a_nom_hopital" type="text" name="textfield" id="textfield">
     </td>
   </tr>
   <tr>
     <td width="8%"><p><em>F04</em></p></td>
     <td width="48%"><p><em>Quelles méthodes de planification familiale    connaissez-vous&nbsp;?</em><br>
       <strong><em>(Ne PAS lire les    réponses, cocher tout ce qui est mentionné par le bénéficiaire)</em></strong></p></td>
-    <td width="43%">
-    
+    <td width="43%" class="blockcheckbox">
     <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox117" >
+		<input value="NeSP" ng-model="methodPf.NeSP" ng-change="changerelasex('oui')" type="checkbox" class="filled-in form-check-input" id="checkbox117" >
 		<label class="form-check-label" for="checkbox117">Ne sait pas</label>
 		</div>
    
    <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox118" >
+		<input value="PIL" ng-model="methodPf.PIL" ng-change="changerelasex('oui')" type="checkbox" class="filled-in form-check-input" id="checkbox118" >
 		<label class="form-check-label" for="checkbox118">Pilules  </label>
 		</div>
    
    <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox119" >
+		<input value="INJECT" ng-model="methodPf.INJECT" ng-change="changerelasex('oui')" type="checkbox" class="filled-in form-check-input" id="checkbox119" >
 		<label class="form-check-label" for="checkbox119">Injectable </label>
 		</div>
    
    <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox200" >
+		<input value="IMPLANT" ng-model="methodPf.IMPLANT" ng-change="changerelasex('oui')" type="checkbox" class="filled-in form-check-input" id="checkbox200" >
 		<label class="form-check-label" for="checkbox200">Implants </label>
 		</div>
    
    <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox201" >
+		<input value="DIU" ng-model="methodPf.DIU" ng-change="changerelasex('oui')" type="checkbox" class="filled-in form-check-input" id="checkbox201" >
 		<label class="form-check-label" for="checkbox201">DIU (Dispositif Intra Utérin) </label>
 		</div>
    
    <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox202" >
+		<input value="PRESERVATIF" ng-model="methodPf.PRESERVATIF" ng-change="changerelasex('oui')" type="checkbox" class="filled-in form-check-input" id="checkbox202" >
 		<label class="form-check-label" for="checkbox202">Préservatif </label>
 		</div>
    
    <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox203" >
+		<input value="PERMANENT" ng-model="methodPf.PERMANENT" ng-change="changerelasex('oui')" type="checkbox" class="filled-in form-check-input" id="checkbox203" >
 		<label class="form-check-label" for="checkbox203">Méthode Permanent (ligature des trompes, …) </label>
 		</div>
    
    <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox204" >
+		<input value="AUT" ng-model="methodPf.AUT" ng-change="changerelasex('oui')" type="checkbox" class="filled-in form-check-input" id="checkbox204" >
 		<label class="form-check-label" for="checkbox204">Autre (Précisez)</label>
-		<input type="text" name="textfield2" id="textfield2">
-		</div>
-    
+		<input ng-model="enrolF._04.a_autre_method_pf" type="text" name="textfield2" id="textfield2">
+		</div>  
     </td>
   </tr>
   <tr>
@@ -115,45 +113,45 @@
     <td width="48%"><p><em>Quelle méthode de planification familiale utilisez-vous    actuellement&nbsp;?</em><br>
       <strong><em>(Ne PAS  lire  les réponses, cocher la ou les méthodes que    le bénéficiaire mentionne)  </em></strong></p></td>
     <td width="43%">   
-      <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox205" >
+        <div class="form-check">
+		<input value="AUC" ng-model="methodPfUtil.AUC" ng-change="changerelasex('oui')" type="checkbox" class="filled-in form-check-input" id="checkbox205" >
 		<label class="form-check-label" for="checkbox205">Aucune méthode</label>
 		</div>
    
-   <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox206" >
+   		<div class="form-check">
+		<input value="PIL" ng-model="methodPfUtil.PIL" ng-change="changerelasex('oui')" type="checkbox" class="filled-in form-check-input" id="checkbox206" >
 		<label class="form-check-label" for="checkbox206">Pilules  </label>
 		</div>
    
    <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox207" >
+		<input value="INJECT" ng-model="methodPfUtil.INJECT" ng-change="changerelasex('oui')" type="checkbox" class="filled-in form-check-input" id="checkbox207" >
 		<label class="form-check-label" for="checkbox207">Injectable </label>
 		</div>
    
    <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox208" >
+		<input value="IMPLANT" ng-model="methodPfUtil.IMPLANT" ng-change="changerelasex('oui')" type="checkbox" class="filled-in form-check-input" id="checkbox208" >
 		<label class="form-check-label" for="checkbox208">Implants </label>
 		</div>
    
    <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox209" >
+		<input value="DIU" ng-model="methodPfUtil.DIU" ng-change="changerelasex('oui')" type="checkbox" class="filled-in form-check-input" id="checkbox209" >
 		<label class="form-check-label" for="checkbox209">DIU (Dispositif Intra Utérin) </label>
 		</div>
    
    <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox210" >
+		<input value="PRESERVATIF" ng-model="methodPfUtil.PRESERVATIF" ng-change="changerelasex('oui')" type="checkbox" class="filled-in form-check-input" id="checkbox210" >
 		<label class="form-check-label" for="checkbox210">Préservatif </label>
 		</div>
    
    <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox211" >
+		<input value="PERMANENT" ng-model="methodPfUtil.PERMANENT" ng-change="changerelasex('oui')" type="checkbox" class="filled-in form-check-input" id="checkbox211" >
 		<label class="form-check-label" for="checkbox211">Méthode Permanent (ligature des trompes, …) </label>
 		</div>
    
    <div class="form-check">
-		<input type="checkbox" class="filled-in form-check-input" id="checkbox213" >
+		<input value="AUT" ng-model="methodPfUtil.AUT" ng-change="changerelasex('oui')" type="checkbox" class="filled-in form-check-input" id="checkbox213" >
 		<label class="form-check-label" for="checkbox213">Autre (Précisez)</label>
-		<input type="text" name="textfield2" id="textfield2">
+		<input ng-model="enroolF._05_a_autre_method_pf_util" type="text" name="textfield2" id="textfield2">
 		</div></td>
   </tr>
   <tr>
@@ -161,32 +159,37 @@
     <td width="48%"><p><em>Quelle est la principale raison pour laquelle vous n&rsquo;utilisez    aucune méthode de planification familiale&nbsp;? <strong>Un seul choix</strong></em></p></td>
     <td width="43%">
      <div class="form-check">
-        <input name="radio43" type="radio" class="with-gap" id="radio253" >
+        <input value="PaActivSexuel" ng-model="enrolF._06_raison_method_pf_non_util" ng-change="changerelasex('oui')" name="radio43" type="radio" class="with-gap" id="radio253" >
         <label for="radio253">Pas sexuellement active</label>
       </div>  
       <div class="form-check">
-        <input name="radio43" type="radio" class="with-gap" id="radio254" >
+        <input value="RELIGION" ng-model="enrolF._06_raison_method_pf_non_util" ng-change="changerelasex('oui')" name="radio43" type="radio" class="with-gap" id="radio254" >
         <label for="radio254">Raisons religieuses</label>
       </div>
       <div class="form-check">
-        <input name="radio43" type="radio" class="with-gap" id="radio255" >
+        <input value="PaARGENT" ng-model="enrolF._06_raison_method_pf_non_util" ng-change="changerelasex('oui')" name="radio43" type="radio" class="with-gap" id="radio255" >
         <label for="radio255">Ne peut pas se permettre financièrement</label>
       </div>  
       <div class="form-check">
-        <input name="radio43" type="radio" class="with-gap" id="radio256" >
+        <input value="NeSAITouTROUVER" ng-model="enrolF._06_raison_method_pf_non_util" ng-change="changerelasex('oui')" name="radio43" type="radio" class="with-gap" id="radio256" >
         <label for="radio256">Je ne sais pas où en trouver</label>
       </div>
       <div class="form-check">
-        <input name="radio43" type="radio" class="with-gap" id="radio257" >
+        <input value="ENCEINTE" ng-model="enrolF._06_raison_method_pf_non_util" ng-change="changerelasex('oui')" name="radio43" type="radio" class="with-gap" id="radio257" >
         <label for="radio257">Actuellement enceinte</label>
       </div>
        <div class="form-check">
-        <input name="radio43" type="radio" class="with-gap" id="radio258" >
+        <input value="AUT" ng-model="enrolF._06_raison_method_pf_non_util" ng-change="changerelasex('oui')" name="radio43" type="radio" class="with-gap" id="radio258" >
         <label for="radio258">Autre (précisez)</label>
-        <input type="text" name="textfield" id="textfield">
+        <input ng-model="enrolF._06_a_autre_raison_method_pf_non_util" type="text" name="textfield" id="textfield">
       </div>
       </td>
   </tr>
+  <td height="29" colspan="4" valign="top" bgcolor="#FFFFFF"><p>&nbsp;</p>
+      <div class="text-center py-4 mt-3">
+      <button class="btn btn-cyan" type="submit" ng-click="previewPage()">Précédant</button>
+        <button class="btn btn-cyan" type="submit" ng-click="savePage()">Suivant</button>
+  </div>
 </table>
 </body>
 </html>

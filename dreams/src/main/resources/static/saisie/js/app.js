@@ -43,7 +43,7 @@ saisie.config(['$stateProvider','$urlRouterProvider', function ($stateProvider,$
         templateUrl: 'views/fiche_reference_List.html',
         controller: 'ficheReferenceListCTRL'
     };
-    var ficheVAD = {
+    var vad = {
         name: 'ficheVAD',
         url: '/ficheVAD?prog&org&inst',
         templateUrl: 'views/fiche_VAD.html',
@@ -72,50 +72,50 @@ saisie.config(['$stateProvider','$urlRouterProvider', function ($stateProvider,$
     var Enrol_SB = {
         name: 'enrol_SB',
         url: '/enrol_SB?prog&org&inst',
-        templateUrl: 'views/enrolement/section_B.html'
-        //controller: 'enrol_SB_Ctrl'
+        templateUrl: 'views/enrolement/section_B.html',
+        controller: 'enrol_SB_Ctrl'
     };
     var Enrol_SC = {
         name: 'enrol_SC',
-        url: '/enrol_SC',
-        templateUrl: 'views/analyse/section_C.html'
-        //controller: 'ficheVadListCTRL'
+        url: '/enrol_SC?prog&org&inst',
+        templateUrl: 'views/enrolement/section_C.html',
+        controller: 'enrol_SC_Ctrl'
     };
     var Enrol_SD = {
         name: 'enrol_SD',
-        url: '/enrol_SD',
-        templateUrl: 'views/analyse/section_D.html'
-        //controller: 'ficheVadListCTRL'
+        url: '/enrol_SD?prog&org&inst',
+        templateUrl: 'views/enrolement/section_D.html',
+        controller: 'enrol_SD_Ctrl'
     };
     var Enrol_SE = {
         name: 'enrol_SE',
-        url: '/enrol_SE',
-        templateUrl: 'views/analyse/section_E.html'
-        //controller: 'ficheVadListCTRL'
+        url: '/enrol_SE?prog&org&inst',
+        templateUrl: 'views/enrolement/section_E.html',
+        controller: 'enrol_SE_Ctrl'
     };
     var Enrol_SF = {
         name: 'enrol_SF',
-        url: '/enrol_SF',
-        templateUrl: 'views/analyse/section_F.html'
-        //controller: 'ficheVadListCTRL'
+        url: '/enrol_SF?prog&org&inst',
+        templateUrl: 'views/enrolement/section_F.html',
+        controller: 'enrol_SF_Ctrl'
     };
     var Enrol_SG = {
         name: 'enrol_SG',
-        url: '/enrol_SG',
-        templateUrl: 'views/analyse/section_G.html'
-        //controller: 'ficheVadListCTRL'
+        url: '/enrol_SG?prog&org&inst',
+        templateUrl: 'views/enrolement/section_G.html',
+        controller: 'enrol_SG_Ctrl'
     };
     var Enrol_SH = {
         name: 'enrol_SH',
-        url: '/enrol_SH',
-        templateUrl: 'views/analyse/section_H.html'
-        //controller: 'ficheVadListCTRL'
+        url: '/enrol_SH?prog&org&inst',
+        templateUrl: 'views/enrolement/section_H.html',
+        controller: 'enrol_SH_Ctrl'
     };
     var Enrol_SIJK = {
         name: 'enrol_SIJK',
-        url: '/enrol_SIJK',
-        templateUrl: 'views/analyse/section_I,J,K.html'
-        //controller: 'ficheVadListCTRL'
+        url: '/enrol_SIJK?prog&org&inst',
+        templateUrl: 'views/enrolement/section_IJK.html',
+        controller: 'enrol_SIJK_Ctrl'
     };
     $stateProvider.state(accueil);
     $stateProvider.state(dossier);
@@ -124,7 +124,7 @@ saisie.config(['$stateProvider','$urlRouterProvider', function ($stateProvider,$
     $stateProvider.state(groupeList);
     $stateProvider.state(reference);
     $stateProvider.state(referenceList);
-    $stateProvider.state(ficheVAD);
+    $stateProvider.state(vad);
     $stateProvider.state(vadList);
     $stateProvider.state(Enrol_List);
     $stateProvider.state(Enrol_SA);
