@@ -177,7 +177,7 @@ saisie.run(['$rootScope','$http', function ($rootScope,$http) {
     $rootScope.ActivteApel = "";
 
     getMe();
-    
+
     $rootScope.initSaisie = function () {
         getMe();
     };
@@ -364,7 +364,7 @@ saisie.run(['$rootScope','$http', function ($rootScope,$http) {
             $rootScope.role[Me.roleDefinis[i]] = true;
         }
     }
-    
+
     function retourActivite() {
         if($rootScope.ActivteApel == "VADLIST"){
             $rootScope.lancerVADList();

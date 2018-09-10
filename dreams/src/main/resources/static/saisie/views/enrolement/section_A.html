@@ -17,23 +17,23 @@ body {
   </tr>
   <tr>
     <td width="100%" height="218" valign="top" bgcolor="#FFFFFF"><p>&nbsp;</p>
-      <p>District sanitaire 
+      <p>District sanitaire
         <input ng-model="enrolA.district" type="text" name="textfield16" id="textfield16">
        Nom de la plateforme&nbsp;:
 <input value="" ng-model="enrolA.plateform_cod" type="text" name="textfield17" id="textfield17">
       </p>
-      <p>Centre social&nbsp;: 
+      <p>Centre social&nbsp;:
         <input ng-model="enrolA.centre_social" type="text" name="textfield18" id="textfield18">
-     Nom de l&rsquo;ONG 
+     Nom de l&rsquo;ONG
         <input ng-model="enrolA.ong" type="text" name="textfield19" id="textfield19">
      </p>
-      <p>Code de l&rsquo;espace sur : 
+      <p>Code de l&rsquo;espace sur :
         <input ng-model="enrolA.codeSafespace" type="text" name="textfield20" id="textfield20">
       Nom de l&rsquo;agent enquêteur&nbsp;:
 <input ng-model="enrolA.nom_enqueteur" type="text" name="textfield" id="textfield">
       </p>
-      <p>Numéro de la fiche    d&rsquo;éligibilité de la bénéficiaire&nbsp;: 
-        <input ng-model="enrolA.num_fiche" type="number" name="textfield2" id="textfield2">
+      <p>Numéro de la fiche    d&rsquo;éligibilité de la bénéficiaire&nbsp;:
+        <input ng-model="enrolA.num_fiche" type="number" name="textfield2" id="textfield2" string-to-number>
       </p></td>
   </tr>
   <tr>
@@ -41,9 +41,9 @@ body {
   </tr>
   <tr>
     <td width="100%" height="867" valign="top" bgcolor="#FFFFFF"><p><em>&nbsp;</em></p>
-      <p><em>Nom: 
+      <p><em>Nom:
         <input ng-model="enrolA.nom" type="text" name="textfield3" id="textfield3">
-         Prénoms&nbsp;: 
+         Prénoms&nbsp;:
         <input ng-model="enrolA.pren" type="text" name="textfield4" id="textfield4">
        </em></p>
       <p><br>
@@ -89,7 +89,7 @@ body {
         <label for="radio107">Autres (préciser)</label>
         <input ng-model="enrolA.autre_porte_entre_bene" type="text" name="textfield12" id="textfield12" ng-if="enrolA.porte_entre_bene == 'AUTRES'">
         </div>
-        
+
       <p>
         <em><strong><u>Statut matrimonial (bénéficiaire):      </u></strong></em>        </p>
       <div class="form-check">
@@ -97,7 +97,7 @@ body {
         <label for="radio108">Célibataire</label>
       </div>
         <em>
-       
+
         <div class="form-check">
         <input value="MARIE" ng-model="enrolA.statut_mat_bene" ng-change="changestatut('marie')" name="radio2" type="radio" class="with-gap" id="radio109" >
         <label for="radio109">Mariée/Concubinage</label>
@@ -107,13 +107,13 @@ body {
         <input value="DIVORCE" ng-model="enrolA.statut_mat_bene" ng-change="changestatut('separe')" name="radio2" type="radio" class="with-gap" id="radio110" >
         <label for="radio110">Séparée/Divorcé</label>
       </div>
-        
-        
+
+
       <div class="form-check">
         <input value="VEUVE" ng-model="enrolA.statut_mat_bene" ng-change="changestatut('veuve')" name="radio2" type="radio" class="with-gap" id="radio111" >
         <label for="radio111">Veuve</label>
       </div>
-      
+
       <p>
         <p><em><strong><u>Occupation</u></strong></em></p>
         <div class="form-check">
@@ -148,19 +148,19 @@ body {
         <input ng-model="enrolA.tel" type="tel" name="tel" id="tel">
       </em></p>
       <p>
-        <em>Région de résidence    
+        <em>Région de résidence
         <input ng-model="enrolA.region" type="text" name="textfield10" id="textfield10">
-        </em> <em>Département 
+        </em> <em>Département
         <input ng-model="enrolA.departement" type="text" name="textfield9" id="textfield9">
       </em></p>
       <p>
-        <em>Sous-Préfecture    
+        <em>Sous-Préfecture
         <input ng-model="enrolA.sousPrefect" type="text" name="textfield8" id="textfield8">
         </em> <em>  Village / commune
         <input ng-model="enrolA.villageCommune" type="text" name="textfield7" id="textfield7">
       </em></p>
       <p>
-        <em>Repère:    
+        <em>Repère:   
         <input ng-model="enrolA.repere" type="text" name="textfield6" id="textfield6">
       </em></p>
         <p>
@@ -168,7 +168,7 @@ body {
                 <input ng-model="enrolA.no_benef" type="text" maxlength="3" name="textfield6" ng-blur="getBenefId()">
             </em></p>
       <p>
-        <em>Code identification DREAMS: 
+        <em>Code identification DREAMS:
         <input ng-model="enrolA.id_dreams" type="text" name="textfield5" id="textfield5" disabled>
       </em></p></td>
   </tr>
@@ -209,19 +209,19 @@ body {
     <td width="327" valign="top" bgcolor="#FFFFFF"><p>Avez-vous un document attestant votre âge&nbsp;?<br>
       Si oui, lequel&nbsp;? (vérifiez le document mentionné)<br>
       <em>Numéro du document de    vérification&nbsp;</em><em>
-      <input ng-model="enrolA._01_b_num_doc" string-to-number type="text" name="number2" id="number2" ng-if="enrolA._01_doc_att_age == 'OUI'">
+      <input ng-model="enrolA._01_b_num_doc" type="text" name="number2" id="number2" ng-if="enrolA._01_doc_att_age == 'OUI'">
       </em></p></td>
     <td width="216" bgcolor="#FFFFFF">
       <div class="form-check">
         <input value="OUI" ng-model="enrolA._01_doc_att_age" ng-change="changedocument('oui')" name="radio3" type="radio" class="with-gap" id="radio112" >
         <label for="radio112">Oui</label>
-      </div>  
+      </div>
       <div class="form-check">
         <input value="NON" ng-model="enrolA._01_doc_att_age" ng-change="changedocuement('non')" name="radio3" type="radio" class="with-gap" id="radio113" >
         <label for="radio113">Non</label>
       </div>  </td>
-      
-    <td width="455" valign="top" bgcolor="#FFFFFF">   
+
+    <td width="455" valign="top" bgcolor="#FFFFFF">
       <div class="form-check">
         <input value="EXTRAIT" ng-model="enrolA._01_a_type_doc" ng-change="changedocuement('extrait')" name="radio4" type="radio" class="with-gap" id="radio114" >
         <label for="radio114">Extrait de naissance</label>
@@ -267,7 +267,7 @@ body {
   </tr>
   <tr>
     <td width="45" height="50" valign="top" bgcolor="#FFFFFF"><p>A03</p>
-       
+
     </td>
     <td width="327" valign="top" bgcolor="#FFFFFF"><p>A-t-elle accepté d'être enrôlée dans le projet à DREAMS?</p></td>
     <td width="216" bgcolor="#FFFFFF"><p>
@@ -294,7 +294,7 @@ body {
     <div class="text-center py-4 mt-3">
         <button class="btn btn-cyan" ng-click="savePage()">Suivant</button>
     </div>
-    
+
     </td>
   </tr>
 </table>

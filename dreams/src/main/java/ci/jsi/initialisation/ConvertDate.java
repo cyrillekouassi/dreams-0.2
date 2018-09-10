@@ -19,7 +19,9 @@ public class ConvertDate {
 	}
 	
 	public Date getDateParse(String date) {
-		if(date == null || !date.equals("")){
+		//System.out.println("getDateParse() origine => la date = " + date);
+		
+		if(date == null || date.equals("") || date.equals(" ")){
 			return null;
 		}
 		Date notreDate = null;
@@ -36,6 +38,8 @@ public class ConvertDate {
 		} catch (ParseException e) {
 			System.err.println("getDateParse() Erreur dans la date = " + date);
 		}
+		
+		//System.out.println("getDateParse() convert => date = " + date);
 		return notreDate;
 	}
 	
