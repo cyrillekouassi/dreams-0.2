@@ -12,10 +12,10 @@ saisie.controller('enrol_SC_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 		"_03_soutient_finance""_03_a_autre_soutient_finance","_04_pas_sco_actuel","_05_raison_non_sco",
 		"_05_a_autre_raison_non_sco","_06_second_chance","_06_a_autre_second_chance","_07_source_revenu",
 		"_07_a_autre_source_revenu","_08_economie","_09_gard_economie","_09_a_autre_gard_economie"];
-	
+
 	mappigData();
-	
-	
+
+
 	 function mappigData() {
 	        for(var i = 0;i<enrolSectionC.length;i++){
 	            var id = getElementId(enrolSectionC[i]);
@@ -29,7 +29,7 @@ saisie.controller('enrol_SC_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 	        }
 	        console.log("mappigData() $scope.enrolC = ",$scope.enrolC);
 	    }
-	
+
 	$scope.savePage = function (){
 		console.log("entrer dans savePage");
 		console.log("$scope.enrolC = ",$scope.enrolC);
@@ -40,15 +40,15 @@ saisie.controller('enrol_SC_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 		dataInstance.dataValue = [];
 		getElement();
 		saveData();
-		
+
 	}
-	
+
 	$scope.previewPage = function (){
 		console.log("entrer dans previewPage");
 		$state.go('enrol_SB',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
-		
+
 	}
-	
+
 	function getElement() {
         console.log("getElement()");
         for(var pop in $scope.enrolC){
@@ -70,7 +70,7 @@ saisie.controller('enrol_SC_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
         console.log("dataInstance = ",dataInstance);
 
     }
-	
+
 	function getElementId(code) {
         for(var j = 0;j<$rootScope.programmeSelect.elements.length;j++){
             if($rootScope.programmeSelect.elements[j].element.code == code){
@@ -79,7 +79,7 @@ saisie.controller('enrol_SC_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
         }
         return null;
     }
-	
+
 	function saveData() {
 
         var config = {
@@ -102,11 +102,11 @@ saisie.controller('enrol_SC_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
             toastr["success"]("Echec d'enregistrement");
         });
     }
-	
+
 	function succesSave() {
         $state.go('enrol_SD',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
     }
-    
-    
-    
+
+
+
 }]);

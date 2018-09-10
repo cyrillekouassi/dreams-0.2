@@ -79,7 +79,7 @@ saisie.config(['$stateProvider','$urlRouterProvider', function ($stateProvider,$
         name: 'enrol_SC',
         url: '/enrol_SC?prog&org&inst',
         templateUrl: 'views/enrolement/section_C.html',
-        controller: 'enrol_SC_Ctrl'
+        controller: 'enrol_SC_ctrl'
     };
     var Enrol_SD = {
         name: 'enrol_SD',

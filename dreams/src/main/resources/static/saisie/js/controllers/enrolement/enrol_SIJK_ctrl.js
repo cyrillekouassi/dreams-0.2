@@ -20,10 +20,10 @@ saisie.controller('enrol_SIJK_Ctrl', ['$scope', '$rootScope', '$stateParams', '$
 		"_01_nbre_repas",
 		"_02_element_repas",
 		"Comment"];
-	
+
 	mappigData();
-	
-	
+
+
 	 function mappigData() {
 	        for(var i = 0;i<enrolSectionIJK.length;i++){
 	            var id = getElementId(enrolSectionIJK[i]);
@@ -37,7 +37,7 @@ saisie.controller('enrol_SIJK_Ctrl', ['$scope', '$rootScope', '$stateParams', '$
 	        }
 	        console.log("mappigData() $scope.enrolIJK = ",$scope.enrolIJK);
 	    }
-	
+
 	$scope.savePage = function (){
 		console.log("entrer dans savePage");
 		console.log("$scope.enrolIJK = ",$scope.enrolIJK);
@@ -48,15 +48,15 @@ saisie.controller('enrol_SIJK_Ctrl', ['$scope', '$rootScope', '$stateParams', '$
 		dataInstance.dataValue = [];
 		getElement();
 		saveData();
-		
+
 	}
-	
+
 	$scope.previewPage = function (){
 		console.log("entrer dans previewPage");
 		$state.go('enrol_SH',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
-		
+
 	}
-	
+
 	function getElement() {
         console.log("getElement()");
         $scope.enrolIJK._01_participation_program = gestparticipation();
@@ -81,7 +81,7 @@ saisie.controller('enrol_SIJK_Ctrl', ['$scope', '$rootScope', '$stateParams', '$
         console.log("dataInstance = ",dataInstance);
 
     }
-	
+
 	function gestparticipation(){
 		console.log("$scope.participation = ",$scope.participation);
 		var participationValue=null;
@@ -89,7 +89,7 @@ saisie.controller('enrol_SIJK_Ctrl', ['$scope', '$rootScope', '$stateParams', '$
 			 if($scope.participation[pop]){
 				if(!participationValue){
 					participationValue= "" + pop;
-				} 
+				}
 				else{
 					participationValue= participationValue +" " + pop;
 				}
@@ -98,7 +98,7 @@ saisie.controller('enrol_SIJK_Ctrl', ['$scope', '$rootScope', '$stateParams', '$
 		 console.log("participationValue = ",participationValue);
 		 return participationValue;
 	}
-	
+
 	function gestrepas(){
 		console.log("$scope.repas = ",$scope.repas);
 		var repasValue=null;
@@ -106,7 +106,7 @@ saisie.controller('enrol_SIJK_Ctrl', ['$scope', '$rootScope', '$stateParams', '$
 			 if($scope.repas[pop]){
 				if(!repasValue){
 					repasValue= "" + pop;
-				} 
+				}
 				else{
 					repasValue= repasValue +" " + pop;
 				}
@@ -115,7 +115,7 @@ saisie.controller('enrol_SIJK_Ctrl', ['$scope', '$rootScope', '$stateParams', '$
 		 console.log("repasValue = ",repasValue);
 		 return repasValue;
 	}
-	
+
 	function getElementId(code) {
         for(var j = 0;j<$rootScope.programmeSelect.elements.length;j++){
             if($rootScope.programmeSelect.elements[j].element.code == code){
@@ -124,7 +124,7 @@ saisie.controller('enrol_SIJK_Ctrl', ['$scope', '$rootScope', '$stateParams', '$
         }
         return null;
     }
-	
+
 	function saveData() {
 
         var config = {
@@ -147,11 +147,11 @@ saisie.controller('enrol_SIJK_Ctrl', ['$scope', '$rootScope', '$stateParams', '$
             toastr["success"]("Echec d'enregistrement");
         });
     }
-	
+
 	function succesSave() {
         $state.go('enrol_List',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
     }
-    
-    
-    
+
+
+
 }]);
