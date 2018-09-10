@@ -219,10 +219,13 @@ public class TraitementIndicateur {
 		OrganisationTDOs = new ArrayList<OrganisationTDO>();
 		List<OrganisationTDO> organisations = new ArrayList<OrganisationTDO>();
 		organisationLevels = iorganisationLevel.getAllOrganisationLevel();
-		int niveau = organisationLevels.get(0).getLevel();
-		OrganisationTDOs = iorganisation.getAllOrganisationTDO();
-		organisations = getOrganisatioLevelOne(OrganisationTDOs, niveau);
-		selectOrganisation(organisations);
+		if(!organisationLevels.isEmpty()) {
+			int niveau = organisationLevels.get(0).getLevel();
+			OrganisationTDOs = iorganisation.getAllOrganisationTDO();
+			organisations = getOrganisatioLevelOne(OrganisationTDOs, niveau);
+			selectOrganisation(organisations);
+		}
+		
 	}
 
 	private List<OrganisationTDO> getOrganisatioLevelOne(List<OrganisationTDO> organisationTDOs, int niveau) {
