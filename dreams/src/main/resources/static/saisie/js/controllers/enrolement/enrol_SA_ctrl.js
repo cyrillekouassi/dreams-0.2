@@ -1,5 +1,5 @@
-saisie.controller('enrol_SA_Ctrl', ['$scope', '$rootScope', '$stateParams', '$http','$filter','$state', function ($scope, $rootScope, $stateParams, $http,$filter,$state) {
-    console.log("entrer dans enrol_SA_Ctrl");
+saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http','$filter','$state', function ($scope, $rootScope, $stateParams, $http,$filter,$state) {
+    console.log("entrer dans enrolSActrl");
     var ValueUrl = serverAdresse+'dataValue';
     var valueBeneficiaire = serverAdresse+'beneficiaire';
     var dataInstanceEntete = {};
@@ -171,11 +171,11 @@ saisie.controller('enrol_SA_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
             toastr["success"]("Echec d'enregistrement");
         });
     }
-    
+
     function succesSave() {
-        $state.go('enrol_SB',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
+        $state.go('enrolSB',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
     }
-    
+
     function createBeneficiaire() {
         beneficiaire = {};
         beneficiaire.name = $scope.enrolA.nom;

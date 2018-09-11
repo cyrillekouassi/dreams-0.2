@@ -1,5 +1,5 @@
-saisie.controller('enrol_SF_Ctrl', ['$scope', '$rootScope', '$stateParams', '$http','$filter','$state', function ($scope, $rootScope, $stateParams, $http,$filter,$state) {
-    console.log("entrer dans enrol_SF_Ctrl");
+saisie.controller('enrolSFCtrl', ['$scope', '$rootScope', '$stateParams', '$http','$filter','$state', function ($scope, $rootScope, $stateParams, $http,$filter,$state) {
+    console.log("entrer dans enrolSFCtrl");
     var ValueUrl = serverAdresse+'dataValue';
 	var dataInstanceEntete = {};
     var dataInstance = {};
@@ -18,10 +18,10 @@ saisie.controller('enrol_SF_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 	"_05_a_autre_method_pf_util",
 	"_06_raison_method_pf_non_util",
 	"_06_a_autre_raison_method_pf_non_util"];
-	
+
 	mappigData();
-	
-	
+
+
 	 function mappigData() {
 	        for(var i = 0;i<enrolSectionF.length;i++){
 	            var id = getElementId(enrolSectionF[i]);
@@ -35,7 +35,7 @@ saisie.controller('enrol_SF_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 	        }
 	        console.log("mappigData() $scope.enrolF = ",$scope.enrolF);
 	    }
-	
+
 	$scope.savePage = function (){
 		console.log("entrer dans savePage");
 		console.log("$scope.enrolF = ",$scope.enrolF);
@@ -46,15 +46,15 @@ saisie.controller('enrol_SF_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 		dataInstance.dataValue = [];
 		getElement();
 		saveData();
-		
+
 	}
-	
+
 	$scope.previewPage = function (){
 		console.log("entrer dans previewPage");
-		$state.go('enrol_SE',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
-		
+		$state.go('enrolSE',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
+
 	}
-	
+
 	function getElement() {
         console.log("getElement()");
         $scope.enrolF._04_method_pf = gestmethodPf();
@@ -79,7 +79,7 @@ saisie.controller('enrol_SF_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
         console.log("dataInstance = ",dataInstance);
 
     }
-	
+
 	function gestmethodPf(){
 		console.log("$scope.methodPf = ",$scope.methodPf);
 		var methodPfValue=null;
@@ -87,7 +87,7 @@ saisie.controller('enrol_SF_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 			 if($scope.methodPf[pop]){
 				if(!methodPfValue){
 					methodPfValue= "" + pop;
-				} 
+				}
 				else{
 					methodPfValue= methodPfValue +" " + pop;
 				}
@@ -96,7 +96,7 @@ saisie.controller('enrol_SF_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 		 console.log("methodPfValue = ",methodPfValue);
 		 return methodPfValue;
 	}
-	
+
 	function gestmethodPfUtil(){
 		console.log("$scope.methodPfUtil = ",$scope.methodPfUtil);
 		var methodPfUtilValue=null;
@@ -104,7 +104,7 @@ saisie.controller('enrol_SF_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 			 if($scope.methodPfUtil[pop]){
 				if(!methodPfUtilValue){
 					methodPfUtilValue= "" + pop;
-				} 
+				}
 				else{
 					methodPfUtilValue= methodPfUtilValue +" " + pop;
 				}
@@ -113,7 +113,7 @@ saisie.controller('enrol_SF_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 		 console.log("methodPfUtilValue = ",methodPfUtilValue);
 		 return methodPfUtilValue;
 	}
-	
+
 	function getElementId(code) {
         for(var j = 0;j<$rootScope.programmeSelect.elements.length;j++){
             if($rootScope.programmeSelect.elements[j].element.code == code){
@@ -122,7 +122,7 @@ saisie.controller('enrol_SF_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
         }
         return null;
     }
-	
+
 	function saveData() {
 
         var config = {
@@ -145,11 +145,11 @@ saisie.controller('enrol_SF_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
             toastr["success"]("Echec d'enregistrement");
         });
     }
-	
+
 	function succesSave() {
-        $state.go('enrol_SG',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
+        $state.go('enrolSG',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
     }
-    
-    
-    
+
+
+
 }]);

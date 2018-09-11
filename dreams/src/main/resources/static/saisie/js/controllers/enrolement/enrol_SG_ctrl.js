@@ -1,5 +1,5 @@
-saisie.controller('enrol_SG_Ctrl', ['$scope', '$rootScope', '$stateParams', '$http','$filter','$state', function ($scope, $rootScope, $stateParams, $http,$filter,$state) {
-    console.log("entrer dans enrol_SG_Ctrl");
+saisie.controller('enrolSGctrl', ['$scope', '$rootScope', '$stateParams', '$http','$filter','$state', function ($scope, $rootScope, $stateParams, $http,$filter,$state) {
+    console.log("entrer dans enrolSGctrl");
     var ValueUrl = serverAdresse+'dataValue';
 	var dataInstanceEntete = {};
     var dataInstance = {};
@@ -27,12 +27,12 @@ var enrolSectionG = ["_01_humil_public",
 	"_09_a_autre_aupris_de_qui",
 	"_10_secours",
 	"_10_a_autre_secours"];
-	
+
 	mappigData();
-	
-	
+
+
 	 function mappigData() {
-	        for(var i = 0;i<enrolSectionC.length;i++){
+	        for(var i = 0;i<enrolSectionG.length;i++){
 	            var id = getElementId(enrolSectionG[i]);
 	            if(id){
 	                for(var j=0;j<$rootScope.enrolementData.length;j++){
@@ -44,7 +44,7 @@ var enrolSectionG = ["_01_humil_public",
 	        }
 	        console.log("mappigData() $scope.enrolG = ",$scope.enrolG);
 	    }
-	
+
 	$scope.savePage = function (){
 		console.log("entrer dans savePage");
 		console.log("$scope.enrolG = ",$scope.enrolG);
@@ -55,15 +55,15 @@ var enrolSectionG = ["_01_humil_public",
 		dataInstance.dataValue = [];
 		getElement();
 		saveData();
-		
+
 	}
-	
+
 	$scope.previewPage = function (){
 		console.log("entrer dans previewPage");
-		$state.go('enrol_SF',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
-		
+		$state.go('enrolSF',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
+
 	}
-	
+
 	function getElement() {
         console.log("getElement()");
         $scope.enrolG._09_aupris_de_qui = gestaupris();
@@ -88,7 +88,7 @@ var enrolSectionG = ["_01_humil_public",
         console.log("dataInstance = ",dataInstance);
 
     }
-	
+
 	function gestaupris(){
 		console.log("$scope.aupris = ",$scope.aupris);
 		var auprisValue=null;
@@ -96,7 +96,7 @@ var enrolSectionG = ["_01_humil_public",
 			 if($scope.aupris[pop]){
 				if(!auprisValue){
 					auprisValue= "" + pop;
-				} 
+				}
 				else{
 					auprisValue= auprisValue +" " + pop;
 				}
@@ -105,7 +105,7 @@ var enrolSectionG = ["_01_humil_public",
 		 console.log("auprisValue = ",auprisValue);
 		 return auprisValue;
 	}
-	
+
 	function gestsecours(){
 		console.log("$scope.secours = ",$scope.secours);
 		var secoursValue=null;
@@ -113,7 +113,7 @@ var enrolSectionG = ["_01_humil_public",
 			 if($scope.secours[pop]){
 				if(!secoursValue){
 					secoursValue= "" + pop;
-				} 
+				}
 				else{
 					secoursValue= secoursValue +" " + pop;
 				}
@@ -122,7 +122,7 @@ var enrolSectionG = ["_01_humil_public",
 		 console.log("secoursValue = ",secoursValue);
 		 return secoursValue;
 	}
-	
+
 	function getElementId(code) {
         for(var j = 0;j<$rootScope.programmeSelect.elements.length;j++){
             if($rootScope.programmeSelect.elements[j].element.code == code){
@@ -131,7 +131,7 @@ var enrolSectionG = ["_01_humil_public",
         }
         return null;
     }
-	
+
 	function saveData() {
 
         var config = {
@@ -154,11 +154,11 @@ var enrolSectionG = ["_01_humil_public",
             toastr["success"]("Echec d'enregistrement");
         });
     }
-	
+
 	function succesSave() {
-        $state.go('enrol_SH',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
+        $state.go('enrolSH',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
     }
-    
-    
-    
+
+
+
 }]);

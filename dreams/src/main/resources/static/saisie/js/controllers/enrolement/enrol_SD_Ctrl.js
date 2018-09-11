@@ -1,5 +1,5 @@
-saisie.controller('enrol_SD_Ctrl', ['$scope', '$rootScope', '$stateParams', '$http','$filter','$state', function ($scope, $rootScope, $stateParams, $http,$filter,$state) {
-    console.log("entrer dans enrol_SD_Ctrl");
+saisie.controller('enrolSDctrl', ['$scope', '$rootScope', '$stateParams', '$http','$filter','$state', function ($scope, $rootScope, $stateParams, $http,$filter,$state) {
+    console.log("entrer dans enrolSDctrl");
     var ValueUrl = serverAdresse+'dataValue';
 	var dataInstanceEntete = {};
     var dataInstance = {};
@@ -9,10 +9,10 @@ saisie.controller('enrol_SD_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
     dataInstance = angular.copy(dataInstanceEntete);
 	$scope.enrolD = {};
 var enrolSectionD = ["_01_test_vih","_02_dernier_test","_03_prkoi_jam_teste","_03_a_autre_prkoi_jam_teste","_04_lieu_test_vih"];
-	
+
 	mappigData();
-	
-	
+
+
 	 function mappigData() {
 	        for(var i = 0;i<enrolSectionD.length;i++){
 	            var id = getElementId(enrolSectionD[i]);
@@ -26,7 +26,7 @@ var enrolSectionD = ["_01_test_vih","_02_dernier_test","_03_prkoi_jam_teste","_0
 	        }
 	        console.log("mappigData() $scope.enrolD = ",$scope.enrolD);
 	    }
-	
+
 	$scope.savePage = function (){
 		console.log("entrer dans savePage");
 		console.log("$scope.enrolD = ",$scope.enrolD);
@@ -37,15 +37,15 @@ var enrolSectionD = ["_01_test_vih","_02_dernier_test","_03_prkoi_jam_teste","_0
 		dataInstance.dataValue = [];
 		getElement();
 		saveData();
-		
+
 	}
-	
+
 	$scope.previewPage = function (){
 		console.log("entrer dans previewPage");
-		$state.go('enrol_SC',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
-		
+		$state.go('enrolSC',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
+
 	}
-	
+
 	function getElement() {
         console.log("getElement()");
         $scope.enrolD._03_prkoi_jam_teste = gesttestVih();
@@ -69,7 +69,7 @@ var enrolSectionD = ["_01_test_vih","_02_dernier_test","_03_prkoi_jam_teste","_0
         console.log("dataInstance = ",dataInstance);
 
     }
-	
+
 	function gesttestVih(){
 		console.log("$scope.testvih = ",$scope.testvih);
 		var testvihValue=null;
@@ -77,7 +77,7 @@ var enrolSectionD = ["_01_test_vih","_02_dernier_test","_03_prkoi_jam_teste","_0
 			 if($scope.testvih[pop]){
 				if(!testvihValue){
 					testvihValue= "" + pop;
-				} 
+				}
 				else{
 					testvihValue= testvihValue +" " + pop;
 				}
@@ -86,7 +86,7 @@ var enrolSectionD = ["_01_test_vih","_02_dernier_test","_03_prkoi_jam_teste","_0
 		 console.log("testvihValue = ",testvihValue);
 		 return testvihValue;
 	}
-	
+
 	function getElementId(code) {
         for(var j = 0;j<$rootScope.programmeSelect.elements.length;j++){
             if($rootScope.programmeSelect.elements[j].element.code == code){
@@ -95,7 +95,7 @@ var enrolSectionD = ["_01_test_vih","_02_dernier_test","_03_prkoi_jam_teste","_0
         }
         return null;
     }
-	
+
 	function saveData() {
 
         var config = {
@@ -118,10 +118,10 @@ var enrolSectionD = ["_01_test_vih","_02_dernier_test","_03_prkoi_jam_teste","_0
             toastr["success"]("Echec d'enregistrement");
         });
     }
-	
+
 	function succesSave() {
-        $state.go('enrol_SE',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
+        $state.go('enrolSE',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
     }
-    
-      
+
+
 }]);

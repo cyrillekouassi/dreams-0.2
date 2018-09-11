@@ -1,5 +1,5 @@
-saisie.controller('enrol_SIJK_Ctrl', ['$scope', '$rootScope', '$stateParams', '$http','$filter','$state', function ($scope, $rootScope, $stateParams, $http,$filter,$state) {
-    console.log("entrer dans enrol_SIJK_Ctrl");
+saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$http','$filter','$state', function ($scope, $rootScope, $stateParams, $http,$filter,$state) {
+    console.log("entrer dans enrolSIJKctrl");
     var ValueUrl = serverAdresse+'dataValue';
 	var dataInstanceEntete = {};
     var dataInstance = {};
@@ -53,7 +53,7 @@ saisie.controller('enrol_SIJK_Ctrl', ['$scope', '$rootScope', '$stateParams', '$
 
 	$scope.previewPage = function (){
 		console.log("entrer dans previewPage");
-		$state.go('enrol_SH',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
+		$state.go('enrolSH',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
 
 	}
 

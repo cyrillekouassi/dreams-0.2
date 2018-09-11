@@ -1,5 +1,5 @@
-saisie.controller('enrol_SH_Ctrl', ['$scope', '$rootScope', '$stateParams', '$http','$filter','$state', function ($scope, $rootScope, $stateParams, $http,$filter,$state) {
-    console.log("entrer dans enrol_SH_Ctrl");
+saisie.controller('enrolSHctrl', ['$scope', '$rootScope', '$stateParams', '$http','$filter','$state', function ($scope, $rootScope, $stateParams, $http,$filter,$state) {
+    console.log("entrer dans enrolSHctrl");
     var ValueUrl = serverAdresse+'dataValue';
 	var dataInstanceEntete = {};
     var dataInstance = {};
@@ -17,10 +17,10 @@ saisie.controller('enrol_SH_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 		"_05_a_autre_type_drogue",
 		"_06_raison_conso_drogue",
 		"_06_a_autre_raison_conso_drogue"];
-	
+
 	mappigData();
-	
-	
+
+
 		 function mappigData() {
 		        for(var i = 0;i<enrolSectionH.length;i++){
 		            var id = getElementId(enrolSectionH[i]);
@@ -34,7 +34,7 @@ saisie.controller('enrol_SH_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 		        }
 		        console.log("mappigData() $scope.enrolH = ",$scope.enrolH);
 		    }
-	
+
 	$scope.savePage = function (){
 		console.log("entrer dans savePage");
 		console.log("$scope.enrolH = ",$scope.enrolH);
@@ -45,15 +45,15 @@ saisie.controller('enrol_SH_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 		dataInstance.dataValue = [];
 		getElement();
 		saveData();
-		
+
 	}
-	
+
 	$scope.previewPage = function (){
 		console.log("entrer dans previewPage");
-		$state.go('enrol_SG',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
-		
+		$state.go('enrolSG',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
+
 	}
-	
+
 	function getElement() {
         console.log("getElement()");
         $scope.enrolH._05_type_drogue = gesttypeDrogue();
@@ -78,7 +78,7 @@ saisie.controller('enrol_SH_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
         console.log("dataInstance = ",dataInstance);
 
     }
-	
+
 	function gesttypeDrogue(){
 		console.log("$scope.typeDrogue = ",$scope.typeDrogue);
 		var typeDrogueValue=null;
@@ -86,7 +86,7 @@ saisie.controller('enrol_SH_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 			 if($scope.typeDrogue[pop]){
 				if(!typeDrogueValue){
 					typeDrogueValue= "" + pop;
-				} 
+				}
 				else{
 					typeDrogueValue= typeDrogueValue +" " + pop;
 				}
@@ -95,7 +95,7 @@ saisie.controller('enrol_SH_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 		 console.log("typeDrogueValue = ",typeDrogueValue);
 		 return typeDrogueValue;
 	}
-	
+
 	function gestraisonConsoDrogue(){
 		console.log("$scope.raisonConsoDrogue = ",$scope.raisonConsoDrogue);
 		var raisonConsoDrogueValue=null;
@@ -103,7 +103,7 @@ saisie.controller('enrol_SH_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 			 if($scope.raisonConsoDrogue[pop]){
 				if(!raisonConsoDrogueValue){
 					raisonConsoDrogueValue= "" + pop;
-				} 
+				}
 				else{
 					raisonConsoDrogueValue= raisonConsoDrogueValue +" " + pop;
 				}
@@ -112,7 +112,7 @@ saisie.controller('enrol_SH_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 		 console.log("raisonConsoDrogueValue = ",raisonConsoDrogueValue);
 		 return raisonConsoDrogueValue;
 	}
-	
+
 	function getElementId(code) {
         for(var j = 0;j<$rootScope.programmeSelect.elements.length;j++){
             if($rootScope.programmeSelect.elements[j].element.code == code){
@@ -121,7 +121,7 @@ saisie.controller('enrol_SH_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
         }
         return null;
     }
-	
+
 	function saveData() {
 
         var config = {
@@ -144,11 +144,11 @@ saisie.controller('enrol_SH_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
             toastr["success"]("Echec d'enregistrement");
         });
     }
-	
+
 	function succesSave() {
-        $state.go('enrol_SIJK',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
+        $state.go('enrolSIJK',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
     }
-    
-    
-    
+
+
+
 }]);

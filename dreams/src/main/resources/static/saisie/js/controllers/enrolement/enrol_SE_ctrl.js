@@ -1,5 +1,5 @@
-saisie.controller('enrol_SE_Ctrl', ['$scope', '$rootScope', '$stateParams', '$http','$filter','$state', function ($scope, $rootScope, $stateParams, $http,$filter,$state) {
-    console.log("entrer dans enrol_SE_Ctrl");
+saisie.controller('enrolSEctrl', ['$scope', '$rootScope', '$stateParams', '$http','$filter','$state', function ($scope, $rootScope, $stateParams, $http,$filter,$state) {
+    console.log("entrer dans enrolSEctrl");
     var ValueUrl = serverAdresse+'dataValue';
 	var dataInstanceEntete = {};
     var dataInstance = {};
@@ -11,10 +11,10 @@ saisie.controller('enrol_SE_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 var enrolSectionE = ["_01_rela_sexuel","_02_ag_sexuel","_03_nbr_part_sexuel","_04_part_sexuel","_05_P1_age_parte","_06_P1_statut_part",
 	"_07_P1_frequence_protect","_05_P2_age_parte","_06_P2-statut_part","_07_P2-frequence_protect",
 	"_05_P3_age_parte","_06_P3_statut_part","_07_P3_frequence_protect","_08_echange_sexe"];
-	
+
 	mappigData();
-	
-	
+
+
 	 function mappigData() {
 	        for(var i = 0;i<enrolSectionE.length;i++){
 	            var id = getElementId(enrolSectionE[i]);
@@ -28,7 +28,7 @@ var enrolSectionE = ["_01_rela_sexuel","_02_ag_sexuel","_03_nbr_part_sexuel","_0
 	        }
 	        console.log("mappigData() $scope.enrolE = ",$scope.enrolE);
 	    }
-	
+
 	$scope.savePage = function (){
 		console.log("entrer dans savePage");
 		console.log("$scope.enrolE = ",$scope.enrolE);
@@ -39,15 +39,15 @@ var enrolSectionE = ["_01_rela_sexuel","_02_ag_sexuel","_03_nbr_part_sexuel","_0
 		dataInstance.dataValue = [];
 		getElement();
 		saveData();
-		
+
 	}
-	
+
 	$scope.previewPage = function (){
 		console.log("entrer dans previewPage");
-		$state.go('enrol_SD',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
-		
+		$state.go('enrolSD',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
+
 	}
-	
+
 	function getElement() {
         console.log("getElement()");
         for(var pop in $scope.enrolE){
@@ -69,7 +69,7 @@ var enrolSectionE = ["_01_rela_sexuel","_02_ag_sexuel","_03_nbr_part_sexuel","_0
         console.log("dataInstance = ",dataInstance);
 
     }
-	
+
 	function getElementId(code) {
         for(var j = 0;j<$rootScope.programmeSelect.elements.length;j++){
             if($rootScope.programmeSelect.elements[j].element.code == code){
@@ -78,7 +78,7 @@ var enrolSectionE = ["_01_rela_sexuel","_02_ag_sexuel","_03_nbr_part_sexuel","_0
         }
         return null;
     }
-	
+
 	function saveData() {
 
         var config = {
@@ -101,11 +101,11 @@ var enrolSectionE = ["_01_rela_sexuel","_02_ag_sexuel","_03_nbr_part_sexuel","_0
             toastr["success"]("Echec d'enregistrement");
         });
     }
-	
+
 	function succesSave() {
-        $state.go('enrol_SF',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
+        $state.go('enrolSF',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
     }
-    
-    
-    
+
+
+
 }]);

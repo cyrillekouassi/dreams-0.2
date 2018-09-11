@@ -1,6 +1,6 @@
 // Declaration de la fonction du controleur
-saisie.controller('enrol_SB_Ctrl', ['$scope', '$rootScope', '$stateParams', '$http','$filter','$state', function ($scope, $rootScope, $stateParams, $http,$filter,$state) {
-    console.log("entrer dans enrol_SB_Ctrl");
+saisie.controller('enrolSBctrl', ['$scope', '$rootScope', '$stateParams', '$http','$filter','$state', function ($scope, $rootScope, $stateParams, $http,$filter,$state) {
+    console.log("entrer dans enrolSBctrl");
 	var ValueUrl = serverAdresse+'dataValue';
 	var dataInstanceEntete = {};
     var dataInstance = {};
@@ -9,30 +9,54 @@ saisie.controller('enrol_SB_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
     dataInstanceEntete.instance = $stateParams.inst;
     dataInstance = angular.copy(dataInstanceEntete);
 	$scope.enrolB = {};
+  $scope.handicap = {};
 	var enrolSectionB = ["_01_chef_menage","_01_a_autre_chef","_02_age_chef","_03_pere_vie","_04_mere_vie",
 		"_05_parent_malad_chron","_06_type_logem","_06_a_autre_logem","_07_source_eau",
 		"_07_a_autre_source_eau","_08_source_lumiere","_08_a_autre_source_lumiere","_09_type_toil",
 		"_10_nbre_repas","_11_handicap","_11_a_autre_handicap","_12_a_nbre_adult_F","_12_b_nbre_adult_H",
 		"_12_c_1_nbre_f_m10","_12_c_2_nbre_f_10_14","_12_c_3_nbre_f_15_19","_12_d_1_nbre_h_m10",
 		"_12_d_2_nbre_h_10_14","_12_d_3_nbre_h_15_19","_12_nbre_mbre_menage"];
-	
+
 	mappigData();
-	
-	// Fonction pour afficher les valeurs dans bouton radios 
+
+	// Fonction pour afficher les valeurs dans bouton radios
 	 function mappigData() {
 	        for(var i = 0;i<enrolSectionB.length;i++){
 	            var id = getElementId(enrolSectionB[i]);
 	            if(id){
+                console.log("$rootScope.enrolementData == ",$rootScope.enrolementData);
 	                for(var j=0;j<$rootScope.enrolementData.length;j++){
 	                    if(id == $rootScope.enrolementData[j].element){
 	                        $scope.enrolB[enrolSectionB[i]] = $rootScope.enrolementData[j].value;
+                          // s'il s'agit d'handicap
+                          if(enrolSectionB[i] == "_11_handicap"){
+                            initiHandicap($rootScope.enrolementData[j].value);
+                          }
 	                    }
 	                }
 	            }
 	        }
 	        console.log("mappigData() $scope.enrolB = ",$scope.enrolB);
 	    }
-	
+ // fonction pour activer les case valide d'handicap
+      function initiHandicap(valeur){
+        console.log("initiHandicap => valeur = ",valeur);
+        if(!valeur || valeur == "" || valeur == " "){return;}
+
+        var conti = true; var option = null;
+        var initi = 0, space = 0;
+        while (conti){
+            space = valeur.indexOf(" ",initi);
+            if(space != -1){
+                option = valeur.substring(initi,space);
+                initi = space+1;
+            }else{
+                option = valeur.substring(initi,valeur.length);
+                conti = false;
+            }
+            $scope.handicap[option] = true;
+        }
+      }
 	// Fonction de sauvegarde des données de la page et passer a la page suivante
 	$scope.savePage = function (){
 		console.log("entrer dans savePage");
@@ -44,13 +68,13 @@ saisie.controller('enrol_SB_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 		dataInstance.dataValue = [];
 		getElement();
 		saveData();
-		
+
 	}
 	// Fonction de retour a la page précédente
 	$scope.previewPage = function (){
 		console.log("entrer dans previewPage");
-		$state.go('enrol_SA',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
-		
+		$state.go('enrolSA',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
+
 	}
 	// Fonction d'envoi des données vers le serveur
 	function getElement() {
@@ -84,7 +108,7 @@ saisie.controller('enrol_SB_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 			 if($scope.handicap[pop]){
 				if(!handicapValue){
 					handicapValue= "" + pop;
-				} 
+				}
 				else{
 					handicapValue= handicapValue +" " + pop;
 				}
@@ -100,9 +124,10 @@ saisie.controller('enrol_SB_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
                 return $rootScope.programmeSelect.elements[j].element.id;
             }
         }
+        console.log("Element non trouvé: ",code);
         return null;
     }
-	// Fonction de sauvegarde de donnée 
+	// Fonction de sauvegarde de donnée
 	function saveData() {
 
         var config = {
@@ -127,8 +152,8 @@ saisie.controller('enrol_SB_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
     }
 	// Fonction de enregistrement avec succès et passer a la page suivante
 	function succesSave() {
-        $state.go('enrol_SC',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
+        $state.go('enrolSC',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
     }
-	
-	
+
+
 }]);

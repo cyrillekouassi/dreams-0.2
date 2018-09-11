@@ -1,5 +1,6 @@
-saisie.controller('enrol_SC_Ctrl', ['$scope', '$rootScope', '$stateParams', '$http','$filter','$state', function ($scope, $rootScope, $stateParams, $http,$filter,$state) {
-    console.log("entrer dans enrol_SC_Ctrl");
+saisie.controller('enrolSCctrl', ['$scope', '$rootScope', '$stateParams', '$http','$filter','$state',
+function ($scope, $rootScope, $stateParams, $http,$filter,$state) {
+    console.log("entrer dans enrolSCctrl");
     var ValueUrl = serverAdresse+'dataValue';
 	var dataInstanceEntete = {};
     var dataInstance = {};
@@ -9,7 +10,7 @@ saisie.controller('enrol_SC_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
     dataInstance = angular.copy(dataInstanceEntete);
 	$scope.enrolC = {};
 	var enrolSectionC = ["_01_scolarise","_02_niv_scolaire","_02_a_classe","_02_a_autre_niv_scolaire",
-		"_03_soutient_finance""_03_a_autre_soutient_finance","_04_pas_sco_actuel","_05_raison_non_sco",
+		"_03_soutient_finance","_03_a_autre_soutient_finance","_04_pas_sco_actuel","_05_raison_non_sco",
 		"_05_a_autre_raison_non_sco","_06_second_chance","_06_a_autre_second_chance","_07_source_revenu",
 		"_07_a_autre_source_revenu","_08_economie","_09_gard_economie","_09_a_autre_gard_economie"];
 
@@ -45,7 +46,7 @@ saisie.controller('enrol_SC_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 
 	$scope.previewPage = function (){
 		console.log("entrer dans previewPage");
-		$state.go('enrol_SB',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
+		$state.go('enrolSB',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
 
 	}
 
@@ -104,7 +105,8 @@ saisie.controller('enrol_SC_Ctrl', ['$scope', '$rootScope', '$stateParams', '$ht
     }
 
 	function succesSave() {
-        $state.go('enrol_SD',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
+    console.log("succesSave()");
+        $state.go('enrolSD',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
     }
 
 

@@ -16,7 +16,7 @@
                     <label>Nombre d'enrolement: {{infoSearch.totalElements}}</label>
                 </div>
                 <div class="float-right">
-                    <a ui-sref='enrol_SA({ prog: programmeSelect.id, org: orgUnitSelect.id })' class="btn btn-info btn-rounded btn-sm" role="button">Nouvel Enrolement</a>
+                    <a ui-sref='enrolSA({ prog: programmeSelect.id, org: orgUnitSelect.id })' class="btn btn-info btn-rounded btn-sm" role="button">Nouvel Enrolement</a>
                 </div>
 
                 <div class="table-responsive table-sm">
@@ -41,7 +41,7 @@
                             <td>{{enrol.nom}}</td>
                             <td>{{enrol.pren}}</td>
                             <td>{{enrol.age_enrol}}</td>
-                            <td><a ui-sref='enrol_SA({ prog: programmeSelect.id, org: orgUnitSelect.id, inst: enrol.instance })'><i class="fa fa-pencil indigo-text" aria-hidden="true">edit</i></a> <span
+                            <td><a ui-sref='enrolSA({ prog: programmeSelect.id, org: orgUnitSelect.id, inst: enrol.instance })'><i class="fa fa-pencil indigo-text" aria-hidden="true">edit</i></a> <span
                                     style="margin-left: 5px;"> </span> <a ng-click="deleteInstance(enrol.instance)"><i class="fa fa-remove red-text" aria-hidden="true">delete</i></a>
                             </td>
                         </tr>
@@ -103,4 +103,3 @@
 </div>
 </body>
 </html>
-

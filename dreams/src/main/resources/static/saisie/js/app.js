@@ -64,58 +64,58 @@ saisie.config(['$stateProvider','$urlRouterProvider', function ($stateProvider,$
     };
 
     var Enrol_SA = {
-        name: 'enrol_SA',
-        url: '/enrol_SA?prog&org&inst',
+        name: 'enrolSA',
+        url: '/enrolSA?prog&org&inst',
         templateUrl: 'views/enrolement/section_A.html',
-        controller: 'enrol_SA_Ctrl'
+        controller: 'enrolSActrl'
     };
     var Enrol_SB = {
-        name: 'enrol_SB',
-        url: '/enrol_SB?prog&org&inst',
+        name: 'enrolSB',
+        url: '/enrolSB?prog&org&inst',
         templateUrl: 'views/enrolement/section_B.html',
-        controller: 'enrol_SB_Ctrl'
+        controller: 'enrolSBctrl'
     };
     var Enrol_SC = {
-        name: 'enrol_SC',
-        url: '/enrol_SC?prog&org&inst',
+        name: 'enrolSC',
+        url: '/enrolSC?prog&org&inst',
         templateUrl: 'views/enrolement/section_C.html',
-        controller: 'enrol_SC_ctrl'
+        controller: 'enrolSCctrl'
     };
     var Enrol_SD = {
-        name: 'enrol_SD',
-        url: '/enrol_SD?prog&org&inst',
+        name: 'enrolSD',
+        url: '/enrolSD?prog&org&inst',
         templateUrl: 'views/enrolement/section_D.html',
-        controller: 'enrol_SD_Ctrl'
+        controller: 'enrolSDctrl'
     };
     var Enrol_SE = {
-        name: 'enrol_SE',
-        url: '/enrol_SE?prog&org&inst',
+        name: 'enrolSE',
+        url: '/enrolSE?prog&org&inst',
         templateUrl: 'views/enrolement/section_E.html',
-        controller: 'enrol_SE_Ctrl'
+        controller: 'enrolSEctrl'
     };
     var Enrol_SF = {
-        name: 'enrol_SF',
-        url: '/enrol_SF?prog&org&inst',
+        name: 'enrolSF',
+        url: '/enrolSF?prog&org&inst',
         templateUrl: 'views/enrolement/section_F.html',
-        controller: 'enrol_SF_Ctrl'
+        controller: 'enrolSFCtrl'
     };
     var Enrol_SG = {
-        name: 'enrol_SG',
-        url: '/enrol_SG?prog&org&inst',
+        name: 'enrolSG',
+        url: '/enrolSG?prog&org&inst',
         templateUrl: 'views/enrolement/section_G.html',
-        controller: 'enrol_SG_Ctrl'
+        controller: 'enrolSGctrl'
     };
     var Enrol_SH = {
-        name: 'enrol_SH',
-        url: '/enrol_SH?prog&org&inst',
+        name: 'enrolSH',
+        url: '/enrolSH?prog&org&inst',
         templateUrl: 'views/enrolement/section_H.html',
-        controller: 'enrol_SH_Ctrl'
+        controller: 'enrolSHctrl'
     };
     var Enrol_SIJK = {
-        name: 'enrol_SIJK',
-        url: '/enrol_SIJK?prog&org&inst',
+        name: 'enrolSIJK',
+        url: '/enrolSIJK?prog&org&inst',
         templateUrl: 'views/enrolement/section_IJK.html',
-        controller: 'enrol_SIJK_Ctrl'
+        controller: 'enrolSIJKctrl'
     };
     $stateProvider.state(accueil);
     $stateProvider.state(dossier);
