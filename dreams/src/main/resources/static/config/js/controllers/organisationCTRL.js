@@ -6,6 +6,7 @@ conf.controller('organisationCTRL',['$scope','$http','$window','$rootScope',func
     var meDataView = [];
     var leParent = {};
     $rootScope.arbre = [];
+    $scope.btnAjouter = true;
 
     var url = serverAdresse+"organisation";
 
@@ -46,6 +47,9 @@ conf.controller('organisationCTRL',['$scope','$http','$window','$rootScope',func
         console.log("meDataView ==>");
         console.log(meDataView);
         $rootScope.arbre = meDataView;
+        if($rootScope.arbre.length == 0){
+          $scope.btnAjouter = false;
+        }
     }
     function orgEntete() {
 
@@ -87,6 +91,8 @@ conf.controller('organisationCTRL',['$scope','$http','$window','$rootScope',func
         console.log(lesSelects);
         leParent = lesSelects;
         afficheEnfant(lesSelects);
+        $scope.btnAjouter = false;
+        console.log("entrer dans $scope.btnAjouter = ",$scope.btnAjouter);
     };
     function afficheEnfant(select) {
         console.log("afficheEnfant()");
@@ -108,6 +114,7 @@ conf.controller('organisationCTRL',['$scope','$http','$window','$rootScope',func
     $scope.appliqModif = function () {
         console.log("appliqModif > $scope.org = ",$scope.org);
         updateOrg($scope.org.id,$scope.org);
+        console.log("entrer dans $scope.btnAjouter = ",$scope.btnAjouter);
     };
     $scope.ajouterOrg = function () {
         console.log("ajouterOrg() debut > $scope.org = ",$scope.org);
@@ -159,6 +166,7 @@ conf.controller('organisationCTRL',['$scope','$http','$window','$rootScope',func
     }
 
     $scope.Ajouter = function () {
+      console.log("entrer dans $scope.btnAjouter = ",$scope.btnAjouter);
         console.log("Ajouter() = ");
         $scope.afficheAjout = true;
         $scope.affichesaisie = true;

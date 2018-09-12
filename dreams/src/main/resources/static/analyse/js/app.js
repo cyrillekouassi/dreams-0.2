@@ -100,7 +100,7 @@ analyse.run(['$rootScope','$http','$stateParams','$state','$filter','$timeout','
     $rootScope.collectIndicateurs =[];
     $rootScope.collectIndicateursSeclect =[];
 
-    
+
     $rootScope.afficheOrg = false;
     var exeJour = false;
     var exeInter = false;
@@ -112,9 +112,9 @@ analyse.run(['$rootScope','$http','$stateParams','$state','$filter','$timeout','
         {debut: '01-09',fin: '30-09', name: 'Septembre'}, {debut: '01-10',fin: '31-10', name: 'Octobre'},
         {debut: '01-11',fin: '30-11', name: 'Novembre'}, {debut: '01-12',fin: '31-12', name: 'Decembre'}];
 
-    var dataTrimestre = [{debut: '01-01',fin: '31-03', name: 'Janvier - Mars'}, 
-        {debut: '01-04',fin: '30-06', name: 'Avril - Juin'}, 
-        {debut: '01-07',fin: '30-09', name: 'Juillet - Septembre'}, 
+    var dataTrimestre = [{debut: '01-01',fin: '31-03', name: 'Janvier - Mars'},
+        {debut: '01-04',fin: '30-06', name: 'Avril - Juin'},
+        {debut: '01-07',fin: '30-09', name: 'Juillet - Septembre'},
         {debut: '01-10',fin: '31-12', name: 'Octobre - Decembre'}];
 
     var mois = [{code: "01",name: "Janvier"},{code: "02",name: "Février"},{code: "03",name: "Mars"},{code: "04",name: "Avril"},
@@ -138,7 +138,9 @@ analyse.run(['$rootScope','$http','$stateParams','$state','$filter','$timeout','
     $rootScope.annee = parseInt($rootScope.annee , 10);
     var lan = angular.copy($rootScope.annee);
 
-
+    var etatRapport = true;
+    var etatActivite = false;
+    
     initial();
     function initial() {
         $('.datepicker').pickadate({
@@ -163,7 +165,7 @@ analyse.run(['$rootScope','$http','$stateParams','$state','$filter','$timeout','
             });
         });
     }
-    
+
     getMe();
 
     function getMe() {
@@ -279,7 +281,6 @@ analyse.run(['$rootScope','$http','$stateParams','$state','$filter','$timeout','
                 gestIndicateurProgramme($rootScope.lesProgrammes[l]);
             }
         }
-
        // console.log("gestionProgramme() > $rootScope.lesProgrammes = ",$rootScope.lesProgrammes)
     }
 
@@ -534,7 +535,7 @@ analyse.run(['$rootScope','$http','$stateParams','$state','$filter','$timeout','
         codeProg = prog.code;
         excelFeuileName = prog.name
     };
-    
+
     $rootScope.logout = function () {
         window.location = exit;
     };
@@ -582,23 +583,28 @@ analyse.run(['$rootScope','$http','$stateParams','$state','$filter','$timeout','
     };
 
     $rootScope.voletRapport = function () {
-        if($rootScope.analyseRapport){
-            $rootScope.analyseRapport = false;
-            $rootScope.jour = true;
-        }else{
-            $rootScope.analyseRapport = true;
-            $rootScope.jour = false;
-        }
-        initial();
+      if(etatRapport){
+        etatRapport = false;
+        //etatActivite = false;
+      }else{
+        etatRapport = true;
+        etatActivite = false;
+        $rootScope.analyseRapport = true;
+      }
+      //console.log("etatRapport = ",etatRapport," // etatActivite = ",etatActivite);
+
     };
     $rootScope.voletActivite = function () {
-        if($rootScope.analyseRapport){
-            $rootScope.analyseRapport = false;
-            $rootScope.jour = true;
-        }else{
-            $rootScope.analyseRapport = true;
-            $rootScope.jour = false;
-        }
+      if(!etatActivite){
+        etatRapport = false;
+        etatActivite = true;
+        $rootScope.analyseRapport = false;
+        $rootScope.jour = true;
+      }else{
+        //etatRapport = false;
+        etatActivite = false;
+      }
+    //  console.log("etatRapport = ",etatRapport," // etatActivite = ",etatActivite);
         initial();
     };
 
@@ -635,10 +641,10 @@ analyse.run(['$rootScope','$http','$stateParams','$state','$filter','$timeout','
         lan = year;
         $rootScope.periodeSelect = [];
         if(id == "mois"){
-            getPeriode(mois,$rootScope.annee );
+            getPeriode(mois,$rootScope.annee);
         }
         if(id == "trimestre"){
-            getPeriode(Trimestre,$rootScope.annee );
+            getPeriode(Trimestre,$rootScope.annee);
         }
     };
     $rootScope.periodeSelectionner = function (periode,index) {
