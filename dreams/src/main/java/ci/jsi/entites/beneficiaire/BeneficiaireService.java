@@ -116,6 +116,19 @@ public class BeneficiaireService implements Ibeneficiaire {
 		return beneficiaireTDOs;
 	}
 
+	@Override
+	public List<StatusBeneficiaire> getStatusBeneficiaire(List<String> organisation, String debut, String fin) {
+		List<StatusBeneficiaire> StatusBeneficiaire = new ArrayList<StatusBeneficiaire>();
+		List<Beneficiaire> beneficiaires = new ArrayList<Beneficiaire>();
+		Date dateDebut = convertDate.getDateParse(debut);
+		Date dateFin = convertDate.getDateParse(fin);
+		beneficiaires = beneficiaireRepository.findAllByOrganisationUidInAndDateEnrolementGreaterThanEqualAndDateEnrolementLessThanEqual(organisation, dateDebut,dateFin);
+		if(!beneficiaires.isEmpty()) {
+			StatusBeneficiaire = beneficiaireConvert.getStatusBeneficiaires(beneficiaires);
+		}
+		return StatusBeneficiaire;
+	}
+
 
 
 }

@@ -24,6 +24,10 @@ public class BeneficiaireRestService {
 		//return idataValues.SearchDataValueTDO(programme, organisation, element, valeur);
 		return ibeneficiaire.SearchBeneficiaireTDOByIdDreams(idDreams, organisation);
 	}
+	@RequestMapping(value="/status",method=RequestMethod.GET)
+	public List<StatusBeneficiaire> statusBeneficiaire(@RequestParam(name="org") List<String> organisation, @RequestParam(name="debut")String debut, @RequestParam(name="fin")String fin){
+		return ibeneficiaire.getStatusBeneficiaire(organisation,debut,fin);
+	}
 	@RequestMapping(method=RequestMethod.POST)
 	public ResultatRequete SaveBeneficiaireTDO(@RequestBody BeneficiaireTDO beneficiaireTDO){
 		//return idataValues.SearchDataValueTDO(programme, organisation, element, valeur);

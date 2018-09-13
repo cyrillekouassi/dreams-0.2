@@ -1,7 +1,6 @@
 package ci.jsi.entites.beneficiaire;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import ci.jsi.initialisation.UidEntitie;

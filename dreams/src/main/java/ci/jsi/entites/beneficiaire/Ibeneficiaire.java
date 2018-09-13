@@ -18,4 +18,6 @@ public interface Ibeneficiaire {
 	public Beneficiaire convertBeneficiaireTDO(BeneficiaireTDO beneficiaireTDO);
 	public List<BeneficiaireTDO> getBeneficiairePeriode(List<String> organisation,String debut,String fin);
 	public List<BeneficiaireTDO> getBeneficiairePreview(List<String> organisation,String fin);
+	
+	public List<StatusBeneficiaire> getStatusBeneficiaire(List<String> organisation,String debut,String fin);
 }
