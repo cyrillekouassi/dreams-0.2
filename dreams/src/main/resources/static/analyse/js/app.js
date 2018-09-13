@@ -51,6 +51,12 @@ analyse.config(['$stateProvider','$urlRouterProvider', function ($stateProvider,
         templateUrl: 'views/rapport.html',
         controller: 'rapportCTRL'
     };
+    var beneficiaire = {
+        name: 'beneficiare',
+        url: '/listeBeneficiare',
+        templateUrl: 'views/beneficiare.html',
+        controller: 'beneficiareCTRL'
+    };
 
     $stateProvider.state(accueil);
     $stateProvider.state(enrol);
@@ -60,6 +66,7 @@ analyse.config(['$stateProvider','$urlRouterProvider', function ($stateProvider,
     $stateProvider.state(reference);
     $stateProvider.state(groupe);
     $stateProvider.state(rapport);
+    $stateProvider.state(beneficiaire);
 
 }]);
 analyse.run(['$rootScope','$http','$stateParams','$state','$filter','$timeout','$window','Excel', function ($rootScope,$http,$stateParams,$state,$filter,$timeout,$window,Excel) {
@@ -128,10 +135,7 @@ analyse.run(['$rootScope','$http','$stateParams','$state','$filter','$timeout','
     $rootScope.ListPeriode = [];
     $rootScope.periodeSelect = [];
     $rootScope.laperiode = "mois";
-    $rootScope.trimestre = false;
-    $rootScope.mois = false;
-    $rootScope.interval = false;
-    $rootScope.jour = true;
+    $rootScope.notreperiode = "jour";
     $rootScope.analyseRapport = true;
     $rootScope.annee = $filter('date')(new Date(), "yyyy");
     getPeriode(mois,$rootScope.annee );
@@ -140,7 +144,7 @@ analyse.run(['$rootScope','$http','$stateParams','$state','$filter','$timeout','
 
     var etatRapport = true;
     var etatActivite = false;
-    
+
     initial();
     function initial() {
         $('.datepicker').pickadate({
@@ -237,12 +241,15 @@ analyse.run(['$rootScope','$http','$stateParams','$state','$filter','$timeout','
 
     function getProgramValide(prog) {
         console.log("prog = ",prog);
+        var benef = {id: 'benef',code: 'beneficiare',name: 'Liste des bénéficiares'}
         var pro = [];
+        pro.push(benef);
         for(var i =0;i<prog.length;i++){
             if(prog[i].code != "rapport"){
                 pro.push(prog[i]);
             }
         }
+        console.log("pro ==> ",pro);
         return pro;
     }
     function getOrganisation() {
@@ -301,7 +308,6 @@ analyse.run(['$rootScope','$http','$stateParams','$state','$filter','$timeout','
                     tmp.name = prog.elements[i].element.name+" - "+prog.elements[i].element.ensembleOption.options[j].name;
                     lesIndicateursDetails.push(tmp);
                 }
-
             }
         }
         $rootScope.collectIndicateurs = angular.copy(lesIndicateurs);
@@ -420,10 +426,7 @@ analyse.run(['$rootScope','$http','$stateParams','$state','$filter','$timeout','
             etat = "trimestre";
             $timeout( function(){
                 $rootScope.$apply(function() {
-                    $rootScope.trimestre = true;
-                    $rootScope.mois = false;
-                    $rootScope.interval = false;
-                    $rootScope.jour = false;
+                    $rootScope.notreperiode = "trimestre";
                     $rootScope.rapportPeriod = false;
                     initial();
                 });
@@ -436,10 +439,7 @@ analyse.run(['$rootScope','$http','$stateParams','$state','$filter','$timeout','
             etat = "mois";
             $timeout(function () {
                 $rootScope.$apply(function () {
-                    $rootScope.trimestre = false;
-                    $rootScope.mois = true;
-                    $rootScope.interval = false;
-                    $rootScope.jour = false;
+                  $rootScope.notreperiode = "mois";
                     $rootScope.rapportPeriod = false;
                     initial();
                 });
@@ -452,10 +452,7 @@ analyse.run(['$rootScope','$http','$stateParams','$state','$filter','$timeout','
             etat = "interval";
             $timeout(function () {
                 $rootScope.$apply(function () {
-                    $rootScope.trimestre = false;
-                    $rootScope.mois = false;
-                    $rootScope.interval = true;
-                    $rootScope.jour = false;
+                  $rootScope.notreperiode = "interval";
                     $rootScope.rapportPeriod = false;
                     initial();
                 });
@@ -467,10 +464,7 @@ analyse.run(['$rootScope','$http','$stateParams','$state','$filter','$timeout','
             etat = "jour";
             $timeout(function () {
                 $rootScope.$apply(function () {
-                    $rootScope.trimestre = false;
-                    $rootScope.mois = false;
-                    $rootScope.interval = false;
-                    $rootScope.jour = true;
+                  $rootScope.notreperiode = "jour";
                     $rootScope.rapportPeriod = false;
                     initial();
                 });
@@ -599,7 +593,7 @@ analyse.run(['$rootScope','$http','$stateParams','$state','$filter','$timeout','
         etatRapport = false;
         etatActivite = true;
         $rootScope.analyseRapport = false;
-        $rootScope.jour = true;
+        $rootScope.notreperiode = "jour";
       }else{
         //etatRapport = false;
         etatActivite = false;
