@@ -1,0 +1,41 @@
+<div class="card mt-5 mr-0 ml-0 mb-3">
+    <div class="card-body text-left">
+        <h3 class="text-center purple-text"><strong>Liste des bénéficiares</strong></h3>
+        <div class="aspece">
+            <table class="table table-bordered table-responsive mt-3 table-sm tableResp">
+                <thead class="blue-grey lighten-4 text-center">
+                <tr>
+                    <th>No</th>
+                    <th>Numéro d’ordre</th>
+                    <th>Code identification Dreams</th>
+                    <th>Nom</th>
+                    <th>Prenoms</th>
+                    <th>âge</th>
+                    <th>date d’enrôlement</th>
+                    <th>contact téléphonique</th>
+                    <th>quartier</th>
+                    <th>porte d’entrée</th>
+                    <th>catégorie DREAMS</th>
+                    <th>statut </th>
+                </tr>
+                </thead>
+                <tbody class="text-center">
+                <tr ng-repeat="benef in listBeneficiare">
+                    <th scope="row" class="align-middle">{{$index + 1}}</th>
+                    <td scope="row" class="align-middle">{{benef.numeroOrdre}}</td>
+                    <td scope="row" class="align-middle">{{benef.idDreams}}</td>
+                    <td scope="row" class="align-middle">{{benef.name}}</td>
+                    <td class="align-middle text-center">{{benef.firstName}}</td>
+                    <td class="align-middle text-center">{{benef.ageEnrolement}}</td>
+                    <td class="align-middle text-center">{{benef.dateEnrolement}}</td>
+                    <td class="align-middle text-center">{{benef.telephone}}</td>
+                    <td class="align-middle text-center">{{benef.quatier}}</td>
+                    <td class="align-middle text-center">{{benef.porteEntree}}</td>
+                    <td class="align-middle text-center">{{benef.categorieDreams}}</td>
+                    <td class="align-middle text-center">{{benef.status}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

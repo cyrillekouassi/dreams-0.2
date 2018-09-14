@@ -198,7 +198,7 @@ public class BeneficiaireConvert {
 				elements.add(element);
 			}else {
 				System.out.println("Element introuvable: code = "+elementCode[i]);
-				return null;
+				//return null;
 			}
 		}
 		for(int i=0;i<elementCodeSatuts.length;i++) {
@@ -207,7 +207,7 @@ public class BeneficiaireConvert {
 				elementsStatus.add(element);
 			}else {
 				System.out.println("Element introuvable: code = "+elementCodeSatuts[i]);
-				return null;
+				//return null;
 			}
 		}
 		
@@ -216,7 +216,9 @@ public class BeneficiaireConvert {
 			for(int j=0;j<beneficiaires.get(i).getInstanceBeneficiaires().size();j++) {
 				if(beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getProgramme() == programmeEnrolement) {
 					dataValueTDO = idataValues.getDataValueTDO(beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getUid(), elements.get(0).getUid());
-					statusBeneficiaire.setNumeroOrdre(dataValueTDO.getValue());
+					if(dataValueTDO != null) {
+						statusBeneficiaire.setNumeroOrdre(dataValueTDO.getValue());
+					}
 				}
 				if(beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getProgramme() == programmeDossierBeneficiare) {
 					
@@ -230,9 +232,8 @@ public class BeneficiaireConvert {
 					
 					
 				}
-				statusBeneficiaires.add(statusBeneficiaire);
 			}
-			
+			statusBeneficiaires.add(statusBeneficiaire);
 		}
 		
 		//numeroOrdre

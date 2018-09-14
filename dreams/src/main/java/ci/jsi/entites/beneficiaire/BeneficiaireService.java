@@ -120,9 +120,11 @@ public class BeneficiaireService implements Ibeneficiaire {
 	public List<StatusBeneficiaire> getStatusBeneficiaire(List<String> organisation, String debut, String fin) {
 		List<StatusBeneficiaire> StatusBeneficiaire = new ArrayList<StatusBeneficiaire>();
 		List<Beneficiaire> beneficiaires = new ArrayList<Beneficiaire>();
+		//List<Beneficiaire> benefis = new ArrayList<Beneficiaire>();
 		Date dateDebut = convertDate.getDateParse(debut);
 		Date dateFin = convertDate.getDateParse(fin);
 		beneficiaires = beneficiaireRepository.findAllByOrganisationUidInAndDateEnrolementGreaterThanEqualAndDateEnrolementLessThanEqual(organisation, dateDebut,dateFin);
+		//benefis = beneficiaireRepository.findAll();
 		if(!beneficiaires.isEmpty()) {
 			StatusBeneficiaire = beneficiaireConvert.getStatusBeneficiaires(beneficiaires);
 		}

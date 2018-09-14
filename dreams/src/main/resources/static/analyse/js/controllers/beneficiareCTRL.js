@@ -6,6 +6,7 @@ analyse.controller('beneficiareCTRL',['$scope','$rootScope','$http',function ($s
     var elementProgramme = [];
     var lesData = [];
     var lesEnrol = [];
+    $scope.listBeneficiare = [];
 
     $scope.listEnrol=[];
     $scope.enrolEntete=[];
@@ -30,22 +31,17 @@ analyse.controller('beneficiareCTRL',['$scope','$rootScope','$http',function ($s
 
     function collecteData() {
         var org = "org="+$rootScope.listOrg;
-        var prog = "prog="+leProgramme.id;
+        //var prog = "prog="+leProgramme.id;
         var debut = "debut="+$rootScope.periode.debut;
         var fin = "fin="+$rootScope.periode.fin;
         var dataValueUrl =$rootScope.baseUrl+"/beneficiaire/status?"+org+"&"+debut+"&"+fin;
         //console.log("dataValueUrl = "+dataValueUrl);
         $http.get(dataValueUrl).then(function (response) {
-            //console.log(response);
-            lesData = response.data;
-            if(lesData.length > 0){
-                traitementData();
-            }else{
-                $scope.chargement = false;
-                $scope.noData = true;
-            }
+            console.log(response);
+            $scope.listBeneficiare = response.data;
+            console.log("$scope.listBeneficiare = ",$scope.listBeneficiare);
         }, function (err) {
-            //console.log("err",err);
+            console.error("err",err);
         });
     }
 
