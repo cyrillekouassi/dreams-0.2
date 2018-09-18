@@ -144,7 +144,7 @@ public class TraitementIndicateur {
 	}
 
 	private void executionPeriodeTrimestre() {
-		System.err.println("execution Periode Trimestre = ");
+		//System.err.println("execution Periode Trimestre = ");
 
 		LocalDate todaydate = LocalDate.now();
 		int intTodaydate = todaydate.getMonthValue();
@@ -181,15 +181,15 @@ public class TraitementIndicateur {
 		dateFins = lastDaydate.with(TemporalAdjusters.lastDayOfMonth()).toString();
 
 		laPeriode = newDaydate.getYear() + "T" + newDaydate.get(IsoFields.QUARTER_OF_YEAR);
-		System.out.println("dateDebuts = " + dateDebuts);
-		System.out.println("dateFins = " + dateFins);
-		System.out.println("laPeriode = " + laPeriode);
-		System.out.println();
+		//System.out.println("dateDebuts = " + dateDebuts);
+		//System.out.println("dateFins = " + dateFins);
+		//System.out.println("laPeriode = " + laPeriode);
+		//System.out.println();
 		gestionOrganisation();
 	}
 
 	private void executionPeriodeMois() {
-		System.err.println("execution Periode Mois = ");
+		//System.err.println("execution Periode Mois = ");
 		int nombre = 0;
 		while (!dateDebuts.equals("2018-01-01")) {
 			chargeMois(nombre);
@@ -207,9 +207,9 @@ public class TraitementIndicateur {
 		String ladate = newDaydate.toString();
 		laPeriode = ladate.substring(0, 4) + ladate.substring(5, 7);
 
-		System.out.println("dateDebuts = " + dateDebuts);
-		System.out.println("dateFins = " + dateFins);
-		System.out.println("laPeriode = " + laPeriode);
+		//System.out.println("dateDebuts = " + dateDebuts);
+		//System.out.println("dateFins = " + dateFins);
+		//System.out.println("laPeriode = " + laPeriode);
 		//System.out.println();
 		gestionOrganisation();
 	}

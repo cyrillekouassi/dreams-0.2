@@ -67,13 +67,13 @@
 <main ng-if="role.affiche_configuration">
     <ul class="nav nav-tabs nav-justified info-color-dark mt-5 mt-5" role="tablist">
         <li class="nav-item" ng-if="role.creer_modifier_organisation">
-            <a class="nav-link active waves-ligh text-white" ui-sref="org" role="tab">Organisation</a>
+            <a class="nav-link waves-ligh text-white" ng-class="{'active' : ongletSelect == 'organisation'}" ui-sref="org" role="tab">Organisation</a>
         </li>
         <li class="nav-item" ng-if="role.creer_modifier_utilisateur">
-            <a class="nav-link text-white" ui-sref="user">Utilisateur</a>
+            <a class="nav-link text-white" ng-class="{'active' : ongletSelect == 'user'}" ui-sref="user">Utilisateur</a>
         </li>
         <li class="nav-item" ng-if="role.creer_modifier_roles">
-            <a class="nav-link text-white" ui-sref="roles" role="tab">Roles</a>
+            <a class="nav-link text-white" ui-sref="roles" ng-class="{'active' : ongletSelect == 'role'}" role="tab">Roles</a>
         </li>
         <li class="nav-item" ng-if="role.creer_modifier_programme">
             <a class="nav-link text-white" ui-sref="programme" role="tab">Programme</a>
@@ -85,7 +85,7 @@
             <a class="nav-link text-white" ui-sref="ensembleOption" role="tab">Ensemble Option</a>
         </li>
         <li class="nav-item" ng-if="role.importer_elements_donnees">
-            <a class="nav-link text-white" ui-sref="imports" role="tab">Imports</a>
+            <a class="nav-link text-white" ui-sref="imports" ng-class="{'active' : ongletSelect == 'import'}" role="tab">Imports</a>
         </li>
     </ul>
     <div class="mt-5 ml-3">

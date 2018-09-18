@@ -222,7 +222,7 @@ saisie.controller('dossierBeneficiaireCTRL', ['$scope', '$rootScope', '$http', '
         dataInstance.dreamsId = $scope.dossier.id_dreams;
         //dataInstance.dateActivite = $filter('date')(new Date(), 'dd-MM-yyyy');
         dataInstance.dateActivite = $scope.dossier.dateEnrolement;
-            dataInstance.order = 1;
+        dataInstance.order = 1;
         for(var pop in dossierBenef){
             if(dossierBenef[pop] != null && dossierBenef[pop] != ""){
                 var tpm = getElement(pop, dossierBenef[pop]);

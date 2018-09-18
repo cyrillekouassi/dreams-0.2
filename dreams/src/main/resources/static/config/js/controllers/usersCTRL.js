@@ -1,5 +1,6 @@
-conf.controller('usersCTRL',['$scope','$http','$window',function ($scope,$http,$window) {
+conf.controller('usersCTRL',['$scope','$http','$window','$rootScope',function ($scope,$http,$window,$rootScope) {
     console.log("entrer dans users");
+    $rootScope.ongletSelect = "user";
     var allUsers = [];
     var allOrgUnit = [];
     var allRolesUser = [];
@@ -143,7 +144,7 @@ conf.controller('usersCTRL',['$scope','$http','$window',function ($scope,$http,$
             $scope.orgSelect.push(tmp);
         }
     };
-    
+
     $scope.ajouterUser = function () {
         console.log("ajouterUser() debut > user = ", $scope.user);
         $scope.information = null;

@@ -17,7 +17,9 @@ import ci.jsi.entites.beneficiaire.Beneficiaire;
 import ci.jsi.entites.beneficiaire.BeneficiaireTDO;
 import ci.jsi.entites.beneficiaire.Ibeneficiaire;
 import ci.jsi.entites.beneficiaire.InstanceBeneficiaire;
+import ci.jsi.entites.dataValue.DataInstance;
 import ci.jsi.entites.dataValue.DataValue;
+import ci.jsi.entites.dataValue.DataValueTDO;
 import ci.jsi.entites.dataValue.IdataValues;
 import ci.jsi.entites.element.Element;
 import ci.jsi.entites.element.Ielement;
@@ -366,13 +368,9 @@ public class DataValuesImport {
 		if(!prog.isEmpty() && prog != null) {
 			programme = iprogramme.getOneProgramme(prog);
 			if(programme == null) {
-				//igoree++;
-				//System.out.println("l225 Progrmme non trouver: "+prog);
 				return null;
 			}
 		}else {
-			//igoree++;
-			//System.out.println("Programme non trouver-----");
 			return null;
 		}
 		return programme;
@@ -384,8 +382,6 @@ public class DataValuesImport {
 		Instance instance = new Instance();
 		instance = iinstance.getOneInstance(inst);
 		if(instance == null) {
-			//igoree++;
-			//System.err.println("Instance non trouver: "+inst);
 			return null;
 		}
 		return instance;
@@ -398,20 +394,14 @@ public class DataValuesImport {
 		if(!id.isEmpty() && id != null) {
 			organisation = iorganisation.getOneOrganisationById(id);
 			if(organisation == null) {
-				//igoree++;
-				//System.err.println("Id Organisation non trouver: "+id);
 				return null;
 			}
 		}else if(!code.isEmpty() && code != null) {
 			organisation = iorganisation.getOneOrganisationByCode(code);
 			if(organisation == null) {
-				//igoree++;
-				//System.err.println("Code Organisation non trouver: "+code);
 				return null;
 			}
 		}else {
-			//igoree++;
-			//System.err.println("Organisation non trouver");
 			return null;
 		}
 		
@@ -420,12 +410,12 @@ public class DataValuesImport {
 	}
 	
 	public UserApp seachUser(String user) {
-		System.out.println("Entrer dans DataValuesImport - seachUser");
+		//System.out.println("Entrer dans DataValuesImport - seachUser");
 		
 		UserApp user1 = new UserApp();
 		user1 = iuser.getUser(user);
 		if(user1 == null) {
-			System.err.println("User Organisation non trouver: "+user);
+			//System.err.println("User Organisation non trouver: "+user);
 			return null;
 		}
 		
@@ -494,6 +484,8 @@ public class DataValuesImport {
 			resultatRequete.setImporte(resultatRequete.getImporte() + 1);
 			Instance serviceInstance = servicesDreams.evaluerService(instance,data[dat_enrol]);
 			serviceBeneficiaire(serviceInstance,beneficiaire);
+			Instance dossierInstance = createDossierBeneficiare(instance,beneficiaire);
+			serviceBeneficiaire(dossierInstance,beneficiaire);
 		}
 	}
 	
@@ -508,6 +500,88 @@ public class DataValuesImport {
 		beneficiaire = ibeneficiaire.updateOneBeneficiaire(beneficiaire);
 	}
 	
+	private Instance createDossierBeneficiare(Instance instance,Beneficiaire beneficiaire) {
+		DataInstance dataInstance = new DataInstance();
+		List<DataValueTDO> dataValueTDOs = new ArrayList<DataValueTDO>();
+		DataValueTDO dataValueTDO = new DataValueTDO();
+		ResultatRequete resultatRequete = null;
+		Programme dossierProg = iprogramme.getOneProgrammeByCode("dossierBeneficiare");
+		if(dossierProg == null) {
+			return null;
+		}
+		
+		dataInstance.setProgramme(dossierProg.getUid());
+		dataInstance.setOrganisation(instance.getOrganisation().getUid());
+		dataInstance.setUser(instance.getUser().getUid());
+		dataInstance.setDreamsId(beneficiaire.getId_dreams());
+		dataInstance.setDateActivite(instance.getDateActivite().toString());
+		dataInstance.setOrder(1);
+		
+		// ajouter benef name
+		dataValueTDO.setElement(getElementUid("nomPrenomBenef"));
+		dataValueTDO.setNumero(1);
+		dataValueTDO.setValue(beneficiaire.getName()+" "+beneficiaire.getFirstName());
+		dataValueTDOs.add(dataValueTDO);
+		
+		// ajouter benef age
+		dataValueTDO.setElement(getElementUid("age_enrol"));
+		dataValueTDO.setNumero(1);
+		dataValueTDO.setValue(Integer.toString(beneficiaire.getAgeEnrolement()));
+		dataValueTDOs.add(dataValueTDO);
+		
+		// ajouter benef contact
+		dataValueTDO.setElement(getElementUid("contactTeleph"));
+		dataValueTDO.setNumero(1);
+		dataValueTDO.setValue(beneficiaire.getTelephone());
+		dataValueTDOs.add(dataValueTDO);
+		
+		// ajouter benef date enrolement
+		dataValueTDO.setElement(getElementUid("dat_enrol"));
+		dataValueTDO.setNumero(1);
+		dataValueTDO.setValue(beneficiaire.getDateEnrolement().toString());
+		dataValueTDOs.add(dataValueTDO);
+		
+		// ajouter benef code id_dreams
+		dataValueTDO.setElement(getElementUid("id_dreams"));
+		dataValueTDO.setNumero(1);
+		dataValueTDO.setValue(beneficiaire.getId_dreams());
+		dataValueTDOs.add(dataValueTDO);
+		
+		// ajouter benef repereHabitation
+		dataValueTDO.setElement(getElementUid("repereHabitation"));
+		dataValueTDO.setNumero(1);
+		dataValueTDO.setValue(benefElementValue(instance,"repere"));
+		dataValueTDOs.add(dataValueTDO);
+		
+		// ajouter benef porteEntree
+		dataValueTDO.setElement(getElementUid("porteEntree"));
+		dataValueTDO.setNumero(1);
+		dataValueTDO.setValue(benefElementValue(instance, "porte_entre_bene"));
+		dataValueTDOs.add(dataValueTDO);
+		
+		
+		resultatRequete = idataValues.saveDataInstance(dataInstance);
+		if(resultatRequete.getStatus().equals("ok")) {
+			return iinstance.getOneInstance(resultatRequete.getId());
+		}
+		
+		return null;
+	}
+	
+	
+	private String getElementUid(String code) {
+		Element element = ielement.getOneElmentByCode(code);
+		return element.getUid();
+	}
+	
+	private String benefElementValue(Instance instance,String code) {
+		DataValueTDO dataValueTDO = idataValues.getDataValueTDO(instance.getUid(), code);
+		if(dataValueTDO != null) {
+			return dataValueTDO.getValue();
+		}
+		
+		return null;
+	}
 }
 
 

@@ -1,9 +1,10 @@
-conf.controller('rolesUserCTRL',['$scope','$http',function ($scope,$http) {
+conf.controller('rolesUserCTRL',['$scope','$http','$rootScope',function ($scope,$http,$rootScope) {
     console.log("entrer dans rolesUserCTRL");
+    $rootScope.ongletSelect = "role";
     var urlRole = serverAdresse+"roleUser";
     var urlRoleDefine = serverAdresse+"roleDefinis";
     var definiChoisir = [];
-    
+
     var allRolesUser = [];
     var allRolesDefinis = [];
     $scope.afficheSaisieRoles = false;
@@ -12,7 +13,7 @@ conf.controller('rolesUserCTRL',['$scope','$http',function ($scope,$http) {
     $scope.rolesDefinis = [];
     $scope.rolesDefinies = [];
     $scope.role = {};
-    
+
     $scope.afficheUserRoles = true;
 
     lancerRoleUser();
@@ -144,7 +145,7 @@ conf.controller('rolesUserCTRL',['$scope','$http',function ($scope,$http) {
             sortir();
         });
     }
-    
+
     $scope.newDefini = function () {
         $scope.afficheSaisieDefinie = true;
         $scope.afficheAjoutDefine = true;

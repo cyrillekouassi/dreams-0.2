@@ -58,7 +58,7 @@ conf.config(['$stateProvider','$urlRouterProvider', function ($stateProvider,$ur
         templateUrl: 'views/imports.html',
         controller: 'importCTRL'
     };
-    
+
     $stateProvider.state(accueil);
     $stateProvider.state(org);
     $stateProvider.state(user);
@@ -72,6 +72,7 @@ conf.config(['$stateProvider','$urlRouterProvider', function ($stateProvider,$ur
 }]);
 conf.run(['$rootScope','$http', function ($rootScope,$http) {
     console.log("entrer dans run");
+    $rootScope.ongletSelect = "";
     var hre = location.href;
     serverAdresse = hre.substring(0,hre.indexOf("config/index.html"));
     console.log("entrer dans serverAdresse = ",serverAdresse);

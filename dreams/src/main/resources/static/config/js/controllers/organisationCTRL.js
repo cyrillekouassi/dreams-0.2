@@ -1,5 +1,6 @@
 conf.controller('organisationCTRL',['$scope','$http','$window','$rootScope',function ($scope,$http,$window,$rootScope) {
     console.log("entrer dans organisationCTRL");
+    $rootScope.ongletSelect = "organisation";
     $scope.affichesaisie = false;
     $scope.afficheAjout = false;
     var allOrgUnit = [];

@@ -1,5 +1,6 @@
 conf.controller('accueilCTRL', ['$scope', '$rootScope', '$stateParams', '$http', function ($scope, $rootScope, $stateParams, $http) {
     console.log("entrer dans accueilCTRL");
+    $rootScope.ongletSelect = "accueil";
     var user = $stateParams.user;
     console.log("$stateParams = ", $stateParams);
     console.log("user = " + user);
