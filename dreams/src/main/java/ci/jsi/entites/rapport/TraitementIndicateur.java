@@ -5,13 +5,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.IsoFields;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ci.jsi.entites.beneficiaire.Beneficiaire;
 import ci.jsi.entites.beneficiaire.BeneficiaireTDO;
 import ci.jsi.entites.beneficiaire.Ibeneficiaire;
 import ci.jsi.entites.dataValue.DataInstance;
@@ -340,33 +338,33 @@ public class TraitementIndicateur {
 	}
 
 	private void chargeIndicateur() {
-		// nbreBenefEnrole();
-		// nbreBenefEnroleScolaireExtraScolaire();
-		// nbreBenefEnroleScolaireActifs();
-		// nbreFilleIssusPopulation();
-		// nbreFilleReferePsychoSocial();
-		// nbreBeneficiaireCommunicationParentEnfant();
-		// nbreParentCommunicationParentEnfant();
-		// nbreFilleVAD();
-		// nbreFilleBesoinEducation();
-		// nbreFilleBeneficieSoutienAlphabetisation();
-		// nbreFilleFormePortPreservatif();
-		// nbrePreservatifDistribues();
-		// nbreFilleReferePreservatif();
-		// nbreContreReferencePreservatif();
-		//nbreFilleReferePF();
-		//nbreFilleRefereDepistage();
-		//nbreContreReferenceDepistage();
-		//nbreFilleVBGrecuServicePsychoSocialJuridique();
-		//nbreFilleVBGrefereMedicale();
-		//nbreFilleVBGbeneficieSoutienMedicale();
-		//nbreFilleMalnutrieRefere();
-		//nbreFillebeneficieProtectionSociale();
-		//nbreFille_18_19_ParticipeAVEC();
-		//nbreParentParticipeAVEC();
-		//nbreFillebeneficieSoutienRenforcementEconomique();
-		//nbreFilleActivesEtInactives();
-		//nbreInterventionsPrimaire();
+		 nbreBenefEnrole();
+		 nbreBenefEnroleScolaireExtraScolaire();
+		 //nbreBenefEnroleScolaireActifs();
+		 nbreFilleIssusPopulation();
+		 nbreFilleReferePsychoSocial();
+		 nbreBeneficiaireCommunicationParentEnfant();
+		 nbreParentCommunicationParentEnfant();
+		 nbreFilleVAD();
+		 nbreFilleBesoinEducation();
+		 nbreFilleBeneficieSoutienAlphabetisation();
+		 nbreFilleFormePortPreservatif();
+		 nbrePreservatifDistribues();
+		 nbreFilleReferePreservatif();
+		 nbreContreReferencePreservatif();
+		nbreFilleReferePF();
+		nbreFilleRefereDepistage();
+		nbreContreReferenceDepistage();
+		nbreFilleVBGrecuServicePsychoSocialJuridique();
+		nbreFilleVBGrefereMedicale();
+		nbreFilleVBGbeneficieSoutienMedicale();
+		nbreFilleMalnutrieRefere();
+		nbreFillebeneficieProtectionSociale();
+		nbreFille_18_19_ParticipeAVEC();
+		nbreParentParticipeAVEC();
+		nbreFillebeneficieSoutienRenforcementEconomique();
+		nbreFilleActivesEtInactives();
+		nbreInterventionsPrimaire();
 	}
 
 	private void nbreBenefEnrole() {

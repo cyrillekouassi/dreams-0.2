@@ -28,7 +28,7 @@ public class StorageService {
 		try {
 			Files.copy(file.getInputStream(), this.rootLocaltion2.resolve(file.getOriginalFilename()));
 		} catch (IOException e) {
-			throw new RuntimeException("FAIL!");
+			throw new RuntimeException("FAIL store file!");
 		}
 		
 	}
@@ -41,10 +41,10 @@ public class StorageService {
 			if(resource.exists() || resource.isReadable()) {
 				return resource;
 			}else {
-				throw new RuntimeException("FAIL!");
+				throw new RuntimeException("FAIL load File!");
 			}
 		} catch (MalformedURLException e) {
-			throw new RuntimeException("FAIL!");
+			throw new RuntimeException("FAIL load File!");
 		}
 	}
 	

@@ -62,6 +62,7 @@ public class RestUploadController {
 			//elementsImportes.lireCSV(file.getOriginalFilename());
 			return elementsImportes.lireCSV(file.getOriginalFilename());
 		} catch(Exception e) {
+			storageService.deleteAll();
 			throw new Exception("Echec de lecture du fichier");
 		}
 		
@@ -81,6 +82,7 @@ public class RestUploadController {
 			return dataValuesImport.lireCSV(file.getOriginalFilename());
 			//return dataValuesImport.lireCSV(file);
 		} catch(Exception e) {
+			storageService.deleteAll();
 			throw new Exception("Echec de lecture du fichier");
 		}
 		
