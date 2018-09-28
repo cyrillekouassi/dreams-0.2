@@ -155,11 +155,12 @@ public class ElementsImportes {
 			}
 				
 		}else {
-			//System.err.println("element = "+lesElements.get(0)[0]+" existe dans la base");
-			resultatRequete.getRaisonNonImport().add("Element exite dans la base, element:"+lesElements.get(0)[0]);
-
+			
 			if (elementName == elementCode) {
 				addProgramme(elementName);
+			}else {
+				resultatRequete.setIgnore(resultatRequete.getIgnore() + 1);
+				resultatRequete.getRaisonNonImport().add("Element exite dans la base, element:"+lesElements.get(0)[0]);
 			}
 			
 			

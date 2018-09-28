@@ -340,7 +340,7 @@ public class TraitementIndicateur {
 	private void chargeIndicateur() {
 		 nbreBenefEnrole();
 		 nbreBenefEnroleScolaireExtraScolaire();
-		 //nbreBenefEnroleScolaireActifs();
+		 nbreBenefEnroleScolaireExtraScolaireActifs();
 		 nbreFilleIssusPopulation();
 		 nbreFilleReferePsychoSocial();
 		 nbreBeneficiaireCommunicationParentEnfant();
@@ -422,7 +422,7 @@ public class TraitementIndicateur {
 
 	private void nbreBenefEnroleScolaireExtraScolaire() {
 		List<String> organisation = new ArrayList<String>();
-		List<BeneficiaireTDO> beneficiaireTDOs = new ArrayList<BeneficiaireTDO>();
+		//List<BeneficiaireTDO> beneficiaireTDOs = new ArrayList<BeneficiaireTDO>();
 
 		organisation.add(this.organisationSelect.getId());
 		Element element = ielement.getOneElmentByCode("porteEntree");
@@ -435,15 +435,15 @@ public class TraitementIndicateur {
 		ancien_10_14 = 0;
 		ancien_15_19 = 0;
 
-		int nouveauExtra = 0;
+		/*int nouveauExtra = 0;
 		int ancienExtra = 0;
-		int totalExtra = 0;
+		int totalExtra = 0;*/
 		int nouveau_10_14Extra = 0;
 		int nouveau_15_19Extra = 0;
 		int ancien_10_14Extra = 0;
 		int ancien_15_19Extra = 0;
 
-		beneficiaireTDOs = ibeneficiaire.getBeneficiairePeriode(organisation, dateDebuts, dateFins);
+		//beneficiaireTDOs = ibeneficiaire.getBeneficiairePeriode(organisation, dateDebuts, dateFins);
 
 		// nbreBenefEnrole NOUVEAU
 		dataInstances = idataValues.dataAnalysePeriode(organisation, dossierBeneficiare.getId(), dateDebuts, dateFins);
@@ -780,7 +780,7 @@ public class TraitementIndicateur {
 
 	private void nbreFilleReferePsychoSocial() {
 		List<String> organisation = new ArrayList<String>();
-		List<Option> options = new ArrayList<Option>();
+		//List<Option> options = new ArrayList<Option>();
 		total = 0;
 		nouveau_10_14 = 0;
 		nouveau_15_19 = 0;
@@ -848,7 +848,7 @@ public class TraitementIndicateur {
 
 	private void nbreBeneficiaireCommunicationParentEnfant() {
 		List<String> organisation = new ArrayList<String>();
-		List<Option> options = new ArrayList<Option>();
+		//List<Option> options = new ArrayList<Option>();
 		total = 0;
 		nouveau_10_14 = 0;
 		nouveau_15_19 = 0;
@@ -1291,7 +1291,7 @@ public class TraitementIndicateur {
 
 	private void nbrePreservatifDistribues() {
 		List<String> organisation = new ArrayList<String>();
-		List<BeneficiaireTDO> beneficiaireTDOs = new ArrayList<BeneficiaireTDO>();
+		//List<BeneficiaireTDO> beneficiaireTDOs = new ArrayList<BeneficiaireTDO>();
 		total = 0;
 		nouveau_10_14 = 0;
 		nouveau_15_19 = 0;
@@ -1299,7 +1299,7 @@ public class TraitementIndicateur {
 		ancien_15_19 = 0;
 
 		organisation.add(this.organisationSelect.getId());
-		Element idDreamsElement = ielement.getOneElmentByCode("id_dreams");
+		//Element idDreamsElement = ielement.getOneElmentByCode("id_dreams");
 		Element materielQuantite = ielement.getOneElmentByCode("materielQuantite");
 		Element trancheAge = ielement.getOneElmentByCode("trancheAge");
 
@@ -1340,7 +1340,7 @@ public class TraitementIndicateur {
 		// }
 		// BenefEnrole Ancien
 		dataInstances = idataValues.dataAnalysePreview(organisation, groupe.getId(), dateDebuts);
-		beneficiaireTDOs = ibeneficiaire.getBeneficiairePreview(organisation, dateDebuts);
+		//beneficiaireTDOs = ibeneficiaire.getBeneficiairePreview(organisation, dateDebuts);
 		for (int i = 0; i < dataInstances.size(); i++) {
 			for (int b = 0; b < dataInstances.get(i).getDataValue().size(); b++) {
 				if (dataInstances.get(i).getDataValue().get(b).getElement().equals(materielQuantite.getUid())) {
@@ -1470,7 +1470,7 @@ public class TraitementIndicateur {
 
 	private void nbreContreReferencePreservatif() {
 		List<String> organisation = new ArrayList<String>();
-		List<BeneficiaireTDO> beneficiaireTDOs = new ArrayList<BeneficiaireTDO>();
+		//List<BeneficiaireTDO> beneficiaireTDOs = new ArrayList<BeneficiaireTDO>();
 		total = 0;
 		nouveau_10_14 = 0;
 		nouveau_15_19 = 0;
@@ -1739,7 +1739,7 @@ public class TraitementIndicateur {
 
 	private void nbreContreReferenceDepistage() {
 		List<String> organisation = new ArrayList<String>();
-		List<BeneficiaireTDO> beneficiaireTDOs = new ArrayList<BeneficiaireTDO>();
+		//List<BeneficiaireTDO> beneficiaireTDOs = new ArrayList<BeneficiaireTDO>();
 		total = 0;
 		nouveau_10_14 = 0;
 		nouveau_15_19 = 0;
@@ -2363,7 +2363,7 @@ public class TraitementIndicateur {
 
 	private void nbreParentParticipeAVEC() {
 		List<String> organisation = new ArrayList<String>();
-		List<BeneficiaireTDO> beneficiaireTDOs = new ArrayList<BeneficiaireTDO>();
+		//List<BeneficiaireTDO> beneficiaireTDOs = new ArrayList<BeneficiaireTDO>();
 		total = 0;
 		nouveau_10_14 = 0;
 		nouveau_15_19 = 0;
@@ -2890,8 +2890,8 @@ public class TraitementIndicateur {
 	
 	private void enregistreProportion(String ProportionElement, String element,String elementTotal) {
 		RapportTDO rapportTDO = new RapportTDO();
-		RapportTDO rapportTDOelement = new RapportTDO();
-		RapportTDO rapportTDOelementTotal = new RapportTDO();
+		//RapportTDO rapportTDOelement = new RapportTDO();
+		//RapportTDO rapportTDOelementTotal = new RapportTDO();
 		String combinaison = null;
 		rapportTDO.setOrganisation(this.organisationSelect.getId());
 		rapportTDO.setPeriode(laPeriode);
@@ -2944,31 +2944,56 @@ public class TraitementIndicateur {
 		// element - Nouveau, 10-14 ans
 		combinaison = ProportionElement + ".nouveau_10_14";
 		rapportTDO.setElement(combinaison);
-		rapportTDO.setValeurs(nouveau_10_14);
+		//rapportTDO.setValeurs(nouveau_10_14);
+		if (Double.isNaN(nouveau_10_14)) {
+			rapportTDO.setValeurs(0);
+		}else {
+			rapportTDO.setValeurs(nouveau_10_14);
+		}
 		irapport.saveRapportTDO(rapportTDO);
 
 		// element - Nouveau, 15-19 ans
 		combinaison = ProportionElement + ".nouveau_15_19";
 		rapportTDO.setElement(combinaison);
-		rapportTDO.setValeurs(nouveau_15_19);
+		//rapportTDO.setValeurs(nouveau_15_19);
+		if (Double.isNaN(nouveau_15_19)) {
+			rapportTDO.setValeurs(0);
+		}else {
+			rapportTDO.setValeurs(nouveau_15_19);
+		}
 		irapport.saveRapportTDO(rapportTDO);
 
 		// element - Ancien, 10-14 ans
 		combinaison = ProportionElement + ".ancien_10_14";
 		rapportTDO.setElement(combinaison);
-		rapportTDO.setValeurs(ancien_10_14);
+		//rapportTDO.setValeurs(ancien_10_14);
+		if (Double.isNaN(ancien_10_14)) {
+			rapportTDO.setValeurs(0);
+		}else {
+			rapportTDO.setValeurs(ancien_10_14);
+		}
 		irapport.saveRapportTDO(rapportTDO);
 
 		// element - Ancien, 15-19 ans
 		combinaison = ProportionElement + ".ancien_15_19";
 		rapportTDO.setElement(combinaison);
-		rapportTDO.setValeurs(ancien_15_19);
+		//rapportTDO.setValeurs(ancien_15_19);
+		if (Double.isNaN(ancien_15_19)) {
+			rapportTDO.setValeurs(0);
+		}else {
+			rapportTDO.setValeurs(ancien_15_19);
+		}
 		irapport.saveRapportTDO(rapportTDO);
 
 		// element (total)
 		combinaison = ProportionElement;
 		rapportTDO.setElement(combinaison);
-		rapportTDO.setValeurs(total);
+		//rapportTDO.setValeurs(total);
+		if (Double.isNaN(total)) {
+			rapportTDO.setValeurs(0);
+		}else {
+			rapportTDO.setValeurs(total);
+		}
 		irapport.saveRapportTDO(rapportTDO);
 
 	}

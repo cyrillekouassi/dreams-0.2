@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -92,7 +94,7 @@ public class DataValuesImport {
 		servicesDreams.genererService();
 		progId = getProgramme();
 		if(progId == null) {
-			resultatRequete.setStatus("Progrmme Enrolement inexistant");
+			resultatRequete.setStatus("Programme Enrolement inexistant");
 			resultatRequete.setIgnore(myEntries.size());
 			return resultatRequete;
 		}
@@ -145,7 +147,7 @@ public class DataValuesImport {
 		
 		for (int i = 0; i < ligne.length; i++) {
 			
-			if (ligne[i].equals("codeSafespace")) {
+			if (ligne[i].equals("safespace")) {
 				codeSafespace = i;
 			}
 			if (ligne[i].equals("userid")) {
@@ -484,8 +486,9 @@ public class DataValuesImport {
 			resultatRequete.setImporte(resultatRequete.getImporte() + 1);
 			Instance serviceInstance = servicesDreams.evaluerService(instance,data[dat_enrol]);
 			serviceBeneficiaire(serviceInstance,beneficiaire);
-			Instance dossierInstance = createDossierBeneficiare(instance,beneficiaire);
-			serviceBeneficiaire(dossierInstance,beneficiaire);
+			createDossierBeneficiare(instance,beneficiaire);
+			//Instance dossierInstance = createDossierBeneficiare(instance,beneficiaire);
+			//serviceBeneficiaire(dossierInstance,beneficiaire);
 		}
 	}
 	
@@ -512,9 +515,14 @@ public class DataValuesImport {
 		
 		dataInstance.setProgramme(dossierProg.getUid());
 		dataInstance.setOrganisation(instance.getOrganisation().getUid());
-		dataInstance.setUser(instance.getUser().getUid());
+		if(instance.getUser() != null) {
+			dataInstance.setUser(instance.getUser().getUid());
+		}
 		dataInstance.setDreamsId(beneficiaire.getId_dreams());
-		dataInstance.setDateActivite(instance.getDateActivite().toString());
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateActivite = formatter.format(instance.getDateActivite());
+		//dataInstance.setDateActivite(instance.getDateActivite().toString());
+        dataInstance.setDateActivite(dateActivite);
 		dataInstance.setOrder(1);
 		
 		// ajouter benef name
@@ -559,7 +567,7 @@ public class DataValuesImport {
 		dataValueTDO.setValue(benefElementValue(instance, "porte_entre_bene"));
 		dataValueTDOs.add(dataValueTDO);
 		
-		
+		dataInstance.setDataValue(dataValueTDOs);
 		resultatRequete = idataValues.saveDataInstance(dataInstance);
 		if(resultatRequete.getStatus().equals("ok")) {
 			return iinstance.getOneInstance(resultatRequete.getId());

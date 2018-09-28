@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class StorageService {
 
 	Logger log = LoggerFactory.getLogger(this.getClass().getName());
-	private final Path p1 = Paths.get(File.pathSeparator+"/tmp/foo"); 
+	//private final Path p1 = Paths.get(File.pathSeparator+"/tmp/foo"); 
 	//private final Path rootLocaltion = Paths.get("upload-dir");
 	private final Path rootLocaltion2 = Paths.get(File.separator+"DREAMS"+File.separator+"upload-dir");
 	
@@ -49,7 +49,10 @@ public class StorageService {
 	}
 	
 	public void deleteAll() {
-		FileSystemUtils.deleteRecursively(rootLocaltion2.toFile());
+		//FileSystemUtils.deleteRecursively(rootLocaltion2.toFile());
+		if(!FileSystemUtils.deleteRecursively(rootLocaltion2.toFile())) {
+			System.err.println("Problem occurs when deleting the directory : " + rootLocaltion2.toFile());
+		}
 	}
 	
 	public void init() {

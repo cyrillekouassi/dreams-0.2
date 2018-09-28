@@ -80,15 +80,17 @@ public class DataValueService implements IdataValues {
 	}
 
 	@Override
-	public DataValueTDO getDataValueTDO(String instance, String element) {
+	public DataValueTDO getDataValueTDO(String instance, String elementCode) {
 		System.out.println("Entrer dans DataValueService - getDataValue");
 		//DataValueTDO dataValueTDO = new DataValueTDO();
+		List<DataValue> dataValues = new ArrayList<DataValue>();
 		DataValueTDO dataValueTDO = null;
-		DataValue dataValue = new DataValue();
+		//DataValue dataValue = new DataValue();
 		
-		dataValue = dataValueConvert.getDataValueSepare(instance, element);
-		if (dataValue != null) {
-			dataValueTDO = dataValueConvert.getDataValueTDO(dataValue);
+		//dataValue = dataValueConvert.getDataValueSepare(instance, element);
+		dataValues = dataValueRepository.findByInstanceUidAndElementCode(instance, elementCode);
+		if(dataValues.size() == 1) {
+			dataValueTDO = dataValueConvert.getDataValueTDO(dataValues.get(0));
 		}
 		return dataValueTDO;
 	}

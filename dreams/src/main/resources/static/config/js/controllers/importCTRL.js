@@ -39,7 +39,7 @@ conf.controller('importCTRL',['$scope','$http','$rootScope',function ($scope,$ht
             $scope.chargeElement = false;
             $scope.uploadedFileMeta = null;
         }, function (error) {
-            $scope.uploadResult=error.data;
+            $scope.uploadResult=error.xhrStatus;
             $scope.FileMeta = null;
             $scope.chargeElement = false;
             $scope.uploadedFileMeta = null;
@@ -75,7 +75,7 @@ conf.controller('importCTRL',['$scope','$http','$rootScope',function ($scope,$ht
 
     function enrolement(){
       $scope.chargeData = true;
-      $http.post(EnrolDatafileUrl, data, config).then(function (response) {
+      $http.post(EnrolementDatafileUrl, data, config).then(function (response) {
           console.log("doUploadDataFile() > response = ",response);
           $scope.uploadResult=response.data;
           $scope.chargeData = false;
@@ -83,7 +83,7 @@ conf.controller('importCTRL',['$scope','$http','$rootScope',function ($scope,$ht
           $scope.uploadedFileData = null;
       }, function (error) {
           console.log("doUploadDataFile() > error = ",error);
-          $scope.uploadResult=error.data;
+          $scope.uploadResult=error.xhrStatus;
           $scope.chargeData = false;
           $scope.FileData = null;
           $scope.uploadedFileData = null;
@@ -100,7 +100,7 @@ conf.controller('importCTRL',['$scope','$http','$rootScope',function ($scope,$ht
           $scope.uploadedFileData = null;
       }, function (error) {
           console.log("doUploadDataFile() > error = ",error);
-          $scope.uploadResult=error.data;
+          $scope.uploadResult=error.xhrStatus;
           $scope.chargeData = false;
           $scope.FileData = null;
           $scope.uploadedFileData = null;

@@ -19,6 +19,8 @@ public interface DataValueRepository extends JpaRepository<DataValue, Long> {
 	@Query("select dv from DataValue dv where dv.instance=:instance")
 	public List<DataValue> getDataValueOneInstance(@Param("instance")Instance instance);
 	
+	public List<DataValue> findByInstanceUidAndElementCode(String instance,String elementCode);
+	
 	public List<DataValue> findByInstanceUid(String instanceUid);
 	
 	public DataValue findByInstanceUidAndElementUidAndNumero(String instanceUid, String elementUid,int numero);
