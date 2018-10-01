@@ -8,7 +8,7 @@
 <div class="container-fluid">
     <div class="card card-cascade narrower">
         <div class="view py-3 gradient-card-header default-color-dark mx-4 text-center">
-            <a href="" class="white-text text-center mx-3">DOSSIERS DES BENEFICIAIRE</a>
+            <a href="" class="white-text text-center mx-3">DOSSIERS DES BENEFICIAIRES</a>
         </div>
         <div>
             <div class="card-body">
@@ -36,7 +36,7 @@
                             <td>{{act.update}}</td>
                             <td>{{act.id_dreams}}</td>
                             <td>{{act.nomPrenomBenef}}</td>
-                            <td>{{act.age}}</td>
+                            <td>{{act.age_enrol}}</td>
                             <td><a ui-sref='dossier({ prog: programmeSelect.id, org: orgUnitSelect.id, inst: act.instance })'><i class="fa fa-pencil indigo-text" aria-hidden="true">edit</i></a> <span
                                     style="margin-left: 5px;"> </span> <a ng-click="deleteInstance(act.instance)"><i class="fa fa-remove red-text" aria-hidden="true">delete</i></a>
                             </td>
@@ -105,4 +105,3 @@
 </div>
 </body>
 </html>
-

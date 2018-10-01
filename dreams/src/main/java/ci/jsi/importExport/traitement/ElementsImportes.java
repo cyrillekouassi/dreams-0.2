@@ -147,11 +147,11 @@ public class ElementsImportes {
 					resultatRequete.setImporte(resultatRequete.getImporte() + 1);
 				}else{
 					resultatRequete.setIgnore(resultatRequete.getIgnore() + 1);
-					resultatRequete.getRaisonNonImport().add("Enembleoption exite dans la base, ensembleName:"+ lesElements.get(0)[6]);
+					resultatRequete.getRaisonNonImport().add("Enembleoption exite dans la base, ensembleName: "+ lesElements.get(0)[6]);
 				}
 			}else{
 				resultatRequete.setIgnore(resultatRequete.getIgnore() + 1);
-				resultatRequete.getRaisonNonImport().add("Enembleoption en double dans le fichier, ensembleName:"+ lesElements.get(0)[6]);
+				resultatRequete.getRaisonNonImport().add("Enembleoption en double dans le fichier, ensembleName: "+ lesElements.get(0)[6]);
 			}
 				
 		}else {
@@ -160,7 +160,7 @@ public class ElementsImportes {
 				addProgramme(elementName);
 			}else {
 				resultatRequete.setIgnore(resultatRequete.getIgnore() + 1);
-				resultatRequete.getRaisonNonImport().add("Element exite dans la base, element:"+lesElements.get(0)[0]);
+				resultatRequete.getRaisonNonImport().add("Element exite dans la base, element: "+lesElements.get(0)[0]);
 			}
 			
 			
@@ -188,6 +188,9 @@ public class ElementsImportes {
 					programme.getProgrammeElements().add(programmeElement);
 					programme = iprogramme.updateOneProgramme(programme);
 					resultatRequete.setUpdate(resultatRequete.getUpdate() + 1);
+				}else {
+					resultatRequete.setIgnore(resultatRequete.getIgnore() + 1);
+					resultatRequete.getRaisonNonImport().add("Element exite dans la base, element: "+element.getName());
 				}
 				
 			}

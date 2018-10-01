@@ -10,8 +10,8 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
     dataInstance = angular.copy(dataInstanceEntete);
     $scope.enrolA = {};
     $rootScope.enrolementData = [];
-    var centreSocial = getInfoOrganisation($rootScope.orgUnitSelect.parent.id);
-    var plateForme = getInfoOrganisation(centreSocial.parent.id);
+    var centreSocial = {};
+    var plateForme = {};
     var beneficiaire = {};
     var enrolSectionA = ["district","plateform_cod","centre_social","ong","codeSafespace","nom_enqueteur","num_fiche",
         "nom","pren","dat_nais","dat_enrol","age_enrol","porte_entre_bene","autre_porte_entre_bene","statut_mat_bene",
@@ -25,6 +25,8 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
         console.log("entrer dans initial, $rootScope.orgUnitSelect", $rootScope.orgUnitSelect);
 
         //$scope.enrolA.district = "";
+        centreSocial = getInfoOrganisation($rootScope.orgUnitSelect.parent.id);
+        plateForme = getInfoOrganisation(centreSocial.parent.id);
         $scope.enrolA.plateform_cod = plateForme.name;
         $scope.enrolA.centre_social = centreSocial.name;
         $scope.enrolA.ong = $rootScope.orgUnitSelect.organisationLocal;
@@ -41,6 +43,8 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
                 if($rootScope.allData[i].instance == dataInstanceEntete.instance){
                     $rootScope.enrolementData = $rootScope.allData[i].dataValue;
                     mappigData();
+                    initial();
+                    gestionDate();
                 }
             }
         }
@@ -209,6 +213,18 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
             console.log("saveBenef() > error = ",error);
             toastr["success"]("Impossible de créer ce bénéficiaire");
         });
+    }
+
+
+    function gestionDate(){
+      if($scope.enrolA.dat_nais != null){
+        console.log("$scope.enrolA.dat_nais existe")
+        
+      }
+
+      if($scope.enrolA.dat_enrol != null){
+        console.log("$scope.enrolA.dat_enrol existe")
+      }
     }
 
 }]);

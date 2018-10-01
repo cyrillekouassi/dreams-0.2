@@ -20,7 +20,7 @@
        <div class="form-check">
         <input value="OUI" ng-model="enrolC._01_scolarise" ng-change="changescolarise('oui')" name="radio16" type="radio" class="with-gap" id="radio167" >
         <label for="radio167">Oui</label>
-      </div>  
+      </div>
       <div class="form-check">
         <input value="NON" ng-model="enrolC._01_scolarise" ng-change="changescolarise('non')" name="radio16" type="radio" class="with-gap" id="radio168" >
         <label for="radio168">Non</label>
@@ -34,7 +34,7 @@
       <div class="form-check">
         <input value="JAM_SCO" ng-model="enrolC._02_niv_scolaire" ng-change="changeniveau('jamais')" name="radio17" type="radio" class="with-gap" id="radio169" >
         <label for="radio169">Jamais scolarisé</label>
-      </div> 
+      </div>
   </td>
   </tr>
   <tr>
@@ -42,11 +42,11 @@
       <div class="form-check">
         <input value="PRIM" ng-model="enrolC._02_niv_scolaire" ng-change="changeniveau('primaire')" name="radio17" type="radio" class="with-gap" id="radio170" >
         <label for="radio170">Niveau primaire</label>
-      </div> 
+      </div>
     </td>
     <td width="24%"><p><em>Classe
   <select class="mdb-select" ng-model="enrolC._02_a_classe" >
-  <option value="CP1">CP1</option> 
+  <option value="CP1">CP1</option>
   <option value="CP2">CP2</option>
   <option value="CE1">CE1</option>
   <option value="CE2">CE2</option>
@@ -63,7 +63,7 @@
       </div> </td>
     <td width="24%"><p><em>Classe
       <select class="mdb-select" ng-model="enrolC._02_a_classe" >
-  <option value="6e">6ème</option> 
+  <option value="6e">6ème</option>
   <option value="5e">5ème</option>
   <option value="4e">4ème</option>
   <option value="3e">3ème</option>
@@ -157,7 +157,7 @@
 " ng-change="changedernecole('moin6')" name="radio19" type="radio" class="with-gap" id="radio183" >
         <label for="radio183">Moins de 6 mois</label>
       </div>
-    
+
      <div class="form-check">
         <input value="6_11MOIS" ng-model="enrolC._04_pas_sco_actuel
 " ng-change="changedernecole('entre6_11')" name="radio19" type="radio" class="with-gap" id="radio184" >
@@ -185,7 +185,7 @@
 " ng-change="changeraison('non')" name="radio20" type="radio" class="with-gap" id="radio187" >
         <label for="radio187">Manque de frais scolaire</label>
       </div>
-	  
+
     <div class="form-check">
         <input value="GROSS" ng-model="enrolC._05_raison_non_sco
 " ng-change="changeraison('grossesse')" name="radio20" type="radio" class="with-gap" id="radio188" >
@@ -217,8 +217,8 @@
         <label for="radio193">Autre (Préciser)</label>
         <input ng-model="enrolC._05_a_autre_raison_non_sco
 " type="text" name="textfield30" id="textfield30">
-      </div> 
-      </td> 
+      </div>
+      </td>
   </tr>
   <tr>
     <td width="6%"><p><em>C06</em></p></td>
@@ -246,7 +246,7 @@
         <label for="radio187">Autre (Préciser)</label>
         <input ng-model="enrolC._06_a_autre_second_chance
 " type="text" name="textfield31" id="textfield31">
-      </div>  
+      </div>
    </td>
   </tr>
   <tr>
@@ -284,7 +284,7 @@
         <label for="radio203">Autre (Préciser)</label>
         <input value="AUT" ng-model="enrolC._07_a_autre_source_revenu
 " type="text" name="textfield" id="textfield">
-      </div>  
+      </div>
   </td>
   </tr>
   <tr>
@@ -295,7 +295,7 @@
         <input value="OUI" ng-model="enrolC._08_economie
 " ng-change="changeeconomi('oui')" name="radio23" type="radio" class="with-gap" id="radio204" >
         <label for="radio204">Oui</label>
-      </div>  
+      </div>
       <div class="form-check">
         <input value="NON" ng-model="enrolC._08_economie
 " ng-change="changeeconomi('non')" name="radio23" type="radio" class="with-gap" id="radio205" >
@@ -328,16 +328,17 @@
         <label for="radio209">Autre (Préciser)</label>
         <input ng-model="enrolC._09_a_autre_gard_economie
 " type="text" name="textfield" id="textfield">
-      </div> 
+      </div>
       </td>
-      
+
   </tr>
   <td height="29" colspan="4" valign="top" bgcolor="#FFFFFF"><p>&nbsp;</p>
     <div class="text-center py-4 mt-3">
        <button class="btn btn-cyan" type="submit" ng-click="previewPage()">Précédant</button>
         <button class="btn btn-cyan" type="submit" ng-click="savePage()">Suivant</button>
+        <a class="btn btn-blue-grey" ui-sref="enrol_List({org: orgUnitSelect.id})" >Annuler</a>
     </div>
-    
+
     </td>
 </table>
 </body>

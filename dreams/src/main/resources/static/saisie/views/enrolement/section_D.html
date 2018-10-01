@@ -22,7 +22,7 @@
         <input value="OUI" ng-model="enrolD._01_test_vih
 " ng-change="changetestvih('oui')" name="radio25" type="radio" class="with-gap" id="radio210" >
         <label for="radio210">Oui</label>
-      </div>  
+      </div>
       <div class="form-check">
         <input value="NON" ng-model="enrolD._01_test_vih
 " ng-change="changetestvih('non')" name="radio25" type="radio" class="with-gap" id="radio211" >
@@ -36,7 +36,7 @@
        <div class="form-check">
         <input value="Moin3MOIS" ng-model="enrolD._02_dernier_test" ng-change="changederntestvih('moin3')" name="radio26" type="radio" class="with-gap" id="radio212" >
         <label for="radio212">Moins de 3 mois</label>
-      </div>  
+      </div>
       <div class="form-check">
         <input value="Plus3MOIS" ng-model="enrolD._02_dernier_test" ng-change="changederntestvih('plus3')" name="radio26" type="radio" class="with-gap" id="radio213" >
         <label for="radio213">Plus de 3 mois</label>
@@ -50,47 +50,47 @@
 		<input value="PaCONAISSANCE" ng-model="testvih.PaCONAISSANCE" ng-change="changejamtestvih('aucune')" type="checkbox" class="filled-in form-check-input" id="checkbox107" >
 		<label class="form-check-label" for="checkbox107">Je n'ai aucune connaissance sur le test VIH</label>
 		</div>
-		
+
       <div class="form-check">
 		<input value="OuTROUVER" ng-model="testvih.OuTROUVER" ng-change="changejamtestvih('jesaispas')" type="checkbox" class="filled-in form-check-input" id="checkbox108" >
 		<label class="form-check-label" for="checkbox108">Je ne sais pas où en trouver un</label>
 		</div>
- 
+
      <div class="form-check">
 		<input value="PaARGENT" ng-model="testvih.PaARGENT" ng-change="changejamtestvih('nepeuxpas')" type="checkbox" class="filled-in form-check-input" id="checkbox109" >
 		<label class="form-check-label" for="checkbox109">Je ne peux pas me le permettre financièrement</label>
 		</div>
-      
+
       <div class="form-check">
 		<input value="PaTRANSPORT" ng-model="testvih.PaTRANSPORT" ng-change="changejamtestvih('pasmoyen')" type="checkbox" class="filled-in form-check-input" id="checkbox110" >
 		<label class="form-check-label" for="checkbox110">Pas de moyens pour payer le transport</label>
 		</div>
-     
+
      <div class="form-check">
 		<input value="SiteELOIGNE" ng-model="testvih.SiteELOIGNE" ng-change="changejamtestvih('troploin')" type="checkbox" class="filled-in form-check-input" id="checkbox111" >
 		<label class="form-check-label" for="checkbox111">Le site pour le dépistage est trop loin</label>
 		</div>
-      
+
       <div class="form-check">
 		<input value="PEUR" ng-model="testvih.PEUR" ng-change="changejamtestvih('peurresult')" type="checkbox" class="filled-in form-check-input" id="checkbox112" >
 		<label class="form-check-label" for="checkbox112">J'ai peur que les autres connaissent les résultats de mes tests</label>
 		</div>
-      
+
       <div class="form-check">
 		<input value="PaBESOIN" ng-model="testvih.PaBESOIN" ng-change="changejamtestvih('pasbesoin')" type="checkbox" class="filled-in form-check-input" id="checkbox113" >
 		<label class="form-check-label" for="checkbox113">Je n'ai pas besoin de faire le test / Risque faible</label>
 		</div>
-     
+
     <div class="form-check">
 		<input value="PeurSavoirVIH" ng-model="testvih.PeurSavoirVIH" ng-change="changejamtestvih('peur')" type="checkbox" class="filled-in form-check-input" id="checkbox114" >
 		<label class="form-check-label" for="checkbox114">J’ai peur de savoir si j’ai le VIH</label>
 		</div>
-    
+
      <div class="form-check">
 		<input value="OCUPE" ng-model="testvih.OCUPE" ng-change="changejamtestvih('tropoccup')" type="checkbox" class="filled-in form-check-input" id="checkbox115" >
 		<label class="form-check-label" for="checkbox115">Je suis trop occupée</label>
 		</div>
-    
+
      <div class="form-check">
 		<input value="AUT" ng-model="testvih.AUT" ng-change="changejamtestvih('autre')" type="checkbox" class="filled-in form-check-input" id="checkbox116" >
 		<label class="form-check-label" for="checkbox116">Autre (a préciser)</label>
@@ -105,7 +105,7 @@
        <div class="form-check">
         <input value="OUI" ng-model="enrolD._04_lieu_test_vih" ng-change="changeendroitvih('oui')" name="radio27" type="radio" class="with-gap" id="radio214" >
         <label for="radio214">Oui</label>
-      </div>  
+      </div>
       <div class="form-check">
         <input value="NON" ng-model="enrolD._04_lieu_test_vih" ng-change="changeendroitvih('non')" name="radio27" type="radio" class="with-gap" id="radio215" >
         <label for="radio215">Non</label>
@@ -115,6 +115,7 @@
       <div class="text-center py-4 mt-3">
       <button class="btn btn-cyan" type="submit" ng-click="previewPage()">Précédant</button>
         <button class="btn btn-cyan" type="submit" ng-click="savePage()">Suivant</button>
+        <a class="btn btn-blue-grey" ui-sref="enrol_List({org: orgUnitSelect.id})" >Annuler</a>
   </div>
 </table>
 </body>

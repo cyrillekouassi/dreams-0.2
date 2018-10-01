@@ -55,7 +55,7 @@
                                 </div>
 
                                 <div class="mt-3">
-                                    <input type="text" id="villageCommune" ng-model='dossier.villageCommune' readonly
+                                    <input type="text" id="villageCommune" ng-model='dossier.commune' readonly
                                            class="form-control mb-0">
                                     <label for="villageCommune" class="font-weight-light mt-0">VILLAGE/Commune </label>
                                 </div>
@@ -80,7 +80,7 @@
                                     Bénéficiaire </label>
                             </div>
                             <div class="mt-3">
-                                <input type="text" id="age" ng-model='dossier.age'
+                                <input type="text" id="age" ng-model='dossier.age_enrol'
                                        class="form-control mb-0">
                                 <label for="age" class="font-weight-light mt-0">AGE </label>
                             </div>
@@ -102,13 +102,13 @@
                                     PARENT/TUTEUR </label>
                             </div>
                             <div class="mt-3 dates">
-                                <input type="text" id="dateEnrolement" ng-model='dossier.dateEnrolement' readonly
+                                <input type="text" id="dateEnrolement" ng-model='dossier.dat_enrol' readonly
                                        class="form-control mb-0">
                                 <label for="dateEnrolement" class="font-weight-light mt-0">DATE D’ENROLEMENT</label>
                             </div>
                             <div class="mt-3">
                                 <input type="text" id="id_dreams" ng-model='dossier.id_dreams' ng-keyup="searchId(dossier.id_dreams)"
-                                       class="form-control mb-0">
+                                       class="form-control mb-0" readonly>
                                 <div class="list-group position-absolute mt-0" id="list-tab" role="tablist">
                                     <a ng-repeat="value in valueComplete track by $index" ng-click="codeSelected(value)" class="list-group-item list-group-item-action text-left bgSearch" data-toggle="list" role="tab">{{value}}</a>
                                 </div>

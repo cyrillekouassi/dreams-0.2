@@ -60,7 +60,7 @@
         <input value="10_18" ng-model="enrolB._02_age_chef" ng-change="changeagemenage('b2tranch1')" name="radio8" type="radio" class="with-gap" id="radio132" >
       <label for="radio132">&lt; 18&nbsp; </label>
   </div>
-    
+
          <div class="form-check">
         <input value="18_30" ng-model="enrolB._02_age_chef" ng-change="changeagemenage('b2tranch2')" name="radi8o" type="radio" class="with-gap" id="radio133" >
       <label for="radio133">18-30&nbsp; </label>
@@ -91,7 +91,7 @@
         <input value="NON" ng-model="enrolB._03_pere_vie" ng-change="changeperevivant('non')" name="radio9" type="radio" class="with-gap" id="radio138" >
 	    <label for="radio138">Non</label>
       </div>
-	
+
       <div class="form-check">
         <input value="NeSP" ng-model="enrolB._03_pere_vie" ng-change="changeperevivant('nesaitpas')" name="radio9" type="radio" class="with-gap" id="radio139" >
 		  <label for="radio139">Ne sait pas</label>
@@ -186,7 +186,7 @@
       <input value="MARIGOT" ng-model="enrolB._07_source_eau" ng-change="changesoureau('marigot')" name="radio13" type="radio" class="with-gap" id="radio155" >
       <label for="radio155">Marigot/Source</label>
     </div>
-     <div class="form-check"> 
+     <div class="form-check">
       <input value="AUT" ng-model="enrolB._07_source_eau" ng-change="changesoureau('autre')" name="radio13" type="radio" class="with-gap" id="radio156" >
       <label for="radio156">Autre(s) Préciser </label>
       <input ng-model="enrolB._07_a_autre_source_eau" type="text" name="textfield23" id="textfield23">
@@ -256,7 +256,7 @@
   <tr>
     <td width="8%"><p><em>B11</em></p></td>
     <td width="51%"><p><em>Avez-vous un quelconque handicap?</em></p></td>
-    <td width="40%" valign="top">    
+    <td width="40%" valign="top">
 	  <div class="form-check">
 		<input value="PaHAND" ng-model="handicap.PaHAND" ng-change="changehandicap('pas')" type="checkbox" class="filled-in form-check-input" id="checkbox100" >
 		<label class="form-check-label" for="checkbox100">Pas d'handicap</label>
@@ -343,8 +343,9 @@
     <div class="text-center py-4 mt-3">
        <button class="btn btn-cyan" type="submit" ng-click="previewPage()">Précédant</button>
         <button class="btn btn-cyan" type="submit" ng-click="savePage()">Suivant</button>
+        <a class="btn btn-blue-grey" ui-sref="enrol_List({org: orgUnitSelect.id})" >Annuler</a>
     </div>
-    
+
     </td>
 </table>
 </body>

@@ -136,10 +136,8 @@ public class DreamsApplication implements CommandLineRunner {
 		user.setRoleUsers(rol);
 		user = userRepository.save(user);
 		
-		
-		
-		
-		traitementIndicateur.genereRapport();
+				
+		//traitementIndicateur.genereRapport();
 		
 	}
 }

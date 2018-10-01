@@ -205,7 +205,6 @@ public class DataValueService implements IdataValues {
 
 	@Override
 	public List<DataValue> saveAllDataValue(List<DataValue> dataValues) {
-		
 		return dataValueRepository.save(dataValues);
 	}
 

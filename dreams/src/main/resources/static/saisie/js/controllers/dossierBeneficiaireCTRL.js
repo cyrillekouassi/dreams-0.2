@@ -18,7 +18,7 @@ saisie.controller('dossierBeneficiaireCTRL', ['$scope', '$rootScope', '$http', '
     $scope.porteEntree = {};
     $scope.categorieDreams = {};
     var autocompleteData = [];
-    var dossierTable = ["nomONG", "region", "sousPrefect", "centre_social", "departement", "villageCommune", "quatierBenef", "repereHabitation", "nomPrenomBenef", "age", "contactTeleph", "nomPrenomParent", "contactParent","dateEnrolement", "id_dreams"];
+    var dossierTable = ["nomONG", "region", "sousPrefect", "centre_social", "departement", "villageCommune", "quatierBenef", "repereHabitation", "nomPrenomBenef", "age_enrol", "contactTeleph", "nomPrenomParent", "contactParent","dat_enrol", "id_dreams"];
 
     var besoinTable = ["porteEntree","categorieDreams","educationSexuel", "actifsSociaux", "soutienPsychoSocial", "renforcementSocioEconomique", "soutienEducatif", "accesPreservatifs", "contraceptionMixte", "conseilsDepistage", "soinsPostVBG", "securiteAlimentaire", "protection", "communicationParentsEnfants", "renforcementEconomique"];
     var servicesPrimaireTable = ["conceptSexualite", "conceptsGenre", "connaissanceCorpsOrgane", "aspectsNegatifs", "promotionDepistage", "participationActivites", "participationCauseries", "ecouteConseils", "suivi", "referenceVersExperts", "businessPlus", "participationAVEC"];
@@ -51,12 +51,19 @@ saisie.controller('dossierBeneficiaireCTRL', ['$scope', '$rootScope', '$http', '
     }
 
     function initOrg() {
-            $scope.dossier.nomONG = $rootScope.orgUnitSelect.organisationLocal;
-            $scope.dossier.region = $rootScope.orgUnitSelect.region;
-            $scope.dossier.sousPrefect = $rootScope.orgUnitSelect.sousPrefecture;
-            $scope.dossier.commune = $rootScope.orgUnitSelect.commune;
-            $scope.dossier.departement = $rootScope.orgUnitSelect.departement;
-            $scope.dossier.quatierBenef = $rootScope.orgUnitSelect.quartier;
+      console.log("$rootScope.organisation = ", angular.copy($rootScope.organisation));
+      console.log("orgUnitSelect = ", angular.copy($rootScope.orgUnitSelect));
+      $scope.dossier.nomONG = $rootScope.orgUnitSelect.organisationLocal;
+      $scope.dossier.region = $rootScope.orgUnitSelect.region;
+      $scope.dossier.sousPrefect = $rootScope.orgUnitSelect.sousPrefecture;
+      $scope.dossier.commune = $rootScope.orgUnitSelect.commune;
+      $scope.dossier.departement = $rootScope.orgUnitSelect.departement;
+      $scope.dossier.quatierBenef = $rootScope.orgUnitSelect.quartier;
+      for(var i=0;i<$rootScope.organisation.length;i++){
+        if($rootScope.orgUnitSelect.parent.id == $rootScope.organisation[i].id){
+          $scope.dossier.centre_social = $rootScope.organisation[i].name;
+        }
+      }
 
     }
 
@@ -67,6 +74,7 @@ saisie.controller('dossierBeneficiaireCTRL', ['$scope', '$rootScope', '$http', '
                     instanceValue = $rootScope.allData[i].dataValue;
                     console.log("instanceValue = ", angular.copy(instanceValue));
                     mappigData();
+                    initOrg();
                 }
             }
         }
@@ -372,10 +380,10 @@ saisie.controller('dossierBeneficiaireCTRL', ['$scope', '$rootScope', '$http', '
         for(var i =0,j=autocompleteData.length;i<j;i++){
             if(BenefId == autocompleteData[i].id_dreams){
                 console.log("gestBenef() autocompleteData = ", autocompleteData[i]);
-               $scope.dossier.nomPrenomBenef=autocompleteData[i].name+" "+autocompleteData[i].firstName;
-                $scope.dossier.age=autocompleteData[i].ageEnrolement;
-                $scope.dossier.contactTeleph=autocompleteData[i].telephone;
-                $scope.dossier.dateEnrolement= $filter('date')(new Date(autocompleteData[i].dateEnrolement), 'dd-MM-yyyy');
+               //$scope.dossier.nomPrenomBenef=autocompleteData[i].name+" "+autocompleteData[i].firstName;
+              //  $scope.dossier.age=autocompleteData[i].ageEnrolement;
+                //$scope.dossier.contactTeleph=autocompleteData[i].telephone;
+              //  $scope.dossier.dateEnrolement= $filter('date')(new Date(autocompleteData[i].dateEnrolement), 'dd-MM-yyyy');
                 //$scope.dossier.id_dreams=string;$filter('date')(new Date(autocompleteData[i].dateEnrolement), 'dd-MM-yyyy');
             }
         }

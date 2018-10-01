@@ -92,7 +92,7 @@ saisie.controller('dossierBeneficiaireListCTRL',['$scope','$http','$rootScope','
             if ($rootScope.programmeSelect.elements[l].element.code == "nomPrenomBenef") {
                 nosElements.push($rootScope.programmeSelect.elements[l].element);
             }
-            if ($rootScope.programmeSelect.elements[l].element.code == "age") {
+            if ($rootScope.programmeSelect.elements[l].element.code == "age_enrol") {
                 nosElements.push($rootScope.programmeSelect.elements[l].element);
             }
             if (nosElements.length == 3) {

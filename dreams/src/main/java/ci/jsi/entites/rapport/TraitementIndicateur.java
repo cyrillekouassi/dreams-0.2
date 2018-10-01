@@ -55,20 +55,20 @@ public class TraitementIndicateur {
 			"ecouteConseils", "suivi", "referenceVersExperts", "businessPlus", "participationAVEC", "appuiScolaire",
 			"fournitures", "uniformes", "autre", "alphabetisation", "utilisationPreservatifs",
 			"distributionPreservatifs", "referencePreservatifs", "referencVersPF", "referenceServicesVIH",
-			"referenceMedical", "referencePsychoSocial", "referenceJuridique", "referenceAbri", "appuiMedicaux",
-			"appuiJuridiques", "referenceNutritionnel", "appuiDocument", "sinovoyu", "AVEC", "educationFinanciere" };
+			"referenceMedical", "referencePsychoSocial", "referenceJuridique", "referenceAbri", "fraisMedicaux",
+			"fraisJuridiques", "referenceNutritionnel", "appuiDocument", "sinovoyu", "AVEC", "educationFinanciere" };
 	List<Element> elementsIntervention = new ArrayList<Element>();
 	String InterventionPopCible[] = { "conceptSexualite", "conceptsGenre", "connaissanceCorpsOrgane", "aspectsNegatifs",
 			"promotionDepistage", "utilisationPreservatifs", "distributionPreservatifs", "referencePreservatifs",
-			"referenceServices" };
+			"referenceServicesVIH" };
 	List<Element> elementsInterventionPopCible = new ArrayList<Element>();
 	String InterventionPrimaireDossierBeneficiaire[] = { "conceptSexualite", "conceptsGenre", "connaissanceCorpsOrgane",
 			"aspectsNegatifs", "promotionDepistage", "participationActivites", "participationCauseries",
 			"ecouteConseils", "suivi", "referenceVersExperts", "businessPlus", "participationAVEC", "appuiScolaire",
 			"fournitures", "uniformes", "autre", "alphabetisation", "utilisationPreservatifs",
 			"distributionPreservatifs", "referencePreservatifs", "referencVersPF", "referenceServicesVIH",
-			"referenceMedical", "referencePsychoSocial", "referenceJuridique", "referenceAbri", "appuiMedicaux",
-			"appuiJuridiques"};
+			"referenceMedical", "referencePsychoSocial", "referenceJuridique", "referenceAbri", "fraisMedicaux",
+			"fraisJuridiques"};
 	List<Element> elementsInterventionPrimaire = new ArrayList<Element>();
 	
 	String laPeriode = null;
@@ -453,36 +453,37 @@ public class TraitementIndicateur {
 			for (int b = 0; b < dataInstances.get(i).getDataValue().size(); b++) {
 				if (dataInstances.get(i).getDataValue().get(b).getElement().equals(element.getUid())) {
 					String porteEntree = dataInstances.get(i).getDataValue().get(b).getValue();
-					if (porteEntree.equals("ecole")) {
-						for (int inter = 0; inter < dataInstances.get(i).getDataValue().size(); inter++) {
-
-						}
-						for (int ag = 0; ag < dataInstances.get(i).getDataValue().size(); ag++) {
-							if (dataInstances.get(i).getDataValue().get(ag).getElement()
-									.equals(ageEnrolElement.getUid())) {
-								int age = Integer.parseInt(dataInstances.get(i).getDataValue().get(ag).getValue());
-								if (age < 15) {
-									nouveau_10_14++;
-								} else {
-									nouveau_15_19++;
+					if(porteEntree != null) {
+						if (porteEntree.equals("ecole")) {
+							
+							for (int ag = 0; ag < dataInstances.get(i).getDataValue().size(); ag++) {
+								if (dataInstances.get(i).getDataValue().get(ag).getElement()
+										.equals(ageEnrolElement.getUid())) {
+									int age = Integer.parseInt(dataInstances.get(i).getDataValue().get(ag).getValue());
+									if (age < 15) {
+										nouveau_10_14++;
+									} else {
+										nouveau_15_19++;
+									}
+									break;
 								}
-								break;
 							}
-						}
-					} else {
-						for (int ag = 0; ag < dataInstances.get(i).getDataValue().size(); ag++) {
-							if (dataInstances.get(i).getDataValue().get(ag).getElement()
-									.equals(ageEnrolElement.getUid())) {
-								int age = Integer.parseInt(dataInstances.get(i).getDataValue().get(ag).getValue());
-								if (age < 15) {
-									nouveau_10_14Extra++;
-								} else {
-									nouveau_15_19Extra++;
+						} else {
+							for (int ag = 0; ag < dataInstances.get(i).getDataValue().size(); ag++) {
+								if (dataInstances.get(i).getDataValue().get(ag).getElement()
+										.equals(ageEnrolElement.getUid())) {
+									int age = Integer.parseInt(dataInstances.get(i).getDataValue().get(ag).getValue());
+									if (age < 15) {
+										nouveau_10_14Extra++;
+									} else {
+										nouveau_15_19Extra++;
+									}
+									break;
 								}
-								break;
 							}
 						}
 					}
+					
 					break;
 				}
 			}
@@ -495,33 +496,36 @@ public class TraitementIndicateur {
 			for (int b = 0; b < dataInstances.get(i).getDataValue().size(); b++) {
 				if (dataInstances.get(i).getDataValue().get(b).getElement().equals(element.getUid())) {
 					String porteEntree = dataInstances.get(i).getDataValue().get(b).getValue();
-					if (porteEntree.equals("ecole")) {
-						for (int ag = 0; ag < dataInstances.get(i).getDataValue().size(); ag++) {
-							if (dataInstances.get(i).getDataValue().get(ag).getElement()
-									.equals(ageEnrolElement.getUid())) {
-								int age = Integer.parseInt(dataInstances.get(i).getDataValue().get(ag).getValue());
-								if (age < 15) {
-									ancien_10_14++;
-								} else {
-									ancien_15_19++;
+					if(porteEntree != null) {
+						if (porteEntree.equals("ecole")) {
+							for (int ag = 0; ag < dataInstances.get(i).getDataValue().size(); ag++) {
+								if (dataInstances.get(i).getDataValue().get(ag).getElement()
+										.equals(ageEnrolElement.getUid())) {
+									int age = Integer.parseInt(dataInstances.get(i).getDataValue().get(ag).getValue());
+									if (age < 15) {
+										ancien_10_14++;
+									} else {
+										ancien_15_19++;
+									}
+									break;
 								}
-								break;
 							}
-						}
-					} else {
-						for (int ag = 0; ag < dataInstances.get(i).getDataValue().size(); ag++) {
-							if (dataInstances.get(i).getDataValue().get(ag).getElement()
-									.equals(ageEnrolElement.getUid())) {
-								int age = Integer.parseInt(dataInstances.get(i).getDataValue().get(ag).getValue());
-								if (age < 15) {
-									ancien_10_14Extra++;
-								} else {
-									ancien_15_19Extra++;
+						} else {
+							for (int ag = 0; ag < dataInstances.get(i).getDataValue().size(); ag++) {
+								if (dataInstances.get(i).getDataValue().get(ag).getElement()
+										.equals(ageEnrolElement.getUid())) {
+									int age = Integer.parseInt(dataInstances.get(i).getDataValue().get(ag).getValue());
+									if (age < 15) {
+										ancien_10_14Extra++;
+									} else {
+										ancien_15_19Extra++;
+									}
+									break;
 								}
-								break;
 							}
 						}
 					}
+					
 					break;
 				}
 			}
@@ -568,51 +572,54 @@ public class TraitementIndicateur {
 			for (int b = 0; b < dataInstances.get(i).getDataValue().size(); b++) {
 				if (dataInstances.get(i).getDataValue().get(b).getElement().equals(element.getUid())) {
 					String porteEntree = dataInstances.get(i).getDataValue().get(b).getValue();
-					if (porteEntree.equals("ecole")) {
-						for (int interv = 0; interv < dataInstances.get(i).getDataValue().size(); interv++) {
-							for (int eleInter = 0; eleInter < elementsIntervention.size(); eleInter++) {
-								if (dataInstances.get(i).getDataValue().get(interv).getElement()
-										.equals(elementsIntervention.get(eleInter).getUid())) {
-									for (int ag = 0; ag < dataInstances.get(i).getDataValue().size(); ag++) {
-										if (dataInstances.get(i).getDataValue().get(ag).getElement()
-												.equals(ageEnrolElement.getUid())) {
-											int age = Integer
-													.parseInt(dataInstances.get(i).getDataValue().get(ag).getValue());
-											if (age < 15) {
-												nouveau_10_14++;
-											} else {
-												nouveau_15_19++;
+					if(porteEntree != null) {
+						if (porteEntree.equals("ecole")) {
+							for (int interv = 0; interv < dataInstances.get(i).getDataValue().size(); interv++) {
+								for (int eleInter = 0; eleInter < elementsIntervention.size(); eleInter++) {
+									if (dataInstances.get(i).getDataValue().get(interv).getElement()
+											.equals(elementsIntervention.get(eleInter).getUid())) {
+										for (int ag = 0; ag < dataInstances.get(i).getDataValue().size(); ag++) {
+											if (dataInstances.get(i).getDataValue().get(ag).getElement()
+													.equals(ageEnrolElement.getUid())) {
+												int age = Integer
+														.parseInt(dataInstances.get(i).getDataValue().get(ag).getValue());
+												if (age < 15) {
+													nouveau_10_14++;
+												} else {
+													nouveau_15_19++;
+												}
+												break;
 											}
-											break;
 										}
 									}
 								}
 							}
-						}
 
-					} else {
-						for (int interv = 0; interv < dataInstances.get(i).getDataValue().size(); interv++) {
-							for (int eleInter = 0; eleInter < elementsIntervention.size(); eleInter++) {
-								if (dataInstances.get(i).getDataValue().get(interv).getElement()
-										.equals(elementsIntervention.get(eleInter).getUid())) {
-									for (int ag = 0; ag < dataInstances.get(i).getDataValue().size(); ag++) {
-										if (dataInstances.get(i).getDataValue().get(ag).getElement()
-												.equals(ageEnrolElement.getUid())) {
-											int age = Integer
-													.parseInt(dataInstances.get(i).getDataValue().get(ag).getValue());
-											if (age < 15) {
-												nouveau_10_14Extra++;
-											} else {
-												nouveau_15_19Extra++;
+						} else {
+							for (int interv = 0; interv < dataInstances.get(i).getDataValue().size(); interv++) {
+								for (int eleInter = 0; eleInter < elementsIntervention.size(); eleInter++) {
+									if (dataInstances.get(i).getDataValue().get(interv).getElement()
+											.equals(elementsIntervention.get(eleInter).getUid())) {
+										for (int ag = 0; ag < dataInstances.get(i).getDataValue().size(); ag++) {
+											if (dataInstances.get(i).getDataValue().get(ag).getElement()
+													.equals(ageEnrolElement.getUid())) {
+												int age = Integer
+														.parseInt(dataInstances.get(i).getDataValue().get(ag).getValue());
+												if (age < 15) {
+													nouveau_10_14Extra++;
+												} else {
+													nouveau_15_19Extra++;
+												}
+												break;
 											}
-											break;
 										}
+										break;
 									}
-									break;
 								}
 							}
 						}
 					}
+					
 					break;
 				}
 			}
@@ -625,51 +632,54 @@ public class TraitementIndicateur {
 			for (int b = 0; b < dataInstances.get(i).getDataValue().size(); b++) {
 				if (dataInstances.get(i).getDataValue().get(b).getElement().equals(element.getUid())) {
 					String porteEntree = dataInstances.get(i).getDataValue().get(b).getValue();
-					if (porteEntree.equals("ecole")) {
-						for (int interv = 0; interv < dataInstances.get(i).getDataValue().size(); interv++) {
-							for (int eleInter = 0; eleInter < elementsIntervention.size(); eleInter++) {
-								if (dataInstances.get(i).getDataValue().get(interv).getElement()
-										.equals(elementsIntervention.get(eleInter).getUid())) {
-									for (int ag = 0; ag < dataInstances.get(i).getDataValue().size(); ag++) {
-										if (dataInstances.get(i).getDataValue().get(ag).getElement()
-												.equals(ageEnrolElement.getUid())) {
-											int age = Integer
-													.parseInt(dataInstances.get(i).getDataValue().get(ag).getValue());
-											if (age < 15) {
-												ancien_10_14++;
-											} else {
-												ancien_15_19++;
+					if(porteEntree != null) {
+						if (porteEntree.equals("ecole")) {
+							for (int interv = 0; interv < dataInstances.get(i).getDataValue().size(); interv++) {
+								for (int eleInter = 0; eleInter < elementsIntervention.size(); eleInter++) {
+									if (dataInstances.get(i).getDataValue().get(interv).getElement()
+											.equals(elementsIntervention.get(eleInter).getUid())) {
+										for (int ag = 0; ag < dataInstances.get(i).getDataValue().size(); ag++) {
+											if (dataInstances.get(i).getDataValue().get(ag).getElement()
+													.equals(ageEnrolElement.getUid())) {
+												int age = Integer
+														.parseInt(dataInstances.get(i).getDataValue().get(ag).getValue());
+												if (age < 15) {
+													ancien_10_14++;
+												} else {
+													ancien_15_19++;
+												}
+												break;
 											}
-											break;
 										}
 									}
 								}
 							}
-						}
 
-					} else {
-						for (int interv = 0; interv < dataInstances.get(i).getDataValue().size(); interv++) {
-							for (int eleInter = 0; eleInter < elementsIntervention.size(); eleInter++) {
-								if (dataInstances.get(i).getDataValue().get(interv).getElement()
-										.equals(elementsIntervention.get(eleInter).getUid())) {
-									for (int ag = 0; ag < dataInstances.get(i).getDataValue().size(); ag++) {
-										if (dataInstances.get(i).getDataValue().get(ag).getElement()
-												.equals(ageEnrolElement.getUid())) {
-											int age = Integer
-													.parseInt(dataInstances.get(i).getDataValue().get(ag).getValue());
-											if (age < 15) {
-												ancien_10_14Extra++;
-											} else {
-												ancien_15_19Extra++;
+						} else {
+							for (int interv = 0; interv < dataInstances.get(i).getDataValue().size(); interv++) {
+								for (int eleInter = 0; eleInter < elementsIntervention.size(); eleInter++) {
+									if (dataInstances.get(i).getDataValue().get(interv).getElement()
+											.equals(elementsIntervention.get(eleInter).getUid())) {
+										for (int ag = 0; ag < dataInstances.get(i).getDataValue().size(); ag++) {
+											if (dataInstances.get(i).getDataValue().get(ag).getElement()
+													.equals(ageEnrolElement.getUid())) {
+												int age = Integer
+														.parseInt(dataInstances.get(i).getDataValue().get(ag).getValue());
+												if (age < 15) {
+													ancien_10_14Extra++;
+												} else {
+													ancien_15_19Extra++;
+												}
+												break;
 											}
-											break;
 										}
+										break;
 									}
-									break;
 								}
 							}
 						}
 					}
+					
 					break;
 				}
 			}
@@ -714,11 +724,14 @@ public class TraitementIndicateur {
 					if (dataInstances.get(i).getDataValue().get(b).getElement()
 							.equals(elementsInterventionPopCible.get(interv).getUid())) {
 						String ElementValue = dataInstances.get(i).getDataValue().get(b).getValue();
-						for (int opt = 0; opt < options.size(); opt++) {
-							if (ElementValue.indexOf(options.get(opt).getCode()) != -1) {
-								nbreObtenu++;
+						if(ElementValue != null) {
+							for (int opt = 0; opt < options.size(); opt++) {
+								if (ElementValue.indexOf(options.get(opt).getCode()) != -1) {
+									nbreObtenu++;
+								}
 							}
 						}
+						
 					}
 				}
 			}
@@ -750,11 +763,14 @@ public class TraitementIndicateur {
 					if (dataInstances.get(i).getDataValue().get(b).getElement()
 							.equals(elementsInterventionPopCible.get(interv).getUid())) {
 						String ElementValue = dataInstances.get(i).getDataValue().get(b).getValue();
-						for (int opt = 0; opt < options.size(); opt++) {
-							if (ElementValue.indexOf(options.get(opt).getCode()) != -1) {
-								nbreObtenu++;
+						if(ElementValue != null) {
+							for (int opt = 0; opt < options.size(); opt++) {
+								if (ElementValue.indexOf(options.get(opt).getCode()) != -1) {
+									nbreObtenu++;
+								}
 							}
 						}
+						
 					}
 				}
 			}
@@ -1310,16 +1326,24 @@ public class TraitementIndicateur {
 				if (dataInstances.get(i).getDataValue().get(b).getElement().equals(materielQuantite.getUid())) {
 					String valeur = dataInstances.get(i).getDataValue().get(b).getValue();
 					int nombre = 0;
+					String leNombre = null;
+					int masDebut = 0;
 					int mascPosi = valeur.indexOf("preserMasc");
 					int feminPosi = valeur.indexOf("preserFemin");
 					if (mascPosi != -1) {
-						mascPosi--;
-						int masDebut = valeur.lastIndexOf(" ", mascPosi);
+						mascPosi -= 1;
+						masDebut = valeur.lastIndexOf(" ", mascPosi-1);
+						if(masDebut == -1) {
+							masDebut = 0;
+						}
+						//leNombre = valeur.substring(masDebut, mascPosi);
 						nombre += Integer.parseInt(valeur.substring(masDebut, mascPosi));
 					}
 					if (feminPosi != -1) {
-						feminPosi--;
-						int feminDeb = valeur.lastIndexOf(" ", feminPosi);
+						feminPosi -= 1;
+						int feminDeb = valeur.lastIndexOf(" ", feminPosi-1);
+						if(feminDeb == -1)
+							feminDeb = 0;
 						nombre += Integer.parseInt(valeur.substring(feminDeb, feminPosi));
 					}
 
@@ -2997,6 +3021,5 @@ public class TraitementIndicateur {
 		irapport.saveRapportTDO(rapportTDO);
 
 	}
-
-
+	
 }
