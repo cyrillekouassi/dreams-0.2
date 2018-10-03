@@ -156,7 +156,7 @@
                             <div class="col-auto"></div>
                             <div class="col-2">
                                 <div class="col-2 px-0 mx-0 mr-0">
-                                    <span class="badge info-color-dark p-3">Tranche d'âge </span>
+                                    <span class="badge info-color-dark p-3">Tranche d'âge <span style="color: red">*</span></span>
                                 </div>
                             </div>
                             <div class="col-2">
@@ -177,7 +177,7 @@
                                         <!-- Grid column -->
                                         <div class="col-md-auto" style="width: 100px;">
                                             <div class="form-group mt-0">
-                                                <label>Date</label>
+                                                <label>Date<span style="color: red">*</span></label>
                                                 <div class="md-form dates mt-0">
                                                     <input type="text" id="date" class="form-control" ng-model="groupeSession.dateSession">
                                                 </div>
@@ -185,7 +185,7 @@
                                         </div>
                                         <div class="col-md-auto" style="width: 175px;">
                                             <div class="form-group mt-0">
-                                                <label>Thème abordé</label>
+                                                <label>Thème abordé<span style="color: red">*</span></label>
                                                 <div class="md-form mt-0">
                                                     <input type="text" id="theme" class="form-control" ng-model="groupeSession.themeAborde">
                                                 </div>
@@ -193,7 +193,7 @@
                                         </div>
                                         <div class="col-md-auto">
                                             <div class="form-group align-self-center">
-                                                <label>Méthodologies utilisés</label>
+                                                <label>Méthodologies utilisés<span style="color: red">*</span></label>
                                                     <input class="form-control" style="width: 190px;" ng-focus="methodfocus()" type="text" ng-model="methodInfo">
                                                 <div class="modal fade" id="modalMethod" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog" role="document" data-backdrop="false">
@@ -525,10 +525,10 @@
                                 <div class="form-row">
                                     <div class="col">
                                         <div class="form-grop">
-                                            <label>Code du bénéficiaire</label>
+                                            <label>Code du bénéficiaire <span style="color: red">*</span></label>
                                             <div class="md-form mt-0">
                                                 <input type="text" class="form-control mb-0" ng-model="groupeBenef.id_dreams" ng-change="searchId(groupeBenef.id_dreams)"/>
-                                                <div class="list-group position-absolute mt-0" id="list-tab" role="tablist">
+                                                <div class="list-group position-absolute mt-0 bgListBenef" id="list-tab" role="tablist">
                                                     <a ng-repeat="idDreams in valueComplete track by $index" ng-click="choisir(idDreams)" class="list-group-item list-group-item-action text-left bgSearch" data-toggle="list" role="tab">{{idDreams}}</a>
                                                 </div>
                                             </div>
@@ -651,10 +651,10 @@
                                     <div class="col-md-auto">
                                         <div class="form-grop">
                                             <label>Code d’identification
-                                                de la bénéficiaire</label>
+                                                de la bénéficiaire <span style="color: red">*</span></label>
                                             <div class="md-form mt-0">
                                                 <input type="text" class="form-control mb-0" ng-model="groupeAutreCible.codeBenef" ng-change="searchCode(groupeAutreCible.codeBenef)">
-                                                <div class="list-group position-absolute mt-0" role="tablist">
+                                                <div class="list-group position-absolute mt-0 bgListBenef" role="tablist">
                                                     <a ng-repeat="idDreams in valueCompleteCode track by $index" ng-click="choisirCode(idDreams)" class="list-group-item list-group-item-action text-left bgSearch" data-toggle="list" role="tab">{{idDreams}}</a>
                                                 </div>
                                             </div>

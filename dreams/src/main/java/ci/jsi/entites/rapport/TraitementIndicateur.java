@@ -64,7 +64,7 @@ public class TraitementIndicateur {
 	List<Element> elementsInterventionPopCible = new ArrayList<Element>();
 	String InterventionPrimaireDossierBeneficiaire[] = { "conceptSexualite", "conceptsGenre", "connaissanceCorpsOrgane",
 			"aspectsNegatifs", "promotionDepistage", "participationActivites", "participationCauseries",
-			"ecouteConseils", "suivi", "referenceVersExperts", "businessPlus", "participationAVEC", "appuiScolaire",
+			"ecouteConseils", "suivi", "referenceVersExperts", "businessPlus", "participationAVEC", "fraisScolaire",
 			"fournitures", "uniformes", "autre", "alphabetisation", "utilisationPreservatifs",
 			"distributionPreservatifs", "referencePreservatifs", "referencVersPF", "referenceServicesVIH",
 			"referenceMedical", "referencePsychoSocial", "referenceJuridique", "referenceAbri", "fraisMedicaux",

@@ -55,7 +55,7 @@
 
                                 <div class="row">
                                     <div class="col">
-                                        <label for="debut" class="font-weight-light labelMarg">Heure de début </label>
+                                        <label for="debut" class="font-weight-light labelMarg">Heure de début (HH:MM)</label>
                                         <div class="md-form mt-0">
                                             <input type="text" ng-model='vadData.heureDebutVAD' id="debut"
                                                    class="form-control datetimepicker-input inputMarg"
@@ -63,7 +63,7 @@
                                         </div>
                                     </div>
                                     <div class="col">
-                                        <label for="Fin" class="font-weight-light labelMarg">Heure de fin</label>
+                                        <label for="Fin" class="font-weight-light labelMarg">Heure de fin (HH:MM)</label>
                                         <div class="md-form mt-0">
                                             <input type="text" ng-model='vadData.heureFinVAD' id="Fin"
                                                    class="form-control inputMarg" ng-blur="saveValue('heureFinVAD',vadData.heureFinVAD)">
@@ -80,9 +80,9 @@
                     <div class="md-form mt-0">
                         <input type="text" ng-model='vadData.id_dreams' id="codeBenef" ng-change="searchId('id_dreams',vadData.id_dreams)" class="form-control inputMarg" ng-blur="saveValue('id_dreams',vadData.id_dreams)">
                     </div-->
-                    <label for="codeBenef" class="font-weight-light labelMarg">Code de la bénéficiaire </label>
+                    <label for="codeBenef" class="font-weight-light labelMarg">Code de la bénéficiaire<span style="color: red">*</span> </label>
                     <input type="text" id="codeBenef" ng-model="vadData.id_dreams" ng-keyup="complete(vadData.id_dreams)" class="form-control mb-0" ng-change="searchId('id_dreams',vadData.id_dreams)"/>
-                    <div class="list-group position-absolute mt-0" id="list-tab" role="tablist">
+                    <div class="list-group position-absolute mt-0 bgListBenef" id="list-tab" role="tablist">
                         <a ng-repeat="value in valueComplete track by $index" ng-click="fillTextbox(value)" class="list-group-item list-group-item-action text-left bgSearch" data-toggle="list" role="tab">{{value}}</a>
                     </div>
 

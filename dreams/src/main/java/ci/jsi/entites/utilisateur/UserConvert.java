@@ -41,6 +41,7 @@ public class UserConvert {
 		userTDO.setUsername(user.getUsername());
 		userTDO.setName(user.getName());
 		userTDO.setFirtName(user.getFirtName());
+		userTDO.setSexe(user.getSexe());
 		if(user.getDateCreation() != null)
 			userTDO.setDateCreation(convertDate.getDateString(user.getDateCreation()));
 		if(user.getDateUpdate() != null)
@@ -93,6 +94,7 @@ public class UserConvert {
 			return null;
 		
 		user.setFirtName(userTDO.getFirtName());
+		user.setSexe(userTDO.getSexe());
 		user.setCode(userTDO.getCode());
 		user.setDateCreation(new Date());
 		user.setDateUpdate(new Date());
@@ -133,6 +135,7 @@ public class UserConvert {
 		}
 		user.setName(userTDO.getName());
 			user.setFirtName(userTDO.getFirtName());
+			user.setSexe(userTDO.getSexe());
 			user.setCode(userTDO.getCode());
 		user.setDateUpdate(new Date());
 			user.setEmail(userTDO.getEmail());

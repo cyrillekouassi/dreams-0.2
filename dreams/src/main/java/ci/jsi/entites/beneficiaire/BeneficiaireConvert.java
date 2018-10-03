@@ -189,8 +189,8 @@ public class BeneficiaireConvert {
 				"referenceVersExperts", "businessPlus", "participationAVEC", "appuiScolaire", "fournitures",
 				"uniformes", "autre", "alphabetisation", "utilisationPreservatifs", "distributionPreservatifs",
 				"referencePreservatifs", "referencVersPF", "referenceServices", "referenceMedical",
-				"referencePsychoSocial", "referenceJuridique", "referenceAbri", "appuiMedicaux", "appuiJuridiques",
-				"referenceNutritionnel", "appuiDocument", "sinovoyu", "AVEC", "educationFinanciere" };
+				"referencePsychoSocial", "referenceJuridique", "referenceAbri", "fraisMedicaux", "fraisJuridiques",
+				"referenceNutritionnel", "fraisDocument", "sinovoyu", "AVEC", "educationFinanciere" };
 		
 		for(int i=0;i<elementCode.length;i++) {
 			element = ielement.getOneElmentByCode(elementCode[i]);

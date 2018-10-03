@@ -62,7 +62,7 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
 
 
     gestElements();
-    
+
     function initOrg() {
         $scope.groupe.nomOrganisation = $rootScope.orgUnitSelect.organisationLocal;
         $scope.groupe.nomSafespace = $rootScope.orgUnitSelect.name;
@@ -155,8 +155,8 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
         console.log("saveSession()");
         tempData=[];
         origin = "session";
-        console.log("saveSession() groupe = ",$scope.groupe);
-        console.log("saveSession() groupeSession = ",$scope.groupeSession);
+        /*console.log("saveSession() groupe = ",$scope.groupe);
+        console.log("saveSession() groupeSession = ",$scope.groupeSession);*/
         if(checkgroupeSession()){
             dataInstance = dataInstanceEntete;
             dataInstance.dateActivite = $scope.groupeSession.dateSession;
@@ -776,7 +776,7 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
         //console.log("chargeQuantite() sortie tmp = ",angular.copy(tmp));
         return tmp;
     }
-    
+
     $scope.MQfocus = function () {
         //console.log("MQfocus()");
         $(function () {
@@ -911,10 +911,10 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
     }
 
     $scope.saveBenef = function () {
-        console.log("saveBenef()");
+        /*console.log("saveBenef()");
         console.log("saveBenef() groupeBenef = ",$scope.groupeBenef);
         console.log("saveBenef() benefElement = ",benefElement);
-        console.log("saveBenef() dataInstance = ",dataInstance);
+        console.log("saveBenef() dataInstance = ",dataInstance);*/
         if(checkbenef() && dataInstance.instance){
             origin = "benef";
             //console.log("saveBenef() $scope.sessionData = ",$scope.sessionData);
@@ -1052,7 +1052,7 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
             }
         }
     };
-    
+
     $scope.changeSessionBenefTermine = function (benef,value) {
         //console.log("entrer dans changeSessionBenefTermine() > benef= ",angular.copy(benef)," // value = ",value);
         if(dataInstance.instance){
@@ -1147,7 +1147,7 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
                 dataInstance.dataValue.push(data);
             }
             if(dataInstance.dataValue.length != 0){
-                console.log("saveBenef() dataInstance = ",dataInstance);
+                console.log("saveAutreCible() dataInstance = ",dataInstance);
                 saveData();
             }
         }

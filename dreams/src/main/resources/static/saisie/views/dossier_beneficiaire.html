@@ -152,7 +152,7 @@
                                     <input class="form-check-input filled-in" type="checkbox"
                                            ng-model="porteEntree.marche" ng-change="changePorteEntree()"
                                            id="marche">
-                                    <label class="form-check-label" for="ecole">Marché</label>
+                                    <label class="form-check-label" for="marche">Marché</label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input filled-in" type="checkbox"
@@ -390,10 +390,10 @@
                                 <td>
                                     <div class="form-check">
                                         <input class="form-check-input filled-in" type="checkbox"
-                                               ng-model="soutienEducatif.appuiScolaire"
+                                               ng-model="soutienEducatif.fraisScolaire"
                                                ng-change="changeSoutienEducatif()"
-                                               id="appuiScolaire">
-                                        <label class="form-check-label" for="appuiScolaire">Appui aux frais
+                                               id="fraisScolaire">
+                                        <label class="form-check-label" for="fraisScolaire">Appui aux frais
                                             d’inscriptions, de scolarité et d’examens</label>
                                     </div>
                                     <div class="form-check">
@@ -511,16 +511,16 @@
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input filled-in" type="checkbox"
-                                               ng-model="soinsPostVBG.appuiMedicaux" ng-change="changeSoinsPostVBG()"
-                                               id="appuiMedicaux">
-                                        <label class="form-check-label" for="appuiMedicaux">Appui aux frais
+                                               ng-model="soinsPostVBG.fraisMedicaux" ng-change="changeSoinsPostVBG()"
+                                               id="fraisMedicaux">
+                                        <label class="form-check-label" for="fraisMedicaux">Appui aux frais
                                             médicaux</label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input filled-in" type="checkbox"
-                                               ng-model="soinsPostVBG.appuiJuridiques" ng-change="changeSoinsPostVBG()"
-                                               id="appuiJuridiques">
-                                        <label class="form-check-label" for="appuiJuridiques">Appui aux frais
+                                               ng-model="soinsPostVBG.fraisJuridiques" ng-change="changeSoinsPostVBG()"
+                                               id="fraisJuridiques">
+                                        <label class="form-check-label" for="fraisJuridiques">Appui aux frais
                                             juridiques</label>
                                     </div>
                                 </td>
@@ -545,9 +545,9 @@
                                 <td>
                                     <div class="form-check">
                                         <input class="form-check-input filled-in" type="checkbox"
-                                               ng-model="protection.appuiDocument" ng-change="changeProtection()"
-                                               id="appuiDocument">
-                                        <label class="form-check-label" for="appuiDocument">Appui à l’établissement de
+                                               ng-model="protection.fraisDocument" ng-change="changeProtection()"
+                                               id="fraisDocument">
+                                        <label class="form-check-label" for="fraisDocument">Appui à l’établissement de
                                             documents juridiques</label>
                                     </div>
                                 </td>
@@ -1143,37 +1143,37 @@
                                         </td>
                                         <td>
                                             <div class="md-form dates mt-auto">
-                                                <input type="text" ng-model='appuiScolaire.S1'
+                                                <input type="text" ng-model='fraisScolaire.S1'
                                                        class="form-control text-center">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="md-form dates mt-auto">
-                                                <input type="text" ng-model='appuiScolaire.S2'
+                                                <input type="text" ng-model='fraisScolaire.S2'
                                                        class="form-control text-center">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="md-form dates mt-auto">
-                                                <input type="text" ng-model='appuiScolaire.S3'
+                                                <input type="text" ng-model='fraisScolaire.S3'
                                                        class="form-control text-center">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="md-form dates mt-auto">
-                                                <input type="text" ng-model='appuiScolaire.S4'
+                                                <input type="text" ng-model='fraisScolaire.S4'
                                                        class="form-control text-center">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="md-form dates mt-auto">
-                                                <input type="text" ng-model='appuiScolaire.S5'
+                                                <input type="text" ng-model='fraisScolaire.S5'
                                                        class="form-control text-center">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="md-form dates mt-auto">
-                                                <input type="text" ng-model='appuiScolaire.S6'
+                                                <input type="text" ng-model='fraisScolaire.S6'
                                                        class="form-control text-center">
                                             </div>
                                         </td>
@@ -1756,37 +1756,37 @@
                                         </td>
                                         <td>
                                             <div class="md-form dates mt-auto">
-                                                <input type="text" ng-model='appuiMedicaux.S1'
+                                                <input type="text" ng-model='fraisMedicaux.S1'
                                                        class="form-control text-center">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="md-form dates mt-auto">
-                                                <input type="text" ng-model='appuiMedicaux.S2'
+                                                <input type="text" ng-model='fraisMedicaux.S2'
                                                        class="form-control text-center">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="md-form dates mt-auto">
-                                                <input type="text" ng-model='appuiMedicaux.S3'
+                                                <input type="text" ng-model='fraisMedicaux.S3'
                                                        class="form-control text-center">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="md-form dates mt-auto">
-                                                <input type="text" ng-model='appuiMedicaux.S4'
+                                                <input type="text" ng-model='fraisMedicaux.S4'
                                                        class="form-control text-center">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="md-form dates mt-auto">
-                                                <input type="text" ng-model='appuiMedicaux.S5'
+                                                <input type="text" ng-model='fraisMedicaux.S5'
                                                        class="form-control text-center">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="md-form dates mt-auto">
-                                                <input type="text" ng-model='appuiMedicaux.S6'
+                                                <input type="text" ng-model='fraisMedicaux.S6'
                                                        class="form-control text-center">
                                             </div>
                                         </td>
@@ -1798,37 +1798,37 @@
                                         </td>
                                         <td>
                                             <div class="md-form dates mt-auto">
-                                                <input type="text" ng-model='appuiJuridiques.S1'
+                                                <input type="text" ng-model='fraisJuridiques.S1'
                                                        class="form-control text-center">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="md-form dates mt-auto">
-                                                <input type="text" ng-model='appuiJuridiques.S2'
+                                                <input type="text" ng-model='fraisJuridiques.S2'
                                                        class="form-control text-center">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="md-form dates mt-auto">
-                                                <input type="text" ng-model='appuiJuridiques.S3'
+                                                <input type="text" ng-model='fraisJuridiques.S3'
                                                        class="form-control text-center">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="md-form dates mt-auto">
-                                                <input type="text" ng-model='appuiJuridiques.S4'
+                                                <input type="text" ng-model='fraisJuridiques.S4'
                                                        class="form-control text-center">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="md-form dates mt-auto">
-                                                <input type="text" ng-model='appuiJuridiques.S5'
+                                                <input type="text" ng-model='fraisJuridiques.S5'
                                                        class="form-control text-center">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="md-form dates mt-auto">
-                                                <input type="text" ng-model='appuiJuridiques.S6'
+                                                <input type="text" ng-model='fraisJuridiques.S6'
                                                        class="form-control text-center">
                                             </div>
                                         </td>
@@ -1894,37 +1894,37 @@
                                         </td>
                                         <td>
                                             <div class="md-form dates mt-auto">
-                                                <input type="text" ng-model='appuiDocument.S1'
+                                                <input type="text" ng-model='fraisDocument.S1'
                                                        class="form-control text-center">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="md-form dates mt-auto">
-                                                <input type="text" ng-model='appuiDocument.S2'
+                                                <input type="text" ng-model='fraisDocument.S2'
                                                        class="form-control text-center">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="md-form dates mt-auto">
-                                                <input type="text" ng-model='appuiDocument.S3'
+                                                <input type="text" ng-model='fraisDocument.S3'
                                                        class="form-control text-center">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="md-form dates mt-auto">
-                                                <input type="text" ng-model='appuiDocument.S4'
+                                                <input type="text" ng-model='fraisDocument.S4'
                                                        class="form-control text-center">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="md-form dates mt-auto">
-                                                <input type="text" ng-model='appuiDocument.S5'
+                                                <input type="text" ng-model='fraisDocument.S5'
                                                        class="form-control text-center">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="md-form dates mt-auto">
-                                                <input type="text" ng-model='appuiDocument.S6'
+                                                <input type="text" ng-model='fraisDocument.S6'
                                                        class="form-control text-center">
                                             </div>
                                         </td>

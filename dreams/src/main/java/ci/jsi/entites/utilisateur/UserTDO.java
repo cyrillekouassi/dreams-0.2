@@ -19,6 +19,7 @@ public class UserTDO {
 	private String dateCreation;
 	private String dateUpdate;
 	private String email;
+	private String sexe;
 	private String telephone;
 	private String fonction;
 	private String employeur;
@@ -128,6 +129,12 @@ public class UserTDO {
 	public void setInstances(List<UidEntitie> instances) {
 		this.instances = instances;
 	}*/
+	public String getSexe() {
+		return sexe;
+	}
+	public void setSexe(String sexe) {
+		this.sexe = sexe;
+	}
 	
 	
 	

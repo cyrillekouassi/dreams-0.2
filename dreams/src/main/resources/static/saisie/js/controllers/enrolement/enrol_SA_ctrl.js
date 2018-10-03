@@ -217,14 +217,34 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
 
 
     function gestionDate(){
+
       if($scope.enrolA.dat_nais != null){
         console.log("$scope.enrolA.dat_nais existe")
-        
+        $scope.enrolA.dat_nais = inFormatDate($scope.enrolA.dat_nais);
+
       }
 
       if($scope.enrolA.dat_enrol != null){
-        console.log("$scope.enrolA.dat_enrol existe")
+        console.log("$scope.enrolA.dat_enrol existe");
+        $scope.enrolA.dat_enrol = inFormatDate($scope.enrolA.dat_enrol);
       }
+    }
+
+// yyyy-MM-dd
+    function inFormatDate(date){
+      var annee = "";
+      var mois = "";
+      var jour = "";
+      var indice = date.indexOf("-");
+      if(indice == 2){
+         return date;
+      }
+      annee = date.substring(0, 4);
+      mois = date.substring(5, 7);
+      jour = date.substring(8, 10);
+
+      console.log("ladate = ",jour,"-",mois,"-",annee);
+      return jour+"-"+mois+"-"+annee
     }
 
 }]);

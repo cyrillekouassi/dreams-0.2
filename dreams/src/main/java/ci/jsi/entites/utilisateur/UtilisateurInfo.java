@@ -32,6 +32,7 @@ public abstract class UtilisateurInfo implements Serializable {
 	private Date dateCreation;
 	@Column(name="dateupdate")
 	private Date dateUpdate;
+	private String sexe;
 	private String email;
 	private String telephone;
 	private String fonction;
@@ -87,6 +88,12 @@ public abstract class UtilisateurInfo implements Serializable {
 	}
 	public void setDateUpdate(Date dateUpdate) {
 		this.dateUpdate = dateUpdate;
+	}
+	public String getSexe() {
+		return sexe;
+	}
+	public void setSexe(String sexe) {
+		this.sexe = sexe;
 	}
 	public String getEmail() {
 		return email;

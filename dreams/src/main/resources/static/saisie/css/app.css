@@ -22,3 +22,11 @@
 .bgSearch{
     background-color: #00d3ee;
 }
+
+.bgListBenef{
+    background-color: white;
+    z-index: 99;
+    border-right: double sandybrown 2px;
+    border-bottom: double sandybrown 2px;
+    border-left: double sandybrown 2px;
+}
