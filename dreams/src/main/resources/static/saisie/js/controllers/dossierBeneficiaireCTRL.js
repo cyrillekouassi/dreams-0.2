@@ -18,7 +18,7 @@ saisie.controller('dossierBeneficiaireCTRL', ['$scope', '$rootScope', '$http', '
     $scope.porteEntree = {};
     $scope.categorieDreams = {};
     var autocompleteData = [];
-    var dossierTable = ["nomONG", "region", "sousPrefect", "centre_social", "departement", "villageCommune", "quatierBenef", "repereHabitation", "nomPrenomBenef", "age_enrol", "contactTeleph", "nomPrenomParent", "contactParent","dat_enrol", "id_dreams"];
+    var dossierTable = ["nomONG", "region", "sousPrefect", "centre_social", "departement", "villageCommune", "quatierBenef", "repereHabitation", "nomPrenomBenef", "age_enrol", "contactTeleph", "nomPrenomParent", "contactParent","dat_enrol", "id_dreams","autrePorteEntree","autreCategorieDreams"];
 
     var besoinTable = ["porteEntree","categorieDreams","educationSexuel", "actifsSociaux", "soutienPsychoSocial", "renforcementSocioEconomique", "soutienEducatif", "accesPreservatifs", "contraceptionMixte", "conseilsDepistage", "soinsPostVBG", "securiteAlimentaire", "protection", "communicationParentsEnfants", "renforcementEconomique"];
     var servicesPrimaireTable = ["conceptSexualite", "conceptsGenre", "connaissanceCorpsOrgane", "aspectsNegatifs", "promotionDepistage", "participationActivites", "participationCauseries", "ecouteConseils", "suivi", "referenceVersExperts", "businessPlus", "participationAVEC"];

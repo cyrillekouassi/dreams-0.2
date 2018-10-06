@@ -15,7 +15,7 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
     var beneficiaire = {};
     var enrolSectionA = ["district","plateform_cod","centre_social","ong","codeSafespace","nom_enqueteur","num_fiche",
         "nom","pren","dat_nais","dat_enrol","age_enrol","porte_entre_bene","autre_porte_entre_bene","statut_mat_bene",
-        "ocup","oc_aut","tel","region","departement","sousPrefect","villageCommune","repere","no_benef","id_dreams",
+        "ocup","oc_aut","tel","region","departement","sousPrefect","village","repere","no_benef","id_dreams",
         "nom_pren_charg_benef","relation","tel_charg_benef","_01_b_num_doc","_01_doc_att_age","_01_a_type_doc",
         "_02_accord_parent","_03_acord_bene"];
 

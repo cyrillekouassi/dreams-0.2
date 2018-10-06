@@ -1197,7 +1197,8 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
         return false;
     }
     function initAutreCible() {
-        $scope.groupeAutreCible = {}
+      $scope.groupeAutreCible.sexeAutreCible = "";
+        $scope.groupeAutreCible = {};
     }
     $scope.changeSessionAutre = function (autre,key,value,index) {
         console.log('changeSessionAutre() > autre = ',autre," // key = ",key," // value = ",value," // index= ",index);

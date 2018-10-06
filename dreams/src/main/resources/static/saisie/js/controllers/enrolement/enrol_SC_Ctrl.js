@@ -52,13 +52,14 @@ function ($scope, $rootScope, $stateParams, $http,$filter,$state) {
 
 	function getElement() {
         console.log("getElement()");
+        //console.log("$scope.enrolC = ",$scope.enrolC);
         for(var pop in $scope.enrolC){
-            if($scope.enrolB[pop] != null && $scope.enrolB[pop] && $scope.enrolB[pop] != ""){
+            if($scope.enrolC[pop] != null && $scope.enrolC[pop] && $scope.enrolC[pop] != ""){
                 var id = getElementId(pop);
                 if(id){
                     var data = {};
                     data.element = id;
-                    data.value = $scope.enrolB[pop];
+                    data.value = $scope.enrolC[pop];
                     data.numero = 1;
                     dataInstance.dataValue.push(data);
                 }else{
