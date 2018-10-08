@@ -206,6 +206,7 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
             console.log("saveBenef() > succes = ",succes);
             if(succes.data.status == "OK"){
                 saveData();
+                toastr["success"]("Bénéficiaire créé");
             }else{
                 toastr["success"]("Impossible de créer ce bénéficiaire");
             }

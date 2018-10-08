@@ -83,7 +83,7 @@ conf.controller('importCTRL',['$scope','$http','$rootScope',function ($scope,$ht
           $scope.uploadedFileData = null;
       }, function (error) {
           console.log("doUploadDataFile() > error = ",error);
-          $scope.uploadResult=error.xhrStatus;
+          $scope.uploadResult=error;
           $scope.chargeData = false;
           $scope.FileData = null;
           $scope.uploadedFileData = null;
