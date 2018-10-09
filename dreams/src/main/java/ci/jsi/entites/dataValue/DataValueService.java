@@ -133,8 +133,12 @@ public class DataValueService implements IdataValues {
 
 		Page<DataInstance> page = new PageImpl<DataInstance>(dataInstances,
                 new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort()),
-                instances.getTotalPages());
-
+                instances.getTotalElements());
+		System.out.println("instances.getNumber() = "+instances.getNumber());
+		System.out.println("instances.getNumberOfElements() = "+instances.getNumberOfElements());
+		System.out.println("instances.getSize() = "+instances.getSize());
+		System.out.println("instances.getTotalElements() = "+instances.getTotalElements());
+		System.out.println("instances.getTotalPages() = "+instances.getTotalPages());
 		return page;
 	}
 

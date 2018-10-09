@@ -85,6 +85,7 @@ public class DataValuesImport {
 	private int age_enrol = -1;
 	private int id_dreams = -1;
 	private int tel = -1;
+	int ligneNo = 0;
 	
 	@SuppressWarnings("deprecation")
 	public ResultatRequete lireCSV(String fileName) {
@@ -113,6 +114,8 @@ public class DataValuesImport {
 				seachElement(myEntries.get(0));
 				if(!listElement.isEmpty()) {
 					//System.err.println("nbre d'element trouvé: "+listElement.size());
+					ligneNo++;
+					System.out.println("++++++++++ ligne = "+ligneNo+" +++++++++++++++++++");
 					myEntries.remove(0);
 					insertData();
 					resultatRequete.setStatus("succes");
@@ -227,6 +230,8 @@ public class DataValuesImport {
 		
 		if(!myEntries.isEmpty()) {
 			String[] data = myEntries.get(0);
+			ligneNo++;
+			System.out.println("++++++++++ ligne = "+ligneNo+" +++++++++++++++++++");
 			myEntries.remove(0);
 			searchMeta(data);
 			insertData();
@@ -257,6 +262,7 @@ public class DataValuesImport {
 	}
 	
 	public Instance createInstance(String[] data) {
+		System.out.println("Entrer dans DataValuesImport - createInstance");
 		InstanceTDO instanceTDO = new InstanceTDO();
 		instanceTDO.setProgramme(progId);		
 		if(!data[codeSafespace].isEmpty() && data[codeSafespace] != null && !data[codeCentreSociale].isEmpty() && data[codeCentreSociale] != null) {
@@ -290,6 +296,7 @@ public class DataValuesImport {
 	}
 	
 	public Organisation getOrganisationId(String codeCentreSocial,String codeSafeSpace) {
+		System.out.println("Entrer dans DataValuesImport - getOrganisationId");
 		Organisation organisation = iorganisation.getOneOrganisationByCode(codeCentreSocial);
 		if(organisation == null) {
 			return null;
@@ -307,6 +314,7 @@ public class DataValuesImport {
 	}
 	
 	public Beneficiaire createBeneficiaire(String[] data,String organisation) {
+		System.out.println("Entrer dans DataValuesImport - createBeneficiaire");
 		BeneficiaireTDO beneficiaireTDO = new BeneficiaireTDO();
 				
 		if(!data[nom].isEmpty() && data[nom] != null) {
@@ -414,7 +422,7 @@ public class DataValuesImport {
 	}
 	
 	public UserApp seachUser(String user) {
-		//System.out.println("Entrer dans DataValuesImport - seachUser");
+		System.out.println("Entrer dans DataValuesImport - seachUser");
 		
 		UserApp user1 = new UserApp();
 		user1 = iuser.getUser(user);
@@ -427,6 +435,7 @@ public class DataValuesImport {
 	}
 	
 	private void createBeneficiareInstance(Instance instance,Beneficiaire beneficiaire,String[] data) {
+		System.out.println("Entrer dans DataValuesImport - createBeneficiareInstance");
 		InstanceBeneficiaire instanceBeneficiaire = new InstanceBeneficiaire();
 		Date dateActivite;
 		
@@ -495,6 +504,7 @@ public class DataValuesImport {
 	}
 	
 	private void serviceBeneficiaire(Instance instance,Beneficiaire beneficiaire) {
+		System.out.println("Entrer dans DataValuesImport - serviceBeneficiaire");
 		InstanceBeneficiaire instanceBeneficiaire = new InstanceBeneficiaire();
 		instanceBeneficiaire.setInstance(instance);
 		instanceBeneficiaire.setBeneficiaire(beneficiaire);

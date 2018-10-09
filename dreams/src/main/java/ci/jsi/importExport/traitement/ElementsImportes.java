@@ -46,12 +46,15 @@ public class ElementsImportes {
 	private List<String[]> myEntries;
 	
 	ResultatRequete resultatRequete;
-
+	int ligneNo = 0;
+	
+	
 	@SuppressWarnings("deprecation")
 	public ResultatRequete lireCSV(String fileName) {
 		resultatRequete = new ResultatRequete();
 		String chemin = File.separator+"DREAMS"+File.separator+"upload-dir"+File.separator;
 		String file = chemin+fileName;
+		ligneNo = 0;
 
 		CSVReader csvReader = null;
 
@@ -91,6 +94,8 @@ public class ElementsImportes {
 			}
 				
 		}
+		System.out.println("++++++++++ ligne = "+ligneNo+" +++++++++++++++++++");
+		ligneNo++;
 		myEntries.remove(0);
 		return true;
 	}
@@ -100,6 +105,8 @@ public class ElementsImportes {
 		lesElements = new ArrayList<String[]>();
 		if(!myEntries.isEmpty()) {
 			String[] ligne = myEntries.get(0);
+			System.out.println("++++++++++ ligne = "+ligneNo+" +++++++++++++++++++");
+			ligneNo++;
 			myEntries.remove(0);
 			lesElements.add(ligne);
 			if (ligne[0] != null && !ligne[0].isEmpty()) {
@@ -200,7 +207,7 @@ public class ElementsImportes {
 	}
 
 	private void createElement(EnsembleOption ensembleOption) {
-		//System.out.println("////// entrer dans createElement ensembleOption");
+		System.out.println("////// entrer dans createElement ensembleOption");
 		Element element = new Element();
 		element = createElement();
 		//System.out.println("-2");
@@ -210,7 +217,7 @@ public class ElementsImportes {
 	}
 	
 	private Element createElement() {
-		//System.out.println("////// entrer dans createElement simple");
+		System.out.println("////// entrer dans createElement simple");
 		Element element = new Element();
 		element.setName(lesElements.get(0)[0]);
 		//System.out.println("+1 createElement simple");
@@ -230,7 +237,7 @@ public class ElementsImportes {
 			
 		
 		if(lesElements.get(0)[5] != null && !lesElements.get(0)[5].isEmpty()) {
-			//System.out.println("+7 createElement simple");
+			System.out.println("+7 createElement simple");
 			ProgrammeElement programmeElement = leProgramme(lesElements.get(0)[5]);
 			//System.out.println("+8 createElement simple");
 			if(programmeElement != null) {
@@ -267,7 +274,7 @@ public class ElementsImportes {
 	
 
 	private boolean ensembleOptionUnique() {
-		//System.out.println("////// entrer dans ensembleOptionUnique");
+		System.out.println("////// entrer dans ensembleOptionUnique");
 		
 		String ensembleName = lesElements.get(0)[6];
 		String ensembleid = lesElements.get(0)[7];

@@ -37,6 +37,7 @@ public class CreateDossierBeneficiaire {
 	}
 
 	public Instance createDossierBeneficiare(Instance instance,Beneficiaire beneficiaire) {
+		System.out.println("enter dans createDossierBeneficiare");
 		DataInstance dataInstance = new DataInstance();
 		List<DataValueTDO> dataValueTDOs = new ArrayList<DataValueTDO>();
 		//DataValueTDO dataValueTDO = new DataValueTDO();
