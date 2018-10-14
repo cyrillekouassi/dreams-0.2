@@ -1,5 +1,5 @@
-saisie.controller('enrolSCctrl', ['$scope', '$rootScope', '$stateParams', '$http','$filter','$state',
-function ($scope, $rootScope, $stateParams, $http,$filter,$state) {
+saisie.controller('enrolSCctrl', ['$scope', '$rootScope', '$stateParams', '$http','$filter','$state','$timeout',
+function ($scope, $rootScope, $stateParams, $http,$filter,$state,$timeout) {
     console.log("entrer dans enrolSCctrl");
     var ValueUrl = serverAdresse+'dataValue';
 	var dataInstanceEntete = {};
@@ -13,8 +13,31 @@ function ($scope, $rootScope, $stateParams, $http,$filter,$state) {
 		"_03_soutient_finance","_03_a_autre_soutient_finance","_04_pas_sco_actuel","_05_raison_non_sco",
 		"_05_a_autre_raison_non_sco","_06_second_chance","_06_a_autre_second_chance","_07_source_revenu",
 		"_07_a_autre_source_revenu","_08_economie","_09_gard_economie","_09_a_autre_gard_economie"];
+    var primaire = [
+        {value: 'CP1', name: 'CP1'},
+        {value: 'CP2', name: 'CP2'},
+        {value: 'CE1', name: 'CE1'},
+        {value: 'CE2', name: 'CE2'},
+        {value: 'CM1', name: 'CM1'},
+        {value: 'CM2', name: 'CM2'}
+    ];
+    var secondaire = [
+        {value: '6e', name: '6ème'},
+        {value: '5e', name: '5ème'},
+        {value: '4e', name: '4ème'},
+        {value: '3e', name: '3ème'},
+        {value: '2e', name: '2nd'},
+        {value: '1e', name: '1ere'},
+        {value: 'Tle', name: 'Terminale'}
+    ];
+    $scope.niveau = {
+        classe: []
+    };
+
+
 
 	mappigData();
+  initialClasse();
 
 
 	 function mappigData() {
@@ -26,6 +49,9 @@ function ($scope, $rootScope, $stateParams, $http,$filter,$state) {
 	                        $scope.enrolC[enrolSectionC[i]] = $rootScope.enrolementData[j].value;
 	                    }
 	                }
+                  if(!$scope.enrolC[enrolSectionC[i]] || $scope.enrolC[enrolSectionC[i]] == null || $scope.enrolC[enrolSectionC[i]] == ""){
+                    console.error("Element sans valeur, code = ",enrolSectionC[i]);
+                  }
 	            }
 	        }
 	        console.log("mappigData() $scope.enrolC = ",$scope.enrolC);
@@ -110,6 +136,84 @@ function ($scope, $rootScope, $stateParams, $http,$filter,$state) {
         $state.go('enrolSD',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
     }
 
+$scope.changeniveau = function(value){
+  console.log("changeniveau, value = ",value);
+  $scope.enrolC._02_a_classe = null;
+  $scope.classePRIMECOND = false;
+  $timeout( function(){
+    $scope.$apply(function() {
+      if(value == "PRIM"){
+        $scope.niveau.classe = primaire;
+        $scope.classePRIMECOND = true;
+      }
+      if(value == "SECOND"){
+        $scope.niveau.classe = secondaire;
+        $scope.classePRIMECOND = true;
+      }
+      $(document).ready(function () {
+          $('.mdb-select').material_select();
+      });
+    });
+  },10);
 
+}
+
+/*function initialClasse() {
+  $timeout( function(){
+    $scope.$apply(function() {
+      if($scope.enrolC){
+        if($scope.enrolC._02_a_classe){
+          if($scope.enrolC._02_a_classe != null;){
+            if($scope.enrolC._02_niv_scolaire == "PRIM"){
+              $scope.niveau.classe = primaire;
+              $scope.classePRIMECOND = true;
+            }
+            if($scope.enrolC._02_niv_scolaire == "SECOND"){
+              $scope.niveau.classe = secondaire;
+              $scope.classePRIMECOND = true;
+            }
+            $(document).ready(function () {
+                $('.mdb-select').material_select();
+            });
+          }
+        }
+      }
+
+    });
+  },10);
+}*/
+
+
+function initialClasse() {
+  console.log("initialClasse()");
+  $timeout( function(){
+    $scope.$apply(function() {
+      if($scope.enrolC){
+        if($scope.enrolC._02_a_classe){
+          if($scope.enrolC._02_a_classe != null){
+            if($scope.enrolC._02_niv_scolaire){
+              if($scope.enrolC._02_niv_scolaire == "PRIM"){
+                $scope.niveau.classe = primaire;
+                $scope.classePRIMECOND = true;
+              }
+              if($scope.enrolC._02_niv_scolaire == "SECOND"){
+                $scope.niveau.classe = secondaire;
+                $scope.classePRIMECOND = true;
+              }
+            }
+          }
+
+        }
+
+      }
+
+
+
+      $(document).ready(function () {
+          $('.mdb-select').material_select();
+      });
+    });
+  },10);
+  }
 
 }]);

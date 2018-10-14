@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,9 +17,7 @@ import ci.jsi.entites.beneficiaire.Beneficiaire;
 import ci.jsi.entites.beneficiaire.BeneficiaireTDO;
 import ci.jsi.entites.beneficiaire.Ibeneficiaire;
 import ci.jsi.entites.beneficiaire.InstanceBeneficiaire;
-import ci.jsi.entites.dataValue.DataInstance;
 import ci.jsi.entites.dataValue.DataValue;
-import ci.jsi.entites.dataValue.DataValueTDO;
 import ci.jsi.entites.dataValue.IdataValues;
 import ci.jsi.entites.element.Element;
 import ci.jsi.entites.element.Ielement;
@@ -250,7 +246,7 @@ public class DataValuesImport {
 				
 		beneficiaire = createBeneficiaire(data,instance.getOrganisation().getUid());
 		if(beneficiaire == null) {
-			iinstance.deleteInstance(instance);
+			iinstance.deleteCompleteInstance(instance);
 			resultatRequete.getRaisonNonImport().add("information beneficiaire absent");
 			resultatRequete.setIgnore(resultatRequete.getIgnore() + 1);
 			return;
@@ -463,7 +459,7 @@ public class DataValuesImport {
 		if(beneficiaire != null) {
 			ajouterValeur(instance,beneficiaire,data);
 		}else {
-			iinstance.deleteInstance(instance);
+			iinstance.deleteCompleteInstance(instance);
 			resultatRequete.getRaisonNonImport().add("Echec de creation de la beneficiare id_dreams pourrait déjà existé, id_dreams: "+data[id_dreams]);
 			resultatRequete.setIgnore(resultatRequete.getIgnore() + 1);
 		}
@@ -495,15 +491,18 @@ public class DataValuesImport {
 		if(!listDataValue.isEmpty()) {
 			listDataValue = idataValues.saveAllDataValue(listDataValue);
 			resultatRequete.setImporte(resultatRequete.getImporte() + 1);
-			Instance serviceInstance = servicesDreams.evaluerService(instance,data[dat_enrol]);
-			serviceBeneficiaire(serviceInstance,beneficiaire);
+			servicesDreams.evaluerService(instance,data[dat_enrol]);
+			
+			//Instance serviceInstance = servicesDreams.evaluerService(instance,data[dat_enrol]);
+			//serviceBeneficiaire(serviceInstance,beneficiaire);
+			
+			
 			createDossierBeneficiaire.createDossierBeneficiare(instance,beneficiaire);
-			//Instance dossierInstance = createDossierBeneficiare(instance,beneficiaire);
-			//serviceBeneficiaire(dossierInstance,beneficiaire);
+			
 		}
 	}
 	
-	private void serviceBeneficiaire(Instance instance,Beneficiaire beneficiaire) {
+	/*private void serviceBeneficiaire(Instance instance,Beneficiaire beneficiaire) {
 		System.out.println("Entrer dans DataValuesImport - serviceBeneficiaire");
 		InstanceBeneficiaire instanceBeneficiaire = new InstanceBeneficiaire();
 		instanceBeneficiaire.setInstance(instance);
@@ -513,7 +512,7 @@ public class DataValuesImport {
 		
 		beneficiaire.getInstanceBeneficiaires().add(instanceBeneficiaire);
 		beneficiaire = ibeneficiaire.updateOneBeneficiaire(beneficiaire);
-	}
+	}*/
 	
 	
 }

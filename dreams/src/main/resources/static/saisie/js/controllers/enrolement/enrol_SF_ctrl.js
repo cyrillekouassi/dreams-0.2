@@ -8,6 +8,8 @@ saisie.controller('enrolSFCtrl', ['$scope', '$rootScope', '$stateParams', '$http
     dataInstanceEntete.instance = $stateParams.inst;
     dataInstance = angular.copy(dataInstanceEntete);
 	$scope.enrolF = {};
+  $scope.methodPfUtil = {};
+  $scope.methodPf = {};
 	var enrolSectionF = ["_01_deja_enceinte",
 	"_02_enceinte",
 	"_03_suivi_gross",
@@ -29,8 +31,17 @@ saisie.controller('enrolSFCtrl', ['$scope', '$rootScope', '$stateParams', '$http
 	                for(var j=0;j<$rootScope.enrolementData.length;j++){
 	                    if(id == $rootScope.enrolementData[j].element){
 	                        $scope.enrolF[enrolSectionF[i]] = $rootScope.enrolementData[j].value;
+                          if(enrolSectionF[i] == "_04_method_pf"){
+                            initiMethodPf($rootScope.enrolementData[j].value);
+                          }
+                          if(enrolSectionF[i] == "_05_method_pf_util"){
+                            initiMethodPfUtil($rootScope.enrolementData[j].value);
+                          }
 	                    }
 	                }
+                  if(!$scope.enrolF[enrolSectionF[i]] || $scope.enrolF[enrolSectionF[i]] == null || $scope.enrolF[enrolSectionF[i]] == ""){
+                    console.error("Element sans valeur, code = ",enrolSectionF[i]);
+                  }
 	            }
 	        }
 	        console.log("mappigData() $scope.enrolF = ",$scope.enrolF);
@@ -148,8 +159,45 @@ saisie.controller('enrolSFCtrl', ['$scope', '$rootScope', '$stateParams', '$http
 
 	function succesSave() {
         $state.go('enrolSG',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
-    }
+  }
 
+  function initiMethodPf(valeur){
+    console.log("initiMethodPf => valeur = ",valeur);
+    if(!valeur || valeur == "" || valeur == " "){return;}
+
+    var conti = true; var option = null;
+    var initi = 0, space = 0;
+    while (conti){
+        space = valeur.indexOf(" ",initi);
+        if(space != -1){
+            option = valeur.substring(initi,space);
+            initi = space+1;
+        }else{
+            option = valeur.substring(initi,valeur.length);
+            conti = false;
+        }
+        $scope.methodPf[option] = true;
+    }
+  }
+
+  function initiMethodPfUtil(valeur){
+    console.log("initiMethodPfUtil => valeur = ",valeur);
+    if(!valeur || valeur == "" || valeur == " "){return;}
+
+    var conti = true; var option = null;
+    var initi = 0, space = 0;
+    while (conti){
+        space = valeur.indexOf(" ",initi);
+        if(space != -1){
+            option = valeur.substring(initi,space);
+            initi = space+1;
+        }else{
+            option = valeur.substring(initi,valeur.length);
+            conti = false;
+        }
+        $scope.methodPfUtil[option] = true;
+    }
+  }
 
 
 }]);

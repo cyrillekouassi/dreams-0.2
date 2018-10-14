@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ci.jsi.entites.instance.Instance;
 import ci.jsi.initialisation.ConvertDate;
 import ci.jsi.initialisation.ResultatRequete;
 
@@ -129,6 +130,22 @@ public class BeneficiaireService implements Ibeneficiaire {
 			StatusBeneficiaire = beneficiaireConvert.getStatusBeneficiaires(beneficiaires);
 		}
 		return StatusBeneficiaire;
+	}
+
+	@Override
+	public Beneficiaire deleteBeneficiaireInstance(Beneficiaire beneficiaire, Instance instance) {
+		List<InstanceBeneficiaire> instanceBeneficiaires = new ArrayList<InstanceBeneficiaire>();
+		instanceBeneficiaires = beneficiaire.getInstanceBeneficiaires();
+		
+		int i = 0;
+		while(i < instanceBeneficiaires.size()) {
+			if(instanceBeneficiaires.get(i).getInstance() == instance) {
+				instanceBeneficiaires.remove(i);
+			}
+		}
+		beneficiaire.setInstanceBeneficiaires(instanceBeneficiaires);
+		beneficiaire = updateOneBeneficiaire(beneficiaire);
+		return beneficiaire;
 	}
 
 

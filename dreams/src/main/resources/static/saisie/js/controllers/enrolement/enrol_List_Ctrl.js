@@ -17,7 +17,7 @@ saisie.controller('enrol_List_Ctrl', ['$scope', '$rootScope', '$http', '$filter'
     $scope.infoSearch = {};
 
 
-    console.log("orgSelest = ",orgSelest);
+    //console.log("orgSelest = ",orgSelest);
 
     if(orgSelest){
         formateMetaData();
@@ -35,7 +35,7 @@ saisie.controller('enrol_List_Ctrl', ['$scope', '$rootScope', '$http', '$filter'
             if ($rootScope.lesProgrammes[i].code == "enrolement") {
                 //$rootScope.VadInfo.programme = $rootScope.programme[i].id;
                 $rootScope.programmeSelect = $rootScope.lesProgrammes[i];
-                console.log("$rootScope.programmeSelect = ", $rootScope.programmeSelect);
+                //console.log("$rootScope.programmeSelect = ", $rootScope.programmeSelect);
                 if($rootScope.programmeSelect.elements.length == 0){
                     toastr["success"]("Aucune Element n'existe");
                     return;
@@ -60,11 +60,11 @@ saisie.controller('enrol_List_Ctrl', ['$scope', '$rootScope', '$http', '$filter'
         }
 
         $http.get(ValuesUrl).then(function (response) {
-            //console.log("getdata() response = ", response);
+              //console.log("getdata() response = ", response);
             data = response.data.content;
             gestPagging(response.data);
             if (data.length > 0) {
-                console.log("getdata() data = ", data);
+                //console.log("getdata() data = ", data);
                 $rootScope.allData = data;
                 getElements();
             }
@@ -86,7 +86,7 @@ saisie.controller('enrol_List_Ctrl', ['$scope', '$rootScope', '$http', '$filter'
             laPage += 1;
             $scope.infoSearch.pagging.push(laPage);
         }
-        console.log("getdata() infoSearch = ", $scope.infoSearch);
+        //console.log("getdata() infoSearch = ", $scope.infoSearch);
     }
 
     function getElements() {
@@ -116,7 +116,7 @@ saisie.controller('enrol_List_Ctrl', ['$scope', '$rootScope', '$http', '$filter'
 
 
         }
-        console.log("getElements() nosElements = ", nosElements);
+        //console.log("getElements() nosElements = ", nosElements);
 
         contituerListe();
     }
@@ -153,13 +153,13 @@ saisie.controller('enrol_List_Ctrl', ['$scope', '$rootScope', '$http', '$filter'
 
         }
 
-        console.log("lesEnrol = ", liste);
+        //console.log("lesEnrol = ", liste);
         $scope.lesEnrol = liste;
 
     }
 
     $scope.deleteInstance = function (instance) {
-        console.log("instance = " + instance);
+        //console.log("instance = " + instance);
         instanceUrl = instanceUrl + "/" + instance;
         $http.delete(instanceUrl).then(function (response) {
             console.log(response);
@@ -201,7 +201,7 @@ saisie.controller('enrol_List_Ctrl', ['$scope', '$rootScope', '$http', '$filter'
     }
 
     $scope.affichePage = function (page) {
-        console.log("affichePage() > page = ",page);
+      //  console.log("affichePage() > page = ",page);
         if(page != $scope.infoSearch.page){
             var aller = "&page="+page;
             getdata(aller);

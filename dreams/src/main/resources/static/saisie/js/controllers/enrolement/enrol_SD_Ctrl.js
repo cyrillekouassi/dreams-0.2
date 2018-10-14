@@ -8,6 +8,7 @@ saisie.controller('enrolSDctrl', ['$scope', '$rootScope', '$stateParams', '$http
     dataInstanceEntete.instance = $stateParams.inst;
     dataInstance = angular.copy(dataInstanceEntete);
 	$scope.enrolD = {};
+  $scope.testvih = {};
 var enrolSectionD = ["_01_test_vih","_02_dernier_test","_03_prkoi_jam_teste","_03_a_autre_prkoi_jam_teste","_04_lieu_test_vih"];
 
 	mappigData();
@@ -20,8 +21,14 @@ var enrolSectionD = ["_01_test_vih","_02_dernier_test","_03_prkoi_jam_teste","_0
 	                for(var j=0;j<$rootScope.enrolementData.length;j++){
 	                    if(id == $rootScope.enrolementData[j].element){
 	                        $scope.enrolD[enrolSectionD[i]] = $rootScope.enrolementData[j].value;
+                          if(enrolSectionD[i] == "_03_prkoi_jam_teste"){
+                            initiTest($rootScope.enrolementData[j].value);
+                          }
 	                    }
 	                }
+                  if(!$scope.enrolD[enrolSectionD[i]] || $scope.enrolD[enrolSectionD[i]] == null || $scope.enrolD[enrolSectionD[i]] == ""){
+                    console.error("Element sans valeur, code = ",enrolSectionD[i]);
+                  }
 	            }
 	        }
 	        console.log("mappigData() $scope.enrolD = ",$scope.enrolD);
@@ -121,6 +128,26 @@ var enrolSectionD = ["_01_test_vih","_02_dernier_test","_03_prkoi_jam_teste","_0
 
 	function succesSave() {
         $state.go('enrolSE',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
+    }
+
+
+    function initiTest(valeur){
+      console.log("initiTest => valeur = ",valeur);
+      if(!valeur || valeur == "" || valeur == " "){return;}
+      $scope.testvih = {};
+      var conti = true; var option = null;
+      var initi = 0, space = 0;
+      while (conti){
+          space = valeur.indexOf(" ",initi);
+          if(space != -1){
+              option = valeur.substring(initi,space);
+              initi = space+1;
+          }else{
+              option = valeur.substring(initi,valeur.length);
+              conti = false;
+          }
+          $scope.testvih[option] = true;
+      }
     }
 
 

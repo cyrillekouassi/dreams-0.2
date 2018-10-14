@@ -2,344 +2,388 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Untitled Document</title>
+<title>Enrolement SECTION C</title>
 </head>
 
 <body>
-<table border="1" cellspacing="0" cellpadding="0" align="left" width="96%">
-  <tr>
-    <td width="100%" height="39" colspan="4" bgcolor="#C0E7CD"><p><strong>SECTION C:  </strong> <strong>Education    / apprentissage et emploi</strong><strong></strong></p></td>
-  </tr>
-  <tr>
-    <td width="100%" colspan="4"><p><strong>Agent enquêteur</strong><strong>: Cette section de l'enrôlement pose des questions sur    l'éducation et l'emploi.</strong><strong></strong></p></td>
-  </tr>
-  <tr>
-    <td width="6%"><p><em>C01</em></p></td>
-    <td width="47%"><p><em>Êtes-vous actuellement scolarisée?</em></p></td>
-    <td width="45%" colspan="2">
-       <div class="form-check">
-        <input value="OUI" ng-model="enrolC._01_scolarise" ng-change="changescolarise('oui')" name="radio16" type="radio" class="with-gap" id="radio167" >
-        <label for="radio167">Oui</label>
-      </div>
-      <div class="form-check">
-        <input value="NON" ng-model="enrolC._01_scolarise" ng-change="changescolarise('non')" name="radio16" type="radio" class="with-gap" id="radio168" >
-        <label for="radio168">Non</label>
-      </div></td>
-  </tr>
-  <tr>
-    <td width="6%" rowspan="6"><p><em>C02</em></p></td>
-    <td width="47%" rowspan="6"><p><em>Quel est le plus haut niveau scolaire que vous avez    atteint </em><br>
-      <strong><em>(Si jamais scolarisée    passer à C06)</em></strong><strong></strong></p></td>
-    <td width="45%" colspan="2">
-      <div class="form-check">
-        <input value="JAM_SCO" ng-model="enrolC._02_niv_scolaire" ng-change="changeniveau('jamais')" name="radio17" type="radio" class="with-gap" id="radio169" >
-        <label for="radio169">Jamais scolarisé</label>
-      </div>
-  </td>
-  </tr>
-  <tr>
-    <td width="21%">
-      <div class="form-check">
-        <input value="PRIM" ng-model="enrolC._02_niv_scolaire" ng-change="changeniveau('primaire')" name="radio17" type="radio" class="with-gap" id="radio170" >
-        <label for="radio170">Niveau primaire</label>
-      </div>
-    </td>
-    <td width="24%"><p><em>Classe
-  <select class="mdb-select" ng-model="enrolC._02_a_classe" >
-  <option value="CP1">CP1</option>
-  <option value="CP2">CP2</option>
-  <option value="CE1">CE1</option>
-  <option value="CE2">CE2</option>
-  <option value="CM1">CM1</option>
-  <option value="CM2">CM2</option>
-</select>
-    </em></p></td>
-  </tr>
-  <tr>
-    <td width="21%">
-      <div class="form-check">
-        <input value="SECOND" ng-model="enrolC._02_niv_scolaire" ng-change="changeniveau('second')" name="radio17" type="radio" class="with-gap" id="radio171" >
-        <label for="radio171">Niveau secondaire</label>
-      </div> </td>
-    <td width="24%"><p><em>Classe
-      <select class="mdb-select" ng-model="enrolC._02_a_classe" >
-  <option value="6e">6ème</option>
-  <option value="5e">5ème</option>
-  <option value="4e">4ème</option>
-  <option value="3e">3ème</option>
-  <option value="2e">2nd</option>
-  <option value="1e">1ere</option>
-  <option value="Tle">Terminale</option>
-</select>
-    </em></p></td>
-  </tr>
-  <tr>
-    <td width="45%" colspan="2">
-      <div class="form-check">
-        <input value="SUP" ng-model="enrolC._02_niv_scolaire" ng-change="changeniveau('sup')" name="radio17" type="radio" class="with-gap" id="radio172" >
-        <label for="radio172">Niveau Supérieur (Grande école / université)</label>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td width="45%" colspan="2">
-      <div class="form-check">
-        <input value="FORM_PRO" ng-model="enrolC._02_niv_scolaire" ng-change="changeniveau('profes')" name="radio17" type="radio" class="with-gap" id="radio173" >
-        <label for="radio173">Formation professionnelle</label>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td width="45%" colspan="2">
-      <div class="form-check">
-        <input value="AUT" ng-model="enrolC._02_niv_scolaire" ng-change="changeniveau('autre')" name="radio17" type="radio" class="with-gap" id="radio174" >
-        <label for="radio174">Autre (Préciser)</label>
-        <input ng-model="enrolC._02_a_autre_niv_scolaire" type="text" name="textfield28" id="textfield28">
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td width="6%"><p><em>C03</em></p></td>
-    <td width="47%"><p><em>D&rsquo;où provient le soutien financier principal pour votre    scolarité actuelle&nbsp;?</em><br>
-      <em> (<strong>Cocher    tout ce qui s'applique</strong>)</em><br>
-      <em>(Après    avoir répondu à cette question passer à C08) <strong></strong></em></p></td>
-    <td width="45%" colspan="2" valign="top">
-      <div class="form-check">
-        <input value="MOI" ng-model="enrolC._03_soutient_finance
-" ng-change="changefinacier('moi')" name="radio18" type="radio" class="with-gap" id="radio175" >
-        <label for="radio175">Moi-même</label>
-		</div>
-     <div class="form-check">
-        <input value="PARENT" ng-model="enrolC._03_soutient_finance
-" ng-change="changefinacier('parent')" name="radio18" type="radio" class="with-gap" id="radio176" >
-        <label for="radio176">Parent/tuteur</label>
-      </div>
-    <div class="form-check">
-        <input value="BOURCE" ng-model="enrolC._03_soutient_finance
-" ng-change="changefinacier('bourse')" name="radio18" type="radio" class="with-gap" id="radio177" >
-        <label for="radio177">Bourse d&rsquo;étude</label>
-      </div>
-      <div class="form-check">
-        <input value="ONG" ng-model="enrolC._03_soutient_finance
-" ng-change="changefinacier('ong')" name="radio18" type="radio" class="with-gap" id="radio178" >
-        <label for="radio178">ONG</label>
-      </div>
-       <div class="form-check">
-        <input value="INSTITUT" ng-model="enrolC._03_soutient_finance
-" ng-change="changefinacier('confess')" name="radio18" type="radio" class="with-gap" id="radio179" >
-        <label for="radio179">Institutions confessionnelles (église, mosquée, etc.)</label>
-      </div>
-      <div class="form-check">
-        <input value="AUT_PARENT" ng-model="enrolC._03_soutient_finance
-" ng-change="changefinacier('autrepart')" name="radio18" type="radio" class="with-gap" id="radio180" >
-        <label for="radio180">Autres parents (exclut parent / tuteur)</label>
-      </div>
-      <div class="form-check">
-        <input value="NA" ng-model="enrolC._03_soutient_finance
-" ng-change="changefinacier('na')" name="radio18" type="radio" class="with-gap" id="radio181" >
-        <label for="radio181">NA</label>
-      </div>
-      <div class="form-check">
-        <input value="AUT" ng-model="enrolC._03_soutient_finance
-" ng-change="changefinacier('autre')" name="radio18" type="radio" class="with-gap" id="radio182" >
-        <label for="radio182">Autre (Préciser)</label>
-        <input ng-model="enrolC._03_a_autre_soutient_finance
-" type="text" name="textfield29" id="textfield29">
-      </div>
-       </td>
-  </tr>
-  <tr>
-    <td width="6%"><p><em>C04</em></p></td>
-    <td width="47%"><p><em>Si vous    n&rsquo;êtes pas actuellement scolarisée à quand remonte la dernière fois que vous    êtes allée à l'école?  </em></p></td>
-    <td width="45%" colspan="2" valign="top">
-      <div class="form-check">
-        <input value="Moin6MOIS" ng-model="enrolC._04_pas_sco_actuel
-" ng-change="changedernecole('moin6')" name="radio19" type="radio" class="with-gap" id="radio183" >
-        <label for="radio183">Moins de 6 mois</label>
-      </div>
+  <div class="card card-cascade narrower" id="entete">
+			<div class="view py-3 gradient-card-header info-color-dark mx-4 d-flex">
 
-     <div class="form-check">
-        <input value="6_11MOIS" ng-model="enrolC._04_pas_sco_actuel
-" ng-change="changedernecole('entre6_11')" name="radio19" type="radio" class="with-gap" id="radio184" >
-        <label for="radio184">Entre 6 et 11 mois</label>
-      </div>
-    <div class="form-check">
-        <input value="1_2ANS" ng-model="enrolC._04_pas_sco_actuel
-" ng-change="changedernecole('entre1_2')" name="radio19" type="radio" class="with-gap" id="radio185" >
-        <label for="radio185">Entre 1 et 2 ans</label>
-      </div>
-      <div class="form-check">
-        <input value="Plus2ANS" ng-model="enrolC._04_pas_sco_actuel
-" ng-change="changedernecole('plus2')" name="radio19" type="radio" class="with-gap" id="radio186" >
-        <label for="radio186">Plus de 2 ans</label>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td width="6%"><p><em>C05</em></p></td>
-    <td width="47%"><p><em>Quelle    est la principale raison pour laquelle vous n'allez pas à l'école ou vous    n&rsquo;êtes jamais allée à l&rsquo;école?</em><br>
-      <em>(<strong>Si le bénéficiaire est en attente d&rsquo;une    orientation, passez à C07)  </strong></em></p></td>
-    <td width="45%" colspan="2" valign="top">
-      <div class="form-check">
-        <input value="ARGENT" ng-model="enrolC._05_raison_non_sco
-" ng-change="changeraison('non')" name="radio20" type="radio" class="with-gap" id="radio187" >
-        <label for="radio187">Manque de frais scolaire</label>
-      </div>
+			</div>
+			<div class="card-body">
+        <table border="1" cellspacing="0" cellpadding="0" align="left" width="96%">
+          <tr>
+            <td width="100%" height="39" colspan="4" bgcolor="#C0E7CD"><p><strong>SECTION C:  </strong> <strong>Education    / apprentissage et emploi</strong><strong></strong></p></td>
+          </tr>
+          <tr>
+            <td width="100%" colspan="4"><p><strong>Agent enquêteur</strong><strong>: Cette section de l'enrôlement pose des questions sur    l'éducation et l'emploi.</strong><strong></strong></p></td>
+          </tr>
+          <tr>
+            <td width="6%"><p><em>C01</em></p></td>
+            <td width="47%"><p><em>Êtes-vous actuellement scolarisée?</em></p></td>
+            <td width="45%" colspan="2">
+               <div class="form-check">
+                <input value="OUI" ng-model="enrolC._01_scolarise" ng-change="changescolarise('oui')" name="radio16" type="radio" class="with-gap" id="radio167" >
+                <label for="radio167">Oui</label>
+              </div>
+              <div class="form-check">
+                <input value="NON" ng-model="enrolC._01_scolarise" ng-change="changescolarise('non')" name="radio16" type="radio" class="with-gap" id="radio168" >
+                <label for="radio168">Non</label>
+              </div></td>
+          </tr>
+          <tr>
+            <td width="6%" rowspan="6"><p><em>C02</em></p></td>
+            <td width="47%" rowspan="6"><p><em>Quel est le plus haut niveau scolaire que vous avez    atteint </em><br>
+              <strong><em>(Si jamais scolarisée    passer à C06)</em></strong><strong></strong></p></td>
+            <td width="45%" colspan="2">
+              <div class="form-check">
+                <input value="JAM_SCO" ng-model="enrolC._02_niv_scolaire" ng-change="changeniveau('JAM_SCO')" name="radio17" type="radio" class="with-gap" id="radio169" >
+                <label for="radio169">Jamais scolarisé</label>
+              </div>
+          </td>
+          </tr>
+          <tr>
+            <td width="21%">
+              <div class="form-check">
+                <input value="PRIM" ng-model="enrolC._02_niv_scolaire" ng-change="changeniveau('PRIM')" name="radio17" type="radio" class="with-gap" id="radio170" >
+                <label for="radio170">Niveau primaire</label>
+              </div>
+            </td>
+            <td width="24%" style="padding: 10px;" rowspan="2" ng-if="classePRIMECOND"><p style="margin: auto"><em>Classe
+              <div>
+                <select class="mdb-select colorful-select dropdown-primary" ng-model="enrolC._02_a_classe">
+                    <option ng-repeat="option in niveau.classe" ng-value="option.value">{{option.name}}</option>
+                </select>
+              </div>
 
-    <div class="form-check">
-        <input value="GROSS" ng-model="enrolC._05_raison_non_sco
-" ng-change="changeraison('grossesse')" name="radio20" type="radio" class="with-gap" id="radio188" >
-        <label for="radio188">Grossesse</label>
-      </div>
-      <div class="form-check">
-        <input value="PRESSIONS" ng-model="enrolC._05_raison_non_sco
-" ng-change="changeraison('pression')" name="radio20" type="radio" class="with-gap" id="radio189" >
-        <label for="radio189">Pression des pairs</label>
-      </div>
-       <div class="form-check">
-        <input value="REFUS" ng-model="enrolC._05_raison_non_sco
-" ng-change="changeraison('pas')" name="radio20" type="radio" class="with-gap" id="radio190" >
-        <label for="radio190">Pas intéressée</label>
-      </div>
-      <div class="form-check">
-        <input value="ORIENTATION" ng-model="enrolC._05_raison_non_sco
-" ng-change="changeraison('attente')" name="radio20" type="radio" class="with-gap" id="radio191" >
-        <label for="radio191">En attente d'une orientation</label>
-      </div>
-      <div class="form-check">
-        <input value="MARIE" ng-model="enrolC._05_raison_non_sco
-" ng-change="changeraison('marie')" name="radio20" type="radio" class="with-gap" id="radio192" >
-        <label for="radio192">Je me suis mariée</label>
-      </div>
-      <div class="form-check">
-        <input value="AUT" ng-model="enrolC._05_raison_non_sco
-" ng-change="changeraison('autre')" name="radio20" type="radio" class="with-gap" id="radio193" >
-        <label for="radio193">Autre (Préciser)</label>
-        <input ng-model="enrolC._05_a_autre_raison_non_sco
-" type="text" name="textfield30" id="textfield30">
-      </div>
-      </td>
-  </tr>
-  <tr>
-    <td width="6%"><p><em>C06</em></p></td>
-    <td width="47%"><p><em>Si l&rsquo;on vous donnait une chance, que voudriez-vous    faire de votre vie?</em><br>
-      <em>Ne pas lire les options. Cocher / enregistrer le    souhait principal</em></p></td>
-    <td width="45%" colspan="2">
-      <div class="form-check">
-        <input value="COURS" ng-model="enrolC._06_second_chance
-" ng-change="changechance('cours')" name="radio21" type="radio" class="with-gap" id="radio194" >
-        <label for="radio194">Poursuivre les cours</label>
-      </div>
-      <div class="form-check">
-        <input value="ACTIVITE" ng-model="enrolC._06_second_chance
-" ng-change="changechance('activite')" name="radio21" type="radio" class="with-gap" id="radio195" >
-        <label for="radio195">Démarrer une activité économique</label>
-      </div>
-      <div class="form-check">
-        <input value="METIER" ng-model="enrolC._06_second_chance
-" ng-change="changechance('apprent')" name="radio21" type="radio" class="with-gap" id="radio196" >
-        <label for="radio196">Démarrer un apprentissage</label>
-      </div>
-      <div class="form-check">
-        <input value="AUT" ng-model="enrolC._06_second_chance
-" ng-change="changechance('autre')" name="radio21" type="radio" class="with-gap" id="radio197" >
-        <label for="radio187">Autre (Préciser)</label>
-        <input ng-model="enrolC._06_a_autre_second_chance
-" type="text" name="textfield31" id="textfield31">
-      </div>
-   </td>
-  </tr>
-  <tr>
-    <td width="6%"><p><em>C07</em></p></td>
-    <td width="47%"><p><em>Quelle est votre principale source de revenu actuelle?</em></p></td>
-    <td width="45%" colspan="2" valign="top">
-      <div class="form-check">
-        <input value="AUC" ng-model="enrolC._07_source_revenu
-" ng-change="changerevenu('aucun')" name="radio22" type="radio" class="with-gap" id="radio198" >
-        <label for="radio198">Aucun (j'ai aucune source de revenu)</label>
-      </div>
-      <div class="form-check">
-        <input value="SALAIRE" ng-model="enrolC._07_source_revenu
-" ng-change="changerevenu('salarie')" name="radio22" type="radio" class="with-gap" id="radio199" >
-        <label for="radio">Salariée</label>
-      </div>
-       <div class="form-check">
-        <input value="ENTREPRENDRE" ng-model="enrolC._07_source_revenu
-" ng-change="changerevenu('entrepren')" name="radio22" type="radio" class="with-gap" id="radio200" >
-        <label for="radio200">Entrepreneur</label>
-      </div>
-      <div class="form-check">
-        <input value="TravailOCASE" ng-model="enrolC._07_source_revenu
-" ng-change="changerevenu('occasion')" name="radio22" type="radio" class="with-gap" id="radio201" >
-        <label for="radio201">Travail occasionnel</label>
-      </div>
-      <div class="form-check">
-        <input value="COMMERCE" ng-model="enrolC._07_source_revenu
-" ng-change="changerevenu('commerc')" name="radio22" type="radio" class="with-gap" id="radio202" >
-        <label for="radio202">Petit commerce</label>
-      </div>
-      <div class="form-check">
-        <input ng-model="enrolC._07_source_revenu
-" ng-change="changerevenu('autre')" name="radio22" type="radio" class="with-gap" id="radio203" >
-        <label for="radio203">Autre (Préciser)</label>
-        <input value="AUT" ng-model="enrolC._07_a_autre_source_revenu
-" type="text" name="textfield" id="textfield">
-      </div>
-  </td>
-  </tr>
-  <tr>
-    <td width="6%"><p><em>C08</em></p></td>
-    <td width="47%"><p><em>Avez-vous des économies ? <strong>(Si NON, passez au SECTION D) </strong></em></p></td>
-    <td width="45%" colspan="2">
-       <div class="form-check">
-        <input value="OUI" ng-model="enrolC._08_economie
-" ng-change="changeeconomi('oui')" name="radio23" type="radio" class="with-gap" id="radio204" >
-        <label for="radio204">Oui</label>
-      </div>
-      <div class="form-check">
-        <input value="NON" ng-model="enrolC._08_economie
-" ng-change="changeeconomi('non')" name="radio23" type="radio" class="with-gap" id="radio205" >
-        <label for="radio205">Non</label>
-      </div>
-      </td>
-  </tr>
-  <tr>
-    <td width="6%"><p><em>C09</em></p></td>
-    <td width="47%"><p><em>Où gardez-vous vos économies ?</em></p></td>
-    <td width="45%" colspan="2" valign="top">
-      <div class="form-check">
-        <input value="MAISON" ng-model="enrolC._09_gard_economie
-" ng-change="changegardeeco('maison')" name="radio24" type="radio" class="with-gap" id="radio206" >
-        <label for="radio206">A la maison</label>
-      </div>
-      <div class="form-check">
-        <input value="MOBILE" ng-model="enrolC._09_gard_economie
-" ng-change="changegardeeco('mobile')" name="radio24" type="radio" class="with-gap" id="radio207" >
-        <label for="radio207">Compte Mobile Money</label>
-      </div>
-      <div class="form-check">
-        <input value="BANQUE" ng-model="enrolC._09_gard_economie
-" ng-change="changegardeeco('banq')" name="radio24" type="radio" class="with-gap" id="radio208" >
-        <label for="208">A la banque</label>
-      </div>
-      <div class="form-check">
-        <input value="AUT" ng-model="enrolC._09_gard_economie
-" ng-change="changegardeeco('autre')" name="radio24" type="radio" class="with-gap" id="radio209" >
-        <label for="radio209">Autre (Préciser)</label>
-        <input ng-model="enrolC._09_a_autre_gard_economie
-" type="text" name="textfield" id="textfield">
-      </div>
-      </td>
+            </em></p></td>
+          </tr>
+          <tr>
+            <td width="21%">
+              <div class="form-check">
+                <input value="SECOND" ng-model="enrolC._02_niv_scolaire" ng-change="changeniveau('SECOND')" name="radio17" type="radio" class="with-gap" id="radio171" >
+                <label for="radio171">Niveau secondaire</label>
+              </div> </td>
 
-  </tr>
-  <td height="29" colspan="4" valign="top" bgcolor="#FFFFFF"><p>&nbsp;</p>
-    <div class="text-center py-4 mt-3">
-       <button class="btn btn-cyan" type="submit" ng-click="previewPage()">Précédant</button>
-        <button class="btn btn-cyan" type="submit" ng-click="savePage()">Suivant</button>
-        <a class="btn btn-blue-grey" ui-sref="enrol_List({org: orgUnitSelect.id})" >Annuler</a>
-    </div>
+          </tr>
+          <tr>
+            <td width="45%" colspan="2">
+              <div class="form-check">
+                <input value="SUP" ng-model="enrolC._02_niv_scolaire" ng-change="changeniveau('sup')" name="radio17" type="radio" class="with-gap" id="radio172" >
+                <label for="radio172">Niveau Supérieur (Grande école / université)</label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="45%" colspan="2">
+              <div class="form-check">
+                <input value="FORM_PRO" ng-model="enrolC._02_niv_scolaire" ng-change="changeniveau('profes')" name="radio17" type="radio" class="with-gap" id="radio173" >
+                <label for="radio173">Formation professionnelle</label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="45%" colspan="2">
+              <div class="form-check">
+                <input value="AUT" ng-model="enrolC._02_niv_scolaire" ng-change="changeniveau('autre')" name="radio17" type="radio" class="with-gap" id="radio174" >
+                <label for="radio174">Autre</label>
+                <div style="padding: 10px;" ng-if="enrolC._02_niv_scolaire == 'AUT'">
+                  <input ng-model="enrolC._02_a_autre_niv_scolaire" type="text" name="textfield28" id="textfield28">
+                  Préciser
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="6%"><p><em>C03</em></p></td>
+            <td width="47%"><p><em>D&rsquo;où provient le soutien financier principal pour votre    scolarité actuelle&nbsp;?</em><br>
+              <em> (<strong>Cocher    tout ce qui s'applique</strong>)</em><br>
+              <em>(Après    avoir répondu à cette question passer à C08) <strong></strong></em></p></td>
+            <td width="45%" colspan="2" valign="top">
+              <div class="form-check">
+                <input value="MOI" ng-model="enrolC._03_soutient_finance
+        " ng-change="changefinacier('moi')" name="radio18" type="radio" class="with-gap" id="radio175" >
+                <label for="radio175">Moi-même</label>
+        		</div>
+             <div class="form-check">
+                <input value="PARENT" ng-model="enrolC._03_soutient_finance
+        " ng-change="changefinacier('parent')" name="radio18" type="radio" class="with-gap" id="radio176" >
+                <label for="radio176">Parent/tuteur</label>
+              </div>
+            <div class="form-check">
+                <input value="BOURCE" ng-model="enrolC._03_soutient_finance
+        " ng-change="changefinacier('bourse')" name="radio18" type="radio" class="with-gap" id="radio177" >
+                <label for="radio177">Bourse d&rsquo;étude</label>
+              </div>
+              <div class="form-check">
+                <input value="ONG" ng-model="enrolC._03_soutient_finance
+        " ng-change="changefinacier('ong')" name="radio18" type="radio" class="with-gap" id="radio178" >
+                <label for="radio178">ONG</label>
+              </div>
+               <div class="form-check">
+                <input value="INSTITUT" ng-model="enrolC._03_soutient_finance
+        " ng-change="changefinacier('confess')" name="radio18" type="radio" class="with-gap" id="radio179" >
+                <label for="radio179">Institutions confessionnelles (église, mosquée, etc.)</label>
+              </div>
+              <div class="form-check">
+                <input value="AUT_PARENT" ng-model="enrolC._03_soutient_finance
+        " ng-change="changefinacier('autrepart')" name="radio18" type="radio" class="with-gap" id="radio180" >
+                <label for="radio180">Autres parents (exclut parent / tuteur)</label>
+              </div>
+              <div class="form-check">
+                <input value="NA" ng-model="enrolC._03_soutient_finance
+        " ng-change="changefinacier('na')" name="radio18" type="radio" class="with-gap" id="radio181" >
+                <label for="radio181">NA</label>
+              </div>
+              <div class="form-check">
+                <input value="AUT" ng-model="enrolC._03_soutient_finance
+        " ng-change="changefinacier('autre')" name="radio18" type="radio" class="with-gap" id="radio182" >
+                <label for="radio182">Autre</label>
+              </div>
+              <div style="padding: 10px;" ng-if="enrolC._03_soutient_finance == 'AUT'">
+                <input ng-model="enrolC._03_a_autre_soutient_finance" type="text" name="textfield29" id="textfield29">
+                 Préciser le soutien financier principal
+              </div>
+               </td>
+          </tr>
+          <tr>
+            <td width="6%"><p><em>C04</em></p></td>
+            <td width="47%"><p><em>Si vous    n&rsquo;êtes pas actuellement scolarisée à quand remonte la dernière fois que vous    êtes allée à l'école?  </em></p></td>
+            <td width="45%" colspan="2" valign="top">
+              <div class="form-check">
+                <input value="Moin6MOIS" ng-model="enrolC._04_pas_sco_actuel
+        " ng-change="changedernecole('moin6')" name="radio19" type="radio" class="with-gap" id="radio183" >
+                <label for="radio183">Moins de 6 mois</label>
+              </div>
 
-    </td>
-</table>
+             <div class="form-check">
+                <input value="6_11MOIS" ng-model="enrolC._04_pas_sco_actuel
+        " ng-change="changedernecole('entre6_11')" name="radio19" type="radio" class="with-gap" id="radio184" >
+                <label for="radio184">Entre 6 et 11 mois</label>
+              </div>
+            <div class="form-check">
+                <input value="1_2ANS" ng-model="enrolC._04_pas_sco_actuel
+        " ng-change="changedernecole('entre1_2')" name="radio19" type="radio" class="with-gap" id="radio185" >
+                <label for="radio185">Entre 1 et 2 ans</label>
+              </div>
+              <div class="form-check">
+                <input value="Plus2ANS" ng-model="enrolC._04_pas_sco_actuel
+        " ng-change="changedernecole('plus2')" name="radio19" type="radio" class="with-gap" id="radio186" >
+                <label for="radio186">Plus de 2 ans</label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td width="6%"><p><em>C05</em></p></td>
+            <td width="47%"><p><em>Quelle    est la principale raison pour laquelle vous n'allez pas à l'école ou vous    n&rsquo;êtes jamais allée à l&rsquo;école?</em><br>
+              <em>(<strong>Si le bénéficiaire est en attente d&rsquo;une    orientation, passez à C07)  </strong></em></p></td>
+            <td width="45%" colspan="2" valign="top">
+              <div class="form-check">
+                <input value="ARGENT" ng-model="enrolC._05_raison_non_sco
+        " ng-change="changeraison('non')" name="radio20" type="radio" class="with-gap" id="radio187" >
+                <label for="radio187">Manque de frais scolaire</label>
+              </div>
+
+            <div class="form-check">
+                <input value="GROSS" ng-model="enrolC._05_raison_non_sco
+        " ng-change="changeraison('grossesse')" name="radio20" type="radio" class="with-gap" id="radio188" >
+                <label for="radio188">Grossesse</label>
+              </div>
+              <div class="form-check">
+                <input value="PRESSIONS" ng-model="enrolC._05_raison_non_sco
+        " ng-change="changeraison('pression')" name="radio20" type="radio" class="with-gap" id="radio189" >
+                <label for="radio189">Pression des pairs</label>
+              </div>
+               <div class="form-check">
+                <input value="REFUS" ng-model="enrolC._05_raison_non_sco
+        " ng-change="changeraison('pas')" name="radio20" type="radio" class="with-gap" id="radio190" >
+                <label for="radio190">Pas intéressée</label>
+              </div>
+              <div class="form-check">
+                <input value="ORIENTATION" ng-model="enrolC._05_raison_non_sco
+        " ng-change="changeraison('attente')" name="radio20" type="radio" class="with-gap" id="radio191" >
+                <label for="radio191">En attente d'une orientation</label>
+              </div>
+              <div class="form-check">
+                <input value="MARIE" ng-model="enrolC._05_raison_non_sco
+        " ng-change="changeraison('marie')" name="radio20" type="radio" class="with-gap" id="radio192" >
+                <label for="radio192">Je me suis mariée</label>
+              </div>
+              <div class="form-check">
+                <input value="AUT" ng-model="enrolC._05_raison_non_sco
+        " ng-change="changeraison('autre')" name="radio20" type="radio" class="with-gap" id="radio193" >
+                <label for="radio193">Autre</label>
+
+              </div>
+              <div style="padding: 10px;" ng-if="enrolC._05_raison_non_sco == 'AUT'">
+              <input ng-model="enrolC._05_a_autre_raison_non_sco" type="text" name="textfield30" id="textfield30">
+                 Préciser la raison
+              </div>
+              </td>
+          </tr>
+          <tr>
+            <td width="6%"><p><em>C06</em></p></td>
+            <td width="47%"><p><em>Si l&rsquo;on vous donnait une chance, que voudriez-vous    faire de votre vie?</em><br>
+              <em>Ne pas lire les options. Cocher / enregistrer le    souhait principal</em></p></td>
+            <td width="45%" colspan="2">
+              <div class="form-check">
+                <input value="COURS" ng-model="enrolC._06_second_chance
+        " ng-change="changechance('cours')" name="radio21" type="radio" class="with-gap" id="radio194" >
+                <label for="radio194">Poursuivre les cours</label>
+              </div>
+              <div class="form-check">
+                <input value="ACTIVITE" ng-model="enrolC._06_second_chance
+        " ng-change="changechance('activite')" name="radio21" type="radio" class="with-gap" id="radio195" >
+                <label for="radio195">Démarrer une activité économique</label>
+              </div>
+              <div class="form-check">
+                <input value="METIER" ng-model="enrolC._06_second_chance
+        " ng-change="changechance('apprent')" name="radio21" type="radio" class="with-gap" id="radio196" >
+                <label for="radio196">Démarrer un apprentissage</label>
+              </div>
+              <div class="form-check">
+                <input value="AUT" ng-model="enrolC._06_second_chance
+        " ng-change="changechance('autre')" name="radio21" type="radio" class="with-gap" id="radio197" >
+                <label for="radio197">Autre</label>
+
+              </div>
+              <div style="padding: 10px;" ng-if="enrolC._06_second_chance == 'AUT'">
+                <input ng-model="enrolC._06_a_autre_second_chance
+        " type="text" name="textfield31" id="textfield31">
+                 Préciser l'autre
+              </div>
+           </td>
+          </tr>
+          <tr>
+            <td width="6%"><p><em>C07</em></p></td>
+            <td width="47%"><p><em>Quelle est votre principale source de revenu actuelle?</em></p></td>
+            <td width="45%" colspan="2" valign="top">
+              <div class="form-check">
+                <input value="AUC" ng-model="enrolC._07_source_revenu
+        " ng-change="changerevenu('aucun')" name="radio22" type="radio" class="with-gap" id="radio198" >
+                <label for="radio198">Aucun (j'ai aucune source de revenu)</label>
+              </div>
+              <div class="form-check">
+                <input value="SALAIRE" ng-model="enrolC._07_source_revenu
+        " ng-change="changerevenu('salarie')" name="radio22" type="radio" class="with-gap" id="radio199" >
+                <label for="radio199">Salariée</label>
+              </div>
+               <div class="form-check">
+                <input value="ENTREPRENDRE" ng-model="enrolC._07_source_revenu
+        " ng-change="changerevenu('entrepren')" name="radio22" type="radio" class="with-gap" id="radio200" >
+                <label for="radio200">Entrepreneur</label>
+              </div>
+              <div class="form-check">
+                <input value="TravailOCASE" ng-model="enrolC._07_source_revenu
+        " ng-change="changerevenu('occasion')" name="radio22" type="radio" class="with-gap" id="radio201" >
+                <label for="radio201">Travail occasionnel</label>
+              </div>
+              <div class="form-check">
+                <input value="COMMERCE" ng-model="enrolC._07_source_revenu
+        " ng-change="changerevenu('commerc')" name="radio22" type="radio" class="with-gap" id="radio202" >
+                <label for="radio202">Petit commerce</label>
+              </div>
+              <div class="form-check">
+                <input value="AUT" ng-model="enrolC._07_source_revenu
+        " ng-change="changerevenu('autre')" name="radio22" type="radio" class="with-gap" id="radio203" >
+                <label for="radio203">Autre</label>
+
+              </div>
+              <div style="padding: 10px;" ng-if="enrolC._07_source_revenu == 'AUT'">
+                <input ng-model="enrolC._07_a_autre_source_revenu
+        " type="text" name="textfield" id="textfield">
+                 Préciser la source de revenue
+              </div>
+          </td>
+          </tr>
+          <tr>
+            <td width="6%"><p><em>C08</em></p></td>
+            <td width="47%"><p><em>Avez-vous des économies ? <strong>(Si NON, passez au SECTION D) </strong></em></p></td>
+            <td width="45%" colspan="2">
+               <div class="form-check">
+                <input value="OUI" ng-model="enrolC._08_economie
+        " ng-change="changeeconomi('oui')" name="radio23" type="radio" class="with-gap" id="radio204" >
+                <label for="radio204">Oui</label>
+              </div>
+              <div class="form-check">
+                <input value="NON" ng-model="enrolC._08_economie
+        " ng-change="changeeconomi('non')" name="radio23" type="radio" class="with-gap" id="radio205" >
+                <label for="radio205">Non</label>
+              </div>
+              </td>
+          </tr>
+          <tr>
+            <td width="6%"><p><em>C09</em></p></td>
+            <td width="47%"><p><em>Où gardez-vous vos économies ?</em></p></td>
+            <td width="45%" colspan="2" valign="top">
+              <div class="form-check">
+                <input value="MAISON" ng-model="enrolC._09_gard_economie
+        " ng-change="changegardeeco('maison')" name="radio24" type="radio" class="with-gap" id="radio206" >
+                <label for="radio206">A la maison</label>
+              </div>
+              <div class="form-check">
+                <input value="MOBILE" ng-model="enrolC._09_gard_economie
+        " ng-change="changegardeeco('mobile')" name="radio24" type="radio" class="with-gap" id="radio207" >
+                <label for="radio207">Compte Mobile Money</label>
+              </div>
+              <div class="form-check">
+                <input value="BANQUE" ng-model="enrolC._09_gard_economie
+        " ng-change="changegardeeco('banq')" name="radio24" type="radio" class="with-gap" id="radio208" >
+                <label for="radio208">A la banque</label>
+              </div>
+              <div class="form-check">
+                <input value="AUT" ng-model="enrolC._09_gard_economie
+        " ng-change="changegardeeco('autre')" name="radio24" type="radio" class="with-gap" id="radio209" >
+                <label for="radio209">Autre</label>
+
+              </div>
+              <div style="padding: 10px;" ng-if="enrolC._09_gard_economie == 'AUT'">
+                <input ng-model="enrolC._09_a_autre_gard_economie
+        " type="text" name="textfield" id="textfield">
+                 Préciser
+              </div>
+              </td>
+
+          </tr>
+          <td height="29" colspan="4" valign="top" bgcolor="#FFFFFF"><p>&nbsp;</p>
+            <div class="text-center py-4 mt-3">
+               <button class="btn btn-cyan" type="submit" ng-click="previewPage()">Précédant</button>
+                <button class="btn btn-cyan" type="submit" ng-click="savePage()">Suivant</button>
+                <a class="btn btn-blue-grey" ui-sref="enrol_List({org: orgUnitSelect.id})" >Annuler</a>
+            </div>
+
+            </td>
+        </table>
+			</div>
+
+	</div>
+  <script>
+      // SideNav Initialization
+      $(".button-collapse").sideNav();
+
+      // Material Select Initialization
+      $(document).ready(function () {
+          $('.mdb-select').material_select();
+      });
+
+
+
+      $(function () {
+          // Tooltip Initialization
+          $('[data-toggle="tooltip"]').tooltip();
+
+          $('.dates input').datepicker({
+              format: "dd-mm-yyyy",
+              weekStart: 1,
+              todayBtn: "linked",
+              clearBtn: true,
+              language: "fr",
+              daysOfWeekHighlighted: "0,6",
+              autoclose: true,
+              todayHighlight: true
+          });
+      });
+  </script>
+
 </body>
 </html>

@@ -24,6 +24,9 @@ var enrolSectionE = ["_01_rela_sexuel","_02_ag_sexuel","_03_nbr_part_sexuel","_0
 	                        $scope.enrolE[enrolSectionE[i]] = $rootScope.enrolementData[j].value;
 	                    }
 	                }
+                  if(!$scope.enrolE[enrolSectionE[i]] || $scope.enrolE[enrolSectionE[i]] == null || $scope.enrolE[enrolSectionE[i]] == ""){
+                    console.error("Element sans valeur, code = ",enrolSectionE[i]);
+                  }
 	            }
 	        }
 	        console.log("mappigData() $scope.enrolE = ",$scope.enrolE);

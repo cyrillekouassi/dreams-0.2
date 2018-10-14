@@ -8,6 +8,8 @@ saisie.controller('enrolSHctrl', ['$scope', '$rootScope', '$stateParams', '$http
     dataInstanceEntete.instance = $stateParams.inst;
     dataInstance = angular.copy(dataInstanceEntete);
 	$scope.enrolH = {};
+  $scope.raisonConsoDrogue = {};
+  $scope.typeDrogue = {};
 	var enrolSectionH = ["_01_conso_alcool",
 		"_02_freq_conso_alcool",
 		"_03_raison_conso_alcool",
@@ -28,8 +30,18 @@ saisie.controller('enrolSHctrl', ['$scope', '$rootScope', '$stateParams', '$http
 		                for(var j=0;j<$rootScope.enrolementData.length;j++){
 		                    if(id == $rootScope.enrolementData[j].element){
 		                        $scope.enrolH[enrolSectionH[i]] = $rootScope.enrolementData[j].value;
+                            if(enrolSectionH[i] == "_05_type_drogue"){
+                              initiTypeDrogue($rootScope.enrolementData[j].value);
+                            }
+                            if(enrolSectionH[i] == "_06_raison_conso_drogue"){
+                              initiRaisonConsoDrogue($rootScope.enrolementData[j].value);
+                            }
 		                    }
+
 		                }
+                    if(!$scope.enrolH[enrolSectionH[i]] || $scope.enrolH[enrolSectionH[i]] == null || $scope.enrolH[enrolSectionH[i]] == ""){
+                      console.error("Element sans valeur, code = ",enrolSectionH[i]);
+                    }
 		            }
 		        }
 		        console.log("mappigData() $scope.enrolH = ",$scope.enrolH);
@@ -148,7 +160,43 @@ saisie.controller('enrolSHctrl', ['$scope', '$rootScope', '$stateParams', '$http
 	function succesSave() {
         $state.go('enrolSIJK',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
     }
+    function initiTypeDrogue(valeur){
+      console.log("initiTypeDrogue => valeur = ",valeur);
+      if(!valeur || valeur == "" || valeur == " "){return;}
 
+      var conti = true; var option = null;
+      var initi = 0, space = 0;
+      while (conti){
+          space = valeur.indexOf(" ",initi);
+          if(space != -1){
+              option = valeur.substring(initi,space);
+              initi = space+1;
+          }else{
+              option = valeur.substring(initi,valeur.length);
+              conti = false;
+          }
+          $scope.typeDrogue[option] = true;
+      }
+    }
+
+    function initiRaisonConsoDrogue(valeur){
+      console.log("initiSecours => valeur = ",valeur);
+      if(!valeur || valeur == "" || valeur == " "){return;}
+
+      var conti = true; var option = null;
+      var initi = 0, space = 0;
+      while (conti){
+          space = valeur.indexOf(" ",initi);
+          if(space != -1){
+              option = valeur.substring(initi,space);
+              initi = space+1;
+          }else{
+              option = valeur.substring(initi,valeur.length);
+              conti = false;
+          }
+          $scope.raisonConsoDrogue[option] = true;
+      }
+    }
 
 
 }]);

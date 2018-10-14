@@ -140,12 +140,12 @@ saisie.config(['$stateProvider','$urlRouterProvider', function ($stateProvider,$
 }]);
 
 saisie.run(['$rootScope','$http', function ($rootScope,$http) {
-    console.log("entrer dans run");
-    console.log("entrer dans location = ",location);
-    console.log("entrer dans location.host = ",location.host);
+    //console.log("entrer dans run");
+    //console.log("entrer dans location = ",location);
+    //console.log("entrer dans location.host = ",location.host);
     var hre = location.href;
     serverAdresse = hre.substring(0,hre.indexOf("saisie/index.html"));
-    console.log("entrer dans serverAdresse = ",serverAdresse);
+    //console.log("entrer dans serverAdresse = ",serverAdresse);
     $rootScope.baseUrl = serverAdresse;
     var userUrl = serverAdresse+"user/username/";
     var organisationUrl = serverAdresse+"organisation";

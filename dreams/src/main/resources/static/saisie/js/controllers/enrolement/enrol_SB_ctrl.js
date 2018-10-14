@@ -24,7 +24,7 @@ saisie.controller('enrolSBctrl', ['$scope', '$rootScope', '$stateParams', '$http
 	        for(var i = 0;i<enrolSectionB.length;i++){
 	            var id = getElementId(enrolSectionB[i]);
 	            if(id){
-                console.log("$rootScope.enrolementData == ",$rootScope.enrolementData);
+                //console.log("$rootScope.enrolementData == ",$rootScope.enrolementData);
 	                for(var j=0;j<$rootScope.enrolementData.length;j++){
 	                    if(id == $rootScope.enrolementData[j].element){
 	                        $scope.enrolB[enrolSectionB[i]] = $rootScope.enrolementData[j].value;
@@ -34,6 +34,9 @@ saisie.controller('enrolSBctrl', ['$scope', '$rootScope', '$stateParams', '$http
                           }
 	                    }
 	                }
+                  if(!$scope.enrolB[enrolSectionB[i]] || $scope.enrolB[enrolSectionB[i]] == null || $scope.enrolB[enrolSectionB[i]] == ""){
+                    console.error("Element sans valeur, code = ",enrolSectionB[i]);
+                  }
 	            }
 	        }
 	        console.log("mappigData() $scope.enrolB = ",$scope.enrolB);

@@ -1326,7 +1326,7 @@ public class TraitementIndicateur {
 				if (dataInstances.get(i).getDataValue().get(b).getElement().equals(materielQuantite.getUid())) {
 					String valeur = dataInstances.get(i).getDataValue().get(b).getValue();
 					int nombre = 0;
-					String leNombre = null;
+					//String leNombre = null;
 					int masDebut = 0;
 					int mascPosi = valeur.indexOf("preserMasc");
 					int feminPosi = valeur.indexOf("preserFemin");

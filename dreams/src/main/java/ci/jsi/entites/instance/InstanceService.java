@@ -62,6 +62,7 @@ public class InstanceService implements Iinstance {
 		if(instance != null) {
 			instance.setDeleted(true);
 			instance = instanceRepository.save(instance);
+			instanceConvert.deleteInBeneficiaire(instance.getInstanceBeneficiaires());
 			return "Success Deleted";
 		}
 		return "fail";
@@ -94,7 +95,7 @@ public class InstanceService implements Iinstance {
 	}
 
 	@Override
-	public void deleteInstance(Instance instance) {
+	public void deleteCompleteInstance(Instance instance) {
 		instance = instanceRepository.findOne(instance.getInstanceid());
 		if(instance != null) {
 			instance = instanceConvert.deleteInstance(instance);

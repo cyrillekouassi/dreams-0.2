@@ -8,6 +8,8 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
     dataInstanceEntete.instance = $stateParams.inst;
     dataInstance = angular.copy(dataInstanceEntete);
 	$scope.enrolIJK = {};
+  $scope.repas = {};
+  $scope.participation = {};
 	var enrolSectionIJK = ["_01_participation_program",
 		"_01_a_autre_program",
 		"_01_vie_assossiative",
@@ -31,8 +33,17 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 	                for(var j=0;j<$rootScope.enrolementData.length;j++){
 	                    if(id == $rootScope.enrolementData[j].element){
 	                        $scope.enrolIJK[enrolSectionIJK[i]] = $rootScope.enrolementData[j].value;
+                          if(enrolSectionIJK[i] == "_05_type_drogue"){
+                            initiParticipation($rootScope.enrolementData[j].value);
+                          }
+                          if(enrolSectionIJK[i] == "_06_raison_conso_drogue"){
+                            initiRepas($rootScope.enrolementData[j].value);
+                          }
 	                    }
 	                }
+                  if(!$scope.enrolIJK[enrolSectionIJK[i]] || $scope.enrolIJK[enrolSectionIJK[i]] == null || $scope.enrolIJK[enrolSectionIJK[i]] == ""){
+                    console.error("Element sans valeur, code = ",enrolSectionIJK[i]);
+                  }
 	            }
 	        }
 	        console.log("mappigData() $scope.enrolIJK = ",$scope.enrolIJK);
@@ -120,6 +131,7 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
         for(var j = 0;j<$rootScope.programmeSelect.elements.length;j++){
             if($rootScope.programmeSelect.elements[j].element.code == code){
                 return $rootScope.programmeSelect.elements[j].element.id;
+
             }
         }
         return null;
@@ -138,7 +150,8 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
             //dataInstance.instance =
             if(succes.data.status == "ok"){
                 //dataInstance.instance = succes.data.id;
-                succesSave();
+                //succesSave();
+                executeDossierBesoins();
             }else{
                 toastr["success"]("Echec d'enregistrement");
             }
@@ -150,8 +163,77 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 
 	function succesSave() {
         $state.go('enrol_List',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
-    }
+      }
+        function initiParticipation(valeur){
+          console.log("initiParticipation => valeur = ",valeur);
+          if(!valeur || valeur == "" || valeur == " "){return;}
+
+          var conti = true; var option = null;
+          var initi = 0, space = 0;
+          while (conti){
+              space = valeur.indexOf(" ",initi);
+              if(space != -1){
+                  option = valeur.substring(initi,space);
+                  initi = space+1;
+              }else{
+                  option = valeur.substring(initi,valeur.length);
+                  conti = false;
+              }
+              $scope.participation[option] = true;
+          }
+        }
+
+        function initiRepas(valeur){
+          console.log("initiRepas => valeur = ",valeur);
+          if(!valeur || valeur == "" || valeur == " "){return;}
+
+          var conti = true; var option = null;
+          var initi = 0, space = 0;
+          while (conti){
+              space = valeur.indexOf(" ",initi);
+              if(space != -1){
+                  option = valeur.substring(initi,space);
+                  initi = space+1;
+              }else{
+                  option = valeur.substring(initi,valeur.length);
+                  conti = false;
+              }
+              $scope.repas[option] = true;
+          }
+        }
 
 
 
+        function executeDossierBesoins() {
+            var instance = "instance=" + $stateParams.inst;
+            var beneficiaireID = "beneficiaireID=" + getValue("id_dreams");
+            var dateEnrolement = "dateEnrolement=" + getValue("dat_enrol");
+            var apiDossierBesoin = serverAdresse+"api/genererBesoinAndDossier"
+            var ValuesUrl = apiDossierBesoin+"?" + instance + "&" + beneficiaireID+ "&" +dateEnrolement;
+
+            $http.get(ValuesUrl).then(function (response) {
+              if(succes.data.status == "ok"){
+                console.log("executeDossierBesoins() response = ",response);
+                  //dataInstance.instance = succes.data.id;
+                  succesSave();
+              }else{
+                  toastr["success"]("Echec d'enregistrement");
+              }
+
+            }, function (err) {
+              console.log("executeDossierBesoins() error = ",error);
+              toastr["success"]("Echec d'enregistrement");
+            });
+        }
+
+        function getValue(code){
+          var id = getElementId(code);
+          if(id){
+            for(var j=0;j<$rootScope.enrolementData.length;j++){
+                if(id == $rootScope.enrolementData[j].element){
+                    return $rootScope.enrolementData[j].value;
+                }
+            }
+          }
+        }
 }]);

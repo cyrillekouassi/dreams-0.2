@@ -7,6 +7,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ci.jsi.entites.beneficiaire.Beneficiaire;
+import ci.jsi.entites.beneficiaire.Ibeneficiaire;
+import ci.jsi.entites.beneficiaire.InstanceBeneficiaire;
 import ci.jsi.entites.dataValue.DataInstance;
 import ci.jsi.entites.dataValue.DataValue;
 import ci.jsi.entites.dataValue.DataValueTDO;
@@ -80,6 +83,9 @@ public class ServicesDreams {
 	private String rouge = "red";
 	private String color;
 	
+	private String IDdreams = null;
+	
+	
 	
 	@Autowired
 	private Ielement ielement;
@@ -89,6 +95,8 @@ public class ServicesDreams {
 	private IdataValues idataValues;
 	@Autowired
 	private Iprogramme iprogramme;
+	@Autowired
+	Ibeneficiaire ibeneficiaire;
 	
 	private Programme programme = null;
 	private Element element = null;
@@ -287,7 +295,8 @@ public class ServicesDreams {
 		//System.out.println("Sortir de ServicesDreams - genererService");
 	}
 	
-	public Instance evaluerService(Instance instance,String dateEnrol) {
+	public void evaluerService(Instance instance,String dateEnrol) {
+		
 		System.out.println("Entrer dans ServicesDreams - evaluerService");
 		dataValues = new ArrayList<DataValue>();
 		dataValueTDOs = new ArrayList<DataValueTDO>();
@@ -308,7 +317,9 @@ public class ServicesDreams {
 		dataValues = idataValues.saveAllDataValue(dataValues);
 
 		//System.out.println("Sortir de ServicesDreams - evaluerService");
-		return this.instance;
+		getBeneficiaire(this.instance);
+		
+		//return this.instance;
 	}
 	
 	private void lesService() {
@@ -335,12 +346,14 @@ public class ServicesDreams {
 		element = ielement.getOneElmentByCode("id_dreams");
 		if(element == null)
 			return;
+		
 		for(int j=0;j<dataValueTDOs.size();j++) {
 			if(dataValueTDOs.get(j).getElement().equals(element.getUid())) {
 				id_dreams = dataValueTDOs.get(j).getValue();
 				break;
 			}
 		}
+		
 		DataValue dataValue = new DataValue();
 		dataValue.setInstance(this.instance);
 		dataValue.setUser(this.instance.getUser());
@@ -350,6 +363,8 @@ public class ServicesDreams {
 		dataValue.setDateCreation(new Date());
 		dataValue.setDateUpdate(new Date());
 		dataValues.add(dataValue);
+		
+		IDdreams = id_dreams;
 	}
 	
 	private void nomBenef() {
@@ -1012,6 +1027,24 @@ public class ServicesDreams {
 		dataValue.setDateCreation(new Date());
 		dataValue.setDateUpdate(new Date());
 		dataValues.add(dataValue);
+		
+	}
+	
+	private void getBeneficiaire(Instance instance) {
+		Beneficiaire beneficiaire = ibeneficiaire.getOneBeneficiaireByIdDreams(IDdreams);
+		for(int i =0;i<beneficiaire.getInstanceBeneficiaires().size();i++) {
+			if(beneficiaire.getInstanceBeneficiaires().get(i).getInstance().getProgramme().getUid().equals(programme.getUid())) {
+				iinstance.deleteInstanceTDO(beneficiaire.getInstanceBeneficiaires().get(i).getInstance().getUid());
+			}
+		}
+		beneficiaire = ibeneficiaire.getOneBeneficiaireByIdDreams(IDdreams);
+		InstanceBeneficiaire instanceBeneficiaire = new InstanceBeneficiaire();
+		instanceBeneficiaire.setInstance(instance);
+		instanceBeneficiaire.setBeneficiaire(beneficiaire);
+		instanceBeneficiaire.setDateAction(instance.getDateActivite());
+		instanceBeneficiaire.setOrdre(1);
+		beneficiaire.getInstanceBeneficiaires().add(instanceBeneficiaire);
+		beneficiaire = ibeneficiaire.updateOneBeneficiaire(beneficiaire);
 		
 	}
 	

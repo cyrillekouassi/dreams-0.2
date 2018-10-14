@@ -22,7 +22,7 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
     initial();
     initialDom();
     function initial() {
-        console.log("entrer dans initial, $rootScope.orgUnitSelect", $rootScope.orgUnitSelect);
+        //console.log("entrer dans initial, $rootScope.orgUnitSelect", $rootScope.orgUnitSelect);
 
         //$scope.enrolA.district = "";
         centreSocial = getInfoOrganisation($rootScope.orgUnitSelect.parent.id);
@@ -42,6 +42,7 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
             for(var i=0;i<$rootScope.allData.length;i++){
                 if($rootScope.allData[i].instance == dataInstanceEntete.instance){
                     $rootScope.enrolementData = $rootScope.allData[i].dataValue;
+                    console.log("l'enrolement selectionné = ",$rootScope.enrolementData);
                     mappigData();
                     initial();
                     gestionDate();
@@ -58,6 +59,9 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
                     if(id == $rootScope.enrolementData[j].element){
                         $scope.enrolA[enrolSectionA[i]] = $rootScope.enrolementData[j].value;
                     }
+                }
+                if(!$scope.enrolA[enrolSectionA[i]] || $scope.enrolA[enrolSectionA[i]] == null || $scope.enrolA[enrolSectionA[i]] == ""){
+                  console.error("Element sans valeur, code = ",enrolSectionA[i]);
                 }
             }
         }
@@ -89,7 +93,7 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
     }
 
     function getInfoOrganisation(id) {
-        console.log("entrer dans getInfoOrganisation, id = ",id," // $rootScope.organisation", $rootScope.organisation);
+        //console.log("entrer dans getInfoOrganisation, id = ",id," // $rootScope.organisation", $rootScope.organisation);
         for(var i = 0;i<$rootScope.organisation.length;i++){
             if(id == $rootScope.organisation[i].id){
                 return $rootScope.organisation[i];
@@ -98,16 +102,16 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
     }
 
     $scope.getBenefId = function() {
-        console.log("entrer dans getBenefId()");
+        //console.log("entrer dans getBenefId()");
         var mois = $scope.enrolA.dat_enrol.substring(3,5);
         var annee = $scope.enrolA.dat_enrol.substring(8,10);
         $scope.enrolA.id_dreams = "D/"+plateForme.code+"/"+centreSocial.code+"/"+annee+"/"+mois+"/"+$scope.enrolA.codeSafespace+"/"+$scope.enrolA.no_benef;
     };
 
     $scope.savePage = function () {
-        console.log("entrer dans savePage()");
-        console.log("entrer dans savePage(),$scope.enrolA = ",$scope.enrolA);
-        console.log("entrer dans savePage(),dataInstance = ",dataInstance);
+        //console.log("entrer dans savePage()");
+        //console.log("entrer dans savePage(),$scope.enrolA = ",$scope.enrolA);
+        //console.log("entrer dans savePage(),dataInstance = ",dataInstance);
         dataInstance.dataValue = [];
         dataInstance.dreamsId = $scope.enrolA.id_dreams;
         dataInstance.dateActivite = $scope.enrolA.dat_enrol;
@@ -123,7 +127,7 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
     };
 
     function getElementid() {
-        console.log("getElementid()");
+        //console.log("getElementid()");
         for(var pop in $scope.enrolA){
             if($scope.enrolA[pop] != null && $scope.enrolA[pop] && $scope.enrolA[pop] != ""){
                 var id = getElementId(pop);
@@ -133,8 +137,6 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
                     data.value = $scope.enrolA[pop];
                     data.numero = 1;
                     dataInstance.dataValue.push(data);
-                }else{
-                    console.error("getElementid(). Element non trouvé, code = ",pop)
                 }
             }else {
                 console.info("getElementid(). Element sans valeur, code = ",pop," // valeur = ",$scope.enrolA[pop]);
@@ -150,6 +152,7 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
                 return $rootScope.programmeSelect.elements[j].element.id;
             }
         }
+        console.error("getElementid(). Element non trouvé, code = ",code);
         return null;
     }
 
@@ -220,13 +223,13 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
     function gestionDate(){
 
       if($scope.enrolA.dat_nais != null){
-        console.log("$scope.enrolA.dat_nais existe")
+        //console.log("$scope.enrolA.dat_nais existe")
         $scope.enrolA.dat_nais = inFormatDate($scope.enrolA.dat_nais);
 
       }
 
       if($scope.enrolA.dat_enrol != null){
-        console.log("$scope.enrolA.dat_enrol existe");
+        //console.log("$scope.enrolA.dat_enrol existe");
         $scope.enrolA.dat_enrol = inFormatDate($scope.enrolA.dat_enrol);
       }
     }
@@ -244,7 +247,7 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
       mois = date.substring(5, 7);
       jour = date.substring(8, 10);
 
-      console.log("ladate = ",jour,"-",mois,"-",annee);
+      //console.log("ladate = ",jour,"-",mois,"-",annee);
       return jour+"-"+mois+"-"+annee
     }
 

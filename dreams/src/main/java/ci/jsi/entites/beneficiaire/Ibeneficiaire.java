@@ -2,6 +2,7 @@ package ci.jsi.entites.beneficiaire;
 
 import java.util.List;
 
+import ci.jsi.entites.instance.Instance;
 import ci.jsi.initialisation.ResultatRequete;
 
 public interface Ibeneficiaire {
@@ -16,6 +17,9 @@ public interface Ibeneficiaire {
 	public Beneficiaire updateOneBeneficiaire(Beneficiaire beneficiaire);
 	public Beneficiaire saveOneBeneficiaire(Beneficiaire beneficiaire);
 	public Beneficiaire convertBeneficiaireTDO(BeneficiaireTDO beneficiaireTDO);
+	
+	public Beneficiaire deleteBeneficiaireInstance(Beneficiaire beneficiaire,Instance instance);
+	
 	public List<BeneficiaireTDO> getBeneficiairePeriode(List<String> organisation,String debut,String fin);
 	public List<BeneficiaireTDO> getBeneficiairePreview(List<String> organisation,String fin);
 	

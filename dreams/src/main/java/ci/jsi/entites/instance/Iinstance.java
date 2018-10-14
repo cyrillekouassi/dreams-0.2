@@ -20,5 +20,5 @@ public interface Iinstance {
 	public Page<Instance> getInstanceselectByProgrammeAndOrganisation(String programmeuid,String organisationuid,Pageable pageable);
 	public List<Instance> getInstanceAnalysePeriode(List<String> organisation, String programme,Date debut, Date fin);
 	public List<Instance> getInstanceAnalysePreview(List<String> organisation, String programme, Date dateFin);
-	public void deleteInstance(Instance instance);
+	public void deleteCompleteInstance(Instance instance);
 }

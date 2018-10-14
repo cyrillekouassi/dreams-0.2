@@ -134,11 +134,6 @@ public class DataValueService implements IdataValues {
 		Page<DataInstance> page = new PageImpl<DataInstance>(dataInstances,
                 new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort()),
                 instances.getTotalElements());
-		System.out.println("instances.getNumber() = "+instances.getNumber());
-		System.out.println("instances.getNumberOfElements() = "+instances.getNumberOfElements());
-		System.out.println("instances.getSize() = "+instances.getSize());
-		System.out.println("instances.getTotalElements() = "+instances.getTotalElements());
-		System.out.println("instances.getTotalPages() = "+instances.getTotalPages());
 		return page;
 	}
 
@@ -155,7 +150,7 @@ public class DataValueService implements IdataValues {
 			if(instance != null && dataInstance.getDreamsId() != null) {
 				beneficiaire = dataValueConvert.createBeneficiaire(dataInstance, instance);
 				if(beneficiaire == null) {
-					iinstance.deleteInstance(instance);
+					iinstance.deleteCompleteInstance(instance);
 					resultatRequete.setStatus("fail");
 					resultatRequete.setIgnore(1);
 					return resultatRequete;

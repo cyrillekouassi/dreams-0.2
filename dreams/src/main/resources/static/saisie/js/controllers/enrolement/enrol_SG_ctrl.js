@@ -8,6 +8,8 @@ saisie.controller('enrolSGctrl', ['$scope', '$rootScope', '$stateParams', '$http
     dataInstanceEntete.instance = $stateParams.inst;
     dataInstance = angular.copy(dataInstanceEntete);
 	$scope.enrolG = {};
+  $scope.secours = {};
+  $scope.aupres = {};
 var enrolSectionG = ["_01_humil_public",
 	"_01_a_frequence",
 	"_02_menace_nuire",
@@ -38,8 +40,18 @@ var enrolSectionG = ["_01_humil_public",
 	                for(var j=0;j<$rootScope.enrolementData.length;j++){
 	                    if(id == $rootScope.enrolementData[j].element){
 	                        $scope.enrolG[enrolSectionG[i]] = $rootScope.enrolementData[j].value;
+                          if(enrolSectionG[i] == "_09_aupris_de_qui"){
+                            initiAupres($rootScope.enrolementData[j].value);
+                          }
+                          if(enrolSectionG[i] == "_10_secours"){
+                            initiSecours($rootScope.enrolementData[j].value);
+                          }
 	                    }
+
 	                }
+                  if(!$scope.enrolG[enrolSectionG[i]] || $scope.enrolG[enrolSectionG[i]] == null || $scope.enrolG[enrolSectionG[i]] == ""){
+                    console.error("Element sans valeur, code = ",enrolSectionG[i]);
+                  }
 	            }
 	        }
 	        console.log("mappigData() $scope.enrolG = ",$scope.enrolG);
@@ -66,7 +78,7 @@ var enrolSectionG = ["_01_humil_public",
 
 	function getElement() {
         console.log("getElement()");
-        $scope.enrolG._09_aupris_de_qui = gestaupris();
+        $scope.enrolG._09_aupris_de_qui = gestaupres();
         $scope.enrolG._10_secours = gestsecours();
         console.log("$scope.enrolG = ",$scope.enrolG);
         for(var pop in $scope.enrolG){
@@ -89,21 +101,21 @@ var enrolSectionG = ["_01_humil_public",
 
     }
 
-	function gestaupris(){
-		console.log("$scope.aupris = ",$scope.aupris);
-		var auprisValue=null;
-		 for(var pop in $scope.aupris){
-			 if($scope.aupris[pop]){
-				if(!auprisValue){
-					auprisValue= "" + pop;
+	function gestaupres(){
+		console.log("$scope.aupres = ",$scope.aupres);
+		var aupresValue=null;
+		 for(var pop in $scope.aupres){
+			 if($scope.aupres[pop]){
+				if(!aupresValue){
+					aupresValue= "" + pop;
 				}
 				else{
-					auprisValue= auprisValue +" " + pop;
+					aupresValue= aupresValue +" " + pop;
 				}
 			 }
 		 }
-		 console.log("auprisValue = ",auprisValue);
-		 return auprisValue;
+		 console.log("aupresValue = ",aupresValue);
+		 return aupresValue;
 	}
 
 	function gestsecours(){
@@ -159,6 +171,42 @@ var enrolSectionG = ["_01_humil_public",
         $state.go('enrolSH',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
     }
 
+    function initiAupres(valeur){
+      console.log("initiAupres => valeur = ",valeur);
+      if(!valeur || valeur == "" || valeur == " "){return;}
 
+      var conti = true; var option = null;
+      var initi = 0, space = 0;
+      while (conti){
+          space = valeur.indexOf(" ",initi);
+          if(space != -1){
+              option = valeur.substring(initi,space);
+              initi = space+1;
+          }else{
+              option = valeur.substring(initi,valeur.length);
+              conti = false;
+          }
+          $scope.aupres[option] = true;
+      }
+    }
+
+    function initiSecours(valeur){
+      console.log("initiSecours => valeur = ",valeur);
+      if(!valeur || valeur == "" || valeur == " "){return;}
+
+      var conti = true; var option = null;
+      var initi = 0, space = 0;
+      while (conti){
+          space = valeur.indexOf(" ",initi);
+          if(space != -1){
+              option = valeur.substring(initi,space);
+              initi = space+1;
+          }else{
+              option = valeur.substring(initi,valeur.length);
+              conti = false;
+          }
+          $scope.secours[option] = true;
+      }
+    }
 
 }]);

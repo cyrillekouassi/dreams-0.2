@@ -7,6 +7,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ci.jsi.entites.beneficiaire.Beneficiaire;
+import ci.jsi.entites.beneficiaire.Ibeneficiaire;
+import ci.jsi.entites.beneficiaire.InstanceBeneficiaire;
 import ci.jsi.entites.beneficiaire.InstanceBeneficiaireConvert;
 import ci.jsi.entites.organisation.Iorganisation;
 import ci.jsi.entites.organisation.Organisation;
@@ -42,6 +45,8 @@ public class InstanceConvert {
 	Uid uid;
 	@Autowired
 	InstanceBeneficiaireConvert instanceBeneficiaireConvert;
+	@Autowired
+	Ibeneficiaire ibeneficiaire;
 	
 	
 	Organisation organisation = null;
@@ -150,6 +155,17 @@ public class InstanceConvert {
 		instance.setUser(null);
 		instance.setInstanceBeneficiaires(null);
 		return instance;
+	}
+
+	public void deleteInBeneficiaire(List<InstanceBeneficiaire> instanceBeneficiaire) {
+		System.out.println("InstanceConvert - deleteInBeneficiaire");
+		Beneficiaire beneficiaire;
+		for(int i = 0; i<instanceBeneficiaire.size();i++) {
+			beneficiaire = instanceBeneficiaire.get(i).getBeneficiaire();
+			ibeneficiaire.deleteBeneficiaireInstance(beneficiaire, instanceBeneficiaire.get(i).getInstance());
+		}
+		
+		
 	}
 	
 	
