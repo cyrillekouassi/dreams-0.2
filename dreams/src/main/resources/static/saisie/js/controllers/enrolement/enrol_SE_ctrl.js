@@ -9,7 +9,7 @@ saisie.controller('enrolSEctrl', ['$scope', '$rootScope', '$stateParams', '$http
     dataInstance = angular.copy(dataInstanceEntete);
 	$scope.enrolE = {};
 var enrolSectionE = ["_01_rela_sexuel","_02_ag_sexuel","_03_nbr_part_sexuel","_04_part_sexuel","_05_P1_age_parte","_06_P1_statut_part",
-	"_07_P1_frequence_protect","_05_P2_age_parte","_06_P2-statut_part","_07_P2-frequence_protect",
+	"_07_P1_frequence_protect","_05_P2_age_parte","_06_P2_statut_part","_07_P2_frequence_protect",
 	"_05_P3_age_parte","_06_P3_statut_part","_07_P3_frequence_protect","_08_echange_sexe"];
 
 	mappigData();

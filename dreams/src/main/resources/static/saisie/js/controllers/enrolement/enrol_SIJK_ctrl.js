@@ -33,10 +33,10 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 	                for(var j=0;j<$rootScope.enrolementData.length;j++){
 	                    if(id == $rootScope.enrolementData[j].element){
 	                        $scope.enrolIJK[enrolSectionIJK[i]] = $rootScope.enrolementData[j].value;
-                          if(enrolSectionIJK[i] == "_05_type_drogue"){
+                          if(enrolSectionIJK[i] == "_01_participation_program"){
                             initiParticipation($rootScope.enrolementData[j].value);
                           }
-                          if(enrolSectionIJK[i] == "_06_raison_conso_drogue"){
+                          if(enrolSectionIJK[i] == "_02_element_repas"){
                             initiRepas($rootScope.enrolementData[j].value);
                           }
 	                    }
@@ -212,7 +212,7 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
             var ValuesUrl = apiDossierBesoin+"?" + instance + "&" + beneficiaireID+ "&" +dateEnrolement;
 
             $http.get(ValuesUrl).then(function (response) {
-              if(succes.data.status == "ok"){
+              if(response.data.status == "ok"){
                 console.log("executeDossierBesoins() response = ",response);
                   //dataInstance.instance = succes.data.id;
                   succesSave();
@@ -221,7 +221,7 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
               }
 
             }, function (err) {
-              console.log("executeDossierBesoins() error = ",error);
+              console.log("executeDossierBesoins() error = ",err);
               toastr["success"]("Echec d'enregistrement");
             });
         }

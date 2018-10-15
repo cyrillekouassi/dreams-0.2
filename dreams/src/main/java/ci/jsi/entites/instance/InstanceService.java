@@ -60,9 +60,10 @@ public class InstanceService implements Iinstance {
 	public String deleteInstanceTDO(String id) {
 		instance = instanceRepository.getOneInstance(id);
 		if(instance != null) {
+			
+			instanceConvert.deleteInBeneficiaire(instance.getInstanceBeneficiaires());
 			instance.setDeleted(true);
 			instance = instanceRepository.save(instance);
-			instanceConvert.deleteInBeneficiaire(instance.getInstanceBeneficiaires());
 			return "Success Deleted";
 		}
 		return "fail";

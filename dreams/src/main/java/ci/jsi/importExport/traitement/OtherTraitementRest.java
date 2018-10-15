@@ -11,6 +11,7 @@ import ci.jsi.entites.beneficiaire.Ibeneficiaire;
 import ci.jsi.entites.beneficiaire.InstanceBeneficiaire;
 import ci.jsi.entites.instance.Iinstance;
 import ci.jsi.entites.instance.Instance;
+import ci.jsi.entites.rapport.TraitementIndicateur;
 import ci.jsi.initialisation.ResultatRequete;
 
 @RestController
@@ -24,6 +25,8 @@ public class OtherTraitementRest {
 	CreateDossierBeneficiaire createDossierBeneficiaire;
 	@Autowired
 	ServicesDreams servicesDreams;
+	@Autowired
+	TraitementIndicateur traitementIndicateur;
 	
 	
 	@RequestMapping(value="api/genererBesoinAndDossier", method=RequestMethod.GET)
@@ -33,12 +36,23 @@ public class OtherTraitementRest {
 		Instance instance = iinstance.getOneInstance(instanceID);
 		Beneficiaire beneficiaire = ibeneficiaire.getOneBeneficiaireByIdDreams(beneficiaireId);
 		createDossierBeneficiaire.createDossierBeneficiare(instance, beneficiaire);
+		servicesDreams.genererService();
 		servicesDreams.evaluerService(instance,dateEnrolement);
 		
 		//Instance serviceInstance = servicesDreams.evaluerService(instance,dateEnrolement);
 		//serviceBeneficiaire(serviceInstance,beneficiaire);
 		resultatRequete.setStatus("ok");
 		resultatRequete.setId(instance.getUid());
+		return resultatRequete;
+		
+	}
+	
+	@RequestMapping(value="api/executeRapport", method=RequestMethod.GET)
+	public ResultatRequete executeRapport(){
+		System.out.println("entrer dans executeRapport");
+		ResultatRequete resultatRequete = new ResultatRequete();
+		traitementIndicateur.genereRapport();
+		resultatRequete.setStatus("ok");
 		return resultatRequete;
 		
 	}

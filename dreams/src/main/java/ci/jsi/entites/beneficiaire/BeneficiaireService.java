@@ -142,6 +142,7 @@ public class BeneficiaireService implements Ibeneficiaire {
 			if(instanceBeneficiaires.get(i).getInstance() == instance) {
 				instanceBeneficiaires.remove(i);
 			}
+			i++;
 		}
 		beneficiaire.setInstanceBeneficiaires(instanceBeneficiaires);
 		beneficiaire = updateOneBeneficiaire(beneficiaire);

@@ -52,6 +52,11 @@ public class CreateDossierBeneficiaire {
 		if(instance.getUser() != null) {
 			dataInstance.setUser(instance.getUser().getUid());
 		}
+		String Linstance = dossierExiste(beneficiaire,dossierProg);
+		if(Linstance != null) {
+			dataInstance.setInstance(Linstance);
+		}
+		
 		dataInstance.setDreamsId(beneficiaire.getId_dreams());
 		DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         String dateActivite = formatter.format(instance.getDateActivite());
@@ -145,6 +150,17 @@ public class CreateDossierBeneficiaire {
 			return dataValueTDO.getValue();
 		}
 		
+		return null;
+	}
+	
+	private String dossierExiste(Beneficiaire beneficiaire,Programme programme) {
+		
+		for(int i = 0; i<beneficiaire.getInstanceBeneficiaires().size(); i++) {
+			Instance instance = iinstance.getOneInstance(beneficiaire.getInstanceBeneficiaires().get(i).getInstance().getUid());
+			if(instance.getProgramme().getUid().equals(programme.getUid())) {
+				return instance.getUid();
+			}
+		}
 		return null;
 	}
 	
