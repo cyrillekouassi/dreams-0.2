@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ci.jsi.entites.beneficiaire.Beneficiaire;
 import ci.jsi.entites.beneficiaire.Ibeneficiaire;
-import ci.jsi.entites.beneficiaire.InstanceBeneficiaire;
 import ci.jsi.entites.instance.Iinstance;
 import ci.jsi.entites.instance.Instance;
 import ci.jsi.entites.rapport.TraitementIndicateur;
