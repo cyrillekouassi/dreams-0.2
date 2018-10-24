@@ -295,12 +295,13 @@ public class ServicesDreams {
 		//System.out.println("Sortir de ServicesDreams - genererService");
 	}
 	
-	public void evaluerService(Instance instance,String dateEnrol) {
+	public void evaluerService(String instanceID,String dateEnrol) {
 		
 		System.out.println("Entrer dans ServicesDreams - evaluerService");
 		dataValues = new ArrayList<DataValue>();
 		dataValueTDOs = new ArrayList<DataValueTDO>();
 		InstanceTDO instanceTDO = new InstanceTDO();
+		Instance instance = iinstance.getOneInstance(instanceID);
 		programme = iprogramme.getOneProgrammeByCode("besoinBeneficiare");
 		
 		dataInstance = idataValues.getDataInstance(instance.getUid());

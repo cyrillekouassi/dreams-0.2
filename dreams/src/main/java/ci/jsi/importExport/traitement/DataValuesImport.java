@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,17 +12,15 @@ import org.springframework.stereotype.Service;
 
 import com.opencsv.CSVReader;
 
-import ci.jsi.entites.beneficiaire.Beneficiaire;
 import ci.jsi.entites.beneficiaire.BeneficiaireTDO;
 import ci.jsi.entites.beneficiaire.Ibeneficiaire;
-import ci.jsi.entites.beneficiaire.InstanceBeneficiaire;
-import ci.jsi.entites.dataValue.DataValue;
+import ci.jsi.entites.dataValue.DataInstance;
+import ci.jsi.entites.dataValue.DataValueTDO;
 import ci.jsi.entites.dataValue.IdataValues;
 import ci.jsi.entites.element.Element;
 import ci.jsi.entites.element.Ielement;
 import ci.jsi.entites.instance.Iinstance;
 import ci.jsi.entites.instance.Instance;
-import ci.jsi.entites.instance.InstanceTDO;
 import ci.jsi.entites.organisation.Iorganisation;
 import ci.jsi.entites.organisation.Organisation;
 import ci.jsi.entites.programme.Iprogramme;
@@ -59,6 +56,9 @@ public class DataValuesImport {
 	CreateDossierBeneficiaire createDossierBeneficiaire;
 	
 	ResultatRequete resultatRequete;
+	private String orgID = null;
+	private String progId = null;
+	private String benefID = null;
 	
 	
 	
@@ -68,7 +68,7 @@ public class DataValuesImport {
 	private List<Integer>  listIndex = new ArrayList<Integer>();
 	private List<String> noElement = new ArrayList<String>();
 	
-	private String progId = null;
+	
 	/*private int orgid = -1;
 	private int orgcode = -1;*/
 	private int codeSafespace = -1;
@@ -131,7 +131,7 @@ public class DataValuesImport {
 			resultatRequete.setStatus("Fichier illisible");
 			resultatRequete.setIgnore(myEntries.size());
 		}
-		
+		lesResultatRequete(resultatRequete);
 		return resultatRequete;
 	}
 	
@@ -227,7 +227,7 @@ public class DataValuesImport {
 		if(!myEntries.isEmpty()) {
 			String[] data = myEntries.get(0);
 			ligneNo++;
-			System.out.println("++++++++++ ligne = "+ligneNo+" +++++++++++++++++++");
+			System.out.println("++++++++++ ligne = "+ligneNo+": enregistrement d'enrolement +++++++++++++++++++");
 			myEntries.remove(0);
 			searchMeta(data);
 			insertData();
@@ -241,23 +241,32 @@ public class DataValuesImport {
 	private void searchMeta(String[] data) {
 		System.out.println("Entrer dans DataValuesImport - searchMeta");
 		
-		Instance instance = createInstance(data);
-		Beneficiaire beneficiaire = new Beneficiaire();
-				
-		beneficiaire = createBeneficiaire(data,instance.getOrganisation().getUid());
-		if(beneficiaire == null) {
-			iinstance.deleteCompleteInstance(instance);
-			resultatRequete.getRaisonNonImport().add("information beneficiaire absent");
-			resultatRequete.setIgnore(resultatRequete.getIgnore() + 1);
+		//Instance instance = createInstance(data);
+		orgID = getOrganisationId(data);
+		if(orgID == null) {
 			return;
 		}
 		
-		createBeneficiareInstance(instance,beneficiaire,data);
-		//ajouterValeur(instance,beneficiaire,data);
+		benefID = createBeneficiaire(data,orgID);
+		if(benefID == null) {
+			return;
+		}
+		//Beneficiaire beneficiaire = new Beneficiaire();
+				
+		//beneficiaire = createBeneficiaire(data,orgID);
+		/*if(beneficiaire == null) {
+			//iinstance.deleteCompleteInstance(instance);
+			resultatRequete.getRaisonNonImport().add("information beneficiaire absent");
+			resultatRequete.setIgnore(resultatRequete.getIgnore() + 1);
+			return;
+		}*/
+		
+		//createBeneficiareInstance(instance,beneficiaire,data);
+		ajouterValeur(benefID,data);
 		
 	}
 	
-	public Instance createInstance(String[] data) {
+	/*public Instance createInstance(String[] data) {
 		System.out.println("Entrer dans DataValuesImport - createInstance");
 		InstanceTDO instanceTDO = new InstanceTDO();
 		instanceTDO.setProgramme(progId);		
@@ -289,48 +298,76 @@ public class DataValuesImport {
 		
 		return iinstance.saveInstance(instanceTDO);
 		
-	}
+	}*/
 	
-	public Organisation getOrganisationId(String codeCentreSocial,String codeSafeSpace) {
+	//public Organisation getOrganisationId(String codeCentreSocial,String codeSafeSpace) {String[] data
+	public String getOrganisationId(String[] data) {	
 		System.out.println("Entrer dans DataValuesImport - getOrganisationId");
-		Organisation organisation = iorganisation.getOneOrganisationByCode(codeCentreSocial);
-		if(organisation == null) {
+		String codeCentreSocial = null;
+		String codeSafeSpace = null;
+		Organisation safeSpace = null;
+		
+		if(!data[codeSafespace].isEmpty() && data[codeSafespace] != null && !data[codeCentreSociale].isEmpty() && data[codeCentreSociale] != null) {
+			codeCentreSocial = data[codeCentreSociale];
+			codeSafeSpace = data[codeSafespace];
+			
+		}else {
+			resultatRequete.getRaisonNonImport().add("ligne "+ligneNo+": codeCentreSociale ou codeSafespace non renseigné");
+			resultatRequete.setIgnore(resultatRequete.getIgnore() + 1);
 			return null;
 		}
-		if(codeSafeSpace.length() == 1) {
-			codeSafeSpace = "0"+codeSafeSpace;
-		}
 		
-		for(int i = 0;i<organisation.getChildrens().size();i++) {
-			if(organisation.getChildrens().get(i).getCode().equals(codeSafeSpace)) {
-				return organisation.getChildrens().get(i);
+		Organisation organisation = iorganisation.getOneOrganisationByCode(codeCentreSocial);
+		if(organisation != null) {
+			//return null;
+			if(codeSafeSpace.length() == 1) {
+				codeSafeSpace = "0"+codeSafeSpace;
+			}
+			
+			for(int i = 0;i<organisation.getChildrens().size();i++) {
+				if(organisation.getChildrens().get(i).getCode().equals(codeSafeSpace)) {
+					safeSpace = organisation.getChildrens().get(i);
+				}
+			}
+			if(safeSpace != null) {
+				return safeSpace.getUid();
 			}
 		}
+		
+		if(organisation == null) {
+			resultatRequete.getRaisonNonImport().add("ligne "+ligneNo+": CentreSociale non retrouvé");
+			resultatRequete.setIgnore(resultatRequete.getIgnore() + 1);
+		}
+		if(safeSpace == null) {
+			resultatRequete.getRaisonNonImport().add("ligne "+ligneNo+": Safespace non retrouvé");
+			resultatRequete.setIgnore(resultatRequete.getIgnore() + 1);
+		}
+		
 		return null;
 	}
 	
-	public Beneficiaire createBeneficiaire(String[] data,String organisation) {
+	public String createBeneficiaire(String[] data,String organisation) {
 		System.out.println("Entrer dans DataValuesImport - createBeneficiaire");
 		BeneficiaireTDO beneficiaireTDO = new BeneficiaireTDO();
 				
 		if(!data[nom].isEmpty() && data[nom] != null) {
 			beneficiaireTDO.setName(data[nom]);
 		}else {
-			resultatRequete.getRaisonNonImport().add("nom beneficiaire non renseingé");
+			resultatRequete.getRaisonNonImport().add("ligne "+ligneNo+": nom beneficiaire non renseingé");
 			resultatRequete.setIgnore(resultatRequete.getIgnore() + 1);
 			return null;
 		}
 		if(!data[pren].isEmpty() && data[pren] != null) {
 			beneficiaireTDO.setFirstName(data[pren]);
 		}else {
-			resultatRequete.getRaisonNonImport().add("pren beneficiaire non renseingé");
+			resultatRequete.getRaisonNonImport().add("ligne "+ligneNo+": pren beneficiaire non renseingé");
 			resultatRequete.setIgnore(resultatRequete.getIgnore() + 1);
 			return null;
 		}
 		if(!data[id_dreams].isEmpty() && data[id_dreams] != null) {
 			beneficiaireTDO.setId_dreams(data[id_dreams]);
 		}else {
-			resultatRequete.getRaisonNonImport().add("id_dreams beneficiaire non renseingé");
+			resultatRequete.getRaisonNonImport().add("ligne "+ligneNo+": id_dreams beneficiaire non renseingé");
 			resultatRequete.setIgnore(resultatRequete.getIgnore() + 1);
 			return null;
 		}
@@ -341,7 +378,7 @@ public class DataValuesImport {
 		if(!data[dat_nais].isEmpty() && data[dat_nais] != null) {
 			beneficiaireTDO.setDateNaissance(data[dat_nais]);
 		}else {
-			resultatRequete.getRaisonNonImport().add("dat_nais beneficiaire non renseingé");
+			resultatRequete.getRaisonNonImport().add("ligne "+ligneNo+": dat_nais beneficiaire non renseingé");
 			resultatRequete.setIgnore(resultatRequete.getIgnore() + 1);
 			return null;
 		}
@@ -349,7 +386,7 @@ public class DataValuesImport {
 		if(!data[dat_enrol].isEmpty() && data[dat_enrol] != null) {
 			beneficiaireTDO.setDateEnrolement(data[dat_enrol]);
 		}else {
-			resultatRequete.getRaisonNonImport().add("dat_enrol beneficiaire non renseingé");
+			resultatRequete.getRaisonNonImport().add("ligne "+ligneNo+": dat_enrol beneficiaire non renseingé");
 			resultatRequete.setIgnore(resultatRequete.getIgnore() + 1);
 			return null;
 		}
@@ -357,7 +394,7 @@ public class DataValuesImport {
 		if(!data[age_enrol].isEmpty() && data[age_enrol] != null) {
 			beneficiaireTDO.setAgeEnrolement(data[age_enrol]);
 		}else {
-			resultatRequete.getRaisonNonImport().add("age_enrol beneficiaire non renseingé");
+			resultatRequete.getRaisonNonImport().add("ligne "+ligneNo+": age_enrol beneficiaire non renseingé");
 			resultatRequete.setIgnore(resultatRequete.getIgnore() + 1);
 			return null;
 		}
@@ -366,7 +403,15 @@ public class DataValuesImport {
 			beneficiaireTDO.setOrganisation(new UidEntitie(organisation));
 		}
 		
-		return ibeneficiaire.convertBeneficiaireTDO(beneficiaireTDO);
+		ResultatRequete requeteBeneficiaire = ibeneficiaire.saveBeneficiaireTDO(beneficiaireTDO);
+		if(requeteBeneficiaire.getStatus() == "OK") {
+			return data[id_dreams];
+		}else {
+			resultatRequete.getRaisonNonImport().add("ligne "+ligneNo+": Echec de creation de la beneficiare id_dreams pourrait déjà existé, id_dreams: "+data[id_dreams]);
+			resultatRequete.setIgnore(resultatRequete.getIgnore() + 1);
+		}
+		//return ibeneficiaire.convertBeneficiaireTDO(beneficiaireTDO);
+		return null;
 	}
 	
 	public Programme seachProgramme(String prog) {
@@ -395,7 +440,7 @@ public class DataValuesImport {
 		return instance;
 	}
 	
-	public Organisation seachOrganisation(String id,String code) {
+	/*public Organisation seachOrganisation(String id,String code) {
 		System.out.println("Entrer dans DataValuesImport - seachOrganisation");
 		
 		Organisation organisation = new Organisation();
@@ -415,7 +460,7 @@ public class DataValuesImport {
 		
 		
 		return organisation;
-	}
+	}*/
 	
 	public UserApp seachUser(String user) {
 		System.out.println("Entrer dans DataValuesImport - seachUser");
@@ -430,7 +475,7 @@ public class DataValuesImport {
 		return user1;
 	}
 	
-	private void createBeneficiareInstance(Instance instance,Beneficiaire beneficiaire,String[] data) {
+	/*private void createBeneficiareInstance(Instance instance,Beneficiaire beneficiaire,String[] data) {
 		System.out.println("Entrer dans DataValuesImport - createBeneficiareInstance");
 		InstanceBeneficiaire instanceBeneficiaire = new InstanceBeneficiaire();
 		Date dateActivite;
@@ -464,11 +509,42 @@ public class DataValuesImport {
 			resultatRequete.setIgnore(resultatRequete.getIgnore() + 1);
 		}
 			
-	}
+	}*/
 	
-	private void ajouterValeur(Instance instance,Beneficiaire beneficiaire,String[] data) {
+	private void ajouterValeur(String beneficiaireID,String[] data) {
 		System.out.println("Entrer dans DataValuesImport - ajouterValeur");
 		
+		DataInstance dataInstance = new DataInstance();
+		dataInstance.setDreamsId(beneficiaireID);
+		dataInstance.setDateActivite(data[dat_enrol]);
+		dataInstance.setOrganisation(orgID);
+		dataInstance.setProgramme(progId);
+		dataInstance.setOrder(1);
+		
+		List<DataValueTDO> dataValueTDOs = new ArrayList<DataValueTDO>();
+		for(int i =0; i<listElement.size();i++) {
+			if(!data[listIndex.get(i)].isEmpty() && data[listIndex.get(i)] != null) {
+				DataValueTDO dataValueTDO = new DataValueTDO();
+				dataValueTDO.setElement(listElement.get(i).getUid());
+				dataValueTDO.setValue(data[listIndex.get(i)]);
+				dataValueTDO.setNumero(1);
+				dataValueTDOs.add(dataValueTDO);
+			}
+		}
+		
+		dataInstance.setDataValue(dataValueTDOs);
+		ResultatRequete resultatDataInstance = idataValues.saveDataInstance(dataInstance);
+		if(resultatDataInstance.getStatus() == "ok") {
+			resultatRequete.setImporte(resultatRequete.getImporte() + 1);
+			System.out.println("++++++++++ ligne = "+ligneNo+": evaluer Service +++++++++++++++++++");
+			servicesDreams.evaluerService(resultatDataInstance.getId(),data[dat_enrol]);
+			System.out.println("++++++++++ ligne = "+ligneNo+": enregistrement DossierBeneficiare +++++++++++++++++++");
+			createDossierBeneficiaire.createDossierBeneficiare(resultatDataInstance.getId(),beneficiaireID);
+		}
+		
+		
+	
+		/*
 		List<DataValue> listDataValue = new ArrayList<DataValue>();
 		
 		for(int i =0; i<listElement.size();i++) {
@@ -499,7 +575,7 @@ public class DataValuesImport {
 			
 			createDossierBeneficiaire.createDossierBeneficiare(instance,beneficiaire);
 			
-		}
+		}*/
 	}
 	
 	/*private void serviceBeneficiaire(Instance instance,Beneficiaire beneficiaire) {
@@ -514,6 +590,33 @@ public class DataValuesImport {
 		beneficiaire = ibeneficiaire.updateOneBeneficiaire(beneficiaire);
 	}*/
 	
+	private void lesResultatRequete(ResultatRequete requete) {
+		System.out.println("entrer dans ResultatRequete");
+		System.out.println("requete.id = "+requete.getId());
+		System.out.println("requete.status = "+requete.getStatus());
+		System.out.println("requete.importe = "+requete.getImporte());
+		System.out.println("requete.ignore = "+requete.getIgnore());
+		System.out.println("requete.update = "+requete.getUpdate());
+		System.out.println("requete.delete = "+requete.getDelete());
+		
+		System.out.println();
+		System.out.println("requete.raisonNonImport = "+requete.getRaisonNonImport().size());
+		for(int i = 0;i<requete.getRaisonNonImport().size();i++) {
+			System.out.println("raisonNonImport: "+requete.getRaisonNonImport().get(i));
+		}
+		
+		System.out.println();
+		System.out.println("requete.raisonAutreEchec = "+requete.getRaisonAutreEchec().size());
+		for(int i = 0;i<requete.getRaisonAutreEchec().size();i++) {
+			System.out.println("raisonAutreEchec: "+requete.getRaisonAutreEchec().get(i));
+		}
+		System.out.println("requete.id = "+requete.getId());
+		System.out.println("requete.status = "+requete.getStatus());
+		System.out.println("requete.importe = "+requete.getImporte());
+		System.out.println("requete.ignore = "+requete.getIgnore());
+		System.out.println("requete.update = "+requete.getUpdate());
+		System.out.println("requete.delete = "+requete.getDelete());
+	}
 	
 }
 

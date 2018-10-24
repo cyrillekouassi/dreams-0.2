@@ -24,6 +24,7 @@ saisie.controller('activiteGroupeListCTRL',['$scope','$http','$rootScope','$stat
     }
 
     function formateMetaData() {
+      $scope.LesActivites = [];
         for (var i = 0; i < $rootScope.lesProgrammes.length; i++) {
             if ($rootScope.lesProgrammes[i].code == "groupe") {
                 //$rootScope.VadInfo.programme = $rootScope.programme[i].id;
@@ -85,7 +86,7 @@ saisie.controller('activiteGroupeListCTRL',['$scope','$http','$rootScope','$stat
     function getElements() {
 
         $rootScope.elementProgramme = [];
-        
+
         for (var l = 0, k = $rootScope.programmeSelect.elements.length; l < k; l++) {
             if ($rootScope.programmeSelect.elements[l].element.code == "thematique") {
                 nosElements.push($rootScope.programmeSelect.elements[l].element);
@@ -140,9 +141,10 @@ saisie.controller('activiteGroupeListCTRL',['$scope','$http','$rootScope','$stat
         var instanceDelete = instanceUrl + "/" + instance;
         $http.delete(instanceDelete).then(function (response) {
             console.log(response);
-            getdata();
+            formateMetaData();
         }, function (err) {
             console.log(err);
+            formateMetaData();
         });
     };
 
@@ -184,5 +186,5 @@ saisie.controller('activiteGroupeListCTRL',['$scope','$http','$rootScope','$stat
             getdata(aller);
         }
     }
-    
+
 }]);

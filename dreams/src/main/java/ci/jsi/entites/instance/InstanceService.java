@@ -8,6 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import ci.jsi.entites.programme.Iprogramme;
+import ci.jsi.entites.programme.Programme;
+
 
 @Service
 public class InstanceService implements Iinstance {
@@ -15,6 +18,8 @@ public class InstanceService implements Iinstance {
 	InstanceConvert instanceConvert;
 	@Autowired
 	InstanceRepository instanceRepository;
+	@Autowired
+	Iprogramme iprogramme;
 	
 	Instance instance = null;
 	InstanceTDO instanceTDO = null;
@@ -58,12 +63,15 @@ public class InstanceService implements Iinstance {
 
 	@Override
 	public String deleteInstanceTDO(String id) {
+		Programme dossierProg = iprogramme.getOneProgrammeByCode("dossierBeneficiare");
 		instance = instanceRepository.getOneInstance(id);
 		if(instance != null) {
-			
-			instanceConvert.deleteInBeneficiaire(instance.getInstanceBeneficiaires());
-			instance.setDeleted(true);
-			instance = instanceRepository.save(instance);
+			if(dossierProg == instance.getProgramme()) {
+				instanceConvert.deleteBeneficiaireAllInstance(instance.getInstanceBeneficiaires());
+			}else {
+				instanceConvert.deleteInBeneficiaire(instance.getInstanceBeneficiaires());
+				deleteInstance(instance);
+			}
 			return "Success Deleted";
 		}
 		return "fail";
@@ -78,7 +86,11 @@ public class InstanceService implements Iinstance {
 	
 		return instanceRepository.getOneInstance(id);
 	}
-
+	
+	public void deleteInstance(Instance instance) {
+		instance.setDeleted(true);
+		instance = instanceRepository.save(instance);
+	}
 	
 	@Override
 	public Page<Instance> getInstanceselectByProgrammeAndOrganisation(String programmeuid, String organisationuid,Pageable pageable) {

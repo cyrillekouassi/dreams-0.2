@@ -27,11 +27,11 @@ public class Beneficiaire implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private Long beneficiaireid;
-	@Column(unique=true)
+	//@Column(unique=true)
 	private String uid;
 	private String name;
 	private String firstName;
-	@Column(unique=true)
+	//@Column(unique=true)
 	private String dreamsId;
 	private String code;
 	private String telephone;

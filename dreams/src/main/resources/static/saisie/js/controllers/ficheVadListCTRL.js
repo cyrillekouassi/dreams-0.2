@@ -32,6 +32,7 @@ saisie.controller('ficheVadListCTRL', ['$scope', '$rootScope', '$http', '$filter
     };
 
     function formateMetaData() {
+      $scope.lesVAD = [];
         for (var i = 0; i < $rootScope.lesProgrammes.length; i++) {
             if ($rootScope.lesProgrammes[i].code == "vad") {
                 //$rootScope.VadInfo.programme = $rootScope.programme[i].id;
@@ -83,7 +84,7 @@ saisie.controller('ficheVadListCTRL', ['$scope', '$rootScope', '$http', '$filter
         $scope.infoSearch.page = data.number;
         $scope.infoSearch.pagging = [];
         var laPage = 0;
-        
+
         for(var i = 0 ; i < data.totalPages;i++){
             laPage += 1;
             $scope.infoSearch.pagging.push(laPage);
@@ -96,7 +97,7 @@ saisie.controller('ficheVadListCTRL', ['$scope', '$rootScope', '$http', '$filter
         $rootScope.elementProgramme = [];
 
         for (var l = 0, k = $rootScope.programmeSelect.elements.length; l < k; l++) {
-                    
+
                     if ($rootScope.programmeSelect.elements[l].element.code == "numFicheVAD") {
                         nosElements.push($rootScope.programmeSelect.elements[l].element);
                     }
@@ -162,9 +163,10 @@ saisie.controller('ficheVadListCTRL', ['$scope', '$rootScope', '$http', '$filter
         instanceUrl = instanceUrl + "/" + instance;
         $http.delete(instanceUrl).then(function (response) {
             console.log(response);
-            getdata();
+            formateMetaData();
         }, function (err) {
             console.log(err);
+            formateMetaData();
         });
     };
 

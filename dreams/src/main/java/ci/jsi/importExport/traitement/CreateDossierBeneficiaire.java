@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ci.jsi.entites.beneficiaire.Beneficiaire;
+import ci.jsi.entites.beneficiaire.Ibeneficiaire;
 import ci.jsi.entites.dataValue.DataInstance;
 import ci.jsi.entites.dataValue.DataValueTDO;
 import ci.jsi.entites.dataValue.IdataValues;
@@ -31,22 +32,25 @@ public class CreateDossierBeneficiaire {
 	IdataValues idataValues;
 	@Autowired
 	Iinstance iinstance;
+	@Autowired
+	Ibeneficiaire ibeneficiaire;
 	
 	public CreateDossierBeneficiaire() {
 		
 	}
 
-	public Instance createDossierBeneficiare(Instance instance,Beneficiaire beneficiaire) {
+	public Instance createDossierBeneficiare(String instanceID,String beneficiaireID) {
 		System.out.println("enter dans createDossierBeneficiare");
 		DataInstance dataInstance = new DataInstance();
 		List<DataValueTDO> dataValueTDOs = new ArrayList<DataValueTDO>();
 		//DataValueTDO dataValueTDO = new DataValueTDO();
 		ResultatRequete resultatRequete = null;
+		Instance instance = iinstance.getOneInstance(instanceID);
+		Beneficiaire beneficiaire = ibeneficiaire.getOneBeneficiaireByIdDreams(beneficiaireID);
 		Programme dossierProg = iprogramme.getOneProgrammeByCode("dossierBeneficiare");
 		if(dossierProg == null) {
 			return null;
 		}
-		
 		dataInstance.setProgramme(dossierProg.getUid());
 		dataInstance.setOrganisation(instance.getOrganisation().getUid());
 		if(instance.getUser() != null) {

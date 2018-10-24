@@ -6,10 +6,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ci.jsi.entites.beneficiaire.Beneficiaire;
 import ci.jsi.entites.beneficiaire.Ibeneficiaire;
 import ci.jsi.entites.instance.Iinstance;
-import ci.jsi.entites.instance.Instance;
 import ci.jsi.entites.rapport.TraitementIndicateur;
 import ci.jsi.initialisation.ResultatRequete;
 
@@ -32,16 +30,13 @@ public class OtherTraitementRest {
 	public ResultatRequete genererBesoinAndDossier(@RequestParam(name="instance") String instanceID,@RequestParam(name="beneficiaireID") String beneficiaireId,@RequestParam(name="dateEnrolement") String dateEnrolement){
 		System.out.println("entrer dans genererBesoinAndDossier");
 		ResultatRequete resultatRequete = new ResultatRequete();
-		Instance instance = iinstance.getOneInstance(instanceID);
-		Beneficiaire beneficiaire = ibeneficiaire.getOneBeneficiaireByIdDreams(beneficiaireId);
-		createDossierBeneficiaire.createDossierBeneficiare(instance, beneficiaire);
-		servicesDreams.genererService();
-		servicesDreams.evaluerService(instance,dateEnrolement);
 		
-		//Instance serviceInstance = servicesDreams.evaluerService(instance,dateEnrolement);
-		//serviceBeneficiaire(serviceInstance,beneficiaire);
+		createDossierBeneficiaire.createDossierBeneficiare(instanceID, beneficiaireId);
+		servicesDreams.genererService();
+		servicesDreams.evaluerService(instanceID,dateEnrolement);
+
 		resultatRequete.setStatus("ok");
-		resultatRequete.setId(instance.getUid());
+		resultatRequete.setId(instanceID);
 		return resultatRequete;
 		
 	}

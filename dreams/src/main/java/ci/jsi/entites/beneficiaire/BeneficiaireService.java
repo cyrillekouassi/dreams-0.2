@@ -31,7 +31,7 @@ public class BeneficiaireService implements Ibeneficiaire {
 	public List<BeneficiaireTDO> SearchBeneficiaireTDOByIdDreams(String idDreams,String organisation) {
 		List<BeneficiaireTDO> beneficiaireTDOs = new ArrayList<BeneficiaireTDO>();
 		List<Beneficiaire> beneficiaires = new ArrayList<Beneficiaire>();
-		beneficiaires = beneficiaireRepository.findByOrganisationUidAndDreamsIdContaining(organisation, idDreams);
+		beneficiaires = beneficiaireRepository.findByUidIsNotNullAndOrganisationUidAndDreamsIdContaining(organisation, idDreams);
 		if(!beneficiaires.isEmpty()) {
 			beneficiaireTDOs = beneficiaireConvert.getBeneficiaireTDOs(beneficiaires);
 		}
@@ -41,7 +41,7 @@ public class BeneficiaireService implements Ibeneficiaire {
 	@Override
 	public Beneficiaire getOneBeneficiaireByIdDreams(String idDreams) {
 		
-		return beneficiaireRepository.findByDreamsId(idDreams);
+		return beneficiaireRepository.findByUidIsNotNullAndDreamsId(idDreams);
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class BeneficiaireService implements Ibeneficiaire {
 
 	@Override
 	public Beneficiaire saveOneBeneficiaire(Beneficiaire beneficiaire) {
-		Beneficiaire beneficiaire2 = beneficiaireRepository.findByDreamsId(beneficiaire.getId_dreams());
+		Beneficiaire beneficiaire2 = beneficiaireRepository.findByUidIsNotNullAndDreamsId(beneficiaire.getId_dreams());
 		if(beneficiaire2 != null) {
 			return null;
 		}
@@ -98,7 +98,7 @@ public class BeneficiaireService implements Ibeneficiaire {
 		List<Beneficiaire> beneficiaires = new ArrayList<Beneficiaire>();
 		Date dateDebut = convertDate.getDateParse(debut);
 		Date dateFin = convertDate.getDateParse(fin);
-		beneficiaires = beneficiaireRepository.findAllByOrganisationUidInAndDateEnrolementGreaterThanEqualAndDateEnrolementLessThanEqual(organisation, dateDebut,dateFin);
+		beneficiaires = beneficiaireRepository.findByUidIsNotNullAndOrganisationUidInAndDateEnrolementGreaterThanEqualAndDateEnrolementLessThanEqual(organisation, dateDebut,dateFin);
 		if(!beneficiaires.isEmpty()) {
 			beneficiaireTDOs = beneficiaireConvert.getBeneficiaireTDOs(beneficiaires);
 		}
@@ -110,7 +110,7 @@ public class BeneficiaireService implements Ibeneficiaire {
 		List<BeneficiaireTDO> beneficiaireTDOs = new ArrayList<BeneficiaireTDO>();
 		List<Beneficiaire> beneficiaires = new ArrayList<Beneficiaire>();
 		Date dateFin = convertDate.getDateParse(fin);
-		beneficiaires = beneficiaireRepository.findAllByOrganisationUidInAndDateEnrolementLessThanEqual(organisation,dateFin);
+		beneficiaires = beneficiaireRepository.findByUidIsNotNullAndOrganisationUidInAndDateEnrolementLessThanEqual(organisation,dateFin);
 		if(!beneficiaires.isEmpty()) {
 			beneficiaireTDOs = beneficiaireConvert.getBeneficiaireTDOs(beneficiaires);
 		}
@@ -124,7 +124,7 @@ public class BeneficiaireService implements Ibeneficiaire {
 		//List<Beneficiaire> benefis = new ArrayList<Beneficiaire>();
 		Date dateDebut = convertDate.getDateParse(debut);
 		Date dateFin = convertDate.getDateParse(fin);
-		beneficiaires = beneficiaireRepository.findAllByOrganisationUidInAndDateEnrolementGreaterThanEqualAndDateEnrolementLessThanEqual(organisation, dateDebut,dateFin);
+		beneficiaires = beneficiaireRepository.findByUidIsNotNullAndOrganisationUidInAndDateEnrolementGreaterThanEqualAndDateEnrolementLessThanEqual(organisation, dateDebut,dateFin);
 		//benefis = beneficiaireRepository.findAll();
 		if(!beneficiaires.isEmpty()) {
 			StatusBeneficiaire = beneficiaireConvert.getStatusBeneficiaires(beneficiaires);
@@ -147,6 +147,23 @@ public class BeneficiaireService implements Ibeneficiaire {
 		beneficiaire.setInstanceBeneficiaires(instanceBeneficiaires);
 		beneficiaire = updateOneBeneficiaire(beneficiaire);
 		return beneficiaire;
+	}
+
+	@Override
+	public ResultatRequete deleteBeneficiaire(String beneficiaireUid) {
+		ResultatRequete resultatRequete = new ResultatRequete();
+		Beneficiaire beneficiaire = beneficiaireRepository.findByUid(beneficiaireUid);
+		if(beneficiaire != null) {
+			
+			beneficiaireRepository.delete(beneficiaire);
+			resultatRequete.setStatus("OK");
+			resultatRequete.setId(beneficiaire.getUid());
+			resultatRequete.setDelete(1);
+			return resultatRequete;
+		}
+		resultatRequete.setStatus("fail");
+		resultatRequete.setIgnore(1);
+		return resultatRequete;
 	}
 
 

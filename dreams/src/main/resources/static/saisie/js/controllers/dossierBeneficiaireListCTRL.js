@@ -12,6 +12,7 @@ saisie.controller('dossierBeneficiaireListCTRL',['$scope','$http','$rootScope','
     var data = [];
     $rootScope.RefInfo = {};
     $rootScope.allData = [];
+    $scope.LesDossiers = [];
     $scope.infoSearch = {};
     var orgSelest = {};
     orgSelest = $stateParams.org;
@@ -24,6 +25,7 @@ saisie.controller('dossierBeneficiaireListCTRL',['$scope','$http','$rootScope','
     }
 
     function formateMetaData() {
+      $scope.LesDossiers = [];
         for (var i = 0; i < $rootScope.lesProgrammes.length; i++) {
             if ($rootScope.lesProgrammes[i].code == "dossierBeneficiare") {
                 $rootScope.programmeSelect = $rootScope.lesProgrammes[i];
@@ -130,7 +132,7 @@ saisie.controller('dossierBeneficiaireListCTRL',['$scope','$http','$rootScope','
         }
 
         console.log("listegroupe = ", listegroupe);
-        $scope.LesActivites = listegroupe;
+        $scope.LesDossiers = listegroupe;
 
     }
 
@@ -139,9 +141,10 @@ saisie.controller('dossierBeneficiaireListCTRL',['$scope','$http','$rootScope','
         var instanceDelete = instanceUrl + "/" + instance;
         $http.delete(instanceDelete).then(function (response) {
             console.log(response);
-            getdata();
+            formateMetaData();
         }, function (err) {
             console.log(err);
+            formateMetaData();
         });
     };
 

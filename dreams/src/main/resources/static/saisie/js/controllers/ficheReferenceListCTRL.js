@@ -24,6 +24,7 @@ saisie.controller('ficheReferenceListCTRL',['$scope','$http','$rootScope','$stat
     }
 
     function formateMetaData() {
+      $scope.lesRef = [];
         for (var i = 0; i < $rootScope.lesProgrammes.length; i++) {
             if ($rootScope.lesProgrammes[i].code == "reference") {
                 //$rootScope.VadInfo.programme = $rootScope.programme[i].id;
@@ -152,9 +153,10 @@ saisie.controller('ficheReferenceListCTRL',['$scope','$http','$rootScope','$stat
         var instanceDelete = instanceUrl + "/" + instance;
         $http.delete(instanceDelete).then(function (response) {
             console.log(response);
-            getdata();
+            formateMetaData();
         }, function (err) {
             console.log(err);
+            formateMetaData();
         });
     };
 

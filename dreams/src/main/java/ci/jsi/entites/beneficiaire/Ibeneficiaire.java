@@ -24,4 +24,6 @@ public interface Ibeneficiaire {
 	public List<BeneficiaireTDO> getBeneficiairePreview(List<String> organisation,String fin);
 	
 	public List<StatusBeneficiaire> getStatusBeneficiaire(List<String> organisation,String debut,String fin);
+	
+	public ResultatRequete deleteBeneficiaire(String beneficiaireUid);
 }

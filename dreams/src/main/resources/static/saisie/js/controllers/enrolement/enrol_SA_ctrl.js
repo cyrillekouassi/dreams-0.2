@@ -115,7 +115,7 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
         dataInstance.dataValue = [];
         dataInstance.dreamsId = $scope.enrolA.id_dreams;
         dataInstance.dateActivite = $scope.enrolA.dat_enrol;
-        //dataInstance.order = 1;
+        dataInstance.order = 1;
         if(!dataInstance.instance){
             delete dataInstance.instance;
             getElementid();

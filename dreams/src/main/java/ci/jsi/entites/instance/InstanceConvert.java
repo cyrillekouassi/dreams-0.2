@@ -47,6 +47,8 @@ public class InstanceConvert {
 	InstanceBeneficiaireConvert instanceBeneficiaireConvert;
 	@Autowired
 	Ibeneficiaire ibeneficiaire;
+	@Autowired
+	InstanceService instanceService;
 	
 	
 	Organisation organisation = null;
@@ -165,6 +167,28 @@ public class InstanceConvert {
 			ibeneficiaire.deleteBeneficiaireInstance(beneficiaire, instanceBeneficiaire.get(i).getInstance());
 		}
 		
+		
+	}
+
+	public void deleteBeneficiaireAllInstance(List<InstanceBeneficiaire> instanceBeneficiaires) {
+		System.out.println("InstanceConvert - deleteBeneficiaireAllInstance");
+		
+		Beneficiaire beneficiaire = instanceBeneficiaires.get(0).getBeneficiaire();
+		for(int i = 0;i<beneficiaire.getInstanceBeneficiaires().size();i++) {
+			if(!beneficiaire.getInstanceBeneficiaires().get(i).getInstance().getProgramme().getCode().equals("groupe")) {
+				instanceService.deleteInstance(beneficiaire.getInstanceBeneficiaires().get(i).getInstance());
+			}
+		}
+		
+		/*while(beneficiaire.getInstanceBeneficiaires().size() != 0) {
+			beneficiaire.getInstanceBeneficiaires().remove(0);
+		}*/
+		//beneficiaire.setOrganisation(null);
+		beneficiaire.setUid(null);
+		//beneficiaire.setId_dreams(null);
+		beneficiaire = ibeneficiaire.updateOneBeneficiaire(beneficiaire);
+		//ibeneficiaire.deleteBeneficiaire(beneficiaire.getUid());
+		System.out.println(beneficiaire);
 		
 	}
 	
