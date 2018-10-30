@@ -24,6 +24,7 @@ import ci.jsi.entites.programme.Programme;
 import ci.jsi.entites.utilisateur.Iuser;
 import ci.jsi.entites.utilisateur.UserApp;
 import ci.jsi.initialisation.ConvertDate;
+import ci.jsi.initialisation.ValueSearch;
 
 @Service
 @Transactional
@@ -310,6 +311,7 @@ public class DataValueConvert {
 	}
 
 	public DataValueTDO getDataValueTDO(DataValue dataValue) {
+		System.out.println("DataValueConvert - getDataValueTDO");
 		DataValueTDO dataValueTDO = new DataValueTDO();
 		dataValueTDO.setValue(dataValue.getValue());
 		dataValueTDO.setNumero(dataValue.getNumero());
@@ -403,6 +405,32 @@ public class DataValueConvert {
 		}
 		instance.setDateActivite(newDate);
 		return iinstance.saveInstance(instance);
+	}
+
+	public List<DataInstance> filterSearch(List<ValueSearch> valueSearchs, List<DataInstance> dataInstances, int numElement) {
+		List<DataInstance> dataInstance = new ArrayList<DataInstance>();
+		
+		if(numElement == valueSearchs.size()) {
+			return dataInstances;
+		}
+			
+		for(int i = 0;i<dataInstances.size();i++) {
+			for(int j = 0;j<dataInstances.get(i).getDataValue().size();j++) {
+				if(dataInstances.get(i).getDataValue().get(j).getElement().equals(valueSearchs.get(numElement).getElement())) {
+					String valueExiste = dataInstances.get(i).getDataValue().get(j).getValue();
+					String valueSeach = valueSearchs.get(numElement).getValue();
+					if(valueExiste.indexOf(valueSeach) != -1) {
+						dataInstance.add(dataInstances.get(i));
+					}
+					
+				}
+			}
+		}
+		
+		numElement++;
+		dataInstance = filterSearch(valueSearchs, dataInstance, numElement);
+		
+		return dataInstance;
 	}
 
 }

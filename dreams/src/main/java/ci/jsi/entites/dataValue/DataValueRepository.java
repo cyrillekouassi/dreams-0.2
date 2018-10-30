@@ -2,6 +2,8 @@ package ci.jsi.entites.dataValue;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -28,4 +30,9 @@ public interface DataValueRepository extends JpaRepository<DataValue, Long> {
 	public List<DataValue> findByInstanceUidAndElementUid(String instanceUid, String elementUid);
 	
 	public List<DataValue> findByInstanceProgrammeAndInstanceOrganisationAndElementUidAndValueContaining(Programme programme,Organisation organisation,String elementUid,String value);
+
+	//public Page<DataValue> findByInstanceProgrammeUidAndInstanceOrganisationUidAndElementUidAndValueContaining(String programme,String organisation,String elementUid,String value,Pageable pageable);
+	
+	public List<DataValue> findByInstanceProgrammeUidAndInstanceOrganisationUidAndElementUidAndValueContaining(String programme,String organisation,String elementUid,String value);
+
 }

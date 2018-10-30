@@ -1,6 +1,7 @@
 saisie.controller('enrol_List_Ctrl', ['$scope', '$rootScope', '$http', '$filter', '$stateParams','$timeout', function ($scope, $rootScope, $http, $filter, $stateParams,$timeout) {
     console.log("entrer dans enrol_List_Ctrl");
     var dataValuesUrl = serverAdresse+"dataValue/orgPro";
+    var searchUrl = serverAdresse+"dataValue/search";
     var instanceUrl = serverAdresse+"instance";
     var DATE_FORMAT = 'dd-MM-yyyy HH:mm:ss';
     var prog = "prog=";
@@ -15,15 +16,37 @@ saisie.controller('enrol_List_Ctrl', ['$scope', '$rootScope', '$http', '$filter'
     var orgSelest = {};
     orgSelest = $stateParams.org;
     $scope.infoSearch = {};
+    var config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
 
 
     //console.log("orgSelest = ",orgSelest);
-
+    initialDom();
     if(orgSelest){
         formateMetaData();
     }else{
         console.log("orgSelest not exist");
         toastr["success"]("Aucune organisation selectionné");
+    }
+    function initialDom() {
+
+        $(function () {
+            // Tooltip Initialization
+
+            $('.dates input').datepicker({
+                format: "dd-mm-yyyy",
+                weekStart: 1,
+                todayBtn: "linked",
+                clearBtn: true,
+                language: "fr",
+                daysOfWeekHighlighted: "0,6",
+                autoclose: true,
+                todayHighlight: true
+            });
+        });
     }
 
     $rootScope.lancerVADList = function () {
@@ -61,17 +84,28 @@ saisie.controller('enrol_List_Ctrl', ['$scope', '$rootScope', '$http', '$filter'
 
         $http.get(ValuesUrl).then(function (response) {
               //console.log("getdata() response = ", response);
-            data = response.data.content;
+              donnerRecu(response.data);
+            /*data = response.data.content;
             gestPagging(response.data);
             if (data.length > 0) {
                 //console.log("getdata() data = ", data);
                 $rootScope.allData = data;
                 getElements();
-            }
+            }*/
 
         }, function (err) {
             console.log(err);
         });
+    }
+
+    function donnerRecu(donnee){
+      data = donnee.content;
+      gestPagging(donnee);
+      if (data.length > 0) {
+          //console.log("getdata() data = ", data);
+          $rootScope.allData = data;
+          getElements();
+      }
     }
 
     function gestPagging(data) {
@@ -207,5 +241,55 @@ saisie.controller('enrol_List_Ctrl', ['$scope', '$rootScope', '$http', '$filter'
             getdata(aller);
         }
     }
+
+    $scope.searchElement = function(){
+      console.log("searchElement() > $scope.search = ",$scope.search);
+      console.log("searchElement() > $rootScope.programmeSelect = ",$rootScope.programmeSelect);
+      console.log("searchElement() > $rootScope.orgUnitSelect = ",$rootScope.orgUnitSelect);
+      $rootScope.elementProgramme = [];
+      var recherche = {};
+      recherche.valueSearchs = []
+      for(var pop in $scope.search){
+        if($scope.search[pop] && $scope.search[pop] != ""){
+          console.log("element = ",pop, " // value = ",$scope.search[pop]);
+          var tmp = {};
+          tmp.element = getElementId(pop);
+          tmp.value = $scope.search[pop];
+          recherche.valueSearchs.push(tmp);
+        }
+      }
+
+      recherche.organisation = $rootScope.orgUnitSelect.id;
+      recherche.programme = $rootScope.programmeSelect.id;
+      recherche.page = 0;
+      recherche.size = 50;
+      console.log("searchElement() > recherche = ",recherche);
+      getSearch(recherche);
+
+    }
+
+    function getElementId(code){
+
+      console.log("getElementId() > nosElements = ",nosElements);
+      for(var i = 0;i<nosElements.length;i++){
+        if(nosElements[i].code == code){
+          return nosElements[i].id;
+        }
+
+      }
+  }
+
+  function getSearch(searchElement){
+
+    //var dataRequest = searchUrl+"?searchElement="+searchElement.valueSearchs;
+    //$http.get(dataRequest).then(function (response) {
+      $http.post(searchUrl, searchElement, config).then(function(succes){
+          console.log("getSearch() succes = ", succes);
+          donnerRecu(succes.data);
+        }, function (err) {
+        console.log(err);
+    });
+
+  }
 
 }]);

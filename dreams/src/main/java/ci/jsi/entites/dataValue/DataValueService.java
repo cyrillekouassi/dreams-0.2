@@ -22,6 +22,7 @@ import ci.jsi.entites.programme.Programme;
 import ci.jsi.entites.utilisateur.UserConvertEntitie;
 import ci.jsi.initialisation.ConvertDate;
 import ci.jsi.initialisation.ResultatRequete;
+import ci.jsi.initialisation.SearchElement;
 import ci.jsi.initialisation.UidEntitie;
 
 @Service
@@ -49,7 +50,7 @@ public class DataValueService implements IdataValues {
 
 	@Override
 	public String saveDataInstanceByElement(String programme, String organisation, String user, List<DataValueTDO> dataValue) {
-		System.out.println("Entrer dans DataValueService - saveDataInstance");
+		System.out.println("Entrer dans DataValueService - saveDataInstanceByElement");
 		List<DataValue> dataValues = new ArrayList<DataValue>();
 		instance = iinstance.saveInstance(dataValueConvert.createInstance(programme, organisation, user));
 		dataValues = dataValueConvert.saveDataValues(dataValue, instance);
@@ -81,7 +82,7 @@ public class DataValueService implements IdataValues {
 
 	@Override
 	public DataValueTDO getDataValueTDO(String instance, String elementCode) {
-		System.out.println("Entrer dans DataValueService - getDataValue");
+		System.out.println("Entrer dans DataValueService - getDataValueTDO");
 		//DataValueTDO dataValueTDO = new DataValueTDO();
 		List<DataValue> dataValues = new ArrayList<DataValue>();
 		DataValueTDO dataValueTDO = null;
@@ -97,7 +98,7 @@ public class DataValueService implements IdataValues {
 
 	@Override
 	public DataInstance getDataInstance(String instance) {
-		System.out.println("Entrer dans DataValueService - getDataValue");
+		System.out.println("Entrer dans DataValueService - getDataInstance");
 		DataInstance dataInstance = new DataInstance();		
 		List<DataValue> dataValues = new ArrayList<DataValue>();
 		dataValues = dataValueRepository.findByInstanceUid(instance);
@@ -272,6 +273,44 @@ public class DataValueService implements IdataValues {
 		dateFin = convertDate.getDateParse(fin);
 		instances = iinstance.getInstanceAnalysePreview(organisation, programme, dateFin);
 		return instances;
+	}
+
+	@Override
+	public Page<DataInstance> searchDataValue(SearchElement searchElement) {
+		List<DataInstance> dataInstances = new ArrayList<DataInstance>();
+		List<DataInstance> ResultsDataInstances = new ArrayList<DataInstance>();
+		List<DataValue> lesSearchs = new ArrayList<DataValue>();
+		Pageable pageable = new PageRequest(searchElement.getPage(), searchElement.getSize());
+		int debut = searchElement.getPage() * searchElement.getSize();
+		int fin = debut + searchElement.getSize();
+		
+		lesSearchs = dataValueRepository.findByInstanceProgrammeUidAndInstanceOrganisationUidAndElementUidAndValueContaining(searchElement.getProgramme(), searchElement.getOrganisation(), searchElement.getValueSearchs().get(0).getElement(), searchElement.getValueSearchs().get(0).getValue());
+		//lesSearchs = dataValues.getContent();
+			
+		if(!lesSearchs.isEmpty()) {
+			for(int i =0;i<lesSearchs.size();i++) {
+				//DataValue instance = dataValues.getContent().get(i);
+				dataInstances.add(getDataInstance(lesSearchs.get(i).getInstance().getUid()));
+			}
+		}
+		if(!dataInstances.isEmpty()) {
+			dataInstances = dataValueConvert.filterSearch(searchElement.getValueSearchs(),dataInstances,1);
+		}
+		
+		Boolean conti = true;
+		while(debut < dataInstances.size() && conti) {
+			ResultsDataInstances.add(dataInstances.get(debut));
+			debut++;
+			if(debut == fin) {
+				conti = false;
+			}
+		}
+		
+		Page<DataInstance> page = new PageImpl<DataInstance>(ResultsDataInstances,
+                new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort()),
+                dataInstances.size());
+		
+		return page;
 	}
 
 }

@@ -16,9 +16,53 @@
                     <label>Nombre d'enrolement: {{infoSearch.totalElements}}</label>
                 </div>
                 <div class="float-right">
+                  <a href="#" ng-click="afficheSearch()"><i class="fa fa-search" aria-hidden="true"></i>Seach</a>
                     <a ui-sref='enrolSA({ prog: programmeSelect.id, org: orgUnitSelect.id })' class="btn btn-info btn-rounded btn-sm" role="button">Nouvel Enrolement</a>
                 </div>
+                <form>
+                  <div class="mt-5 bgSearch">
+                    <a href="" class="m-1"><i class="fa fa-times red" aria-hidden="true"></i></a>
 
+                  <div class="form-row mt-3">
+
+                    <div class="col">
+
+                     <div class="md-form dates">
+                       <input ng-model="search.dat_enrol" type="text" id="form1" class="form-control">
+                       <label for="form1">Date d'enrôlement</label>
+                     </div>
+                    </div>
+                    <div class="col">
+                     <div class="md-form">
+                       <input ng-model="search.id_dreams" type="text" id="id_dreams" class="form-control">
+                       <label for="id_dreams">Identifiant DREAMS</label>
+                     </div>
+                    </div>
+                    <div class="col">
+                     <div class="md-form">
+                       <input ng-model="search.nom" type="text" id="nom" class="form-control">
+                       <label for="nom">Nom</label>
+                     </div>
+                    </div>
+                    <div class="col">
+                     <div class="md-form">
+                       <input ng-model="search.pren" type="text" id="pren" class="form-control">
+                       <label for="pren">Prenom</label>
+                     </div>
+                    </div>
+                    <div class="col">
+                     <div class="md-form">
+                       <input ng-model="search.age_enrol" type="number" id="age_enrol" class="form-control">
+                       <label for="age_enrol">Age</label>
+                     </div>
+                    </div>
+                    <div class="col">
+                    <input type="submit" ng-click="searchElement()" value="Rechercher" />
+                    </div>
+                  </div>
+
+                </div>
+                </form>
                 <div class="table-responsive table-sm">
 
                     <table class="table">
@@ -55,7 +99,7 @@
                 <!--Bottom Table UI-->
                 <div class="d-flex justify-content-between">
 
-                    <!--Name-->
+                    <!--Name #D2D200-->
                     <div class="select-wrapper mdb-select colorful-select dropdown-primary mt-2 hidden-md-down">
 
                         <!--Pagination -->
