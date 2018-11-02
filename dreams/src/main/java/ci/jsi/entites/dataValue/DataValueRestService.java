@@ -13,45 +13,52 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ci.jsi.initialisation.ResultatRequete;
+import ci.jsi.initialisation.SearchElement;
 
 @RestController
 @RequestMapping(value="/dataValue")
 public class DataValueRestService {
 
-	@Autowired
-	private IdataValues idataValues;
-	
-	@RequestMapping(value="/{instance}",method=RequestMethod.GET)
-	public DataInstance getDataInstance(@PathVariable(name="instance") String instance){
-		System.out.println("entrer dans getDataInstance");
-		return idataValues.getDataInstance(instance);
-	}
-	
-	@RequestMapping(method=RequestMethod.GET)
-	public List<DataValueTDO> searchDataValueTDO(@RequestParam(name="programme",defaultValue="") String programme,@RequestParam(name="organisation",defaultValue="") String organisation,@RequestParam(name="element",defaultValue="") String element,@RequestParam(name="valeur",defaultValue="") String valeur){
-		System.out.println("entrer dans searchDataValueTDO");
-		return idataValues.SearchDataValueTDO(programme, organisation, element, valeur);
-	}
-	
-	@RequestMapping(value="/orgPro",method=RequestMethod.GET)
-	public Page<DataInstance> getDataValueOrganisation(@RequestParam(name="prog",defaultValue="") String programme,@RequestParam(name="org",defaultValue="") String organisation, @RequestParam(name="page",defaultValue="0")int page, @RequestParam(name="size",defaultValue="50")int size){
-		return idataValues.getDataValueOrganisation(programme, organisation,new PageRequest(page, size));
-	}
-	
-	@RequestMapping(value="/analyse",method=RequestMethod.GET)
-	public List<DataInstance> getDataValueAnalyse(@RequestParam(name="org") List<String> organisation,@RequestParam(name="prog") String programme, @RequestParam(name="debut")String debut, @RequestParam(name="fin")String fin){
-		return idataValues.dataAnalysePeriode(organisation, programme, debut, fin);
-	}
-	
-	@RequestMapping(method=RequestMethod.POST)
-	public ResultatRequete saveDataInstance(@RequestBody DataInstance dataInstance){
-		System.out.println("entrer dans saveDataInstance org =  " +dataInstance.getOrganisation());
-		return idataValues.saveDataInstance(dataInstance);
-	}
-	
-	@RequestMapping(value="/saveValue",method=RequestMethod.POST)
-	public DataValueTDO saveElementValue(@RequestBody DataValueTDO dataValueTDO){
-		return idataValues.saveDataValueTDO(dataValueTDO);
-	}
-	
+@Autowired
+private IdataValues idataValues;
+
+@RequestMapping(value="/{instance}",method=RequestMethod.GET)
+public DataInstance getDataInstance(@PathVariable(name="instance") String instance){
+System.out.println("entrer dans getDataInstance");
+return idataValues.getDataInstance(instance);
+}
+
+@RequestMapping(method=RequestMethod.GET)
+public List<DataValueTDO> searchDataValueTDO(@RequestParam(name="programme",defaultValue="") String programm,@RequestParam(name="organisation",defaultValue="") String organisation,@RequestParam(name="element",defaultValue="") String element,@RequestParam(name="valeur",defaultValue="") String valeur){
+System.out.println("entrer dans searchDataValueTDO");
+return idataValues.SearchDataValueTDO(programm, organisation, element, valeur);
+}
+
+@RequestMapping(value="/search",method=RequestMethod.POST)
+public Page<DataInstance> searchDataValue(@RequestBody SearchElement searchElement){
+System.out.println("entrer dans searchDataValue");
+return idataValues.searchDataValue(searchElement);
+}
+
+@RequestMapping(value="/orgPro",method=RequestMethod.GET)
+public Page<DataInstance> getDataValueOrganisation(@RequestParam(name="prog",defaultValue="") String programme,@RequestParam(name="org",defaultValue="") String organisation, @RequestParam(name="page",defaultValue="0")int page, @RequestParam(name="size",defaultValue="50")int size){
+return idataValues.getDataValueOrganisation(programme, organisation,new PageRequest(page, size));
+}
+
+@RequestMapping(value="/analyse",method=RequestMethod.GET)
+public List<DataInstance> getDataValueAnalyse(@RequestParam(name="org") List<String> organisation,@RequestParam(name="prog") String programme, @RequestParam(name="debut")String debut, @RequestParam(name="fin")String fin){
+return idataValues.dataAnalysePeriode(organisation, programme, debut, fin);
+}
+
+@RequestMapping(method=RequestMethod.POST)
+public ResultatRequete saveDataInstance(@RequestBody DataInstance dataInstance){
+System.out.println("entrer dans saveDataInstance org = " +dataInstance.getOrganisation());
+return idataValues.saveDataInstance(dataInstance);
+}
+
+@RequestMapping(value="/saveValue",method=RequestMethod.POST)
+public DataValueTDO saveElementValue(@RequestBody DataValueTDO dataValueTDO){
+return idataValues.saveDataValueTDO(dataValueTDO);
+}
+
 }

@@ -94,7 +94,7 @@ public class InstanceService implements Iinstance {
 	
 	@Override
 	public Page<Instance> getInstanceselectByProgrammeAndOrganisation(String programmeuid, String organisationuid,Pageable pageable) {
-		
+		System.out.println("Entrer dans InstanceService - getInstanceselectByProgrammeAndOrganisation");
 		return instanceRepository.findAllByDeletedIsFalseAndProgrammeUidAndOrganisationUid(programmeuid, organisationuid,pageable);
 	}
 	@Override

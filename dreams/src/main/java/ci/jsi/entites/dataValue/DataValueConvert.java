@@ -347,6 +347,7 @@ public class DataValueConvert {
 	}
 
 	public DataInstance contituerDataInstance(String instance, List<DataValue> dataValues) {
+		System.out.println("Entrer dans DataValueConvert - contituerDataInstance");
 		DataInstance dataInstance = new DataInstance();
 		Instance instance2 = iinstance.getOneInstance(instance);
 		List<DataValueTDO> dataValueTDOs = new ArrayList<DataValueTDO>();

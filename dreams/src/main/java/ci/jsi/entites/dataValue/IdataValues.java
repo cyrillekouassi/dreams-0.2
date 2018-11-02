@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 import ci.jsi.entites.instance.Instance;
 import ci.jsi.initialisation.ResultatRequete;
+import ci.jsi.initialisation.SearchElement;
 
 public interface IdataValues {
 	
@@ -30,4 +31,5 @@ public interface IdataValues {
 	public DataValue saveDataValue(DataValue dataValue);
 	public List<DataValue> saveAllDataValue(List<DataValue> dataValues);
 	
+	public Page<DataInstance> searchDataValue(SearchElement searchElement);
 }
