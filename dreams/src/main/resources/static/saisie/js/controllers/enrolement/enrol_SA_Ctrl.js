@@ -22,9 +22,9 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
     initial();
     initialDom();
     function initial() {
-        //console.log("entrer dans initial, $rootScope.orgUnitSelect", $rootScope.orgUnitSelect);
+      //  console.log("entrer dans initial, $rootScope.orgUnitSelect", $rootScope.orgUnitSelect);
 
-        //$scope.enrolA.district = "";
+        $scope.enrolA.district = $rootScope.orgUnitSelect.districtSanitaire;
         centreSocial = getInfoOrganisation($rootScope.orgUnitSelect.parent.id);
         plateForme = getInfoOrganisation(centreSocial.parent.id);
         $scope.enrolA.plateform_cod = plateForme.name;
@@ -34,6 +34,7 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
         $scope.enrolA.region = $rootScope.orgUnitSelect.region;
         $scope.enrolA.departement = $rootScope.orgUnitSelect.departement;
         $scope.enrolA.sousPrefect = $rootScope.orgUnitSelect.sousPrefecture;
+        $scope.enrolA.villageCommune = $rootScope.orgUnitSelect.commune;
         $scope.enrolA.villageCommune = $rootScope.orgUnitSelect.commune;
 
     }

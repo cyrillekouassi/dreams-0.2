@@ -99,8 +99,7 @@ public class Organisation implements Serializable {
 	
 	
 	public Organisation() {
-		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 	public Organisation(String uid, String name, String sigle, Long parentid, String code, Date dateCreation,
 			Date dateUpdate, Date dateFermeture, String descirption, String email, String telephone, int level) {

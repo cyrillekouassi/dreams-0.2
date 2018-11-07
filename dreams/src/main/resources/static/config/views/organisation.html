@@ -75,12 +75,13 @@
                         <p ng-if="afficheAjout" class="h4 text-center py-4">Ajouter une organisation</p>
                         <p ng-if="!afficheAjout" class="h4 text-center py-4">Modifier l'organisation</p>
 
-                        <div class="form-group mt-3">
-                            <input type="text" ng-model="org.leparent" class="form-control">
-                            <label>Parent</label>
-                        </div>
-                        <div class="row">
+
+                        <div class="row mt-3">
                             <div class="col">
+                              <div class="form-group">
+                                  <input type="text" ng-model="org.leparent" class="form-control" disabled>
+                                  <label>Parent</label>
+                              </div>
                                 <div class="form-group">
                                     <input type="text" ng-model="org.name" class="form-control">
                                     <label>Nom<span>*</span></label>
@@ -109,8 +110,16 @@
                                     <input type="text" ng-model="org.telephone" class="form-control">
                                     <label>Telephone</label>
                                 </div>
+                                <div class="form-group">
+                                    <input type="text" ng-model="org.latitude" class="form-control">
+                                    <label>Latitude</label>
+                                </div>
                             </div>
                             <div class="col">
+                              <div class="form-group">
+                                  <input type="text" ng-model="org.districtSanitaire" class="form-control">
+                                  <label>district Sanitaire</label>
+                              </div>
                                 <div class="form-group">
                                     <input type="text" ng-model="org.region" class="form-control">
                                     <label>Region</label>
@@ -139,6 +148,11 @@
                                     <input type="text" ng-model="org.organisationLocal" class="form-control">
                                     <label>Organisation Local</label>
                                 </div>
+                                <div class="form-group">
+                                    <input type="text" ng-model="org.longitude" class="form-control">
+                                    <label>Longitude</label>
+                                </div>
+
                             </div>
 
                         </div>

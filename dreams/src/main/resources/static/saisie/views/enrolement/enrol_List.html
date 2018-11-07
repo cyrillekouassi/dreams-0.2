@@ -21,9 +21,9 @@
                 </div>
                 <form>
                   <div class="mt-5 bgSearch">
-                    <a href="" class="m-1"><i class="fa fa-times red" aria-hidden="true"></i></a>
+                    <a href="" class="m-1"><i class="fa fa-times" aria-hidden="true"></i></a>
 
-                  <div class="form-row mt-3">
+                  <div class="form-row mt-3 pl-2">
 
                     <div class="col">
 
@@ -56,8 +56,11 @@
                        <label for="age_enrol">Age</label>
                      </div>
                     </div>
-                    <div class="col">
-                    <input type="submit" ng-click="searchElement()" value="Rechercher" />
+                    <div class="col pb-0">
+                    <!--input type="submit" ng-click="searchElement()" value="Rechercher" class="d-flex flex-row-reverse" /-->
+                    <div >
+                      <button type="submit" ng-click="searchElement()" class="btn btn-outline-primary btn-sm"><i class="fa fa-search mr-1" aria-hidden="true"></i> Rechercher</button>
+                    </div>
                     </div>
                   </div>
 
