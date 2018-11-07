@@ -47,6 +47,9 @@ public class OrganisationConvert {
 		organisation.setQuartier(organisationTDO.getQuartier());
 		organisation.setPartenaire(organisationTDO.getPartenaire());
 		organisation.setOrganisationLocal(organisationTDO.getOrganisationLocal());
+		organisation.setDistrictSanitaire(organisationTDO.getDistrictSanitaire());
+		organisation.setLatitude(organisationTDO.getLatitude());
+		organisation.setLongitude(organisationTDO.getLongitude());
 		
 		
 			organisation.setDateCreation(new Date());
@@ -92,6 +95,9 @@ public class OrganisationConvert {
 		organisationTDO.setQuartier(organisation.getQuartier());
 		organisationTDO.setPartenaire(organisation.getPartenaire());
 		organisationTDO.setOrganisationLocal(organisation.getOrganisationLocal());
+		organisationTDO.setDistrictSanitaire(organisation.getDistrictSanitaire());
+		organisationTDO.setLatitude(organisation.getLatitude());
+		organisationTDO.setLongitude(organisation.getLongitude());
 		
 		if(organisation.getDateCreation() != null)
 			organisationTDO.setDateCreation(convertDate.getDateString(organisation.getDateCreation()));
@@ -131,41 +137,51 @@ public class OrganisationConvert {
 	public Organisation updated(Organisation organisation,OrganisationTDO organisationTDO) {
 		
 		
-		if(organisationTDO.getName() != null)
-			organisation.setName(organisationTDO.getName());
-		else
+		if(organisationTDO.getName() == null) {
+			
+		}
+		if(organisationTDO.getCode() == null) {
 			return null;
-		//if(organisationTDO.getSigle() != null)
-			organisation.setSigle(organisationTDO.getSigle());
-		//if(organisationTDO.getCode() != null)
-			organisation.setCode(organisationTDO.getCode());
-			organisation.setDateUpdate(new Date());
-		if(organisationTDO.getDateFermeture() != null)
+		}
 			
-				organisation.setDateFermeture(convertDate.getDateParse(organisationTDO.getDateFermeture()));
-			
-		//if(organisationTDO.getDescription() != null)
-			organisation.setDescription(organisationTDO.getDescription());
-		//if(organisationTDO.getEmail() != null)
-			organisation.setEmail(organisationTDO.getEmail());
-		//if(organisationTDO.getTelephone() != null)
-			organisation.setTelephone(organisationTDO.getTelephone());
-		//if(organisationTDO.getUsers() != null)
-			organisation.setTelephone(organisationTDO.getTelephone());
+		organisation.setName(organisationTDO.getName());
+		organisation.setSigle(organisationTDO.getSigle());
+		organisation.setCode(organisationTDO.getCode());
+		organisation.setDateUpdate(new Date());
+		if(organisationTDO.getDateFermeture() != null) {
+			organisation.setDateFermeture(convertDate.getDateParse(organisationTDO.getDateFermeture()));
+		}
+		organisation.setDescription(organisationTDO.getDescription());
+		organisation.setEmail(organisationTDO.getEmail());
+		organisation.setTelephone(organisationTDO.getTelephone());
+		organisation.setRegion(organisationTDO.getRegion());
+		organisation.setDepartement(organisationTDO.getDepartement());
+		organisation.setSousPrefecture(organisationTDO.getSousPrefecture());
+		organisation.setCommune(organisationTDO.getCommune());
+		organisation.setQuartier(organisationTDO.getQuartier());
+		organisation.setPartenaire(organisationTDO.getPartenaire());
+		organisation.setOrganisationLocal(organisationTDO.getOrganisationLocal());
+		organisation.setDistrictSanitaire(organisationTDO.getDistrictSanitaire());
+		organisation.setLatitude(organisationTDO.getLatitude());
+		organisation.setLongitude(organisationTDO.getLongitude());
 		
-		if(organisationTDO.getUsers() != null && organisationTDO.getUsers().size() != 0)
-			organisation.setUsers(userConvertEntitie.setUsers(organisationTDO.getUsers()));
-		/*if(organisationTDO.getInstances() != null && organisationTDO.getInstances().size() != 0)
-			organisation.setInstances(instanceConvertEntitie.setInstances(organisationTDO.getInstances()));*/
-		if(organisationTDO.getChildrens() != null && organisationTDO.getChildrens().size() != 0)
+		
+		
+		if(organisationTDO.getUsers() != null && organisationTDO.getUsers().size() != 0) {
+			organisation.setUsers(userConvertEntitie.setUsers(organisationTDO.getUsers()));	
+		}
+		if(organisationTDO.getChildrens() != null && organisationTDO.getChildrens().size() != 0) {
 			organisation.setChildrens(organisationConvertEntitie.setOrganisations(organisationTDO.getChildrens()));
-		
-		Organisation org = new Organisation();
-		org = organisationConvertEntitie.setOneOrganisation(organisationTDO.getParent());
+		}
+			
+		 Organisation org = organisationConvertEntitie.setOneOrganisation(organisationTDO.getParent());
 		if(org != null && organisationTDO.getParent() != null) {
 			organisation.setParent(organisationConvertEntitie.setOneOrganisation(organisationTDO.getParent()));
 			organisation.setOrganisationLevels(organisationLevelService.getNextOrganisationLevel(organisation.getParent().getLevel()));
 		}
+		
+		
+		
 		
 		return organisation;
 	}

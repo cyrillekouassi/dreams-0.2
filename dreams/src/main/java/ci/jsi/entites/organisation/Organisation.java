@@ -53,9 +53,9 @@ public class Organisation implements Serializable {
 	private String partenaire;
 	private String organisationLocal;
 	private int level;
-	//private String districtSanitaire;
-	//private String longitude;
-	//private String latitude;
+	private String districtSanitaire;
+	private String longitude;
+	private String latitude;
 	
 	//@ManyToMany(mappedBy="organisations")
 	@ManyToMany(mappedBy="organisations",fetch=FetchType.LAZY)
@@ -266,6 +266,24 @@ public class Organisation implements Serializable {
 	}
 	public void setOrganisationLocal(String organisationLocal) {
 		this.organisationLocal = organisationLocal;
+	}
+	public String getDistrictSanitaire() {
+		return districtSanitaire;
+	}
+	public void setDistrictSanitaire(String districtSanitaire) {
+		this.districtSanitaire = districtSanitaire;
+	}
+	public String getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+	public String getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
 	}
 	public List<Beneficiaire> getBeneficiaires() {
 		return beneficiaires;

@@ -26,6 +26,9 @@ public class OrganisationTDO {
 	private String quartier;
 	private String partenaire;
 	private String organisationLocal;
+	private String districtSanitaire;
+	private String longitude;
+	private String latitude;
 	
 	private List<UidEntitie> users = new ArrayList<UidEntitie>();
 	//private List<UidEntitie> instances = new ArrayList<UidEntitie>();
@@ -164,6 +167,24 @@ public class OrganisationTDO {
 	}
 	public void setOrganisationLocal(String organisationLocal) {
 		this.organisationLocal = organisationLocal;
+	}
+	public String getDistrictSanitaire() {
+		return districtSanitaire;
+	}
+	public void setDistrictSanitaire(String districtSanitaire) {
+		this.districtSanitaire = districtSanitaire;
+	}
+	public String getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+	public String getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
 	}
  
     
