@@ -1,40 +1,84 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <link rel="stylesheet" type="text/css"
-      href="../static/css/bootstrap.min.css"
-      th:href="@{/css/bootstrap.min.css}" />
-<link rel="stylesheet" type="text/css" href="../static/css/myStyle.css"
-      th:href="@{/css/myStyle.css}" />
+      href="../static/_css/bootstrap.min.css"
+      th:href="@{/_css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" href="../static/_css/myStyle.css"
+      th:href="@{/_css/myStyle.css}" />
 <head>
     <meta charset="UTF-8" />
     <title>Authentification</title>
 </head>
 <body>
-<div class="col-md-4 col-md-offset-4 space40">
-    <div class="panel panel-primary">
-        <div class="panel-heading">Authentification</div>
-        <div class="panel-body">
-            <fieldset>
-            <div th:if="${param.error}" class="red">
-                Nom d'utilisateur ou Mot de passe incorrect
-            </div>
-            <div th:if="${param.logout}" class="red">
-                Vous etes déconnecté
-            </div>
-            <form th:action="@{/login}" method="post">
-                <div class="form-group">
-                    <label>Nom d'utilisateur</label> <input type="text" name="username" class="form-control"/>
-                </div>
-                <div class="form-group">
+  <div class="row">
+    <div class="col-md-4">
+        <div class="">
 
-                    <label>Mot de passe</label> <input type="password" name="password" class="form-control"/>
-                </div>
-                <button type="submit" class="btn btn-lg btn-success btn-block">Entrer</button>
-            </form>
-            </fieldset>
+            <!--<div class="thumbnail">img src="../static/_img/login/logo_carnet.jpg" alt="Nature" style="width:100%"/-->
+            <img th:src="@{/_img/login/logo_carnet_dreams.png}" alt="logo carnet" style="width:100%"/>
         </div>
-    </div>
-</div>
+      </div>
+      <div class="col-md-4 space40">
+          <div class="panel panel-primary" style="width:80%; margin: auto;">
+              <!--div class="panel-heading">Authentification</div-->
+              <div class="panel-body">
+                <img th:src="@{/_img/login/logo_carnet_fille.png}" alt="logo carnet" style="width:100%; margin: auto;"/>
+                  <fieldset style="margin-top: 10px;">
+                  <div th:if="${param.error}" class="red">
+                      Nom d'utilisateur ou Mot de passe incorrect
+                  </div>
+                  <div th:if="${param.logout}" class="red">
+                      Vous etes déconnecté
+                  </div>
+                  <form th:action="@{/login}" method="post">
+                      <div class="form-group">
+                          <label>Nom d'utilisateur</label> <input type="text" name="username" class="form-control"/>
+                      </div>
+                      <div class="form-group">
+
+                          <label>Mot de passe</label> <input type="password" name="password" class="form-control"/>
+                      </div>
+                      <button type="submit" class="btn btn-lg btn-success btn-block">Entrer</button>
+                  </form>
+                  </fieldset>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-4">
+          <div class="">
+
+              <!--<div class="thumbnail">img src="../static/_img/login/logo_carnet.jpg" alt="Nature" style="width:100%"/-->
+              <img th:src="@{/_img/login/logo_carnet_ci.png}" alt="logo carnet" style="width:100%"/>
+          </div>
+      </div>
+  </div>
+  <div class = "spacing">
+    <span class="sr-only">Application Dreams CÔTE D'IVOIRE réalisé par cyrillekouassi2002@gmail.com</span>
+  </div>
+  <div class="navbar navbar-fixed-bottom footer">
+  <div class="botomHeight">
+    <img th:src="@{/_img/login/logo_carnet_bas.png}" alt="logo carnet" style="width:100%; margin: auto; height: 50px;"/>
+
+     <!--div class="row">
+        <div class="col-xs-6 col-md-4 col-lg-3">
+
+           <p>Add your content here.</p>
+        </div>
+        <div class="col-xs-6 col-md-4 col-lg-3">
+                   <p>Add your content here.</p>
+
+        </div>
+        <div class="col-xs-6 col-md-4 col-lg-3">
+                   <p>Add your content here.</p>
+
+        </div>
+        <div class="col-xs-6 col-md-4 col-lg-3">
+                   <p>cyrille Add your content here. Add your content here. Add your content here.</p>
+
+        </div>
+     </div-->
+  </div>
+      </div>
 
 </body>
 </html>

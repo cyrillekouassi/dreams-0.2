@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Autres</title>
+</head>
+<body>
+<body>
+
+<div class="row">
+    <div class="col-3">
+
+      <div class="card">
+        <div class="card-header">
+          Rapport d'activité
+        </div>
+        <div class="card-body">
+          <!--h5 class="card-title">Special title treatment</h5-->
+          <p class="card-text">Le rapport de l'activité (Rapport de l'ONG) contient les indicateurs d'évaluation des activités mené par les organisations.
+            les indicateurs sont calculé par niveau puis compilé pour le niveau superieur.
+          </p>
+          <!--a href="#!" class="btn btn-primary">Go somewhere</a-->
+          <button class="btn btn-default" ng-click="executeRapport()" ng-disabled="resultRapport.status == 'enCours'"><span ng-if="resultRapport.status == 'OK'">Executer rapport</span> <span ng-if="resultRapport.status == 'enCours'">En cours d'execution</span></button>
+          <span> Dernière execution: </span>
+        </div>
+      </div>
+    </div>
+    <!--div class="col-3">
+      <button class="btn btn-default" ng-click="statusExecuteRapport()">Status Execute rapport</button>
+    </div-->
+</div>
+</body>
+</body>
+</html>

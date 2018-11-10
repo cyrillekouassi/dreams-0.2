@@ -7,6 +7,7 @@ saisie.controller('enrol_List_Ctrl', ['$scope', '$rootScope', '$http', '$filter'
     var prog = "prog=";
     var org = "org=";
     var listeInstance = [];
+    $scope.searchForm = false,
     $rootScope.leProgramme = {};
     //$rootScope.elementProgramme = [];
     var nosElements = [];
@@ -290,6 +291,21 @@ saisie.controller('enrol_List_Ctrl', ['$scope', '$rootScope', '$http', '$filter'
         console.log(err);
     });
 
+  }
+
+  $scope.afficheSearch = function(){
+    $scope.searchForm = true;
+
+    $timeout( function(){
+      $scope.$apply(function() {
+        initialDom();
+      });
+    },10);
+  }
+
+  $scope.closeSearchForm = function(){
+    $scope.searchForm = false;
+    formateMetaData();
   }
 
 }]);

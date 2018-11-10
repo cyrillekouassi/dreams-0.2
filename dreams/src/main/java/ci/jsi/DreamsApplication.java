@@ -100,10 +100,10 @@ public class DreamsApplication implements CommandLineRunner {
 		irolesDefinis.saveRolesDefinie("creer_modifier_ensembleOption");
 		irolesDefinis.saveRolesDefinie("importer_elements_donnees");
 		irolesDefinis.saveRolesDefinie("creer_modifier_element");
-		irolesDefinis.saveRolesDefinie("creer_modifier_element");
-		irolesDefinis.saveRolesDefinie("creer_modifier_element");
-		irolesDefinis.saveRolesDefinie("creer_modifier_element");
-		irolesDefinis.saveRolesDefinie("creer_modifier_element");
+		irolesDefinis.saveRolesDefinie("autres_configurations");
+		//irolesDefinis.saveRolesDefinie("creer_modifier_element");
+		//irolesDefinis.saveRolesDefinie("creer_modifier_element");
+		//irolesDefinis.saveRolesDefinie("creer_modifier_element");
 		
 		RoleUser roles = roleUserRepository.findByName("superUser");
 		if(roles == null) {

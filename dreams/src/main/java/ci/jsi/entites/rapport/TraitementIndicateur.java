@@ -1,6 +1,8 @@
 package ci.jsi.entites.rapport;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.IsoFields;
 import java.time.temporal.TemporalAdjusters;
@@ -26,6 +28,7 @@ import ci.jsi.entites.organisationLevel.OrganisationLevel;
 import ci.jsi.entites.programme.Iprogramme;
 import ci.jsi.entites.programme.ProgrammeTDO;
 import ci.jsi.initialisation.ConvertDate;
+import ci.jsi.initialisation.ResultatRequete;
 import ci.jsi.initialisation.UidEntitie;
 
 @Service
@@ -91,14 +94,39 @@ public class TraitementIndicateur {
 	double nouveau_15_19 = 0;
 	double ancien_10_14 = 0;
 	double ancien_15_19 = 0;
+	
+	boolean execution = false;
+	String HeureFinExecution = null;
+	ResultatRequete resultatRequete = new ResultatRequete();
+	//private final DateTimeFormatter formatter = new DateTimeFormatter("dd-MM-yyyy HH:mm:ss");
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
 	List<DataInstance> dataInstances = new ArrayList<DataInstance>();
 	List<Instance> instances = new ArrayList<Instance>();
 
-	public void genereRapport() {
-		chargeProgramme();
-		executionPeriodeMois();
-		executionPeriodeTrimestre();
+	public ResultatRequete genereRapport(String action) {
+		System.out.println("execution = "+execution);
+		if(action.equals("execute") && !execution) {
+			resultatRequete.setStatus("enCours");
+			execution = true;
+			chargeProgramme();
+			executionPeriodeMois();
+			executionPeriodeTrimestre();
+			HeureFinExecution = LocalDateTime.now().format(formatter);
+			System.out.println("fin HeureFinExecution = "+HeureFinExecution);
+			execution = false;
+			resultatRequete.setId(HeureFinExecution);
+		}
+		
+		if(action.equals("status")) {
+			if(execution) {
+				resultatRequete.setStatus("enCours");
+			}else {
+				resultatRequete.setStatus("OK");
+				resultatRequete.setId(HeureFinExecution);
+			}
+		}
+		return resultatRequete;
 	}
 
 	private void chargeProgramme() {

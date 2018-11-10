@@ -42,12 +42,12 @@ public class OtherTraitementRest {
 	}
 	
 	@RequestMapping(value="api/executeRapport", method=RequestMethod.GET)
-	public ResultatRequete executeRapport(){
+	public ResultatRequete executeRapport(@RequestParam(name="action") String action){
 		System.out.println("entrer dans executeRapport");
-		ResultatRequete resultatRequete = new ResultatRequete();
-		traitementIndicateur.genereRapport();
-		resultatRequete.setStatus("ok");
-		return resultatRequete;
+		/*ResultatRequete resultatRequete = new ResultatRequete();
+		traitementIndicateur.genereRapport(action);
+		resultatRequete.setStatus("ok");*/
+		return traitementIndicateur.genereRapport(action);
 		
 	}
 	

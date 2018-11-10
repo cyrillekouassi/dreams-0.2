@@ -87,6 +87,9 @@
         <li class="nav-item" ng-if="role.importer_elements_donnees">
             <a class="nav-link text-white" ui-sref="imports" ng-class="{'active' : ongletSelect == 'import'}" role="tab">Imports</a>
         </li>
+        <li class="nav-item" ng-if="role.autres_configurations">
+            <a class="nav-link text-white" ui-sref="autres" ng-class="{'active' : ongletSelect == 'autres'}" role="tab">Autres</a>
+        </li>
     </ul>
     <div class="mt-5 ml-3">
         <ui-view></ui-view>
@@ -125,6 +128,7 @@
 <script src="js/controllers/organisationCTRL.js"></script>
 <script src="js/controllers/importCTRL.js"></script>
 <script src="js/controllers/rolesUserCTRL.js"></script>
+<script src="js/controllers/autres.js"></script>
 
 <!--<script src="js/directives/stringToNumber.js"></script> -->
 <script src="js/directives/tree_Directive.js"></script>

@@ -58,6 +58,12 @@ conf.config(['$stateProvider','$urlRouterProvider', function ($stateProvider,$ur
         templateUrl: 'views/imports.html',
         controller: 'importCTRL'
     };
+    var autres = {
+        name: 'autres',
+        url: '/autres',
+        templateUrl: 'views/autres.html',
+        controller: 'autresCTRL'
+    };
 
     $stateProvider.state(accueil);
     $stateProvider.state(org);
@@ -68,6 +74,7 @@ conf.config(['$stateProvider','$urlRouterProvider', function ($stateProvider,$ur
     $stateProvider.state(ensembleOption);
     $stateProvider.state(service);
     $stateProvider.state(imports);
+    $stateProvider.state(autres);
 
 }]);
 conf.run(['$rootScope','$http', function ($rootScope,$http) {

@@ -16,12 +16,12 @@
                     <label>Nombre d'enrolement: {{infoSearch.totalElements}}</label>
                 </div>
                 <div class="float-right">
-                  <a href="#" ng-click="afficheSearch()"><i class="fa fa-search" aria-hidden="true"></i>Seach</a>
+                  <a href="#" ng-click="afficheSearch()" ng-if="!searchForm"><i class="fa fa-search" aria-hidden="true"></i>Seach</a>
                     <a ui-sref='enrolSA({ prog: programmeSelect.id, org: orgUnitSelect.id })' class="btn btn-info btn-rounded btn-sm" role="button">Nouvel Enrolement</a>
                 </div>
-                <form>
+                <form ng-if="searchForm">
                   <div class="mt-5 bgSearch">
-                    <a href="" class="m-1"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    <a href="" ng-click="closeSearchForm()" class="m-1"><i class="fa fa-times" aria-hidden="true"></i></a>
 
                   <div class="form-row mt-3 pl-2">
 
