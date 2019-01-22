@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +13,19 @@ import org.springframework.stereotype.Service;
 
 import com.opencsv.CSVReader;
 
+import ci.jsi.entites.beneficiaire.Beneficiaire;
 import ci.jsi.entites.beneficiaire.BeneficiaireTDO;
 import ci.jsi.entites.beneficiaire.Ibeneficiaire;
+import ci.jsi.entites.beneficiaire.InstanceBeneficiaire;
 import ci.jsi.entites.dataValue.DataInstance;
+import ci.jsi.entites.dataValue.DataValue;
 import ci.jsi.entites.dataValue.DataValueTDO;
 import ci.jsi.entites.dataValue.IdataValues;
 import ci.jsi.entites.element.Element;
 import ci.jsi.entites.element.Ielement;
 import ci.jsi.entites.instance.Iinstance;
 import ci.jsi.entites.instance.Instance;
+import ci.jsi.entites.instance.InstanceTDO;
 import ci.jsi.entites.organisation.Iorganisation;
 import ci.jsi.entites.organisation.Organisation;
 import ci.jsi.entites.programme.Iprogramme;
@@ -241,14 +246,24 @@ public class DataValuesImport {
 	private void searchMeta(String[] data) {
 		System.out.println("Entrer dans DataValuesImport - searchMeta");
 		
-		//Instance instance = createInstance(data);
-		orgID = getOrganisationId(data);
+		Organisation organisation = getOrganisation(data);
+		if(organisation == null) {
+			return;
+		}
+		orgID = organisation.getUid();
 		if(orgID == null) {
 			return;
 		}
 		
-		benefID = createBeneficiaire(data,orgID);
-		if(benefID == null) {
+		Instance instance = createInstance(data,organisation);
+		//orgID = getOrganisation(data);
+		
+		
+		Beneficiaire beneficiaire = createBeneficiaire(data,orgID);
+		if(beneficiaire == null) {
+			iinstance.deleteCompleteInstance(instance);
+			resultatRequete.getRaisonNonImport().add("information beneficiaire absent");
+			resultatRequete.setIgnore(resultatRequete.getIgnore() + 1);
 			return;
 		}
 		//Beneficiaire beneficiaire = new Beneficiaire();
@@ -262,15 +277,17 @@ public class DataValuesImport {
 		}*/
 		
 		//createBeneficiareInstance(instance,beneficiaire,data);
-		ajouterValeur(benefID,data);
+		serviceBeneficiaire(instance,beneficiaire);
+		ajouterValeur(beneficiaire,instance,data);
 		
 	}
 	
-	/*public Instance createInstance(String[] data) {
+	public Instance createInstance(String[] data,Organisation organisation) {
 		System.out.println("Entrer dans DataValuesImport - createInstance");
 		InstanceTDO instanceTDO = new InstanceTDO();
-		instanceTDO.setProgramme(progId);		
-		if(!data[codeSafespace].isEmpty() && data[codeSafespace] != null && !data[codeCentreSociale].isEmpty() && data[codeCentreSociale] != null) {
+		instanceTDO.setProgramme(progId);	
+		instanceTDO.setOrganisation(organisation.getUid());
+		/*if(!data[codeSafespace].isEmpty() && data[codeSafespace] != null && !data[codeCentreSociale].isEmpty() && data[codeCentreSociale] != null) {
 			Organisation organisation = getOrganisationId(data[codeCentreSociale],data[codeSafespace]);
 			if(organisation != null) {
 				instanceTDO.setOrganisation(organisation.getUid());
@@ -283,7 +300,7 @@ public class DataValuesImport {
 			resultatRequete.getRaisonNonImport().add("organisationcode ou organisationid non renseigné");
 			resultatRequete.setIgnore(resultatRequete.getIgnore() + 1);
 			return null;
-		}
+		}*/
 		
 		if(!data[userid].isEmpty() && data[userid] != null) {
 			instanceTDO.setUser(data[userid]);
@@ -298,10 +315,10 @@ public class DataValuesImport {
 		
 		return iinstance.saveInstance(instanceTDO);
 		
-	}*/
+	}
 	
 	//public Organisation getOrganisationId(String codeCentreSocial,String codeSafeSpace) {String[] data
-	public String getOrganisationId(String[] data) {	
+	public Organisation getOrganisation(String[] data) {	
 		System.out.println("Entrer dans DataValuesImport - getOrganisationId");
 		String codeCentreSocial = null;
 		String codeSafeSpace = null;
@@ -330,7 +347,7 @@ public class DataValuesImport {
 				}
 			}
 			if(safeSpace != null) {
-				return safeSpace.getUid();
+				return safeSpace;
 			}
 		}
 		
@@ -346,7 +363,8 @@ public class DataValuesImport {
 		return null;
 	}
 	
-	public String createBeneficiaire(String[] data,String organisation) {
+	//public String createBeneficiaire(String[] data,String organisation) {
+	public Beneficiaire createBeneficiaire(String[] data,String organisation) {
 		System.out.println("Entrer dans DataValuesImport - createBeneficiaire");
 		BeneficiaireTDO beneficiaireTDO = new BeneficiaireTDO();
 				
@@ -405,7 +423,8 @@ public class DataValuesImport {
 		
 		ResultatRequete requeteBeneficiaire = ibeneficiaire.saveBeneficiaireTDO(beneficiaireTDO);
 		if(requeteBeneficiaire.getStatus() == "OK") {
-			return data[id_dreams];
+			//return data[id_dreams];
+			return ibeneficiaire.getOneBeneficiaireByIdDreams(data[id_dreams]);
 		}else {
 			resultatRequete.getRaisonNonImport().add("ligne "+ligneNo+": Echec de creation de la beneficiare id_dreams pourrait déjà existé, id_dreams: "+data[id_dreams]);
 			resultatRequete.setIgnore(resultatRequete.getIgnore() + 1);
@@ -478,9 +497,9 @@ public class DataValuesImport {
 	/*private void createBeneficiareInstance(Instance instance,Beneficiaire beneficiaire,String[] data) {
 		System.out.println("Entrer dans DataValuesImport - createBeneficiareInstance");
 		InstanceBeneficiaire instanceBeneficiaire = new InstanceBeneficiaire();
-		Date dateActivite;
+		Date dateActivite = convertDate.getDateParse(data[dat_enrol]);
 		
-		if(!data[dat_enrol].isEmpty() && data[dat_enrol] != null) {
+		/*if(!data[dat_enrol].isEmpty() && data[dat_enrol] != null) {
 			
 				dateActivite = convertDate.getDateParse(data[dat_enrol]);
 				if(dateActivite == null) {
@@ -493,7 +512,7 @@ public class DataValuesImport {
 			resultatRequete.getRaisonNonImport().add("dat_enrol non renseigné");
 			resultatRequete.setIgnore(resultatRequete.getIgnore() + 1);
 			return;
-		}
+		}*
 		instanceBeneficiaire.setInstance(instance);
 		instanceBeneficiaire.setBeneficiaire(beneficiaire);
 		instanceBeneficiaire.setDateAction(dateActivite);
@@ -511,10 +530,11 @@ public class DataValuesImport {
 			
 	}*/
 	
-	private void ajouterValeur(String beneficiaireID,String[] data) {
+	//private void ajouterValeur(String beneficiaireID,String[] data) {
+	private void ajouterValeur(Beneficiaire beneficiaire,Instance instance,String[] data) {
 		System.out.println("Entrer dans DataValuesImport - ajouterValeur");
 		
-		DataInstance dataInstance = new DataInstance();
+		/*DataInstance dataInstance = new DataInstance();
 		dataInstance.setDreamsId(beneficiaireID);
 		dataInstance.setDateActivite(data[dat_enrol]);
 		dataInstance.setOrganisation(orgID);
@@ -541,10 +561,10 @@ public class DataValuesImport {
 			System.out.println("++++++++++ ligne = "+ligneNo+": enregistrement DossierBeneficiare +++++++++++++++++++");
 			createDossierBeneficiaire.createDossierBeneficiare(resultatDataInstance.getId(),beneficiaireID);
 		}
-		
+		*/
 		
 	
-		/*
+		
 		List<DataValue> listDataValue = new ArrayList<DataValue>();
 		
 		for(int i =0; i<listElement.size();i++) {
@@ -567,18 +587,19 @@ public class DataValuesImport {
 		if(!listDataValue.isEmpty()) {
 			listDataValue = idataValues.saveAllDataValue(listDataValue);
 			resultatRequete.setImporte(resultatRequete.getImporte() + 1);
-			servicesDreams.evaluerService(instance,data[dat_enrol]);
+			servicesDreams.evaluerService(instance.getUid(),data[dat_enrol]);
+			createDossierBeneficiaire.createDossierBeneficiare(instance.getUid(),beneficiaire.getUid());
 			
 			//Instance serviceInstance = servicesDreams.evaluerService(instance,data[dat_enrol]);
 			//serviceBeneficiaire(serviceInstance,beneficiaire);
 			
 			
-			createDossierBeneficiaire.createDossierBeneficiare(instance,beneficiaire);
 			
-		}*/
+			
+		}
 	}
 	
-	/*private void serviceBeneficiaire(Instance instance,Beneficiaire beneficiaire) {
+	private void serviceBeneficiaire(Instance instance,Beneficiaire beneficiaire) {
 		System.out.println("Entrer dans DataValuesImport - serviceBeneficiaire");
 		InstanceBeneficiaire instanceBeneficiaire = new InstanceBeneficiaire();
 		instanceBeneficiaire.setInstance(instance);
@@ -588,7 +609,7 @@ public class DataValuesImport {
 		
 		beneficiaire.getInstanceBeneficiaires().add(instanceBeneficiaire);
 		beneficiaire = ibeneficiaire.updateOneBeneficiaire(beneficiaire);
-	}*/
+	}
 	
 	private void lesResultatRequete(ResultatRequete requete) {
 		System.out.println("entrer dans ResultatRequete");

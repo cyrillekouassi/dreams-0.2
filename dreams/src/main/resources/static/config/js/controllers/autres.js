@@ -4,6 +4,7 @@ conf.controller('autresCTRL',['$scope','$http','$rootScope','$interval',function
     var statusRapportUrl = serverAdresse+"api/executeRapport?action=status";
     $rootScope.ongletSelect = "autres";
     $scope.resultRapport = {};
+    $scope.dateDerniereExecution = ".....";
     var stop;
     statusExecuteRapport();
 
@@ -17,6 +18,11 @@ conf.controller('autresCTRL',['$scope','$http','$rootScope','$interval',function
       $http.get(executeRapportUrl).then(function (response) {
           console.log("executeRapport ==>",response);
           $scope.resultRapport = response.data;
+          if($scope.resultRapport.id == null){
+              $scope.dateDerniereExecution = "...";
+          }else{
+              $scope.dateDerniereExecution = $scope.resultRapport.id;
+          }
       }, function (err) {
           console.log(err);
       });
@@ -25,6 +31,12 @@ conf.controller('autresCTRL',['$scope','$http','$rootScope','$interval',function
       $http.get(statusRapportUrl).then(function (response) {
           console.log("executeRapport ==>",response);
           $scope.resultRapport = response.data;
+          if($scope.resultRapport.id == null){
+              $scope.dateDerniereExecution = "...";
+          }else{
+              $scope.dateDerniereExecution = $scope.resultRapport.id;
+          }
+
       }, function (err) {
           console.log(err);
       });
