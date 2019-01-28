@@ -22,7 +22,7 @@ saisie.controller('dossierBeneficiaireCTRL', ['$scope', '$rootScope', '$http', '
 
     var besoinTable = ["porteEntree","categorieDreams","educationSexuel", "actifsSociaux", "soutienPsychoSocial", "renforcementSocioEconomique", "soutienEducatif", "accesPreservatifs", "contraceptionMixte", "conseilsDepistage", "soinsPostVBG", "securiteAlimentaire", "protection", "communicationParentsEnfants", "renforcementEconomique"];
     var servicesPrimaireTable = ["conceptSexualite", "conceptsGenre", "connaissanceCorpsOrgane", "aspectsNegatifs", "promotionDepistage", "participationActivites", "participationCauseries", "ecouteConseils", "suivi", "referenceVersExperts", "businessPlus", "participationAVEC"];
-    var servicesSecondaireTable = ["appuiScolaire", "fournitures", "uniformes", "autre", "alphabetisation", "utilisationPreservatifs", "distributionPreservatifs", "referencePreservatifs", "referencVersPF", "referenceServices","referenceMedical","referencePsychoSocial","referenceJuridique","referenceAbri","fraisMedicaux","fraisJuridiques","referenceNutritionnel","fraisDocument"];
+    var servicesSecondaireTable = ["fraisScolaire", "fournitures", "uniformes", "autre", "alphabetisation", "utilisationPreservatifs", "distributionPreservatifs", "referencePreservatifs", "referencVersPF", "referenceServicesVIH","referenceMedical","referencePsychoSocial","referenceJuridique","referenceAbri","fraisMedicaux","fraisJuridiques","referenceNutritionnel","fraisDocument"];
     var servicesContextTable = ["sinovoyu","AVEC","educationFinanciere"];
 
     initial();

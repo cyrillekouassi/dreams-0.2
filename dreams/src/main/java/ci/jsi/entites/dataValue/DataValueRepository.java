@@ -23,7 +23,9 @@ public interface DataValueRepository extends JpaRepository<DataValue, Long> {
 	
 	public List<DataValue> findByInstanceUid(String instanceUid);
 	
-	public DataValue findByInstanceUidAndElementUidAndNumero(String instanceUid, String elementUid,int numero);
+	//public DataValue findByInstanceUidAndElementUidAndNumero(String instanceUid, String elementUid,int numero);
+	
+	public List<DataValue> findByInstanceUidAndElementUidAndNumero(String instanceUid, String elementUid,int numero);
 	
 	public List<DataValue> findByInstanceUidAndElementUid(String instanceUid, String elementUid);
 	

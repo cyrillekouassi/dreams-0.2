@@ -55,11 +55,11 @@ public class TraitementIndicateur {
 
 	String InterventionDossierBeneficiaire[] = { "conceptSexualite", "conceptsGenre", "connaissanceCorpsOrgane",
 			"aspectsNegatifs", "promotionDepistage", "participationActivites", "participationCauseries",
-			"ecouteConseils", "suivi", "referenceVersExperts", "businessPlus", "participationAVEC", "appuiScolaire",
+			"ecouteConseils", "suivi", "referenceVersExperts", "businessPlus", "participationAVEC", "fraisScolaire",
 			"fournitures", "uniformes", "autre", "alphabetisation", "utilisationPreservatifs",
 			"distributionPreservatifs", "referencePreservatifs", "referencVersPF", "referenceServicesVIH",
 			"referenceMedical", "referencePsychoSocial", "referenceJuridique", "referenceAbri", "fraisMedicaux",
-			"fraisJuridiques", "referenceNutritionnel", "appuiDocument", "sinovoyu", "AVEC", "educationFinanciere" };
+			"fraisJuridiques", "referenceNutritionnel", "fraisDocument", "sinovoyu", "AVEC", "educationFinanciere" };
 	List<Element> elementsIntervention = new ArrayList<Element>();
 	String InterventionPopCible[] = { "conceptSexualite", "conceptsGenre", "connaissanceCorpsOrgane", "aspectsNegatifs",
 			"promotionDepistage", "utilisationPreservatifs", "distributionPreservatifs", "referencePreservatifs",
@@ -366,7 +366,7 @@ public class TraitementIndicateur {
 	}
 
 	private void chargeIndicateur() {
-		 nbreBenefEnrole();
+		 /*nbreBenefEnrole();
 		 nbreBenefEnroleScolaireExtraScolaire();
 		 nbreBenefEnroleScolaireExtraScolaireActifs();
 		 nbreFilleIssusPopulation();
@@ -376,7 +376,7 @@ public class TraitementIndicateur {
 		 nbreFilleVAD();
 		 nbreFilleBesoinEducation();
 		 nbreFilleBeneficieSoutienAlphabetisation();
-		 nbreFilleFormePortPreservatif();
+		 nbreFilleFormePortPreservatif();*/
 		 nbrePreservatifDistribues();
 		 nbreFilleReferePreservatif();
 		 nbreContreReferencePreservatif();
@@ -2248,7 +2248,7 @@ public class TraitementIndicateur {
 
 		organisation.add(this.organisationSelect.getId());
 		Element idDreamsElement = ielement.getOneElmentByCode("id_dreams");
-		Element appuiDocument = ielement.getOneElmentByCode("appuiDocument");
+		Element fraisDocument = ielement.getOneElmentByCode("fraisDocument");
 
 		// BenefEnrole NOUVEAU
 		dataInstances = idataValues.dataAnalysePeriode(organisation, dossierBeneficiare.getId(), dateDebuts, dateFins);
@@ -2263,7 +2263,7 @@ public class TraitementIndicateur {
 								.equals(beneficiaireTDOs.get(benef).getId_dreams())) {
 							for (int sout = 0; sout < dataInstances.get(i).getDataValue().size(); sout++) {
 								if (dataInstances.get(i).getDataValue().get(sout).getElement()
-										.equals(appuiDocument.getUid())) {
+										.equals(fraisDocument.getUid())) {
 									if (dataInstances.get(i).getDataValue().get(sout).getValue() != null
 											&& !dataInstances.get(i).getDataValue().get(sout).getValue().equals("")) {
 										age = Integer.parseInt(beneficiaireTDOs.get(benef).getAgeEnrolement());
@@ -2297,7 +2297,7 @@ public class TraitementIndicateur {
 								.equals(beneficiaireTDOs.get(benef).getId_dreams())) {
 							for (int sout = 0; sout < dataInstances.get(i).getDataValue().size(); sout++) {
 								if (dataInstances.get(i).getDataValue().get(sout).getElement()
-										.equals(appuiDocument.getUid())) {
+										.equals(fraisDocument.getUid())) {
 									if (dataInstances.get(i).getDataValue().get(sout).getValue() != null
 											&& !dataInstances.get(i).getDataValue().get(sout).getValue().equals("")) {
 										age = Integer.parseInt(beneficiaireTDOs.get(benef).getAgeEnrolement());

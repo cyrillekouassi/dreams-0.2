@@ -20,7 +20,7 @@
             les indicateurs sont calculés par niveau puis compilés pour le niveau superieur.
           </p>
           <!--a href="#!" class="btn btn-primary">Go somewhere</a-->
-          <button class="btn btn-default p-0 pl-3" ng-click="executeRapport()" ng-disabled="resultRapport.status == 'enCours'"><span ng-if="resultRapport.status == 'OK'" class="m-3">Executer rapport</span> <span ng-if="resultRapport.status == 'enCours'">En cours d'execution <img src="../_img/autres/Spinner-rose.svg" alt="executé" height="50px" width="50px" class="m-0" /></span></button>
+          <button class="btn btn-default p-0 pl-3" ng-click="executeRapport()" ng-disabled="resultRapport.status == 'enCours'" style="height="50px";><span ng-if="resultRapport.status == 'OK'" class="m-3">Executer rapport</span> <span ng-if="resultRapport.status == 'enCours'">En cours d'execution <img src="../_img/autres/Spinner-rose.gif" alt="executé" height="50px" width="50px" class="m-0" /></span></button>
           <div>
             <span> Dernière exécution: {{dateDerniereExecution}}</span>
           </div>

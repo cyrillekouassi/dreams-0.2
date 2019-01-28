@@ -97,6 +97,7 @@ public class DataValueConvert {
 	public DataValue saveDataValue(DataValueTDO dataValueTDO, Instance instance) {
 		DataValue dataValue = new DataValue();
 		List<DataValue> dataValues = new ArrayList<DataValue>();
+		List<DataValue> InstancedataValues = new ArrayList<DataValue>();
 		if (instance == null)
 			return null;
 		if (dataValueTDO.getElement() == null)
@@ -109,8 +110,21 @@ public class DataValueConvert {
 		 */
 
 		if (dataValueTDO.getNumero() != 0) {
-			dataValue = dataValueRepository.findByInstanceUidAndElementUidAndNumero(instance.getUid(),
+			//InstancedataValues = dataValueRepository.getDataValueOneInstance(instance);
+			InstancedataValues = dataValueRepository.findByInstanceUidAndElementUidAndNumero(instance.getUid(),
 					dataValueTDO.getElement(), dataValueTDO.getNumero());
+			if(InstancedataValues.size() > 1) {
+				dataValue = deleteDoublon(InstancedataValues);
+			}else {
+				if(InstancedataValues.size() == 1)
+					dataValue = InstancedataValues.get(0);
+				else
+					dataValue = null;
+			}
+			//
+			/*dataValue = dataValueRepository.findByInstanceUidAndElementUidAndNumero(instance.getUid(),
+					dataValueTDO.getElement(), dataValueTDO.getNumero());*/
+			
 			if (dataValue == null) {
 				dataValue = new DataValue();
 				dataValue.setDateUpdate(new Date());
@@ -137,6 +151,17 @@ public class DataValueConvert {
 		dataValue.setValue(dataValueTDO.getValue());
 
 		return dataValue;
+	}
+	private DataValue deleteDoublon(List<DataValue> instancedataValues) {
+		 //int nbre = instancedataValues.size();
+		while(instancedataValues.size() != 1) {
+			//if(instancedataValues.get(0).getValue().equals(instancedataValues.get(1).getValue())) {
+				dataValueRepository.delete(instancedataValues.get(0));
+				instancedataValues.remove(0);
+			//}
+		}
+		System.out.println("Plusieurs dataValue = "+instancedataValues.get(0).getValue());
+		return instancedataValues.get(0);
 	}
 
 	public List<DataValue> saveDataValues(List<DataValueTDO> dataValueTDOs, Instance instance) {
@@ -311,7 +336,7 @@ public class DataValueConvert {
 	}
 
 	public DataValueTDO getDataValueTDO(DataValue dataValue) {
-		System.out.println("DataValueConvert - getDataValueTDO");
+		//System.out.println("DataValueConvert - getDataValueTDO");
 		DataValueTDO dataValueTDO = new DataValueTDO();
 		dataValueTDO.setValue(dataValue.getValue());
 		dataValueTDO.setNumero(dataValue.getNumero());

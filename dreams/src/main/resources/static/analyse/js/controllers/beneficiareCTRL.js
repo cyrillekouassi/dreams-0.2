@@ -34,7 +34,7 @@ analyse.controller('beneficiareCTRL',['$scope','$rootScope','$http',function ($s
         //var prog = "prog="+leProgramme.id;
         var debut = "debut="+$rootScope.periode.debut;
         var fin = "fin="+$rootScope.periode.fin;
-        var dataValueUrl =$rootScope.baseUrl+"/beneficiaire/status?"+org+"&"+debut+"&"+fin;
+        var dataValueUrl =$rootScope.baseUrl+"beneficiaire/status?"+org+"&"+debut+"&"+fin;
         //console.log("dataValueUrl = "+dataValueUrl);
         $http.get(dataValueUrl).then(function (response) {
             console.log(response);

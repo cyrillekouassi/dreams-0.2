@@ -37,7 +37,7 @@ return idataValues.SearchDataValueTDO(programm, organisation, element, valeur);
 @RequestMapping(value="/search",method=RequestMethod.POST)
 public Page<DataInstance> searchDataValue(@RequestBody SearchElement searchElement){
 System.out.println("entrer dans searchDataValue");
-return idataValues.searchDataValue(searchElement);
+ return idataValues.searchDataValue(searchElement);
 }
 
 @RequestMapping(value="/orgPro",method=RequestMethod.GET)

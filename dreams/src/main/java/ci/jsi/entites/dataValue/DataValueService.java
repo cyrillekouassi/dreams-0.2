@@ -83,14 +83,14 @@ public class DataValueService implements IdataValues {
 	@Override
 	public DataValueTDO getDataValueTDO(String instance, String elementCode) {
 		System.out.println("Entrer dans DataValueService - getDataValueTDO");
-		//DataValueTDO dataValueTDO = new DataValueTDO();
+		DataValueTDO dataValueTDO = new DataValueTDO();
 		List<DataValue> dataValues = new ArrayList<DataValue>();
-		DataValueTDO dataValueTDO = null;
+		//DataValueTDO dataValueTDO = null;
 		//DataValue dataValue = new DataValue();
 		
 		//dataValue = dataValueConvert.getDataValueSepare(instance, element);
 		dataValues = dataValueRepository.findByInstanceUidAndElementCode(instance, elementCode);
-		if(dataValues.size() == 1) {
+		if(dataValues.size() != 0) {
 			dataValueTDO = dataValueConvert.getDataValueTDO(dataValues.get(0));
 		}
 		return dataValueTDO;
@@ -181,7 +181,18 @@ public class DataValueService implements IdataValues {
 		System.out.println("Entrer dans DataValueService - saveDataValueTDO");
 		List<DataValue> dataValuesList = new ArrayList<DataValue>();
 		DataValue dataValue = new DataValue();
-		dataValue = dataValueRepository.findByInstanceUidAndElementUidAndNumero(dataValueTDO.getInstance(), dataValueTDO.getElement(),dataValueTDO.getNumero());
+		List<DataValue> InstancedataValues = new ArrayList<DataValue>();
+		
+		InstancedataValues = dataValueRepository.findByInstanceUidAndElementUidAndNumero(dataValueTDO.getInstance(), dataValueTDO.getElement(),dataValueTDO.getNumero());
+		
+		if(InstancedataValues.size() > 1) {
+			dataValue = deleteDoublon(InstancedataValues);
+		}else {
+			if(InstancedataValues.size() == 1)
+				dataValue = InstancedataValues.get(0);
+			else
+				dataValue = null;
+		}
 		if(dataValue != null) {
 			dataValuesList = dataValueRepository.findByInstanceUidAndElementUid(dataValueTDO.getInstance(), dataValueTDO.getElement());
 		}
@@ -191,6 +202,17 @@ public class DataValueService implements IdataValues {
 		dataValue = dataValueRepository.save(dataValue);
 		dataValueTDO = dataValueConvert.getDataValueTDO(dataValue);
 		return dataValueTDO;
+	}
+	private DataValue deleteDoublon(List<DataValue> instancedataValues) {
+		 //int nbre = instancedataValues.size();
+		while(instancedataValues.size() != 1) {
+			//if(instancedataValues.get(0).getValue().equals(instancedataValues.get(1).getValue())) {
+				dataValueRepository.delete(instancedataValues.get(0));
+				instancedataValues.remove(0);
+			//}
+		}
+		System.out.println("Plusieurs dataValue = "+instancedataValues.get(0).getValue());
+		return instancedataValues.get(0);
 	}
 
 	@Override
@@ -280,17 +302,31 @@ public class DataValueService implements IdataValues {
 		List<DataInstance> dataInstances = new ArrayList<DataInstance>();
 		List<DataInstance> ResultsDataInstances = new ArrayList<DataInstance>();
 		List<DataValue> lesSearchs = new ArrayList<DataValue>();
+		List<DataValue> AllSearchs = new ArrayList<DataValue>();
 		Pageable pageable = new PageRequest(searchElement.getPage(), searchElement.getSize());
 		int debut = searchElement.getPage() * searchElement.getSize();
 		int fin = debut + searchElement.getSize();
 		
-		lesSearchs = dataValueRepository.findByInstanceProgrammeUidAndInstanceOrganisationUidAndElementUidAndValueContaining(searchElement.getProgramme(), searchElement.getOrganisation(), searchElement.getValueSearchs().get(0).getElement(), searchElement.getValueSearchs().get(0).getValue());
+		AllSearchs = dataValueRepository.findByInstanceProgrammeUidAndInstanceOrganisationUidAndElementUidAndValueContaining(searchElement.getProgramme(), searchElement.getOrganisation(), searchElement.getValueSearchs().get(0).getElement(), searchElement.getValueSearchs().get(0).getValue());
 		//lesSearchs = dataValues.getContent();
+		if (!AllSearchs.isEmpty()) {
+			int i = 0;
+			while (i < AllSearchs.size()) {
+				boolean trouve = false;
+				for (int j = 0; j < lesSearchs.size(); j++) {
+					if (AllSearchs.get(i).getInstance() == lesSearchs.get(j).getInstance()) {
+						trouve = true;
+					}
+				}
+				if (!trouve) {
+					lesSearchs.add(AllSearchs.get(i));
+				}
+				i++;
+			}
 			
-		if(!lesSearchs.isEmpty()) {
-			for(int i =0;i<lesSearchs.size();i++) {
-				//DataValue instance = dataValues.getContent().get(i);
-				dataInstances.add(getDataInstance(lesSearchs.get(i).getInstance().getUid()));
+		
+			for(int a =0;a<lesSearchs.size();a++) {
+				dataInstances.add(getDataInstance(lesSearchs.get(a).getInstance().getUid()));
 			}
 		}
 		if(!dataInstances.isEmpty()) {

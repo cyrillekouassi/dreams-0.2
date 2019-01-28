@@ -183,12 +183,12 @@ public class BeneficiaireConvert {
 		StatusBeneficiaire statusBeneficiaire;
 		programmeEnrolement = iprogramme.getOneProgrammeByCode("enrolement");
 		programmeDossierBeneficiare = iprogramme.getOneProgrammeByCode("dossierBeneficiare");
-		String[] elementCode = {"numeroOrdre","porteEntree","categorieDreams","quatierBenef"};
+		String[] elementCode = {"no_benef","porteEntree","categorieDreams","quatierBenef"};
 		String[] elementCodeSatuts = { "conceptSexualite", "conceptsGenre", "connaissanceCorpsOrgane", "aspectsNegatifs",
 				"promotionDepistage", "participationActivites", "participationCauseries", "ecouteConseils", "suivi",
-				"referenceVersExperts", "businessPlus", "participationAVEC", "appuiScolaire", "fournitures",
+				"referenceVersExperts", "businessPlus", "participationAVEC", "fraisScolaire", "fournitures",
 				"uniformes", "autre", "alphabetisation", "utilisationPreservatifs", "distributionPreservatifs",
-				"referencePreservatifs", "referencVersPF", "referenceServices", "referenceMedical",
+				"referencePreservatifs", "referencVersPF", "referenceServicesVIH", "referenceMedical",
 				"referencePsychoSocial", "referenceJuridique", "referenceAbri", "fraisMedicaux", "fraisJuridiques",
 				"referenceNutritionnel", "fraisDocument", "sinovoyu", "AVEC", "educationFinanciere" };
 		
@@ -197,7 +197,7 @@ public class BeneficiaireConvert {
 			if(element != null) {
 				elements.add(element);
 			}else {
-				System.out.println("Element introuvable: code = "+elementCode[i]);
+				System.err.println("Element introuvable: code = "+elementCode[i]);
 				//return null;
 			}
 		}
@@ -206,7 +206,7 @@ public class BeneficiaireConvert {
 			if(element != null) {
 				elementsStatus.add(element);
 			}else {
-				System.out.println("Element introuvable: code = "+elementCodeSatuts[i]);
+				System.err.println("Element introuvable: code = "+elementCodeSatuts[i]);
 				//return null;
 			}
 		}
@@ -215,18 +215,18 @@ public class BeneficiaireConvert {
 			statusBeneficiaire = getStatusBeneficiaire(beneficiaires.get(i));
 			for(int j=0;j<beneficiaires.get(i).getInstanceBeneficiaires().size();j++) {
 				if(beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getProgramme() == programmeEnrolement) {
-					dataValueTDO = idataValues.getDataValueTDO(beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getUid(), elements.get(0).getUid());
-					if(dataValueTDO != null) {
+					dataValueTDO = idataValues.getDataValueTDO(beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getUid(), elements.get(0).getCode());
+					//if(dataValueTDO != null) {
 						statusBeneficiaire.setNumeroOrdre(dataValueTDO.getValue());
-					}
+					//}
 				}
 				if(beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getProgramme() == programmeDossierBeneficiare) {
 					
-					dataValueTDO = idataValues.getDataValueTDO(beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getUid(), elements.get(3).getUid());
+					dataValueTDO = idataValues.getDataValueTDO(beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getUid(), elements.get(3).getCode());
 					statusBeneficiaire.setQuatier(dataValueTDO.getValue());
-					dataValueTDO = idataValues.getDataValueTDO(beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getUid(), elements.get(1).getUid());
+					dataValueTDO = idataValues.getDataValueTDO(beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getUid(), elements.get(1).getCode());
 					statusBeneficiaire.setPorteEntree(elementValue(elements.get(1),dataValueTDO.getValue()));
-					dataValueTDO = idataValues.getDataValueTDO(beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getUid(), elements.get(1).getUid());
+					dataValueTDO = idataValues.getDataValueTDO(beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getUid(), elements.get(2).getCode());
 					statusBeneficiaire.setCategorieDreams(elementValue(elements.get(1),dataValueTDO.getValue()));
 					statusBeneficiaire.setStatus(getStatus(elementsStatus,beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getUid()));
 					
@@ -269,7 +269,7 @@ public class BeneficiaireConvert {
 	private String getStatus(List<Element> elementsStatus,String instance) {
 		for(int i = 0;i<elementsStatus.size();i++) {
 			DataValueTDO dataValueTDO = null;
-			dataValueTDO = idataValues.getDataValueTDO(instance, elementsStatus.get(i).getUid());
+			dataValueTDO = idataValues.getDataValueTDO(instance, elementsStatus.get(i).getCode());
 			if(dataValueTDO.getValue() != null && !dataValueTDO.getValue().equals("") && !dataValueTDO.getValue().equals(" ")) {
 				return "active";
 			}

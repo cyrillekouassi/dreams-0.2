@@ -17,6 +17,7 @@ saisie.controller('enrol_List_Ctrl', ['$scope', '$rootScope', '$http', '$filter'
     var orgSelest = {};
     orgSelest = $stateParams.org;
     $scope.infoSearch = {};
+    $scope.search = {};
     var config = {
         headers: {
             'Content-Type': 'application/json'

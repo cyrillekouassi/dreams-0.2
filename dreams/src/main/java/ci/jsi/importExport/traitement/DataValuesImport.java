@@ -17,9 +17,7 @@ import ci.jsi.entites.beneficiaire.Beneficiaire;
 import ci.jsi.entites.beneficiaire.BeneficiaireTDO;
 import ci.jsi.entites.beneficiaire.Ibeneficiaire;
 import ci.jsi.entites.beneficiaire.InstanceBeneficiaire;
-import ci.jsi.entites.dataValue.DataInstance;
 import ci.jsi.entites.dataValue.DataValue;
-import ci.jsi.entites.dataValue.DataValueTDO;
 import ci.jsi.entites.dataValue.IdataValues;
 import ci.jsi.entites.element.Element;
 import ci.jsi.entites.element.Ielement;
@@ -59,11 +57,12 @@ public class DataValuesImport {
 	Ibeneficiaire ibeneficiaire;
 	@Autowired
 	CreateDossierBeneficiaire createDossierBeneficiaire;
+	@Autowired
+	CreateDossierBeneficiaireImport createDossierBeneficiaireImport;
 	
 	ResultatRequete resultatRequete;
 	private String orgID = null;
 	private String progId = null;
-	private String benefID = null;
 	
 	
 	
@@ -96,6 +95,7 @@ public class DataValuesImport {
 		String file = chemin+fileName;
 		//String file = "DREAMS/upload-dir/" + fileName;
 		servicesDreams.genererService();
+		createDossierBeneficiaireImport.genererElement();
 		progId = getProgramme();
 		if(progId == null) {
 			resultatRequete.setStatus("Programme Enrolement inexistant");
@@ -226,7 +226,6 @@ public class DataValuesImport {
 		}
 	}
 	
-	
 	private void insertData() {
 		
 		if(!myEntries.isEmpty()) {
@@ -241,7 +240,6 @@ public class DataValuesImport {
 		}
 		
 	}
-
 
 	private void searchMeta(String[] data) {
 		System.out.println("Entrer dans DataValuesImport - searchMeta");
@@ -588,13 +586,10 @@ public class DataValuesImport {
 			listDataValue = idataValues.saveAllDataValue(listDataValue);
 			resultatRequete.setImporte(resultatRequete.getImporte() + 1);
 			servicesDreams.evaluerService(instance.getUid(),data[dat_enrol]);
-			createDossierBeneficiaire.createDossierBeneficiare(instance.getUid(),beneficiaire.getUid());
+			//createDossierBeneficiaire.createDossierBeneficiare(instance.getUid(),beneficiaire.getUid());
+			serviceBeneficiaire(createDossierBeneficiaireImport.createDossierBeneficiare(instance, beneficiaire),beneficiaire);
 			
-			//Instance serviceInstance = servicesDreams.evaluerService(instance,data[dat_enrol]);
-			//serviceBeneficiaire(serviceInstance,beneficiaire);
-			
-			
-			
+	
 			
 		}
 	}

@@ -136,8 +136,8 @@ public class InstanceConvert {
 	
 	public Instance CheckInstance(Instance instance) {
 		
-		if(instance.getInstanceBeneficiaires().isEmpty())
-			return null;
+		/*if(instance.getInstanceBeneficiaires().isEmpty())
+			return null;*/
 		if(instance.getOrganisation() == null)
 			return null;
 		if(instance.getProgramme() == null)
