@@ -1351,8 +1351,8 @@ public class TraitementIndicateur {
 		dataInstances = idataValues.dataAnalysePeriode(organisation, groupe.getId(), dateDebuts, dateFins);
 		for (int i = 0; i < dataInstances.size(); i++) {
 			for (int b = 0; b < dataInstances.get(i).getDataValue().size(); b++) {
-				if (dataInstances.get(i).getDataValue().get(b).getElement().equals(materielQuantite.getUid())) {
-					String valeur = dataInstances.get(i).getDataValue().get(b).getValue();
+				String valeur = dataInstances.get(i).getDataValue().get(b).getValue();
+				if(valeur != null) {
 					int nombre = 0;
 					//String leNombre = null;
 					int masDebut = 0;
@@ -1386,6 +1386,11 @@ public class TraitementIndicateur {
 						}
 					}
 
+				
+				}
+				if (dataInstances.get(i).getDataValue().get(b).getElement().equals(materielQuantite.getUid())) {
+					
+					
 				}
 			}
 		}
@@ -1395,33 +1400,37 @@ public class TraitementIndicateur {
 		//beneficiaireTDOs = ibeneficiaire.getBeneficiairePreview(organisation, dateDebuts);
 		for (int i = 0; i < dataInstances.size(); i++) {
 			for (int b = 0; b < dataInstances.get(i).getDataValue().size(); b++) {
-				if (dataInstances.get(i).getDataValue().get(b).getElement().equals(materielQuantite.getUid())) {
+				
+				if (dataInstances.get(i).getDataValue().get(b).getElement().equals(materielQuantite.getUid()) ) {
 					String valeur = dataInstances.get(i).getDataValue().get(b).getValue();
-					int nombre = 0;
-					int mascPosi = valeur.indexOf("preserMasc");
-					int feminPosi = valeur.indexOf("preserFemin");
-					if (mascPosi != -1) {
-						mascPosi--;
-						int masDebut = valeur.lastIndexOf(" ", mascPosi);
-						nombre += Integer.parseInt(valeur.substring(masDebut, mascPosi));
-					}
-					if (feminPosi != -1) {
-						feminPosi--;
-						int feminDeb = valeur.lastIndexOf(" ", feminPosi);
-						nombre += Integer.parseInt(valeur.substring(feminDeb, feminPosi));
-					}
+					if(valeur != null) {					
+						int nombre = 0;
+						int mascPosi = valeur.indexOf("preserMasc");
+						int feminPosi = valeur.indexOf("preserFemin");
+						if (mascPosi != -1) {
+							mascPosi--;
+							int masDebut = valeur.lastIndexOf(" ", mascPosi);
+							nombre += Integer.parseInt(valeur.substring(masDebut, mascPosi));
+						}
+						if (feminPosi != -1) {
+							feminPosi--;
+							int feminDeb = valeur.lastIndexOf(" ", feminPosi);
+							nombre += Integer.parseInt(valeur.substring(feminDeb, feminPosi));
+						}
 
-					for (int sout = 0; sout < dataInstances.get(i).getDataValue().size(); sout++) {
-						if (dataInstances.get(i).getDataValue().get(sout).getElement().equals(trancheAge.getUid())) {
-							if (dataInstances.get(i).getDataValue().get(sout).getValue().equals("10-14")) {
-								ancien_10_14 += nombre;
-							}
-							if (dataInstances.get(i).getDataValue().get(sout).getValue().equals("15-19")) {
-								ancien_15_19 += nombre;
+						for (int sout = 0; sout < dataInstances.get(i).getDataValue().size(); sout++) {
+							if (dataInstances.get(i).getDataValue().get(sout).getElement().equals(trancheAge.getUid())) {
+								if (dataInstances.get(i).getDataValue().get(sout).getValue().equals("10-14")) {
+									ancien_10_14 += nombre;
+								}
+								if (dataInstances.get(i).getDataValue().get(sout).getValue().equals("15-19")) {
+									ancien_15_19 += nombre;
+								}
 							}
 						}
-					}
 
+					
+					}
 				}
 			}
 		}

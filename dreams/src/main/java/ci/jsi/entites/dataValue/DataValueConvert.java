@@ -152,15 +152,19 @@ public class DataValueConvert {
 
 		return dataValue;
 	}
-	private DataValue deleteDoublon(List<DataValue> instancedataValues) {
+	public DataValue deleteDoublon(List<DataValue> instancedataValues) {
 		 //int nbre = instancedataValues.size();
 		while(instancedataValues.size() != 1) {
-			//if(instancedataValues.get(0).getValue().equals(instancedataValues.get(1).getValue())) {
+			if(instancedataValues.get(0).getNumero() == instancedataValues.get(1).getNumero()) {
 				dataValueRepository.delete(instancedataValues.get(0));
 				instancedataValues.remove(0);
-			//}
+			}
+			/*if(instancedataValues.get(0).getValue().equals(instancedataValues.get(1).getValue())) {
+				dataValueRepository.delete(instancedataValues.get(0));
+				instancedataValues.remove(0);
+			}*/
 		}
-		System.out.println("Plusieurs dataValue = "+instancedataValues.get(0).getValue());
+		//System.out.println("Plusieurs dataValue = "+instancedataValues.get(0).getValue());
 		return instancedataValues.get(0);
 	}
 

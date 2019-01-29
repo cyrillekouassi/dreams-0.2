@@ -186,7 +186,7 @@ public class DataValueService implements IdataValues {
 		InstancedataValues = dataValueRepository.findByInstanceUidAndElementUidAndNumero(dataValueTDO.getInstance(), dataValueTDO.getElement(),dataValueTDO.getNumero());
 		
 		if(InstancedataValues.size() > 1) {
-			dataValue = deleteDoublon(InstancedataValues);
+			dataValue = dataValueConvert.deleteDoublon(InstancedataValues);
 		}else {
 			if(InstancedataValues.size() == 1)
 				dataValue = InstancedataValues.get(0);
@@ -202,17 +202,6 @@ public class DataValueService implements IdataValues {
 		dataValue = dataValueRepository.save(dataValue);
 		dataValueTDO = dataValueConvert.getDataValueTDO(dataValue);
 		return dataValueTDO;
-	}
-	private DataValue deleteDoublon(List<DataValue> instancedataValues) {
-		 //int nbre = instancedataValues.size();
-		while(instancedataValues.size() != 1) {
-			//if(instancedataValues.get(0).getValue().equals(instancedataValues.get(1).getValue())) {
-				dataValueRepository.delete(instancedataValues.get(0));
-				instancedataValues.remove(0);
-			//}
-		}
-		System.out.println("Plusieurs dataValue = "+instancedataValues.get(0).getValue());
-		return instancedataValues.get(0);
 	}
 
 	@Override
