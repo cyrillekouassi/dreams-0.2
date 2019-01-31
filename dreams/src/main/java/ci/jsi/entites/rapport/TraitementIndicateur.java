@@ -207,6 +207,7 @@ public class TraitementIndicateur {
 		dateFins = lastDaydate.with(TemporalAdjusters.lastDayOfMonth()).toString();
 
 		laPeriode = newDaydate.getYear() + "T" + newDaydate.get(IsoFields.QUARTER_OF_YEAR);
+		System.err.println("dateDebuts = " + dateDebuts+" // dateFins = " + dateFins);
 		//System.out.println("dateDebuts = " + dateDebuts);
 		//System.out.println("dateFins = " + dateFins);
 		//System.out.println("laPeriode = " + laPeriode);
@@ -233,6 +234,7 @@ public class TraitementIndicateur {
 		String ladate = newDaydate.toString();
 		laPeriode = ladate.substring(0, 4) + ladate.substring(5, 7);
 
+		System.err.println("dateDebuts = " + dateDebuts+" dateFins = " + dateFins);
 		//System.out.println("dateDebuts = " + dateDebuts);
 		//System.out.println("dateFins = " + dateFins);
 		//System.out.println("laPeriode = " + laPeriode);
@@ -366,7 +368,7 @@ public class TraitementIndicateur {
 	}
 
 	private void chargeIndicateur() {
-		 /*nbreBenefEnrole();
+		 nbreBenefEnrole();
 		 nbreBenefEnroleScolaireExtraScolaire();
 		 nbreBenefEnroleScolaireExtraScolaireActifs();
 		 nbreFilleIssusPopulation();
@@ -376,7 +378,7 @@ public class TraitementIndicateur {
 		 nbreFilleVAD();
 		 nbreFilleBesoinEducation();
 		 nbreFilleBeneficieSoutienAlphabetisation();
-		 nbreFilleFormePortPreservatif();*/
+		 nbreFilleFormePortPreservatif();
 		 nbrePreservatifDistribues();
 		 nbreFilleReferePreservatif();
 		 nbreContreReferencePreservatif();
@@ -1352,6 +1354,7 @@ public class TraitementIndicateur {
 		for (int i = 0; i < dataInstances.size(); i++) {
 			for (int b = 0; b < dataInstances.get(i).getDataValue().size(); b++) {
 				String valeur = dataInstances.get(i).getDataValue().get(b).getValue();
+				System.out.println("materielQuantite = "+valeur);
 				if(valeur != null) {
 					int nombre = 0;
 					//String leNombre = null;
@@ -1359,20 +1362,22 @@ public class TraitementIndicateur {
 					int mascPosi = valeur.indexOf("preserMasc");
 					int feminPosi = valeur.indexOf("preserFemin");
 					if (mascPosi != -1) {
-						mascPosi -= 1;
+						nombre += retirerInt(valeur, mascPosi);
+						/*mascPosi -= 1;
 						masDebut = valeur.lastIndexOf(" ", mascPosi-1);
 						if(masDebut == -1) {
 							masDebut = 0;
 						}
 						//leNombre = valeur.substring(masDebut, mascPosi);
-						nombre += Integer.parseInt(valeur.substring(masDebut, mascPosi));
+						nombre += Integer.parseInt(valeur.substring(masDebut, mascPosi));*/
 					}
 					if (feminPosi != -1) {
-						feminPosi -= 1;
+						nombre += retirerInt(valeur, feminPosi);
+						/*feminPosi -= 1;
 						int feminDeb = valeur.lastIndexOf(" ", feminPosi-1);
 						if(feminDeb == -1)
 							feminDeb = 0;
-						nombre += Integer.parseInt(valeur.substring(feminDeb, feminPosi));
+						nombre += Integer.parseInt(valeur.substring(feminDeb, feminPosi));*/
 					}
 
 					for (int sout = 0; sout < dataInstances.get(i).getDataValue().size(); sout++) {
@@ -1388,10 +1393,6 @@ public class TraitementIndicateur {
 
 				
 				}
-				if (dataInstances.get(i).getDataValue().get(b).getElement().equals(materielQuantite.getUid())) {
-					
-					
-				}
 			}
 		}
 		// }
@@ -1403,19 +1404,23 @@ public class TraitementIndicateur {
 				
 				if (dataInstances.get(i).getDataValue().get(b).getElement().equals(materielQuantite.getUid()) ) {
 					String valeur = dataInstances.get(i).getDataValue().get(b).getValue();
+					System.out.println("materielQuantite = "+valeur);
 					if(valeur != null) {					
 						int nombre = 0;
 						int mascPosi = valeur.indexOf("preserMasc");
 						int feminPosi = valeur.indexOf("preserFemin");
 						if (mascPosi != -1) {
-							mascPosi--;
+							nombre += retirerInt(valeur, mascPosi);
+							/*mascPosi--;
 							int masDebut = valeur.lastIndexOf(" ", mascPosi);
-							nombre += Integer.parseInt(valeur.substring(masDebut, mascPosi));
+							String val = valeur.substring(masDebut, mascPosi);
+							nombre += Integer.parseInt(val);*/
 						}
 						if (feminPosi != -1) {
-							feminPosi--;
+							nombre += retirerInt(valeur, feminPosi);
+							/*feminPosi--;
 							int feminDeb = valeur.lastIndexOf(" ", feminPosi);
-							nombre += Integer.parseInt(valeur.substring(feminDeb, feminPosi));
+							nombre += Integer.parseInt(valeur.substring(feminDeb, feminPosi));*/
 						}
 
 						for (int sout = 0; sout < dataInstances.get(i).getDataValue().size(); sout++) {
@@ -1440,6 +1445,7 @@ public class TraitementIndicateur {
 		enregistreRapport("nbrePreservatifDistribues");
 
 	}
+	
 
 	private void nbreFilleReferePreservatif() {
 		List<String> organisation = new ArrayList<String>();
@@ -3057,6 +3063,24 @@ public class TraitementIndicateur {
 		}
 		irapport.saveRapportTDO(rapportTDO);
 
+	}
+	
+	private int retirerInt(String valeur,int index) {
+		index-=2;
+		int masDebut = valeur.lastIndexOf(' ', index);
+		index++;
+		masDebut++;
+		String val = valeur.substring(masDebut, index);
+		
+		try {
+			int nombre = Integer.parseInt(val);
+	        return nombre;
+	    } catch(NumberFormatException e) { 
+	        System.out.println("Not interger");
+	    } catch(NullPointerException e) {
+	    	System.out.println("Not interger");
+	    }
+		return 0;
 	}
 	
 }
