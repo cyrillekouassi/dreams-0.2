@@ -449,13 +449,14 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
         console.log("collecteSessionData()");
         $scope.sessionData = [];
         for(var i = 0,j=sessionElement.length;i<j;i++){
+          console.log("sessionElement = ",sessionElement);
             var l=0;
             while(l<instanceValue.length){
                 if(sessionElement[i].id == instanceValue[l].element && instanceValue[l].value){
                     var tmp = {};
                     var numer = instanceValue[l].numero;
                     tmp.numero = numer;
-                    if(sessionElement[i].ensembleOption != null){
+                    if(sessionElement[i].ensembleOption != null && sessionElement[i].code != "themeAborde"){
                         tmp[sessionElement[i].code] = {};
                         tmp[sessionElement[i].code] =  chargeOptionValue(sessionElement[i].ensembleOption.options,instanceValue[l].value);
                         tmp[sessionElement[i].code]["ancVal"] = instanceValue[l];

@@ -242,6 +242,7 @@ public class DataValueService implements IdataValues {
 		dateDebut = convertDate.getDateParse(debut);
 		dateFin = convertDate.getDateParse(fin);
 		instances = iinstance.getInstanceAnalysePeriode(organisation, programme, dateDebut, dateFin);
+		
 		if (!instances.isEmpty()) {
 			for (int i = 0; i < instances.size(); i++) {
 				dataInstances.add(getDataInstance(instances.get(i).getUid()));
@@ -336,6 +337,100 @@ public class DataValueService implements IdataValues {
                 dataInstances.size());
 		
 		return page;
+	}
+
+	@Override
+	public List<DataValue> dataAnalyseElementPeriode(List<String> organisation, String programme, String element, String debut,
+			String fin) {
+		List<Instance> instances = new ArrayList<Instance>();
+		List<String> instancesUid = new ArrayList<String>();
+		List<DataValue> dataValues = new ArrayList<DataValue>();
+		Date dateDebut = null;
+		Date dateFin = null;
+		dateDebut = convertDate.getDateParse(debut);
+		dateFin = convertDate.getDateParse(fin);
+		instances = iinstance.getInstanceAnalysePeriode(organisation, programme, dateDebut, dateFin);
+		
+		if (!instances.isEmpty()) {
+			for (int i = 0; i < instances.size(); i++) {
+				instancesUid.add(instances.get(i).getUid());
+			}
+			dataValues = dataValueRepository.findByInstanceUidInAndElementUid(instancesUid,element);
+			dataValues = dataValueConvert.deleteElementDoublon(dataValues);
+		}
+		return dataValues;
+	}
+
+	@Override
+	public List<DataValue> dataAnalyseElementPreview(List<String> organisation, String programme, String element,
+			String fin) {
+		
+		List<Instance> instances = new ArrayList<Instance>();
+		List<String> instancesUid = new ArrayList<String>();
+		List<DataValue> dataValues = new ArrayList<DataValue>();
+		Date dateFin = null;
+		dateFin = convertDate.getDateParse(fin);
+		instances = iinstance.getInstanceAnalysePreview(organisation, programme, dateFin);
+		
+		if (!instances.isEmpty()) {
+			for (int i = 0; i < instances.size(); i++) {
+				instancesUid.add(instances.get(i).getUid());
+			}
+			dataValues = dataValueRepository.findByInstanceUidInAndElementUid(instancesUid,element);
+			dataValues = dataValueConvert.deleteElementDoublon(dataValues);
+		}
+		return dataValues;
+	}
+
+	
+	@Override
+	public List<DataValue> dataAnalyseElementListPeriode(List<String> organisation, String programme,
+			List<String> elements, String debut, String fin) {
+		List<Instance> instances = new ArrayList<Instance>();
+		List<String> instancesUid = new ArrayList<String>();
+		List<DataValue> dataValues = new ArrayList<DataValue>();
+		Date dateDebut = null;
+		Date dateFin = null;
+		dateDebut = convertDate.getDateParse(debut);
+		dateFin = convertDate.getDateParse(fin);
+		instances = iinstance.getInstanceAnalysePeriode(organisation, programme, dateDebut, dateFin);
+		
+		if (!instances.isEmpty()) {
+			for (int i = 0; i < instances.size(); i++) {
+				instancesUid.add(instances.get(i).getUid());
+			}
+			dataValues = getdataValueRepository(instancesUid,elements);
+		}
+		return dataValues;
+		
+	}
+
+	
+	@Override
+	public List<DataValue> dataAnalyseElementListPreview(List<String> organisation, String programme,
+			List<String> elements, String fin) {
+		List<Instance> instances = new ArrayList<Instance>();
+		List<String> instancesUid = new ArrayList<String>();
+		List<DataValue> dataValues = new ArrayList<DataValue>();
+		Date dateFin = null;
+		dateFin = convertDate.getDateParse(fin);
+		instances = iinstance.getInstanceAnalysePreview(organisation, programme, dateFin);
+		
+		if (!instances.isEmpty()) {
+			for (int i = 0; i < instances.size(); i++) {
+				instancesUid.add(instances.get(i).getUid());
+			}
+			dataValues = getdataValueRepository(instancesUid,elements);
+			
+		}
+		return dataValues;
+	}
+	
+	private List<DataValue> getdataValueRepository(List<String> instanceId,List<String> elementId){
+		List<DataValue> dataValues = new ArrayList<DataValue>();
+		dataValues = dataValueRepository.findByInstanceUidInAndElementUidIn(instanceId,elementId);
+		dataValues = dataValueConvert.deleteElementDoublon(dataValues);
+		return dataValues;
 	}
 
 }

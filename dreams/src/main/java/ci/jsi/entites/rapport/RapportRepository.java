@@ -18,4 +18,7 @@ public interface RapportRepository extends JpaRepository<Rapport, Long> {
 	
 	public List<Rapport> findByOrganisationUidAndElementCodeAndPeriode(String organisation,String element,String periode);
 	
+	public List<Rapport> findByOrganisationUidAndElementCodeAndPeriode(List<String> organisation,String element,String periode);
+	
+	public List<Rapport> findByOrganisationUidInAndElementCodeAndPeriode(List<String> organisation,String element,String periode);
 }

@@ -23,8 +23,12 @@ public interface IdataValues {
 	public List<DataValueTDO> SearchDataValueTDO(String programme, String organisation,String element, String valeur);
 	
 	public List<DataInstance> dataAnalysePeriode(List<String> organisation, String programme,String debut, String fin);
+	public List<DataValue> dataAnalyseElementPeriode(List<String> organisation, String programme,String element,String debut, String fin);
+	public List<DataValue> dataAnalyseElementListPeriode(List<String> organisation, String programme,List<String> element,String debut, String fin);
 	public List<DataInstance> dataAnalysePreview(List<String> organisation, String programme, String fin);
-	
+	public List<DataValue> dataAnalyseElementPreview(List<String> organisation, String programme,String element, String fin);
+	public List<DataValue> dataAnalyseElementListPreview(List<String> organisation, String programme,List<String> element, String fin);
+
 	public List<Instance> InstancePeriode(List<String> organisation, String programme,String debut, String fin);
 	public List<Instance> InstancePreview(List<String> organisation, String programme, String fin);
 	

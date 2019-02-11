@@ -110,21 +110,24 @@ public class DataValueConvert {
 		 */
 
 		if (dataValueTDO.getNumero() != 0) {
-			//InstancedataValues = dataValueRepository.getDataValueOneInstance(instance);
+			// InstancedataValues = dataValueRepository.getDataValueOneInstance(instance);
 			InstancedataValues = dataValueRepository.findByInstanceUidAndElementUidAndNumero(instance.getUid(),
 					dataValueTDO.getElement(), dataValueTDO.getNumero());
-			if(InstancedataValues.size() > 1) {
+			if (InstancedataValues.size() > 1) {
 				dataValue = deleteDoublon(InstancedataValues);
-			}else {
-				if(InstancedataValues.size() == 1)
+			} else {
+				if (InstancedataValues.size() == 1)
 					dataValue = InstancedataValues.get(0);
 				else
 					dataValue = null;
 			}
 			//
-			/*dataValue = dataValueRepository.findByInstanceUidAndElementUidAndNumero(instance.getUid(),
-					dataValueTDO.getElement(), dataValueTDO.getNumero());*/
-			
+			/*
+			 * dataValue =
+			 * dataValueRepository.findByInstanceUidAndElementUidAndNumero(instance.getUid()
+			 * , dataValueTDO.getElement(), dataValueTDO.getNumero());
+			 */
+
 			if (dataValue == null) {
 				dataValue = new DataValue();
 				dataValue.setDateUpdate(new Date());
@@ -152,19 +155,22 @@ public class DataValueConvert {
 
 		return dataValue;
 	}
+
 	public DataValue deleteDoublon(List<DataValue> instancedataValues) {
-		 //int nbre = instancedataValues.size();
-		while(instancedataValues.size() != 1) {
-			if(instancedataValues.get(0).getNumero() == instancedataValues.get(1).getNumero()) {
+		// int nbre = instancedataValues.size();
+		while (instancedataValues.size() != 1) {
+			if (instancedataValues.get(0).getNumero() == instancedataValues.get(1).getNumero()) {
 				dataValueRepository.delete(instancedataValues.get(0));
 				instancedataValues.remove(0);
 			}
-			/*if(instancedataValues.get(0).getValue().equals(instancedataValues.get(1).getValue())) {
-				dataValueRepository.delete(instancedataValues.get(0));
-				instancedataValues.remove(0);
-			}*/
+			/*
+			 * if(instancedataValues.get(0).getValue().equals(instancedataValues.get(1).
+			 * getValue())) { dataValueRepository.delete(instancedataValues.get(0));
+			 * instancedataValues.remove(0); }
+			 */
 		}
-		//System.out.println("Plusieurs dataValue = "+instancedataValues.get(0).getValue());
+		// System.out.println("Plusieurs dataValue =
+		// "+instancedataValues.get(0).getValue());
 		return instancedataValues.get(0);
 	}
 
@@ -176,8 +182,9 @@ public class DataValueConvert {
 			if (dataValue != null)
 				dataValues.add(dataValue);
 		}
-		//if (dataValues.size() != dataValueTDOs.size())
-		//	System.out.println((dataValueTDOs.size() - dataValues.size()) + " valeurs ont été ignoré");
+		// if (dataValues.size() != dataValueTDOs.size())
+		// System.out.println((dataValueTDOs.size() - dataValues.size()) + " valeurs ont
+		// été ignoré");
 		return dataValues;
 	}
 
@@ -274,12 +281,12 @@ public class DataValueConvert {
 		instanceBeneficiaire.setInstance(instance);
 		instanceBeneficiaire.setBeneficiaire(beneficiaire);
 		instanceBeneficiaire.setDateAction(instance.getDateActivite());
-		if(dataInstance.getOrder() == 0) {
+		if (dataInstance.getOrder() == 0) {
 			instanceBeneficiaire.setOrdre(1);
-		}else {
+		} else {
 			instanceBeneficiaire.setOrdre(dataInstance.getOrder());
 		}
-		
+
 		beneficiaire.getInstanceBeneficiaires().add(instanceBeneficiaire);
 		beneficiaire = ibeneficiaire.updateOneBeneficiaire(beneficiaire);
 		return beneficiaire;
@@ -292,35 +299,38 @@ public class DataValueConvert {
 		if (beneficiaire == null) {
 			return null;
 		}
-			dateActiv = convertDate.getDateParse(dataInstance.getDateActivite());
-			if(dateActiv == null)
-				return null;
+		dateActiv = convertDate.getDateParse(dataInstance.getDateActivite());
+		if (dateActiv == null)
+			return null;
 
 		for (int i = 0; i < beneficiaire.getInstanceBeneficiaires().size(); i++) {
 			if (instance.getUid().equals(beneficiaire.getInstanceBeneficiaires().get(i).getInstance().getUid())) {
 				if (beneficiaire.getInstanceBeneficiaires().get(i).getOrdre() == dataInstance.getOrder()) {
-					if(dataInstance.getCodeId() == null && beneficiaire.getInstanceBeneficiaires().get(i).getCodeId() == null) {
+					if (dataInstance.getCodeId() == null
+							&& beneficiaire.getInstanceBeneficiaires().get(i).getCodeId() == null) {
 						trouve = true;
 						if (dataInstance.getOrganisation().equals("delete")) {
 							beneficiaire.getInstanceBeneficiaires().get(i).setDateAction(null);
-						}else {
+						} else {
 							beneficiaire.getInstanceBeneficiaires().get(i).setDateAction(dateActiv);
 						}
-						
-					}else {
-						if(dataInstance.getCodeId() != null && beneficiaire.getInstanceBeneficiaires().get(i).getCodeId() != null) {
-							if(dataInstance.getCodeId().equals(beneficiaire.getInstanceBeneficiaires().get(i).getCodeId())) {
+
+					} else {
+						if (dataInstance.getCodeId() != null
+								&& beneficiaire.getInstanceBeneficiaires().get(i).getCodeId() != null) {
+							if (dataInstance.getCodeId()
+									.equals(beneficiaire.getInstanceBeneficiaires().get(i).getCodeId())) {
 								trouve = true;
 								if (dataInstance.getOrganisation().equals("delete")) {
 									beneficiaire.getInstanceBeneficiaires().get(i).setDateAction(null);
-								}else {
+								} else {
 									beneficiaire.getInstanceBeneficiaires().get(i).setDateAction(dateActiv);
 								}
 							}
 						}
-						
+
 					}
-					
+
 				}
 			}
 		}
@@ -340,7 +350,7 @@ public class DataValueConvert {
 	}
 
 	public DataValueTDO getDataValueTDO(DataValue dataValue) {
-		//System.out.println("DataValueConvert - getDataValueTDO");
+		// System.out.println("DataValueConvert - getDataValueTDO");
 		DataValueTDO dataValueTDO = new DataValueTDO();
 		dataValueTDO.setValue(dataValue.getValue());
 		dataValueTDO.setNumero(dataValue.getNumero());
@@ -418,18 +428,17 @@ public class DataValueConvert {
 	}
 
 	public Instance updateInstance(Instance instance, DataInstance dataInstance) {
-		
-		
-		if(dataInstance.getDateActivite() == null) {
+
+		if (dataInstance.getDateActivite() == null) {
 			return instance;
 		}
-		if(dataInstance.getDateActivite().equals("")) {
+		if (dataInstance.getDateActivite().equals("")) {
 			return instance;
 		}
 		Date newDate = null;
 		newDate = convertDate.getDateParse(dataInstance.getDateActivite());
-		if(instance.getDateActivite() != null) {
-			if(instance.getDateActivite() != null && newDate.equals(instance.getDateActivite())) {
+		if (instance.getDateActivite() != null) {
+			if (instance.getDateActivite() != null && newDate.equals(instance.getDateActivite())) {
 				return instance;
 			}
 		}
@@ -437,30 +446,61 @@ public class DataValueConvert {
 		return iinstance.saveInstance(instance);
 	}
 
-	public List<DataInstance> filterSearch(List<ValueSearch> valueSearchs, List<DataInstance> dataInstances, int numElement) {
+	public List<DataInstance> filterSearch(List<ValueSearch> valueSearchs, List<DataInstance> dataInstances,
+			int numElement) {
 		List<DataInstance> dataInstance = new ArrayList<DataInstance>();
-		
-		if(numElement == valueSearchs.size()) {
+
+		if (numElement == valueSearchs.size()) {
 			return dataInstances;
 		}
-			
-		for(int i = 0;i<dataInstances.size();i++) {
-			for(int j = 0;j<dataInstances.get(i).getDataValue().size();j++) {
-				if(dataInstances.get(i).getDataValue().get(j).getElement().equals(valueSearchs.get(numElement).getElement())) {
+
+		for (int i = 0; i < dataInstances.size(); i++) {
+			for (int j = 0; j < dataInstances.get(i).getDataValue().size(); j++) {
+				if (dataInstances.get(i).getDataValue().get(j).getElement()
+						.equals(valueSearchs.get(numElement).getElement())) {
 					String valueExiste = dataInstances.get(i).getDataValue().get(j).getValue();
 					String valueSeach = valueSearchs.get(numElement).getValue();
-					if(valueExiste.indexOf(valueSeach) != -1) {
+					if (valueExiste.indexOf(valueSeach) != -1) {
 						dataInstance.add(dataInstances.get(i));
 					}
-					
+
 				}
 			}
 		}
-		
+
 		numElement++;
 		dataInstance = filterSearch(valueSearchs, dataInstance, numElement);
-		
+
 		return dataInstance;
+	}
+
+	public List<DataValue> deleteElementDoublon(List<DataValue> dataValues) {
+		int deb = 0;
+		int pas = deb+1;
+		if(dataValues.isEmpty()) {
+			return dataValues;
+		}
+			
+		List<DataValue> deletingDataValue = new ArrayList<DataValue>();
+
+		while (deb < dataValues.size()-1) {
+			if (dataValues.get(deb).getInstance().getInstanceid() == dataValues.get(pas).getInstance().getInstanceid()
+					&& dataValues.get(deb).getElement().getElementid() == dataValues.get(pas).getElement().getElementid()
+					&& dataValues.get(deb).getNumero() == dataValues.get(pas).getNumero()) {
+				deletingDataValue.add(dataValues.get(pas));
+				dataValues.remove(pas);
+				pas--;
+			}
+			pas++;
+			if(dataValues.size() == pas) {
+				deb++;
+				pas = deb+1;
+			}
+		}
+		if(!deletingDataValue.isEmpty()) {
+			dataValueRepository.delete(deletingDataValue);
+		}
+		return dataValues;
 	}
 
 }
