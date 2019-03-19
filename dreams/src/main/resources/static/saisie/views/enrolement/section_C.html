@@ -7,10 +7,19 @@
 
 <body>
   <div class="card card-cascade narrower" id="entete">
-			<div class="view py-3 gradient-card-header info-color-dark mx-4 d-flex">
+
+    <div ng-if="chargeList">
+			<div>
+				<img src="../_img/autres/Spinner-rose.gif" alt="" style="width: 100px; height: 100px;"><label>Chargement en cours ...</label>
 
 			</div>
-			<div class="card-body">
+
+		</div>
+		<div ng-if="!chargeList">
+      <div class="view py-3 gradient-card-header info-color-dark mx-4 d-flex">
+
+      </div>
+      <div class="card-body">
         <table border="1" cellspacing="0" cellpadding="0" align="left" width="96%">
           <tr>
             <td width="100%" height="39" colspan="4" bgcolor="#C0E7CD"><p><strong>SECTION C:  </strong> <strong>Education    / apprentissage et emploi</strong><strong></strong></p></td>
@@ -104,7 +113,7 @@
                 <input value="MOI" ng-model="enrolC._03_soutient_finance
         " ng-change="changefinacier('moi')" name="radio18" type="radio" class="with-gap" id="radio175" >
                 <label for="radio175">Moi-même</label>
-        		</div>
+            </div>
              <div class="form-check">
                 <input value="PARENT" ng-model="enrolC._03_soutient_finance
         " ng-change="changefinacier('parent')" name="radio18" type="radio" class="with-gap" id="radio176" >
@@ -354,7 +363,10 @@
 
             </td>
         </table>
-			</div>
+      </div>
+
+      </div>
+
 
 	</div>
   <script>

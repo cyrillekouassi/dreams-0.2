@@ -7,10 +7,18 @@
 
 <body>
   <div class="card card-cascade narrower" id="entete">
-			<div class="view py-3 gradient-card-header info-color-dark mx-4 d-flex">
+    <div ng-if="chargeList">
+      <div>
+        <img src="../_img/autres/Spinner-rose.gif" alt="" style="width: 100px; height: 100px;"><label>Chargement en cours ...</label>
 
-			</div>
-			<div class="card-body">
+      </div>
+
+    </div>
+    <div ng-if="!chargeList">
+      <div class="view py-3 gradient-card-header info-color-dark mx-4 d-flex">
+
+      </div>
+      <div class="card-body">
         <table border="1" cellspacing="0" cellpadding="0" align="left" width="96%">
           <tr>
             <td height="31" colspan="5" bgcolor="#C0E7CD"><p><strong>SECTION E:  </strong> <strong>Activité</strong><strong> </strong><strong>sexuelle</strong></p></td>
@@ -89,7 +97,7 @@
               <div class="form-check">
                 <input value="PlusAG" ng-model="enrolE._05_P1_age_parte" ng-change="changepatsexactu('non')" name="radio30" type="radio" class="with-gap" id="radio222" >
                 <label for="radio222">Plus Agée</label>
-        		</div>
+            </div>
               </td>
             <td width="19%">
                <div class="form-check">
@@ -103,7 +111,7 @@
               <div class="form-check">
                 <input value="PlusAG" ng-model="enrolE._05_P2_age_parte" ng-change="changepatsexactu('non')" name="radio31" type="radio" class="with-gap" id="radio225" >
                 <label for="radio225">Plus Agée</label>
-        		</div></td>
+            </div></td>
             <td width="19%">
                <div class="form-check">
                 <input value="MemeAG" ng-model="enrolE._05_P3_age_parte" ng-change="changepatsexactu('non')" name="radio32" type="radio" class="with-gap" id="radio226" >
@@ -116,7 +124,7 @@
               <div class="form-check">
                 <input value="PlusAG" ng-model="enrolE._05_P3_age_parte" ng-change="changepatsexactu('non')" name="radio32" type="radio" class="with-gap" id="radio228" >
                 <label for="radio228">Plus Agée</label>
-        		</div></td>
+            </div></td>
           </tr>
           <tr>
             <td width="5%"><p><em>E06</em></p></td>
@@ -164,7 +172,7 @@
               <div class="form-check">
                 <input value="JAM" ng-model="enrolE._07_P1_frequence_protect" ng-change="changepatsexactu('non')" name="radio36" type="radio" class="with-gap" id="radio237" >
                 <label for="radio237">Jamais</label>
-        		</div></td>
+            </div></td>
             <td width="19%">
                  <div class="form-check">
                 <input value="TJRS" ng-model="enrolE._07_P2_frequence_protect" ng-change="changepatsexactu('non')" name="radio37" type="radio" class="with-gap" id="radio238" >
@@ -177,7 +185,7 @@
               <div class="form-check">
                 <input value="JAM" ng-model="enrolE._07_P2_frequence_protect" ng-change="changepatsexactu('non')" name="radio37" type="radio" class="with-gap" id="radio240" >
                 <label for="radio240">Jamais</label>
-        		</div></td>
+            </div></td>
             <td width="19%">
                  <div class="form-check">
                 <input value="TJRS" ng-model="enrolE._07_P3_frequence_protect" ng-change="changepatsexactu('non')" name="radio38" type="radio" class="with-gap" id="radio241" >
@@ -190,7 +198,7 @@
               <div class="form-check">
                 <input value="JAM" ng-model="enrolE._07_P3_frequence_protect" ng-change="changepatsexactu('non')" name="radio38" type="radio" class="with-gap" id="radio243" >
                 <label for="radio243">Jamais</label>
-        		</div></td>
+            </div></td>
           </tr>
           <tr>
             <td width="5%"><p><em>E08</em></p></td>
@@ -212,7 +220,11 @@
                 <a class="btn btn-blue-grey" ui-sref="enrol_List({org: orgUnitSelect.id})" >Annuler</a>
           </div>
         </table>
-			</div>
+      </div>
+
+      </div>
+
+
 
 	</div>
 

@@ -15,6 +15,7 @@ saisie.controller('dossierBeneficiaireListCTRL',['$scope','$http','$rootScope','
     $scope.LesDossiers = [];
     $scope.infoSearch = {};
     var orgSelest = {};
+    $scope.chargeList = false;
     orgSelest = $stateParams.org;
 
     if(orgSelest){
@@ -46,6 +47,8 @@ saisie.controller('dossierBeneficiaireListCTRL',['$scope','$http','$rootScope','
 
 
     function getdata(page) {
+      $scope.LesDossiers = [];
+      $scope.chargeList = true;
         var org = "org=" + $rootScope.orgUnitSelect.id;
         var prog = "prog=" + $rootScope.programmeSelect.id;
         var dataValuesSearch;
@@ -61,6 +64,8 @@ saisie.controller('dossierBeneficiaireListCTRL',['$scope','$http','$rootScope','
             if (data.length > 0) {
                 $rootScope.allData = data;
                 getElements();
+            }else {
+              $scope.chargeList = false;
             }
 
         }, function (err) {
@@ -133,7 +138,7 @@ saisie.controller('dossierBeneficiaireListCTRL',['$scope','$http','$rootScope','
 
         console.log("listegroupe = ", listegroupe);
         $scope.LesDossiers = listegroupe;
-
+        $scope.chargeList = false;
     }
 
     $scope.deleteInstance = function (instance) {

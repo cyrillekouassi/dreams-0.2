@@ -10,6 +10,7 @@ saisie.controller('enrolSBctrl', ['$scope', '$rootScope', '$stateParams', '$http
     dataInstance = angular.copy(dataInstanceEntete);
 	$scope.enrolB = {};
   $scope.handicap = {};
+  $scope.chargeList = true;
 	var enrolSectionB = ["_01_chef_menage","_01_a_autre_chef","_02_age_chef","_03_pere_vie","_04_mere_vie",
 		"_05_parent_malad_chron","_06_type_logem","_06_a_autre_logem","_07_source_eau",
 		"_07_a_autre_source_eau","_08_source_lumiere","_08_a_autre_source_lumiere","_09_type_toil",
@@ -40,6 +41,7 @@ saisie.controller('enrolSBctrl', ['$scope', '$rootScope', '$stateParams', '$http
 	            }
 	        }
 	        console.log("mappigData() $scope.enrolB = ",$scope.enrolB);
+          $scope.chargeList = false;
 	    }
  // fonction pour activer les case valide d'handicap
       function initiHandicap(valeur){

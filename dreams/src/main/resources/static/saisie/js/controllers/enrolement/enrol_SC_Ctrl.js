@@ -9,6 +9,7 @@ function ($scope, $rootScope, $stateParams, $http,$filter,$state,$timeout) {
     dataInstanceEntete.instance = $stateParams.inst;
     dataInstance = angular.copy(dataInstanceEntete);
 	$scope.enrolC = {};
+  $scope.chargeList = true;
 	var enrolSectionC = ["_01_scolarise","_02_niv_scolaire","_02_a_classe","_02_a_autre_niv_scolaire",
 		"_03_soutient_finance","_03_a_autre_soutient_finance","_04_pas_sco_actuel","_05_raison_non_sco",
 		"_05_a_autre_raison_non_sco","_06_second_chance","_06_a_autre_second_chance","_07_source_revenu",
@@ -38,7 +39,7 @@ function ($scope, $rootScope, $stateParams, $http,$filter,$state,$timeout) {
 
 	mappigData();
   initialClasse();
-
+  $scope.chargeList = false;
 
 	 function mappigData() {
 	        for(var i = 0;i<enrolSectionC.length;i++){

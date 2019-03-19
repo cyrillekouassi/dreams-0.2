@@ -10,6 +10,7 @@ saisie.controller('enrolSFCtrl', ['$scope', '$rootScope', '$stateParams', '$http
 	$scope.enrolF = {};
   $scope.methodPfUtil = {};
   $scope.methodPf = {};
+  $scope.chargeList = true;
 	var enrolSectionF = ["_01_deja_enceinte",
 	"_02_enceinte",
 	"_03_suivi_gross",
@@ -45,6 +46,7 @@ saisie.controller('enrolSFCtrl', ['$scope', '$rootScope', '$stateParams', '$http
 	            }
 	        }
 	        console.log("mappigData() $scope.enrolF = ",$scope.enrolF);
+          $scope.chargeList = false;
 	    }
 
 	$scope.savePage = function (){

@@ -10,6 +10,7 @@ saisie.controller('enrolSHctrl', ['$scope', '$rootScope', '$stateParams', '$http
 	$scope.enrolH = {};
   $scope.raisonConsoDrogue = {};
   $scope.typeDrogue = {};
+  $scope.chargeList = true;
 	var enrolSectionH = ["_01_conso_alcool",
 		"_02_freq_conso_alcool",
 		"_03_raison_conso_alcool",
@@ -45,6 +46,7 @@ saisie.controller('enrolSHctrl', ['$scope', '$rootScope', '$stateParams', '$http
 		            }
 		        }
 		        console.log("mappigData() $scope.enrolH = ",$scope.enrolH);
+            $scope.chargeList = false;
 		    }
 
 	$scope.savePage = function (){

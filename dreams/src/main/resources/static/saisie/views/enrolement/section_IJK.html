@@ -7,10 +7,18 @@
 
 <body>
   <div class="card card-cascade narrower" id="entete">
-			<div class="view py-3 gradient-card-header info-color-dark mx-4 d-flex">
+    <div ng-if="chargeList">
+      <div>
+        <img src="../_img/autres/Spinner-rose.gif" alt="" style="width: 100px; height: 100px;"><label>Chargement en cours ...</label>
+
+      </div>
+
+    </div>
+    <div ng-if="!chargeList">
+      <div class="view py-3 gradient-card-header info-color-dark mx-4 d-flex">
 
 			</div>
-			<div class="card-body">
+      <div class="card-body">
         <table border="1" cellspacing="0" cellpadding="0" align="left" width="96%">
           <tr>
             <td width="100%" colspan="4" bgcolor="#C0E7CD"><p><strong>SECTION I:  </strong> <strong>Participation    au programme de prévention du VIH</strong></p></td>
@@ -25,53 +33,53 @@
               <p><em>(Lire et expliquer au client s'il y a lieu) </em></p></td>
             <td width="41%">
               <div class="form-check">
-        		<input value="EduSEXUEL" ng-model="participation.EduSEXUEL" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox248" >
-        		<label class="form-check-label" for="checkbox248">Education sexuelle complète</label>
-        		</div>
+            <input value="EduSEXUEL" ng-model="participation.EduSEXUEL" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox248" >
+            <label class="form-check-label" for="checkbox248">Education sexuelle complète</label>
+            </div>
 
               <div class="form-check">
-        		<input value="CrCompVIE" ng-model="participation.CrCompVIE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox249" >
-        		<label class="form-check-label" for="checkbox249">Cours de compétence de vie</label>
-        		</div>
+            <input value="CrCompVIE" ng-model="participation.CrCompVIE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox249" >
+            <label class="form-check-label" for="checkbox249">Cours de compétence de vie</label>
+            </div>
 
               <div class="form-check">
-        		<input value="BusiPLUS" ng-model="participation.BusiPLUS" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox250" >
-        		<label class="form-check-label" for="checkbox250">Business Plus</label>
-        		</div>
+            <input value="BusiPLUS" ng-model="participation.BusiPLUS" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox250" >
+            <label class="form-check-label" for="checkbox250">Business Plus</label>
+            </div>
 
               <div class="form-check">
-        		<input value="CCC" ng-model="participation.CCC" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox251" >
-        		<label class="form-check-label" for="checkbox251">CCC</label>
-        		</div>
+            <input value="CCC" ng-model="participation.CCC" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox251" >
+            <label class="form-check-label" for="checkbox251">CCC</label>
+            </div>
 
              <div class="form-check">
-        		<input value="OEV" ng-model="participation.OEV" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkboxOEV" >
-        		<label class="form-check-label" for="checkboxOEV">OEV</label>
-        		</div>
+            <input value="OEV" ng-model="participation.OEV" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkboxOEV" >
+            <label class="form-check-label" for="checkboxOEV">OEV</label>
+            </div>
 
               <div class="form-check">
-        		<input value="FamilleDAB" ng-model="participation.FamilleDAB" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox252" >
-        		<label class="form-check-label" for="checkbox252">Famille d&rsquo;abord</label>
-        		</div>
+            <input value="FamilleDAB" ng-model="participation.FamilleDAB" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox252" >
+            <label class="form-check-label" for="checkbox252">Famille d&rsquo;abord</label>
+            </div>
 
               <div class="form-check">
-        		<input value="SanteREPROD" ng-model="participation.SanteREPROD" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox253" >
-        		<label class="form-check-label" for="checkbox253">Santé de la reproduction</label>
-        		</div>
+            <input value="SanteREPROD" ng-model="participation.SanteREPROD" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox253" >
+            <label class="form-check-label" for="checkbox253">Santé de la reproduction</label>
+            </div>
 
               <div class="form-check">
-        		<input value="SASA" ng-model="participation.SASA" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox254" >
-        		<label class="form-check-label" for="checkbox254">SASA</label>
-        		</div>
+            <input value="SASA" ng-model="participation.SASA" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox254" >
+            <label class="form-check-label" for="checkbox254">SASA</label>
+            </div>
 
               <div class="form-check">
-        		<input value="AUC" ng-model="participation.AUC" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox255" >
-        		<label class="form-check-label" for="checkbox255">Aucun</label>
-        		</div>
+            <input value="AUC" ng-model="participation.AUC" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox255" >
+            <label class="form-check-label" for="checkbox255">Aucun</label>
+            </div>
 
              <div class="form-check">
-        		<input value="AUT" ng-model="participation.AUT" type="checkbox" class="filled-in form-check-input" id="checkbox256" >
-        		<label class="form-check-label" for="checkbox256">Autres porgrammes</label>
+            <input value="AUT" ng-model="participation.AUT" type="checkbox" class="filled-in form-check-input" id="checkbox256" >
+            <label class="form-check-label" for="checkbox256">Autres porgrammes</label>
             </div>
             <div ng-if="participation.AUT" style="padding: 10px;">
               <input ng-model="enrolIJK._01_a_autre_program" type="text" name="textfield2" id="textfield2">
@@ -191,23 +199,23 @@
             <td width="50%"><p><em>Les éléments suivants font ils parties de vos repas quotidien?</em></p></td>
             <td width="41%">
               <div class="form-check">
-        		<input value="PoissonVIANDE" ng-model="repas.PoissonVIANDE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox257" >
-        		<label class="form-check-label" for="checkbox257">Poisson ou viande</label>
-        		</div>
+            <input value="PoissonVIANDE" ng-model="repas.PoissonVIANDE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox257" >
+            <label class="form-check-label" for="checkbox257">Poisson ou viande</label>
+            </div>
 
               <div class="form-check">
-        		<input value="LEGUME" ng-model="repas.LEGUME" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox258" >
-        		<label class="form-check-label" for="checkbox258">Légumes</label>
-        		</div>
+            <input value="LEGUME" ng-model="repas.LEGUME" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox258" >
+            <label class="form-check-label" for="checkbox258">Légumes</label>
+            </div>
 
               <div class="form-check">
-        		<input value="FRUIT" ng-model="repas.FRUIT" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox259" >
-        		<label class="form-check-label" for="checkbox259">Fruits</label>
-        		</div>
+            <input value="FRUIT" ng-model="repas.FRUIT" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox259" >
+            <label class="form-check-label" for="checkbox259">Fruits</label>
+            </div>
 
               <div class="form-check">
-        		<input value="AUC" ng-model="repas.AUC" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox260" >
-        		<label class="form-check-label" for="checkbox260">Aucun</label>
+            <input value="AUC" ng-model="repas.AUC" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox260" >
+            <label class="form-check-label" for="checkbox260">Aucun</label>
               </div></td>
           </tr>
           <tr>
@@ -223,7 +231,10 @@
                 <a class="btn btn-blue-grey" ui-sref="enrol_List({org: orgUnitSelect.id})" >Annuler</a>
           </div>
         </table>
-			</div>
+      </div>
+      </div>
+
+
 
 	</div>
 

@@ -10,13 +10,14 @@ analyse.controller('evaluationBesoinCTRL',['$scope','$http','$rootScope',functio
     var lesBesoin = [];
     var lesOrganisation = [];
     var listOrg = [];
+    $scope.chargeList = true;
 
     $scope.listBesoins=[];
     $rootScope.afficheArbre = false;
     leOrganisation = $rootScope.orgUnitSelect;
     //$rootScope.pageActive = "besoinBeneficiare";
     initial();
-    
+
     function initial() {
         for(var i=0;i<$rootScope.lesProgrammes.length;i++){
             if($rootScope.lesProgrammes[i].code == "besoinBeneficiare"){
@@ -43,12 +44,14 @@ analyse.controller('evaluationBesoinCTRL',['$scope','$http','$rootScope',functio
                 console.log("response",response);
                 lesData = response.data;
                 traitementData();
+            }else {
+              $scope.chargeList = false;
             }
         }, function (err) {
             console.log("err",err);
         });
     }
-    
+
     function traitementData() {
         console.log("elementProgramme = ",elementProgramme);
         for(var k =0;k<lesData.length;k++){
@@ -67,6 +70,7 @@ analyse.controller('evaluationBesoinCTRL',['$scope','$http','$rootScope',functio
         }
         console.log("lesBesoin = ",lesBesoin);
         $scope.listBesoins = lesBesoin;
+        $scope.chargeList = false;
     }
 
 }]);

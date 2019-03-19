@@ -6,10 +6,13 @@
                 <p><i class="fa fa-bug fa-3x red-text" aria-hidden="true"></i><label>Pas de données</label></p>
             </div>
             <div ng-if="!noData">
-                <div ng-if="chargement">
-                    <label>Chargement en cours .....</label>
-                </div>
-                <div ng-if="!chargement">
+              <div ng-if="chargeList">
+                <img src="../_img/autres/Spinner-marron.gif" alt="" style="width: 100px; height: 100px;"><label>Chargement en cours ...</label>
+
+              </div>
+
+
+            <div ng-if="!chargeList">
                     <table class="table table-bordered table-responsive mt-3 table-sm tableResp">
                         <thead class="stylish-color text-center white-text">
                         <tr>
@@ -29,6 +32,7 @@
 
                         </tbody>
                     </table>
+                </div>
                 </div>
             </div>
         </div>

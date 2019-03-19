@@ -10,6 +10,7 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 	$scope.enrolIJK = {};
   $scope.repas = {};
   $scope.participation = {};
+  $scope.chargeList = true;
 	var enrolSectionIJK = ["_01_participation_program",
 		"_01_a_autre_program",
 		"_01_vie_assossiative",
@@ -47,6 +48,7 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 	            }
 	        }
 	        console.log("mappigData() $scope.enrolIJK = ",$scope.enrolIJK);
+          $scope.chargeList = false;
 	    }
 
 	$scope.savePage = function (){

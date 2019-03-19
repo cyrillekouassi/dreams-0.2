@@ -13,6 +13,7 @@ saisie.controller('activiteGroupeListCTRL',['$scope','$http','$rootScope','$stat
     $rootScope.RefInfo = {};
     $rootScope.allData = [];
     $scope.infoSearch = {};
+    $scope.chargeList = false;
     var orgSelest = {};
     orgSelest = $stateParams.org;
 
@@ -46,6 +47,8 @@ saisie.controller('activiteGroupeListCTRL',['$scope','$http','$rootScope','$stat
 
 
     function getdata(page) {
+      $scope.LesActivites = [];
+      $scope.chargeList = true;
         var org = "org=" + $rootScope.orgUnitSelect.id;
         var prog = "prog=" + $rootScope.programmeSelect.id;
         var dataValuesSearch;
@@ -61,6 +64,8 @@ saisie.controller('activiteGroupeListCTRL',['$scope','$http','$rootScope','$stat
             if (data.length > 0) {
                 $rootScope.allData = data;
                 getElements();
+            }else {
+              $scope.chargeList = false;
             }
 
         }, function (err) {
@@ -133,6 +138,7 @@ saisie.controller('activiteGroupeListCTRL',['$scope','$http','$rootScope','$stat
 
         console.log("listegroupe = ", listegroupe);
         $scope.LesActivites = listegroupe;
+        $scope.chargeList = false;
 
     }
 

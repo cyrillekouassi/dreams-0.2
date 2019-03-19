@@ -1205,7 +1205,7 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
         console.log('changeSessionAutre() > autre = ',autre," // key = ",key," // value = ",value," // index= ",index);
         //console.log("entrer dans changeSessionBenef() > benef= ",angular.copy(benef),"// key = ",key," // value = ",value," // index = ",index);
         autre.autreCibleSession[key] = value;
-        if(dataInstance.instance){
+        if(dataInstance.instance && index < $scope.sessionData.length ){
             origin = "autreCible";
             dataInstance.dataValue = [];
             var autreCibleSess = "";

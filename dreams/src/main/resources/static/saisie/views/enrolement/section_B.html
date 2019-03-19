@@ -7,10 +7,18 @@
 
 <body>
   <div class="card card-cascade narrower" id="entete">
-			<div class="view py-3 gradient-card-header info-color-dark mx-4 d-flex">
+    <div ng-if="chargeList">
+			<div>
+				<img src="../_img/autres/Spinner-rose.gif" alt="" style="width: 100px; height: 100px;"><label>Chargement en cours ...</label>
 
 			</div>
-			<div class="card-body">
+
+		</div>
+		<div ng-if="!chargeList">
+      <div class="view py-3 gradient-card-header info-color-dark mx-4 d-flex">
+
+      </div>
+      <div class="card-body">
         <table border="1" cellspacing="0" cellpadding="0" align="left" width="87%">
           <tr>
             <td width="100%" height="35" colspan="3" valign="top" bgcolor="#C0E7CD"><p><strong>SECTION B:  </strong> <strong>Informations sur le ménage</strong><strong> </strong></p></td>
@@ -60,7 +68,7 @@
           <tr>
             <td width="8%" height="127"><p><em>B02</em></p></td>
             <td width="51%" valign="bottom"><em>Quel âge a le chef de ménage?</em></td>
-        	  <td width="40%" valign="bottom"><em>Années</em>
+            <td width="40%" valign="bottom"><em>Années</em>
               <div class="form-check">
                 <input value="10_18" ng-model="enrolB._02_age_chef" ng-change="changeagemenage('b2tranch1')" name="radio8" type="radio" class="with-gap" id="radio132" >
               <label for="radio132">&lt; 18&nbsp;</label>
@@ -87,19 +95,19 @@
           <tr>
             <td width="8%"><p>B03</p></td>
             <td width="51%"><p><em>Est-ce que votre père est vivant?</em></p></td>
-        	  <td width="40%" valign="bottom">
+            <td width="40%" valign="bottom">
              <div class="form-check">
                 <input value="OUI" ng-model="enrolB._03_pere_vie" ng-change="changeperevivant('oui')" name="radio9" type="radio" class="with-gap" id="radio137" >
-        	    <label for="radio137">Oui</label>
+              <label for="radio137">Oui</label>
               </div>
               <div class="form-check">
                 <input value="NON" ng-model="enrolB._03_pere_vie" ng-change="changeperevivant('non')" name="radio9" type="radio" class="with-gap" id="radio138" >
-        	    <label for="radio138">Non</label>
+              <label for="radio138">Non</label>
               </div>
 
               <div class="form-check">
                 <input value="NeSP" ng-model="enrolB._03_pere_vie" ng-change="changeperevivant('nesaitpas')" name="radio9" type="radio" class="with-gap" id="radio139" >
-        		  <label for="radio139">Ne sait pas</label>
+              <label for="radio139">Ne sait pas</label>
               </div>
               </td>
           </tr>
@@ -109,17 +117,17 @@
             <td width="40%" valign="bottom">
                    <div class="form-check">
                 <input value="OUI" ng-model="enrolB._04_mere_vie" ng-change="changemerevivant('oui')" name="radio10" type="radio" class="with-gap" id="radio140" >
-        	    <label for="radio140">Oui</label>
+              <label for="radio140">Oui</label>
               </div>
               <div class="form-check">
                 <input value="NON" ng-model="enrolB._04_mere_vie" ng-change="changemerevivant('non')" name="radio10" type="radio" class="with-gap" id="radio141" >
-        	    <label for="radio141">Non</label>
+              <label for="radio141">Non</label>
               </div>
               <div class="form-check">
                 <input value="NeSP" ng-model="enrolB._04_mere_vie" ng-change="changemerevivant('nesaitpas')" name="radio10" type="radio" class="with-gap" id="radio142" >
-        		  <label for="radio142">Ne sait pas</label>
+              <label for="radio142">Ne sait pas</label>
               </div>
-        	  </td>
+            </td>
           </tr>
           <tr>
             <td width="8%"><p><em>B05</em></p></td>
@@ -127,17 +135,17 @@
             <td width="40%">
                   <div class="form-check">
                 <input value="OUI" ng-model="enrolB._05_parent_malad_chron" ng-change="changemaladie('oui')" name="radio11" type="radio" class="with-gap" id="radio143" >
-        	    <label for="radio143">Oui</label>
+              <label for="radio143">Oui</label>
               </div>
               <div class="form-check">
                 <input value="NON" ng-model="enrolB._05_parent_malad_chron" ng-change="changemaladie('non')" name="radiO11" type="radio" class="with-gap" id="radio144" >
-        	    <label for="radio144">Non</label>
+              <label for="radio144">Non</label>
               </div>
               <div class="form-check">
                 <input value="NeSP" ng-model="enrolB._05_parent_malad_chron" ng-change="changemaladie('nesaitpas')" name="radio11" type="radio" class="with-gap" id="radio145" >
-        		  <label for="radio145">Ne sait pas</label>
+              <label for="radio145">Ne sait pas</label>
               </div>
-        	  </td>
+            </td>
           </tr>
           <tr>
             <td width="8%"><p><em>B06</em></p></td>
@@ -196,8 +204,8 @@
               <label for="radio156">Autre(s) Préciser</label>
               <input ng-if="enrolB._07_source_eau == 'AUT'" ng-model="enrolB._07_a_autre_source_eau" type="text" name="textfield23" id="textfield23">
             </div>
-        	  </td>
-        	</tr>
+            </td>
+          </tr>
           <tr>
             <td width="8%"><p><em>B08</em></p></td>
             <td width="51%"><p><em>Quelle est la principale source d'éclairage pour les    membres de votre ménage</em></p></td>
@@ -227,8 +235,8 @@
               <label for="radio1161">Autre(s) Préciser</label>
               <input ng-if="enrolB._08_source_lumiere == 'AUT'" ng-model="enrolB._08_a_autre_source_lumiere"  type="text" name="textfield24" id="textfield24">
             </div>
-        	  </td>
-        		</tr>
+            </td>
+            </tr>
           <tr>
             <td width="8%"><p><em>B09</em></p></td>
             <td width="51%"><p><em>&nbsp;</em></p>
@@ -237,17 +245,17 @@
             <td width="40%" valign="top">
               <div class="form-check">
               <input value="LAT" ng-model="enrolB._09_type_toil" ng-change="changetyptoilet('latrine')" name="radio15" type="radio" class="with-gap" id="radio162" >
-        		  <label for="radio162">Latrine</label>
+              <label for="radio162">Latrine</label>
             </div>
             <div class="form-check">
               <input value="WC" ng-model="enrolB._09_type_toil" ng-change="changetyptoilet('wc')" name="radio15" type="radio" class="with-gap" id="radio163" >
-        		  <label for="radio163">WC</label>
+              <label for="radio163">WC</label>
             </div>
             <div class="form-check">
               <input value="AUC" ng-model="enrolB._09_type_toil" ng-change="changetyptoilet('aucun')" name="radio15" type="radio" class="with-gap" id="radio164" >
-        		  <label for="radio164">Aucun</label>
+              <label for="radio164">Aucun</label>
             </div>
-        	  </td>
+            </td>
           </tr>
           <tr>
             <td width="8%"><p><em>B10</em></p></td>
@@ -260,39 +268,39 @@
             <td width="8%"><p><em>B11</em></p></td>
             <td width="51%"><p><em>Avez-vous un quelconque handicap?</em></p></td>
             <td width="40%" valign="top" style="padding: 5px;">
-        	  <div class="form-check">
-        		<input value="PaHAND" ng-model="handicap.PaHAND" ng-change="changehandicap('pas')" type="checkbox" class="filled-in form-check-input" id="checkbox100" >
-        		<label class="form-check-label" for="checkbox100">Pas d'handicap</label>
-        		</div>
-        	  <div class="form-check">
-        		<input value="PHYS" ng-model="handicap.PHYS" ng-change="changehandicap('physique')" type="checkbox" class="filled-in form-check-input" id="checkbox101" >
-        		<label class="form-check-label" for="checkbox101">handicap Physique</label>
-        		</div>
+            <div class="form-check">
+            <input value="PaHAND" ng-model="handicap.PaHAND" ng-change="changehandicap('pas')" type="checkbox" class="filled-in form-check-input" id="checkbox100" >
+            <label class="form-check-label" for="checkbox100">Pas d'handicap</label>
+            </div>
+            <div class="form-check">
+            <input value="PHYS" ng-model="handicap.PHYS" ng-change="changehandicap('physique')" type="checkbox" class="filled-in form-check-input" id="checkbox101" >
+            <label class="form-check-label" for="checkbox101">handicap Physique</label>
+            </div>
               <div class="form-check">
-        		<input value="SENS" ng-model="handicap.SENS" ng-change="changehandicap('sensoriel')" type="checkbox" class="filled-in form-check-input" id="checkbox102" >
-        		<label class="form-check-label" for="checkbox102">handicap Sensoriel</label>
-        		</div>
+            <input value="SENS" ng-model="handicap.SENS" ng-change="changehandicap('sensoriel')" type="checkbox" class="filled-in form-check-input" id="checkbox102" >
+            <label class="form-check-label" for="checkbox102">handicap Sensoriel</label>
+            </div>
               <div class="form-check">
-        		<input value="MENT" ng-model="handicap.MENT" ng-change="changehandicap('mental')" type="checkbox" class="filled-in form-check-input" id="checkbox103" >
-        		<label class="form-check-label" for="checkbox103">handicap Mental</label>
+            <input value="MENT" ng-model="handicap.MENT" ng-change="changehandicap('mental')" type="checkbox" class="filled-in form-check-input" id="checkbox103" >
+            <label class="form-check-label" for="checkbox103">handicap Mental</label>
                 </div>
               <div class="form-check">
-        		<input value="CHRON" ng-model="handicap.CHRON" ng-change="changehandicap('chronic')" type="checkbox" class="filled-in form-check-input" id="checkbox104" >
-        		<label class="form-check-label" for="checkbox104">Maladie chroniquel</label>
-        		</div>
+            <input value="CHRON" ng-model="handicap.CHRON" ng-change="changehandicap('chronic')" type="checkbox" class="filled-in form-check-input" id="checkbox104" >
+            <label class="form-check-label" for="checkbox104">Maladie chroniquel</label>
+            </div>
               <div class="form-check">
-        		<input value="NeSP" ng-model="handicap.NeSP" ng-change="changehandicap('nesaitpas')" type="checkbox" class="filled-in form-check-input" id="checkbox105" >
-        		<label class="form-check-label" for="checkbox105">Ne sait pas</label>
-        		</div>
+            <input value="NeSP" ng-model="handicap.NeSP" ng-change="changehandicap('nesaitpas')" type="checkbox" class="filled-in form-check-input" id="checkbox105" >
+            <label class="form-check-label" for="checkbox105">Ne sait pas</label>
+            </div>
               <div class="form-check">
-        		<input value="AUT" ng-model="handicap.AUT" ng-change="changehandicap('nesaitpas')" type="checkbox" class="filled-in form-check-input" id="checkbox106" >
-        		<label class="form-check-label" for="checkbox106">Autre</label>
+            <input value="AUT" ng-model="handicap.AUT" ng-change="changehandicap('nesaitpas')" type="checkbox" class="filled-in form-check-input" id="checkbox106" >
+            <label class="form-check-label" for="checkbox106">Autre</label>
                 </div>
                 <div class="" style="padding: 10px;" ng-if="handicap.AUT">
                   <input ng-model="enrolB._11_a_autre_handicap" type="text" name="textfield25" id="textfield25" >
                   Autre handicap (Précisez)
                 </div>
-        	  </td>
+            </td>
         </tr>
           <tr>
             <td width="8%"><p><em>&nbsp;</em></p></td>
@@ -360,7 +368,10 @@
 
             </td>
         </table>
-			</div>
+      </div>
+
+      </div>
+
 
 	</div>
 

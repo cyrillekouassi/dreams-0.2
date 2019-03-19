@@ -7,10 +7,18 @@
 
 <body>
   <div class="card card-cascade narrower" id="entete">
-			<div class="view py-3 gradient-card-header info-color-dark mx-4 d-flex">
+    <div ng-if="chargeList">
+      <div>
+        <img src="../_img/autres/Spinner-rose.gif" alt="" style="width: 100px; height: 100px;"><label>Chargement en cours ...</label>
 
-			</div>
-			<div class="card-body">
+      </div>
+
+    </div>
+    <div ng-if="!chargeList">
+      <div class="view py-3 gradient-card-header info-color-dark mx-4 d-flex">
+
+      </div>
+      <div class="card-body">
         <table border="1" cellspacing="0" cellpadding="0" align="left" width="96%">
           <tr>
             <td width="100%" colspan="3" valign="top" bgcolor="#C0E7CD"><p><strong>SECTION H:  </strong> <strong>Utilisation d&rsquo;alcool et ou de    drogue</strong><strong> </strong></p></td>
@@ -38,7 +46,7 @@
             <td width="41%">
              <form class="form-row">
         <div class="col">
-        	 <div class="form-check">
+           <div class="form-check">
                 <input value="TJRS" ng-model="enrolH._02_freq_conso_alcool" ng-change="" class="form-check-input" name="radio60" type="radio" id="radio291">
                 <label class="form-check-label" for="radio291">Tous les jours</label>
             </div>
@@ -48,16 +56,16 @@
                 <input value="UN" ng-model="enrolH._02_freq_conso_alcool" ng-change="" class="form-check-input" name="radio60" type="radio" id="radio292">
                 <label class="form-check-label" for="radio292">A fois par semaine</label>
             </div>
-        		 </div>
+             </div>
 
           <div class="col">
            <div class="form-check">
                 <input value="OCASE" ng-model="enrolH._02_freq_conso_alcool" ng-change="" class="form-check-input" name="radio60" type="radio" id="radio293">
                 <label class="form-check-label" for="radio293">Occasionnellement</label>
             </div>
-        		 </div>
+             </div>
         </form>
-        		</td>
+            </td>
 
           </tr>
           <tr>
@@ -122,49 +130,49 @@
               <strong><em>(Cocher tout ce qui    s'applique) </em></strong></p></td>
             <td width="41%">
               <div class="form-check">
-        		<input value="KHAT" ng-model="typeDrogue.KHAT" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox234" >
-        		    <label class="form-check-label" for="checkbox234">Khat</label>
-        		</div>
+            <input value="KHAT" ng-model="typeDrogue.KHAT" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox234" >
+                <label class="form-check-label" for="checkbox234">Khat</label>
+            </div>
 
 
               <div class="form-check">
-        		<input value="CEGD" ng-model="typeDrogue.CEGD" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox235" >
-        		    <label class="form-check-label" for="checkbox235">Colle, essence Goudron, diluant</label>
-        		</div>
+            <input value="CEGD" ng-model="typeDrogue.CEGD" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox235" >
+                <label class="form-check-label" for="checkbox235">Colle, essence Goudron, diluant</label>
+            </div>
 
               <div class="form-check">
-        		<input value="COCAINE" ng-model="typeDrogue.COCAINE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox236" >
-        		    <label class="form-check-label" for="checkbox236">Cocaïne</label>
-        		</div>
+            <input value="COCAINE" ng-model="typeDrogue.COCAINE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox236" >
+                <label class="form-check-label" for="checkbox236">Cocaïne</label>
+            </div>
 
               <div class="form-check">
-        		<input value="CODEINE" ng-model="typeDrogue.CODEINE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox237" >
-        		    <label class="form-check-label" for="checkbox237">Codéine</label>
-        		</div>
+            <input value="CODEINE" ng-model="typeDrogue.CODEINE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox237" >
+                <label class="form-check-label" for="checkbox237">Codéine</label>
+            </div>
 
               <div class="form-check">
-        		<input value="HEROINE" ng-model="typeDrogue.HEROINE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox238" >
-        		    <label class="form-check-label" for="checkbox238">Heroine</label>
-        		</div>
+            <input value="HEROINE" ng-model="typeDrogue.HEROINE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox238" >
+                <label class="form-check-label" for="checkbox238">Heroine</label>
+            </div>
 
               <div class="form-check">
-        		<input value="MAND" ng-model="typeDrogue.MAND" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox239" >
-        		    <label class="form-check-label" for="checkbox239">Mandrax</label>
-        		</div>
+            <input value="MAND" ng-model="typeDrogue.MAND" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox239" >
+                <label class="form-check-label" for="checkbox239">Mandrax</label>
+            </div>
 
               <div class="form-check">
-        		<input value="KUBER" ng-model="typeDrogue.KUBER" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox240" >
-        		    <label class="form-check-label" for="checkbox240">Kuber</label>
-        		</div>
+            <input value="KUBER" ng-model="typeDrogue.KUBER" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox240" >
+                <label class="form-check-label" for="checkbox240">Kuber</label>
+            </div>
 
               <div class="form-check">
-        		<input value="TABAC" ng-model="typeDrogue.TABAC" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox241" >
-        		    <label class="form-check-label" for="checkbox241">Cigarettes / Tabac</label>
-        		</div>
+            <input value="TABAC" ng-model="typeDrogue.TABAC" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox241" >
+                <label class="form-check-label" for="checkbox241">Cigarettes / Tabac</label>
+            </div>
 
              <div class="form-check">
-        		<input value="AUT" ng-model="typeDrogue.AUT" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox242" >
-        		 <label class="form-check-label" for="checkbox242">Autre (Préciser)</label>
+            <input value="AUT" ng-model="typeDrogue.AUT" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox242" >
+             <label class="form-check-label" for="checkbox242">Autre (Préciser)</label>
              </div>
              <div ng-if="typeDrogue.AUT" style="padding: 10px;">
                <input ng-model="enrolH._05_a_autre_type_drogue" type="text" name="textfield2" id="textfield2">
@@ -177,33 +185,33 @@
             <td width="50%"><p><em>Pour quelle raison avez-vous consommé de la drogue ?</em></p></td>
             <td width="41%">
               <div class="form-check">
-        		<input value="SOLITUDE" ng-model="raisonConsoDrogue.SOLITUDE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox243" >
-        		    <label class="form-check-label" for="checkbox243">Solitude</label>
-        	</div>
+            <input value="SOLITUDE" ng-model="raisonConsoDrogue.SOLITUDE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox243" >
+                <label class="form-check-label" for="checkbox243">Solitude</label>
+          </div>
 
               <div class="form-check">
-        		<input value="PressionPAIR" ng-model="raisonConsoDrogue.PressionPAIR" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox244" >
-        		    <label class="form-check-label" for="checkbox244">Pression des pairs</label>
+            <input value="PressionPAIR" ng-model="raisonConsoDrogue.PressionPAIR" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox244" >
+                <label class="form-check-label" for="checkbox244">Pression des pairs</label>
         </div>
 
               <div class="form-check">
-        		<input value="DIFFICULTE" ng-model="raisonConsoDrogue.DIFFICULTE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox245" >
-        		    <label class="form-check-label" for="checkbox245">Difficulté familiale ou sociale</label>
+            <input value="DIFFICULTE" ng-model="raisonConsoDrogue.DIFFICULTE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox245" >
+                <label class="form-check-label" for="checkbox245">Difficulté familiale ou sociale</label>
         </div>
 
               <div class="form-check">
-        		<input value="ANGOISSE" ng-model="raisonConsoDrogue.ANGOISSE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox246" >
-        		    <label class="form-check-label" for="checkbox246">Angoisse</label>
+            <input value="ANGOISSE" ng-model="raisonConsoDrogue.ANGOISSE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox246" >
+                <label class="form-check-label" for="checkbox246">Angoisse</label>
         </div>
 
               <div class="form-check">
-        		<input value="PressionPROF" ng-model="raisonConsoDrogue.PressionPROF" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox247" >
-        		    <label class="form-check-label" for="checkbox247">Pression professionnelle</label>
+            <input value="PressionPROF" ng-model="raisonConsoDrogue.PressionPROF" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox247" >
+                <label class="form-check-label" for="checkbox247">Pression professionnelle</label>
         </div>
 
              <div class="form-check">
-        		<input value="AUT" ng-model="raisonConsoDrogue.AUT" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox248" >
-        		    <label class="form-check-label" for="checkbox248">Autre (Préciser)</label>
+            <input value="AUT" ng-model="raisonConsoDrogue.AUT" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox248" >
+                <label class="form-check-label" for="checkbox248">Autre (Préciser)</label>
             </div>
             <div ng-if="raisonConsoDrogue.AUT" style="padding: 10px;">
               <input ng-model="enrolH._06_a_autre_raison_conso_drogue" type="text" name="textfield2" id="textfield2">
@@ -218,7 +226,10 @@
                 <a class="btn btn-blue-grey" ui-sref="enrol_List({org: orgUnitSelect.id})" >Annuler</a>
           </div>
         </table>
-			</div>
+      </div>
+
+      </div>
+
 
 	</div>
 

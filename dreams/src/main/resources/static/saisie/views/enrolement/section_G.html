@@ -7,10 +7,18 @@
 
 <body>
   <div class="card card-cascade narrower" id="entete">
-			<div class="view py-3 gradient-card-header info-color-dark mx-4 d-flex">
+    <div ng-if="chargeList">
+      <div>
+        <img src="../_img/autres/Spinner-rose.gif" alt="" style="width: 100px; height: 100px;"><label>Chargement en cours ...</label>
 
-			</div>
-			<div class="card-body">
+      </div>
+
+    </div>
+    <div ng-if="!chargeList">
+      <div class="view py-3 gradient-card-header info-color-dark mx-4 d-flex">
+
+      </div>
+      <div class="card-body">
         <table border="1" cellspacing="0" cellpadding="0" align="left" width="96%">
           <tr>
             <td width="100%" height="36" colspan="4" bgcolor="#C0E7CD"><strong>SECTION G&nbsp;:  </strong> <strong>Violence basée    sur le genre VBG</strong><br></td>
@@ -199,40 +207,40 @@
             <p><strong><em>(Après cette question,    passez au SECTION H)</em></strong></p></td>
             <td width="41%" colspan="2" valign="top">
              <div class="form-check">
-        		<input value="FAMILLE" ng-model="aupres.FAMILLE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox214" >
-        		<label class="form-check-label" for="checkbox214">Ma Famille</label>
-        		</div>
+            <input value="FAMILLE" ng-model="aupres.FAMILLE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox214" >
+            <label class="form-check-label" for="checkbox214">Ma Famille</label>
+            </div>
               <div class="form-check">
-        		<input value="PROCHE" ng-model="aupres.PROCHE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox215" >
-        		<label class="form-check-label" for="checkbox215">Entourage</label>
+            <input value="PROCHE" ng-model="aupres.PROCHE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox215" >
+            <label class="form-check-label" for="checkbox215">Entourage</label>
                </div>
               <div class="form-check">
-        		<input value="LEADER" ng-model="aupres.LEADER" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox216" >
-        		<label class="form-check-label" for="checkbox216">Leader communautaire</label>
-        		</div>
+            <input value="LEADER" ng-model="aupres.LEADER" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox216" >
+            <label class="form-check-label" for="checkbox216">Leader communautaire</label>
+            </div>
               <div class="form-check">
-        		<input value="SANTE" ng-model="aupres.SANTE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox217" >
-        		<label class="form-check-label" for="checkbox217">Personnel médicals</label>
-        		</div>
+            <input value="SANTE" ng-model="aupres.SANTE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox217" >
+            <label class="form-check-label" for="checkbox217">Personnel médicals</label>
+            </div>
               <div class="form-check">
-        		<input value="SOCIAUX" ng-model="aupres.SOCIAUX" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox218" >
-        		<label class="form-check-label" for="checkbox218">Les services sociaux</label>
-        		</div>
+            <input value="SOCIAUX" ng-model="aupres.SOCIAUX" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox218" >
+            <label class="form-check-label" for="checkbox218">Les services sociaux</label>
+            </div>
               <div class="form-check">
-        		<input value="AUTORITES" ng-model="aupres.AUTORITES" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox219" >
-        		<label class="form-check-label" for="checkbox219">Police/Gendarmerie</label>
-        		</div>
+            <input value="AUTORITES" ng-model="aupres.AUTORITES" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox219" >
+            <label class="form-check-label" for="checkbox219">Police/Gendarmerie</label>
+            </div>
               <div class="form-check">
-        		<input value="JUSTICE" ng-model="aupres.JUSTICE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox220" >
-        		<label class="form-check-label" for="checkbox220">Système judiciaire</label>
+            <input value="JUSTICE" ng-model="aupres.JUSTICE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox220" >
+            <label class="form-check-label" for="checkbox220">Système judiciaire</label>
                 </div>
               <div class="form-check">
-        		<input value="ONG" ng-model="aupres.ONG" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox221" >
-        		<label class="form-check-label" for="checkbox221">ONG / OBC</label>
-        		</div>
+            <input value="ONG" ng-model="aupres.ONG" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox221" >
+            <label class="form-check-label" for="checkbox221">ONG / OBC</label>
+            </div>
               <div class="form-check">
-        		<input value="AUT" ng-model="aupres.AUT" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox222" >
-        		<label class="form-check-label" for="checkbox222">Autre</label>
+            <input value="AUT" ng-model="aupres.AUT" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox222" >
+            <label class="form-check-label" for="checkbox222">Autre</label>
                 </div>
                 <div ng-if="aupres.AUT" style="padding: 10px;">
                   <input ng-model="enrolG._09_a_autre_aupris_de_qui" type="text" name="textfield" id="textfield">
@@ -246,52 +254,52 @@
               <p><strong><em> (Ne pas lire     les réponses, cochez tout ce que    mentionne la jeune fille)</em></strong></p></td>
             <td width="41%" colspan="2" valign="top">
             <div class="form-check">
-        		<input value="NeSP" ng-model="secours.NeSP" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox223" >
-        		<label class="form-check-label" for="checkbox223">Ne sait pas</label>
-        		</div>
+            <input value="NeSP" ng-model="secours.NeSP" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox223" >
+            <label class="form-check-label" for="checkbox223">Ne sait pas</label>
+            </div>
             <div class="form-check">
-        		<input value="FAMILLE" ng-model="secours.FAMILLE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox261" >
-        		<label class="form-check-label" for="checkbox261">Ma Famille</label>
-        		</div>
+            <input value="FAMILLE" ng-model="secours.FAMILLE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox261" >
+            <label class="form-check-label" for="checkbox261">Ma Famille</label>
+            </div>
               <div class="form-check">
-        		<input value="BelleFAMILLE" ng-model="secours.BelleFAMILLE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox224" >
-        		<label class="form-check-label" for="checkbox224">La famille du mari / partenaire / petit ami</label>
-        		</div>
+            <input value="BelleFAMILLE" ng-model="secours.BelleFAMILLE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox224" >
+            <label class="form-check-label" for="checkbox224">La famille du mari / partenaire / petit ami</label>
+            </div>
               <div class="form-check">
-        		<input value="AMI" ng-model="secours.AMI" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox225" >
-        		<label class="form-check-label" for="checkbox225">Ami</label>
-        		</div>
+            <input value="AMI" ng-model="secours.AMI" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox225" >
+            <label class="form-check-label" for="checkbox225">Ami</label>
+            </div>
               <div class="form-check">
-        		<input value="VOISIN" ng-model="secours.VOISIN" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox226" >
-        		<label class="form-check-label" for="checkbox226">Voisin</label>
-        		</div>
+            <input value="VOISIN" ng-model="secours.VOISIN" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox226" >
+            <label class="form-check-label" for="checkbox226">Voisin</label>
+            </div>
               <div class="form-check">
-        		<input value="ChefRELIG" ng-model="secours.ChefRELIG" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox227" >
-        		<label class="form-check-label" for="checkbox227"> Chef religieux</label>
-        		</div>
+            <input value="ChefRELIG" ng-model="secours.ChefRELIG" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox227" >
+            <label class="form-check-label" for="checkbox227"> Chef religieux</label>
+            </div>
               <div class="form-check">
-        		<input value="SANTE" ng-model="secours.SANTE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox228" >
-        		<label class="form-check-label" for="checkbox228">Personnel médical</label>
-        		</div>
+            <input value="SANTE" ng-model="secours.SANTE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox228" >
+            <label class="form-check-label" for="checkbox228">Personnel médical</label>
+            </div>
               <div class="form-check">
-        		<input value="SAGE" ng-model="secours.SAGE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox229" >
-        		<label class="form-check-label" for="checkbox229"> Ancien /chef de village</label>
-        		</div>
+            <input value="SAGE" ng-model="secours.SAGE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox229" >
+            <label class="form-check-label" for="checkbox229"> Ancien /chef de village</label>
+            </div>
               <div class="form-check">
-        		<input value="AUTORITES" ng-model="secours.AUTORITES" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox230" >
-        		<label class="form-check-label" for="checkbox230">Police</label>
-        		</div>
+            <input value="AUTORITES" ng-model="secours.AUTORITES" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox230" >
+            <label class="form-check-label" for="checkbox230">Police</label>
+            </div>
               <div class="form-check">
-        		<input value="JUSTICE" ng-model="secours.JUSTICE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox231" >
-        		<label class="form-check-label" for="checkbox231">Système judiciaire</label>
-        		</div>
+            <input value="JUSTICE" ng-model="secours.JUSTICE" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox231" >
+            <label class="form-check-label" for="checkbox231">Système judiciaire</label>
+            </div>
               <div class="form-check">
-        		<input value="ONG" ng-model="secours.ONG" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox232" >
-        		<label class="form-check-label" for="checkbox232"> ONG / OBC</label>
-        		</div>
+            <input value="ONG" ng-model="secours.ONG" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox232" >
+            <label class="form-check-label" for="checkbox232"> ONG / OBC</label>
+            </div>
               <div class="form-check">
-        		<input value="AUT" ng-model="secours.AUT" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox233" >
-        		<label class="form-check-label" for="checkbox233"> Autre (Précisez)</label>
+            <input value="AUT" ng-model="secours.AUT" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox233" >
+            <label class="form-check-label" for="checkbox233"> Autre (Précisez)</label>
                 </div>
                 <div ng-if="secours.AUT" style="padding: 10px;">
                   <input ng-model="enrolG._10_a_autre_secours" type="text" name="textfield" id="textfield">
@@ -306,7 +314,9 @@
                 <a class="btn btn-blue-grey" ui-sref="enrol_List({org: orgUnitSelect.id})" >Annuler</a>
           </div>
         </table>
-			</div>
+      </div>
+      </div>
+
 
 	</div>
 

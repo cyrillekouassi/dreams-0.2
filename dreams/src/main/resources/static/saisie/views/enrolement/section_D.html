@@ -7,10 +7,18 @@
 
 <body>
   <div class="card card-cascade narrower" id="entete">
-			<div class="view py-3 gradient-card-header info-color-dark mx-4 d-flex">
+    <div ng-if="chargeList">
+			<div>
+				<img src="../_img/autres/Spinner-rose.gif" alt="" style="width: 100px; height: 100px;"><label>Chargement en cours ...</label>
 
 			</div>
-			<div class="card-body">
+
+		</div>
+		<div ng-if="!chargeList">
+      <div class="view py-3 gradient-card-header info-color-dark mx-4 d-flex">
+
+      </div>
+      <div class="card-body">
         <table border="1" cellspacing="0" cellpadding="0" align="left" width="96%">
           <tr>
             <td width="100%" height="43" colspan="3" bgcolor="#C0E7CD"><p><strong>SECTION D:  </strong> <strong>Test de    VIH</strong></p></td>
@@ -52,55 +60,55 @@
             <td width="52%"><p><em>Pourquoi    n'avez-vous jamais été testée pour le VIH (Ne lisez pas les options, cochez    tout ce qui est mentionné)</em></p></td>
             <td width="43%" >
             <div class="form-check">
-        		<input value="PaCONAISSANCE" ng-model="testvih.PaCONAISSANCE" ng-change="changejamtestvih('aucune')" type="checkbox" class="filled-in form-check-input" id="checkbox107" >
-        		<label class="form-check-label" for="checkbox107">Je n'ai aucune connaissance sur le test VIH</label>
-        		</div>
+            <input value="PaCONAISSANCE" ng-model="testvih.PaCONAISSANCE" ng-change="changejamtestvih('aucune')" type="checkbox" class="filled-in form-check-input" id="checkbox107" >
+            <label class="form-check-label" for="checkbox107">Je n'ai aucune connaissance sur le test VIH</label>
+            </div>
 
               <div class="form-check">
-        		<input value="OuTROUVER" ng-model="testvih.OuTROUVER" ng-change="changejamtestvih('jesaispas')" type="checkbox" class="filled-in form-check-input" id="checkbox108" >
-        		<label class="form-check-label" for="checkbox108">Je ne sais pas où en trouver un</label>
-        		</div>
+            <input value="OuTROUVER" ng-model="testvih.OuTROUVER" ng-change="changejamtestvih('jesaispas')" type="checkbox" class="filled-in form-check-input" id="checkbox108" >
+            <label class="form-check-label" for="checkbox108">Je ne sais pas où en trouver un</label>
+            </div>
 
              <div class="form-check">
-        		<input value="PaARGENT" ng-model="testvih.PaARGENT" ng-change="changejamtestvih('nepeuxpas')" type="checkbox" class="filled-in form-check-input" id="checkbox109" >
-        		<label class="form-check-label" for="checkbox109">Je ne peux pas me le permettre financièrement</label>
-        		</div>
+            <input value="PaARGENT" ng-model="testvih.PaARGENT" ng-change="changejamtestvih('nepeuxpas')" type="checkbox" class="filled-in form-check-input" id="checkbox109" >
+            <label class="form-check-label" for="checkbox109">Je ne peux pas me le permettre financièrement</label>
+            </div>
 
               <div class="form-check">
-        		<input value="PaTRANSPORT" ng-model="testvih.PaTRANSPORT" ng-change="changejamtestvih('pasmoyen')" type="checkbox" class="filled-in form-check-input" id="checkbox110" >
-        		<label class="form-check-label" for="checkbox110">Pas de moyens pour payer le transport</label>
-        		</div>
+            <input value="PaTRANSPORT" ng-model="testvih.PaTRANSPORT" ng-change="changejamtestvih('pasmoyen')" type="checkbox" class="filled-in form-check-input" id="checkbox110" >
+            <label class="form-check-label" for="checkbox110">Pas de moyens pour payer le transport</label>
+            </div>
 
              <div class="form-check">
-        		<input value="SiteELOIGNE" ng-model="testvih.SiteELOIGNE" ng-change="changejamtestvih('troploin')" type="checkbox" class="filled-in form-check-input" id="checkbox111" >
-        		<label class="form-check-label" for="checkbox111">Le site pour le dépistage est trop loin</label>
-        		</div>
+            <input value="SiteELOIGNE" ng-model="testvih.SiteELOIGNE" ng-change="changejamtestvih('troploin')" type="checkbox" class="filled-in form-check-input" id="checkbox111" >
+            <label class="form-check-label" for="checkbox111">Le site pour le dépistage est trop loin</label>
+            </div>
 
               <div class="form-check">
-        		<input value="PEUR" ng-model="testvih.PEUR" ng-change="changejamtestvih('peurresult')" type="checkbox" class="filled-in form-check-input" id="checkbox112" >
-        		<label class="form-check-label" for="checkbox112">J'ai peur que les autres connaissent les résultats de mes tests</label>
-        		</div>
+            <input value="PEUR" ng-model="testvih.PEUR" ng-change="changejamtestvih('peurresult')" type="checkbox" class="filled-in form-check-input" id="checkbox112" >
+            <label class="form-check-label" for="checkbox112">J'ai peur que les autres connaissent les résultats de mes tests</label>
+            </div>
 
               <div class="form-check">
-        		<input value="PaBESOIN" ng-model="testvih.PaBESOIN" ng-change="changejamtestvih('pasbesoin')" type="checkbox" class="filled-in form-check-input" id="checkbox113" >
-        		<label class="form-check-label" for="checkbox113">Je n'ai pas besoin de faire le test / Risque faible</label>
-        		</div>
+            <input value="PaBESOIN" ng-model="testvih.PaBESOIN" ng-change="changejamtestvih('pasbesoin')" type="checkbox" class="filled-in form-check-input" id="checkbox113" >
+            <label class="form-check-label" for="checkbox113">Je n'ai pas besoin de faire le test / Risque faible</label>
+            </div>
 
             <div class="form-check">
-        		<input value="PeurSavoirVIH" ng-model="testvih.PeurSavoirVIH" ng-change="changejamtestvih('peur')" type="checkbox" class="filled-in form-check-input" id="checkbox114" >
-        		<label class="form-check-label" for="checkbox114">J’ai peur de savoir si j’ai le VIH</label>
-        		</div>
+            <input value="PeurSavoirVIH" ng-model="testvih.PeurSavoirVIH" ng-change="changejamtestvih('peur')" type="checkbox" class="filled-in form-check-input" id="checkbox114" >
+            <label class="form-check-label" for="checkbox114">J’ai peur de savoir si j’ai le VIH</label>
+            </div>
 
              <div class="form-check">
-        		<input value="OCUPE" ng-model="testvih.OCUPE" ng-change="changejamtestvih('tropoccup')" type="checkbox" class="filled-in form-check-input" id="checkbox115" >
-        		<label class="form-check-label" for="checkbox115">Je suis trop occupée</label>
-        		</div>
+            <input value="OCUPE" ng-model="testvih.OCUPE" ng-change="changejamtestvih('tropoccup')" type="checkbox" class="filled-in form-check-input" id="checkbox115" >
+            <label class="form-check-label" for="checkbox115">Je suis trop occupée</label>
+            </div>
 
              <div class="form-check">
-        		<input value="AUT" ng-model="testvih.AUT" ng-change="changejamtestvih('autre')" type="checkbox" class="filled-in form-check-input" id="checkbox116" >
-        		<label class="form-check-label" for="checkbox116">Autre (a préciser)</label>
+            <input value="AUT" ng-model="testvih.AUT" ng-change="changejamtestvih('autre')" type="checkbox" class="filled-in form-check-input" id="checkbox116" >
+            <label class="form-check-label" for="checkbox116">Autre (a préciser)</label>
 
-        		</div>
+            </div>
             <div style="padding: 10px;" ng-if="testvih.AUT">
               <input ng-model="enrolD._03_a_autre_prkoi_jam_teste" type="text" name="textfield4" id="textfield4">
                Préciser les autres raisons
@@ -127,7 +135,10 @@
                 <a class="btn btn-blue-grey" ui-sref="enrol_List({org: orgUnitSelect.id})" >Annuler</a>
           </div>
         </table>
-			</div>
+      </div>
+
+      </div>
+
 
 	</div>
 

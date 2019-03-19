@@ -13,6 +13,7 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
     var centreSocial = {};
     var plateForme = {};
     var beneficiaire = {};
+    $scope.chargeList = true;
     var enrolSectionA = ["district","plateform_cod","centre_social","ong","codeSafespace","nom_enqueteur","num_fiche",
         "nom","pren","dat_nais","dat_enrol","age_enrol","porte_entre_bene","autre_porte_entre_bene","statut_mat_bene",
         "ocup","oc_aut","tel","region","departement","sousPrefect","village","repere","no_benef","id_dreams",
@@ -233,6 +234,7 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
         //console.log("$scope.enrolA.dat_enrol existe");
         $scope.enrolA.dat_enrol = inFormatDate($scope.enrolA.dat_enrol);
       }
+      $scope.chargeList = false;
     }
 
 // yyyy-MM-dd

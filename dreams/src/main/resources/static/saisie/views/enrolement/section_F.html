@@ -7,7 +7,15 @@
 
 <body>
   <div class="card card-cascade narrower" id="entete">
-			<div class="view py-3 gradient-card-header info-color-dark mx-4 d-flex">
+    <div ng-if="chargeList">
+      <div>
+        <img src="../_img/autres/Spinner-rose.gif" alt="" style="width: 100px; height: 100px;"><label>Chargement en cours ...</label>
+
+      </div>
+
+    </div>
+    <div ng-if="!chargeList">
+      <div class="view py-3 gradient-card-header info-color-dark mx-4 d-flex">
 
 			</div>
 			<div class="card-body">
@@ -211,6 +219,9 @@
           </div>
         </table>
 			</div>
+
+      </div>
+
 
 	</div>
 

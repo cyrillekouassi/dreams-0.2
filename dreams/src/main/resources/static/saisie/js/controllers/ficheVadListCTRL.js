@@ -14,6 +14,7 @@ saisie.controller('ficheVadListCTRL', ['$scope', '$rootScope', '$http', '$filter
     $rootScope.allData = [];
     $rootScope.ActivteApel = "VADLIST";
     var orgSelest = {};
+    $scope.chargeList = false;
     orgSelest = $stateParams.org;
     $scope.infoSearch = {};
 
@@ -53,6 +54,8 @@ saisie.controller('ficheVadListCTRL', ['$scope', '$rootScope', '$http', '$filter
     }
 
     function getdata(page) {
+      $scope.chargeList = true;
+      $scope.lesVAD = [];
         var org = "org=" + $rootScope.orgUnitSelect.id;
         var prog = "prog=" + $rootScope.programmeSelect.id;
         var ValuesUrl;
@@ -70,6 +73,8 @@ saisie.controller('ficheVadListCTRL', ['$scope', '$rootScope', '$http', '$filter
                 console.log("getdata() data = ", data);
                 $rootScope.allData = data;
                 getElements();
+            }else {
+              $scope.chargeList = false;
             }
 
         }, function (err) {
@@ -155,6 +160,7 @@ saisie.controller('ficheVadListCTRL', ['$scope', '$rootScope', '$http', '$filter
 
         console.log("listeVad = ", listeVad);
         $scope.lesVAD = listeVad;
+        $scope.chargeList = false;
 
     }
 

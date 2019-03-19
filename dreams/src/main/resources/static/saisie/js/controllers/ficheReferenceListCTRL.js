@@ -15,6 +15,7 @@ saisie.controller('ficheReferenceListCTRL',['$scope','$http','$rootScope','$stat
     var orgSelest = {};
     orgSelest = $stateParams.org;
     $scope.infoSearch = {};
+    $scope.chargeList = false;
 
     if(orgSelest){
         formateMetaData();
@@ -45,6 +46,8 @@ saisie.controller('ficheReferenceListCTRL',['$scope','$http','$rootScope','$stat
     }
 
     function getdata(page) {
+      $scope.chargeList = true;
+      $scope.lesRef = [];
         var org = "org=" + $rootScope.orgUnitSelect.id;
         var prog = "prog=" + $rootScope.programmeSelect.id;
         var ValuesUrl;
@@ -61,6 +64,8 @@ saisie.controller('ficheReferenceListCTRL',['$scope','$http','$rootScope','$stat
                 console.log("getdata() data = ", data);
                 $rootScope.allData = data;
                 getElements();
+            }else {
+              $scope.chargeList = false;
             }
 
         }, function (err) {
@@ -145,6 +150,7 @@ saisie.controller('ficheReferenceListCTRL',['$scope','$http','$rootScope','$stat
 
         console.log("listeREF = ", listeREF);
         $scope.lesRef = listeREF;
+        $scope.chargeList = false;
 
     }
 

@@ -245,7 +245,7 @@ analyse.run(['$rootScope','$http','$stateParams','$state','$filter','$timeout','
         var pro = [];
         pro.push(benef);
         for(var i =0;i<prog.length;i++){
-            if(prog[i].code != "rapport"){
+            if(prog[i].code != "rapport" && prog[i].code != "dossierBeneficiare"){
                 pro.push(prog[i]);
             }
         }

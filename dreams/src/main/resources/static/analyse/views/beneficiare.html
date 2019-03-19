@@ -2,6 +2,14 @@
     <div class="card-body text-left">
         <h3 class="text-center purple-text"><strong>Liste des bénéficiares</strong></h3>
         <div class="aspece">
+          <div ng-if="chargeList">
+            <div>
+              <img src="../_img/autres/Spinner-marron.gif" alt="" style="width: 100px; height: 100px;"><label>Chargement en cours ...</label>
+
+            </div>
+
+          </div>
+          <div ng-if="!chargeList">
             <table class="table table-bordered table-responsive mt-3 table-sm tableResp">
                 <thead class="blue-grey lighten-4 text-center">
                 <tr>
@@ -36,6 +44,8 @@
                 </tr>
                 </tbody>
             </table>
+          </div>
+
         </div>
     </div>
 </div>

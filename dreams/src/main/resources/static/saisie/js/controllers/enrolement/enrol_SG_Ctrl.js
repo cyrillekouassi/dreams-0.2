@@ -10,6 +10,7 @@ saisie.controller('enrolSGctrl', ['$scope', '$rootScope', '$stateParams', '$http
 	$scope.enrolG = {};
   $scope.secours = {};
   $scope.aupres = {};
+  $scope.chargeList = true;
 var enrolSectionG = ["_01_humil_public",
 	"_01_a_frequence",
 	"_02_menace_nuire",
@@ -55,6 +56,7 @@ var enrolSectionG = ["_01_humil_public",
 	            }
 	        }
 	        console.log("mappigData() $scope.enrolG = ",$scope.enrolG);
+          $scope.chargeList = false;
 	    }
 
 	$scope.savePage = function (){

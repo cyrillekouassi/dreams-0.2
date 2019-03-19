@@ -9,6 +9,7 @@ saisie.controller('enrolSDctrl', ['$scope', '$rootScope', '$stateParams', '$http
     dataInstance = angular.copy(dataInstanceEntete);
 	$scope.enrolD = {};
   $scope.testvih = {};
+  $scope.chargeList = true;
 var enrolSectionD = ["_01_test_vih","_02_dernier_test","_03_prkoi_jam_teste","_03_a_autre_prkoi_jam_teste","_04_lieu_test_vih"];
 
 	mappigData();
@@ -32,6 +33,7 @@ var enrolSectionD = ["_01_test_vih","_02_dernier_test","_03_prkoi_jam_teste","_0
 	            }
 	        }
 	        console.log("mappigData() $scope.enrolD = ",$scope.enrolD);
+          $scope.chargeList = false;
 	    }
 
 	$scope.savePage = function (){

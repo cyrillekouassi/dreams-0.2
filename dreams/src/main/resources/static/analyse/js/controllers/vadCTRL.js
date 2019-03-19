@@ -10,7 +10,7 @@ analyse.controller('vadCTRL',['$scope','$rootScope','$http',function ($scope,$ro
     $scope.listEnrol=[];
     $scope.enrolEntete=[];
     $rootScope.afficheArbre = false;
-    $scope.chargement = true;
+    $scope.chargeList = true;
     $scope.noData = false;
 
     initial();
@@ -40,7 +40,7 @@ analyse.controller('vadCTRL',['$scope','$rootScope','$http',function ($scope,$ro
             if(lesData.length > 0){
                 traitementData();
             }else{
-                $scope.chargement = false;
+                $scope.chargeList = false;
                 $scope.noData = true;
             }
         }, function (err) {
@@ -73,7 +73,7 @@ analyse.controller('vadCTRL',['$scope','$rootScope','$http',function ($scope,$ro
         }
         console.log("lesEnrol = ",lesEnrol);
         $scope.listEnrol = lesEnrol;
-        $scope.chargement = false;
+        $scope.chargeList = false;
     }
 
     function getOptionValue(option,data) {

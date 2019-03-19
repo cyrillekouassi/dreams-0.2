@@ -11,7 +11,7 @@ analyse.controller('enrolementCTRL',['$scope','$rootScope','$http',function ($sc
     $scope.enrolEntete=[];
     $rootScope.afficheArbre = false;
     leOrganisation = $rootScope.orgUnitSelect;
-    $scope.chargement = true;
+    $scope.chargeList = true;
     $scope.noData = false;
 
     initial();
@@ -41,7 +41,7 @@ analyse.controller('enrolementCTRL',['$scope','$rootScope','$http',function ($sc
             if(lesData.length > 0){
                 traitementData();
             }else{
-                $scope.chargement = false;
+                $scope.chargeList = false;
                 $scope.noData = true;
             }
         }, function (err) {
@@ -71,7 +71,7 @@ analyse.controller('enrolementCTRL',['$scope','$rootScope','$http',function ($sc
         }
         ////console.log("lesEnrol = ",lesEnrol);
         $scope.listEnrol = lesEnrol;
-        $scope.chargement = false;
+        $scope.chargeList = false;
     }
 
     function getOptionValue(option,data) {

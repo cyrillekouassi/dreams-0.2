@@ -7,7 +7,7 @@ saisie.controller('enrol_List_Ctrl', ['$scope', '$rootScope', '$http', '$filter'
     var prog = "prog=";
     var org = "org=";
     var listeInstance = [];
-    $scope.searchForm = false,
+    $scope.searchForm = false;
     $rootScope.leProgramme = {};
     //$rootScope.elementProgramme = [];
     var nosElements = [];
@@ -18,6 +18,7 @@ saisie.controller('enrol_List_Ctrl', ['$scope', '$rootScope', '$http', '$filter'
     orgSelest = $stateParams.org;
     $scope.infoSearch = {};
     $scope.search = {};
+    $scope.chargeList = false;
     var config = {
         headers: {
             'Content-Type': 'application/json'
@@ -75,6 +76,8 @@ saisie.controller('enrol_List_Ctrl', ['$scope', '$rootScope', '$http', '$filter'
     }
 
     function getdata(page) {
+      $scope.chargeList = true;
+      $scope.lesEnrol = [];
         var org = "org=" + $rootScope.orgUnitSelect.id;
         var prog = "prog=" + $rootScope.programmeSelect.id;
         var ValuesUrl;
@@ -107,6 +110,8 @@ saisie.controller('enrol_List_Ctrl', ['$scope', '$rootScope', '$http', '$filter'
           //console.log("getdata() data = ", data);
           $rootScope.allData = data;
           getElements();
+      }else{
+        $scope.chargeList = false;
       }
     }
 
@@ -191,6 +196,7 @@ saisie.controller('enrol_List_Ctrl', ['$scope', '$rootScope', '$http', '$filter'
 
         //console.log("lesEnrol = ", liste);
         $scope.lesEnrol = liste;
+        $scope.chargeList = false;
 
     }
 

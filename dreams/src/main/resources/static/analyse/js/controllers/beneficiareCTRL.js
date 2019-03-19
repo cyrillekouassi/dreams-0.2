@@ -12,7 +12,7 @@ analyse.controller('beneficiareCTRL',['$scope','$rootScope','$http',function ($s
     $scope.enrolEntete=[];
     $rootScope.afficheArbre = false;
     leOrganisation = $rootScope.orgUnitSelect;
-    $scope.chargement = true;
+    $scope.chargeList = true;
     $scope.noData = false;
 
     //initial();
@@ -40,6 +40,7 @@ analyse.controller('beneficiareCTRL',['$scope','$rootScope','$http',function ($s
             console.log(response);
             $scope.listBeneficiare = response.data;
             console.log("$scope.listBeneficiare = ",$scope.listBeneficiare);
+            $scope.chargeList = false;
         }, function (err) {
             console.error("err",err);
         });
@@ -67,7 +68,7 @@ analyse.controller('beneficiareCTRL',['$scope','$rootScope','$http',function ($s
         }
         ////console.log("lesEnrol = ",lesEnrol);
         $scope.listEnrol = lesEnrol;
-        $scope.chargement = false;
+          $scope.chargeList = false;
     }
 
     function getOptionValue(option,data) {

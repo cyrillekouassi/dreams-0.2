@@ -13,7 +13,7 @@ analyse.controller('rapportCTRL', ['$scope', '$rootScope', '$stateParams', '$htt
     console.log("$scope.periode = ",$scope.periode);
     console.log("$scope.organisation = ",$scope.organisation);
     console.log("$scope.indicateurValue = ",$scope.indicateurValue);
-
+    $scope.chargeList = true;
     formatData();
 
     function formatData(){
@@ -47,6 +47,8 @@ analyse.controller('rapportCTRL', ['$scope', '$rootScope', '$stateParams', '$htt
             lesData = response.data;
             if(lesData.length > 0){
                 traitementData();
+            }else {
+              $scope.chargeList = false;
             }
         }, function (err) {
             console.log("err",err);
@@ -63,5 +65,6 @@ analyse.controller('rapportCTRL', ['$scope', '$rootScope', '$stateParams', '$htt
             }
         }
         console.log("$scope.indicateurValue = ",$scope.indicateurValue);
+        $scope.chargeList = false;
     }
 }]);
