@@ -2,6 +2,7 @@ saisie.controller('dossierBeneficiaireListCTRL',['$scope','$http','$rootScope','
     console.log("entrer dans dossierBeneficiaireListCTRL");
     var dataValuesUrl = serverAdresse+"dataValue/orgPro";
     var instanceUrl = serverAdresse+"instance";
+    var searchUrl = serverAdresse+"dataValue/search";
     var DATE_FORMAT = 'dd-MM-yyyy HH:mm:ss';
     var prog = "prog=";
     var org = "org=";
@@ -17,6 +18,13 @@ saisie.controller('dossierBeneficiaireListCTRL',['$scope','$http','$rootScope','
     var orgSelest = {};
     $scope.chargeList = false;
     orgSelest = $stateParams.org;
+    $scope.search = {};
+    // formattage de type de donnee à recevoir
+    var config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
 
     if(orgSelest){
         formateMetaData();
@@ -90,7 +98,7 @@ saisie.controller('dossierBeneficiaireListCTRL',['$scope','$http','$rootScope','
 
     function getElements() {
 
-        $rootScope.elementProgramme = [];
+        //$rootScope.elementProgramme = [];
 
         for (var l = 0, k = $rootScope.programmeSelect.elements.length; l < k; l++) {
             if ($rootScope.programmeSelect.elements[l].element.code == "id_dreams") {
@@ -190,6 +198,89 @@ saisie.controller('dossierBeneficiaireListCTRL',['$scope','$http','$rootScope','
             var aller = "&page="+page;
             getdata(aller);
         }
+    }
+
+
+
+// bouton search: affiche la zone de saisie
+    $scope.afficheSearch = function(){
+    $scope.searchForm = true; // activer l'affichage de la zone de recherche
+
+// rafraichir la page pour activer l'affichage du calaendrier
+      /*$timeout( function(){
+        $scope.$apply(function() {
+          initialDom();
+        });
+      },10);*/
+    }
+//Croix pour masquer la zone de recherche
+    $scope.closeSearchForm = function(){
+      $scope.searchForm = false;// desactiver l'affichage de la zone de recherche
+      formateMetaData();// annuler les recherche effectuées
+    }
+
+// boutton rechercher: lancer la recherche
+    $scope.searchElement = function(){
+      console.log("searchElement() > $scope.search = ",$scope.search);
+      console.log("searchElement() > $rootScope.programmeSelect = ",$rootScope.programmeSelect);
+      console.log("searchElement() > $rootScope.orgUnitSelect = ",$rootScope.orgUnitSelect);
+      //$rootScope.elementProgramme = [];
+      var recherche = {};
+      recherche.valueSearchs = []
+      // recuperer les id et les valeurs des element de la zone de recheche
+      for(var pop in $scope.search){
+        if($scope.search[pop] && $scope.search[pop] != ""){
+          console.log("element = ",pop, " // value = ",$scope.search[pop]);
+          var tmp = {};
+          tmp.element = getElementId(pop);
+          tmp.value = $scope.search[pop];
+          recherche.valueSearchs.push(tmp);
+        }
+      }
+
+      // initialiser la pagination
+      recherche.organisation = $rootScope.orgUnitSelect.id;
+      recherche.programme = $rootScope.programmeSelect.id;
+      recherche.page = 0;
+      recherche.size = 50;
+      console.log("searchElement() > recherche = ",recherche);
+      getSearch(recherche);
+
+    }
+
+    function getElementId(elementCode){
+      console.log("getElementId() > nosElements = ",nosElements, " // elementCode = ",elementCode);
+      for (var k = 0; k < nosElements.length; k++) {
+        if (nosElements[k].code == elementCode) {
+          return nosElements[k].id;
+        }
+      }
+    }
+
+    // Envoyer les elements rechercher sur le serveur
+    function getSearch(searchElement){
+        $scope.chargeList = true;
+        $http.post(searchUrl, searchElement, config).then(function(succes){
+          // reponse du serveur avec des donnee
+            console.log("getSearch() succes = ", succes);
+            donnerRecu(succes.data);
+          }, function (err) {
+            // reponse d'erreur du serveur
+          console.log(err);
+      });
+
+    }
+
+    // Traiter les données reçu du serveur et contenant les resultats des recheches
+    function donnerRecu(donnee){
+      data = donnee.content;
+      gestPagging(donnee); // faire la pagination
+      if (data.length > 0) {
+          $rootScope.allData = data;
+          getElements();
+      }else{
+        $scope.chargeList = false;
+      }
     }
 
 }]);

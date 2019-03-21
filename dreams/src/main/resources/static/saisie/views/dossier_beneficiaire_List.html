@@ -18,6 +18,44 @@
                 <!--div class="float-right">
                     <a ui-sref='dossier({ prog: programmeSelect.id, org: orgUnitSelect.id })' class="btn btn-default btn-rounded btn-sm" role="button">Nouveau dossier</a>
                 </div-->
+                <div class="float-right">
+                  <a href="#" ng-click="afficheSearch()" ng-if="!searchForm"><i class="fa fa-search" aria-hidden="true"></i>Seach</a>
+                </div>
+                <form ng-if="searchForm">
+                  <div class="mt-5 bgSearch">
+                    <a href="" ng-click="closeSearchForm()" class="m-1"><i class="fa fa-times" aria-hidden="true"></i></a>
+
+                  <div class="form-row mt-3 pl-2">
+
+
+                    <div class="col">
+                     <div class="md-form">
+                       <input ng-model="search.id_dreams" type="text" id="id_dreams" class="form-control">
+                       <label for="id_dreams">Identifiant DREAMS</label>
+                     </div>
+                    </div>
+                    <div class="col">
+                     <div class="md-form">
+                       <input ng-model="search.nomPrenomBenef" type="text" id="nom" class="form-control">
+                       <label for="nom">Nom et Prenoms</label>
+                     </div>
+                    </div>
+                    <div class="col">
+                     <div class="md-form">
+                       <input ng-model="search.age_enrol" type="number" id="age_enrol" class="form-control">
+                       <label for="age_enrol">Age</label>
+                     </div>
+                    </div>
+                    <div class="col pb-0">
+                    <!--input type="submit" ng-click="searchElement()" value="Rechercher" class="d-flex flex-row-reverse" /-->
+                    <div >
+                      <button type="submit" ng-click="searchElement()" class="btn btn-outline-primary btn-sm"><i class="fa fa-search mr-1" aria-hidden="true"></i> Rechercher</button>
+                    </div>
+                    </div>
+                  </div>
+
+                </div>
+                </form>
                 <div ng-if="chargeList">
                   <div>
                     <img src="../_img/autres/Spinner-rose.gif" alt="" style="width: 100px; height: 100px;"><label>Chargement en cours ...</label>
