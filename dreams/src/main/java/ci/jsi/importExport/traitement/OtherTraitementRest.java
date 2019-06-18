@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ci.jsi.entites.beneficiaire.Ibeneficiaire;
 import ci.jsi.entites.instance.Iinstance;
 import ci.jsi.entites.rapport.TraitementIndicateur;
+import ci.jsi.entites.rapport.TraitementIndicateurMAJ180620191;
 import ci.jsi.initialisation.ResultatRequete;
 
 @RestController
@@ -24,6 +25,9 @@ public class OtherTraitementRest {
 	ServicesDreams servicesDreams;
 	@Autowired
 	TraitementIndicateur traitementIndicateur;
+	
+	@Autowired
+	TraitementIndicateurMAJ180620191 traitementIndicateurMAJ180620191;
 	
 	
 	@RequestMapping(value="api/genererBesoinAndDossier", method=RequestMethod.GET)
@@ -47,7 +51,8 @@ public class OtherTraitementRest {
 		/*ResultatRequete resultatRequete = new ResultatRequete();
 		traitementIndicateur.genereRapport(action);
 		resultatRequete.setStatus("ok");*/
-		return traitementIndicateur.genereRapport(action);
+		//return traitementIndicateur.genereRapport(action);
+		return traitementIndicateurMAJ180620191.genereRapport(action);
 		
 	}
 	

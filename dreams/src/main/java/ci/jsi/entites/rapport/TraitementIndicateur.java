@@ -79,7 +79,8 @@ public class TraitementIndicateur {
 	List<Element> elementsInterventionPopCible = new ArrayList<Element>();
 	String InterventionPrimaireDossierBeneficiaire[] = { "conceptSexualite", "conceptsGenre", "connaissanceCorpsOrgane",
 			"aspectsNegatifs", "promotionDepistage", "participationActivites", "participationCauseries",
-			"ecouteConseils", "suivi", "referenceVersExperts", "businessPlus", "participationAVEC", "fraisScolaire",
+			"ecouteConseils", "suivi", "referenceVersExperts"};
+	String InterventionSecondaireDossierBeneficiaire[] = {"businessPlus", "participationAVEC", "fraisScolaire",
 			"fournitures", "uniformes", "autre", "alphabetisation", "utilisationPreservatifs",
 			"distributionPreservatifs", "referencePreservatifs", "referencVersPF", "referenceServicesVIH",
 			"referenceMedical", "referencePsychoSocial", "referenceJuridique", "referenceAbri", "fraisMedicaux",
@@ -541,7 +542,7 @@ public class TraitementIndicateur {
 		ancien_10_14Inactives = 0;
 		ancien_15_19Inactives = 0;
 
-		// autour de 5 ervention primaires
+		// autour de 5 intervention primaires
 		nouveau_10_14Mois5 = 0;
 		nouveau_15_19Mois5 = 0;
 		ancien_10_14Mois5 = 0;
@@ -557,7 +558,7 @@ public class TraitementIndicateur {
 		ancien_10_14Plus5 = 0;
 		ancien_15_19Plus5 = 0;
 
-		// autour de 6 ervention primaires
+		// autour de 6 intervention primaires
 		nouveau_10_14Mois6 = 0;
 		nouveau_15_19Mois6 = 0;
 		ancien_10_14Mois6 = 0;
