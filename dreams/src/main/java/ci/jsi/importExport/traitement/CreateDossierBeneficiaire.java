@@ -160,7 +160,8 @@ public class CreateDossierBeneficiaire {
 	private String dossierExiste(Beneficiaire beneficiaire,Programme programme) {
 		
 		for(int i = 0; i<beneficiaire.getInstanceBeneficiaires().size(); i++) {
-			Instance instance = iinstance.getOneInstance(beneficiaire.getInstanceBeneficiaires().get(i).getInstance().getUid());
+			//Instance instance = iinstance.getOneInstance(beneficiaire.getInstanceBeneficiaires().get(i).getInstance().getUid());
+			Instance instance = beneficiaire.getInstanceBeneficiaires().get(i).getInstance();
 			if(instance.getProgramme().getUid().equals(programme.getUid())) {
 				return instance.getUid();
 			}

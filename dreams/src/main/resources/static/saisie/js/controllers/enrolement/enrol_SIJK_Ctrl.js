@@ -13,6 +13,7 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
   $scope.chargeList = true;
 	var enrolSectionIJK = ["_01_participation_program",
 		"_01_a_autre_program",
+    "codeOEV",
 		"_01_vie_assossiative",
 		"_02_amis",
 		"_03_reseau_social",

@@ -56,10 +56,14 @@
             <input value="OEV" ng-model="participation.OEV" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkboxOEV" >
             <label class="form-check-label" for="checkboxOEV">OEV</label>
             </div>
+            <div ng-if="participation.OEV" style="padding: 10px;">
+              <input ng-model="enrolIJK.codeOEV" type="text" name="textfield10" id="textfield10">
+              Précisez le code OEV
+            </div>
 
               <div class="form-check">
             <input value="FamilleDAB" ng-model="participation.FamilleDAB" ng-change="" type="checkbox" class="filled-in form-check-input" id="checkbox252" >
-            <label class="form-check-label" for="checkbox252">Famille d&rsquo;abord</label>
+            <label class="form-check-label" for="checkbox252">Famille d'abord</label>
             </div>
 
               <div class="form-check">

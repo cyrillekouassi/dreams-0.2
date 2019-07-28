@@ -22,6 +22,24 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
 
     initial();
     initialDom();
+    lancerAffichage();
+    function lancerAffichage(){
+      if(dataInstance.instance){
+          if($rootScope.allData && $rootScope.allData.length != 0){
+              for(var i=0;i<$rootScope.allData.length;i++){
+                  if($rootScope.allData[i].instance == dataInstanceEntete.instance){
+                      $rootScope.enrolementData = $rootScope.allData[i].dataValue;
+                      console.log("l'enrolement selectionné = ",$rootScope.enrolementData);
+                      mappigData();
+                      initial();
+                      gestionDate();
+                  }
+              }
+          }
+      }
+      $scope.chargeList = false;
+    }
+
     function initial() {
       //  console.log("entrer dans initial, $rootScope.orgUnitSelect", $rootScope.orgUnitSelect);
 
@@ -39,19 +57,7 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
         $scope.enrolA.villageCommune = $rootScope.orgUnitSelect.commune;
 
     }
-    if(dataInstance.instance){
-        if($rootScope.allData && $rootScope.allData.length != 0){
-            for(var i=0;i<$rootScope.allData.length;i++){
-                if($rootScope.allData[i].instance == dataInstanceEntete.instance){
-                    $rootScope.enrolementData = $rootScope.allData[i].dataValue;
-                    console.log("l'enrolement selectionné = ",$rootScope.enrolementData);
-                    mappigData();
-                    initial();
-                    gestionDate();
-                }
-            }
-        }
-    }
+
 
     function mappigData() {
         for(var i = 0;i<enrolSectionA.length;i++){
@@ -234,7 +240,6 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
         //console.log("$scope.enrolA.dat_enrol existe");
         $scope.enrolA.dat_enrol = inFormatDate($scope.enrolA.dat_enrol);
       }
-      $scope.chargeList = false;
     }
 
 // yyyy-MM-dd

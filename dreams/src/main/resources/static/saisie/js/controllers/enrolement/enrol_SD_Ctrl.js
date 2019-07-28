@@ -10,7 +10,7 @@ saisie.controller('enrolSDctrl', ['$scope', '$rootScope', '$stateParams', '$http
 	$scope.enrolD = {};
   $scope.testvih = {};
   $scope.chargeList = true;
-var enrolSectionD = ["_01_test_vih","_02_dernier_test","_03_prkoi_jam_teste","_03_a_autre_prkoi_jam_teste","_04_lieu_test_vih"];
+var enrolSectionD = ["_01_resultat_algo","_01_test_vih","_02_dernier_test","_03_prkoi_jam_teste","_03_a_autre_prkoi_jam_teste","_04_lieu_test_vih"];
 
 	mappigData();
 
