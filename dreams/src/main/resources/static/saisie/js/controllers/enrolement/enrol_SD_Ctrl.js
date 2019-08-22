@@ -45,7 +45,9 @@ var enrolSectionD = ["_01_resultat_algo","_01_test_vih","_02_dernier_test","_03_
         //dataInstance.dateActivite = $scope.enrolA.dat_enrol;
 		dataInstance.dataValue = [];
 		getElement();
-		saveData();
+		//saveData();
+    updateEnrolData();
+    succesSave();
 
 	}
 
@@ -126,6 +128,23 @@ var enrolSectionD = ["_01_resultat_algo","_01_test_vih","_02_dernier_test","_03_
             console.log("saveData() error = ",error);
             toastr["success"]("Echec d'enregistrement");
         });
+    }
+
+    function updateEnrolData() {
+        console.log("D updateEnrolData() dataInstance = ",dataInstance);
+        console.log("D updateEnrolData() $rootScope.benefNewEnrolData = ",$rootScope.benefNewEnrolData);
+        for (var i = 0; i < dataInstance.dataValue.length; i++) {
+          var trouve = false;
+          for (var j = 0; j < $rootScope.benefNewEnrolData.dataValue.length; j++) {
+            if($rootScope.benefNewEnrolData.dataValue[j].element == dataInstance.dataValue[i].element){
+              $rootScope.benefNewEnrolData.dataValue[j].value == dataInstance.dataValue[i].value;
+              touve = true;
+            }
+          }
+          if (!trouve) {
+            $rootScope.benefNewEnrolData.dataValue.push(dataInstance.dataValue[i]);
+          }
+        }
     }
 
 	function succesSave() {

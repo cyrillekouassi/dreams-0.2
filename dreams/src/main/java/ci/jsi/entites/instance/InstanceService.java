@@ -33,7 +33,7 @@ public class InstanceService implements Iinstance {
 	@Override
 	public InstanceTDO getOneInstanceTDO(String id) {
 		instanceTDO = null;
-		instance = instanceRepository.getOneInstance(id);
+		instance = instanceRepository.findAllByDeletedIsFalseAndUid(id);
 		if(instance != null) {
 			instanceTDO = instanceConvert.getInstanceTDO(instance);
 		}
@@ -64,7 +64,7 @@ public class InstanceService implements Iinstance {
 	@Override
 	public String deleteInstanceTDO(String id) {
 		Programme dossierProg = iprogramme.getOneProgrammeByCode("dossierBeneficiare");
-		instance = instanceRepository.getOneInstance(id);
+		instance = instanceRepository.findAllByDeletedIsFalseAndUid(id);
 		if(instance != null) {
 			if(dossierProg == instance.getProgramme()) {
 				instanceConvert.deleteBeneficiaireAllInstance(instance.getInstanceBeneficiaires());
@@ -84,7 +84,7 @@ public class InstanceService implements Iinstance {
 			return instance;
 		}*/
 	
-		return instanceRepository.getOneInstance(id);
+		return instanceRepository.findAllByDeletedIsFalseAndUid(id);
 	}
 	
 	public void deleteInstance(Instance instance) {
@@ -126,6 +126,11 @@ public class InstanceService implements Iinstance {
 	public List<Instance> getInstanceAnalysePreview(List<String> organisation, String programme, Date dateFin) {
 		return instanceRepository.findAllByDeletedIsFalseAndOrganisationUidInAndProgrammeUidAndDateActiviteLessThan(organisation, programme, dateFin);
 
+	}
+
+	@Override
+	public List<Instance> getAllInstanceAnalyse(List<String> organisation, String programme) {
+		return instanceRepository.findAllByDeletedIsFalseAndOrganisationUidInAndProgrammeUid(organisation, programme);
 	}
 
 	

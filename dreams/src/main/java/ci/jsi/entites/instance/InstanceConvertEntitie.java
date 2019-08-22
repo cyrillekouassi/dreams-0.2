@@ -21,7 +21,7 @@ public class InstanceConvertEntitie {
 
 	public Instance setInstance(UidEntitie uidEntitie) {
 		System.out.println("uidEntitie.getId() :"+uidEntitie.getId()+":");
-		return instanceRepository.getOneInstance(uidEntitie.getId());
+		return instanceRepository.findAllByDeletedIsFalseAndUid(uidEntitie.getId());
 	}
 
 	public List<UidEntitie> getInstances(List<Instance> instances) {

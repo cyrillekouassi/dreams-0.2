@@ -31,12 +31,12 @@
 								<div class="row mb-3">
 							<div class="col">
 
-									<input ng-model="enrolA.district" type="text" name="textfield16" id="textfield16">
+									<input ng-model="enrolA.district" type="text" name="textfield16" id="textfield16" disabled>
 									District sanitaire
 							</div>
 							<div class="col">
 
-								<input value="" ng-model="enrolA.plateform_cod" type="text" name="textfield17" id="textfield17">
+								<input value="" ng-model="enrolA.plateform_cod" type="text" name="textfield17" id="textfield17" disabled>
 								Nom de la plateforme
 							</div>
 
@@ -44,12 +44,12 @@
 						<div class="row mb-3">
 							<div class="col">
 
-									<input ng-model="enrolA.centre_social" type="text" name="textfield18" id="textfield18">
+									<input ng-model="enrolA.centre_social" type="text" name="textfield18" id="textfield18" disabled>
 									Centre social
 							</div>
 							<div class="col">
 
-								 <input ng-model="enrolA.ong" type="text" name="textfield19" id="textfield19">
+								 <input ng-model="enrolA.ong" type="text" name="textfield19" id="textfield19" disabled>
 								 Nom de l&rsquo;ONG
 							</div>
 
@@ -118,7 +118,7 @@
 								</div>
 								<div class="col">
 									<em class="dates"> 
-									<input ng-model="enrolA.dat_enrol" type="text" name="date2" id="date2">
+									<input ng-model="enrolA.dat_enrol" type="text" name="date2" id="date2" ng-change="getBenefId()">
 									Date d'enrôlement (jj-mm-aaaa)
 								</em>
 								</div>
@@ -258,8 +258,8 @@
 										Numero d'orde de la beneficiaire
 									</div>
 									<div class="col">
-										<input ng-model="enrolA.id_dreams" type="text" name="textfield5" id="textfield5" disabled>
-										Code identification DREAMS
+										<input ng-model="enrolA.id_dreams" type="text" name="textfield5" id="textfield5" ng-style="styleIdDreams" disabled>
+										<label> Code identification DREAMS <span ng-style="{color:'red'}"> {{idDreamsInfo}} </span></label>
 									</div>
 								</div>
 								<p></p>
@@ -395,7 +395,7 @@
 					<tr>
 						<td height="29" colspan="4" valign="top" bgcolor="#FFFFFF"><p>&nbsp;</p>
 						<div class="text-center py-4 mt-3">
-								<button class="btn btn-cyan" ng-click="savePage()">Suivant</button>
+								<button class="btn btn-cyan" ng-click="savePage()" ng-disabled="suivantDisabled">Suivant</button>
 								<a class="btn btn-blue-grey" ui-sref="enrol_List({org: orgUnitSelect.id})" >Annuler</a>
 						</div>
 

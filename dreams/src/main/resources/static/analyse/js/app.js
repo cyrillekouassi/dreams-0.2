@@ -57,6 +57,12 @@ analyse.config(['$stateProvider','$urlRouterProvider', function ($stateProvider,
         templateUrl: 'views/beneficiare.html',
         controller: 'beneficiareCTRL'
     };
+    var beneficiaireOEV = {
+        name: 'beneficiareOEV',
+        url: '/listeBeneficiareOEV',
+        templateUrl: 'views/beneficiareOEV.html',
+        controller: 'beneficiareOEVCTRL'
+    };
 
     $stateProvider.state(accueil);
     $stateProvider.state(enrol);
@@ -67,6 +73,7 @@ analyse.config(['$stateProvider','$urlRouterProvider', function ($stateProvider,
     $stateProvider.state(groupe);
     $stateProvider.state(rapport);
     $stateProvider.state(beneficiaire);
+    $stateProvider.state(beneficiaireOEV);
 
 }]);
 analyse.run(['$rootScope','$http','$stateParams','$state','$filter','$timeout','$window','Excel', function ($rootScope,$http,$stateParams,$state,$filter,$timeout,$window,Excel) {
@@ -242,8 +249,10 @@ analyse.run(['$rootScope','$http','$stateParams','$state','$filter','$timeout','
     function getProgramValide(prog) {
         console.log("prog = ",prog);
         var benef = {id: 'benef',code: 'beneficiare',name: 'Liste des bénéficiares'}
+        var oev = {id: 'oev',code: 'beneficiareOEV',name: 'Liste des bénéficiares OEV'}
         var pro = [];
         pro.push(benef);
+        pro.push(oev);
         for(var i =0;i<prog.length;i++){
             if(prog[i].code != "rapport" && prog[i].code != "dossierBeneficiare"){
                 pro.push(prog[i]);

@@ -160,9 +160,11 @@ public class DataValueService implements IdataValues {
 		}
 		
 		if(instance != null) {
-			dataValues = dataValueConvert.saveDataValues(dataInstance.getDataValue(), instance);
-			if(!dataValues.isEmpty())
+			//dataValues = dataValueConvert.saveDataValues(dataInstance.getDataValue(), instance);
+			dataValues = dataValueConvert.saveDataValuesNew(dataInstance.getDataValue(), instance);
+			if(!dataValues.isEmpty()) {
 				dataValues = dataValueRepository.save(dataValues);
+			}
 			dataInstance.setDataValue(dataValueConvert.getDataValueTDOs(dataValues));
 			dataInstance.setInstance(instance.getUid());
 			resultatRequete.setStatus("ok");
@@ -385,7 +387,7 @@ public class DataValueService implements IdataValues {
 	
 	@Override
 	public List<DataValue> dataAnalyseElementListPeriode(List<String> organisation, String programme,
-			List<String> elements, String debut, String fin) {
+		List<String> elements, String debut, String fin) {
 		List<Instance> instances = new ArrayList<Instance>();
 		List<String> instancesUid = new ArrayList<String>();
 		List<DataValue> dataValues = new ArrayList<DataValue>();
@@ -430,6 +432,36 @@ public class DataValueService implements IdataValues {
 		List<DataValue> dataValues = new ArrayList<DataValue>();
 		dataValues = dataValueRepository.findByInstanceUidInAndElementUidIn(instanceId,elementId);
 		dataValues = dataValueConvert.deleteElementDoublon(dataValues);
+		return dataValues;
+	}
+
+	@Override
+	public List<DataValue> dataAnalyseElementList(List<String> organisation, String programme, List<String> elements) {
+		List<Instance> instances = new ArrayList<Instance>();
+		List<String> instancesUid = new ArrayList<String>();
+		List<DataValue> dataValues = new ArrayList<DataValue>();
+	
+		instances = iinstance.getAllInstanceAnalyse(organisation, programme);
+		
+		if (!instances.isEmpty()) {
+			for (int i = 0; i < instances.size(); i++) {
+				instancesUid.add(instances.get(i).getUid());
+			}
+			dataValues = getdataValueRepository(instancesUid,elements);
+		}
+		return dataValues;
+	}
+
+	@Override
+	public List<DataValue> getDataValueTDO(String instance, List<String> elementsCodes) {
+		System.out.println("Entrer dans DataValueService - getDataValueTDO");
+		List<DataValue> dataValues = new ArrayList<DataValue>();
+		//DataValueTDO dataValueTDO = null;
+		//DataValue dataValue = new DataValue();
+		
+		//dataValue = dataValueConvert.getDataValueSepare(instance, element);
+		dataValues = dataValueRepository.findByInstanceUidAndElementCodeIn(instance, elementsCodes);
+		
 		return dataValues;
 	}
 

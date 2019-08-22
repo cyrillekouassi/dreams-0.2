@@ -48,7 +48,7 @@
                                     <div class="form-group mt-5">
                                         <label for="code">Code du bénéficiaire<span style="color: red">*</span> </label>
                                         <div class="md-form">
-                                            <input type="text" ng-model='refData.id_dreams' ng-change="searchId(refData.id_dreams)" class="form-control mb-0">
+                                            <input type="text" ng-model='refData.id_dreams' ng-change="searchId(refData.id_dreams)" class="form-control mb-0" ng-disabled="idDreamsDisabled">
                                             <div class="list-group position-absolute mt-0 bgListBenef" id="list-tab" role="tablist">
                                                 <a ng-repeat="value in valueComplete track by $index" ng-click="choisir(value)" class="list-group-item list-group-item-action text-left bgSearch" data-toggle="list" role="tab">{{value}}</a>
                                             </div>

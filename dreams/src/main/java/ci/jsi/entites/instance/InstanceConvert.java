@@ -142,8 +142,10 @@ public class InstanceConvert {
 			return null;
 		if(instance.getProgramme() == null)
 			return null;
-		instance.setDateCreation(new Date());
-		instance.setUid(uid.getUid());
+		if(instance.getDateCreation() == null)
+			instance.setDateCreation(new Date());
+		if(instance.getUid() == null)
+			instance.setUid(uid.getUid());
 		instance.setDeleted(false);
 		if(instance.getDateActivite() == null)
 			return null;

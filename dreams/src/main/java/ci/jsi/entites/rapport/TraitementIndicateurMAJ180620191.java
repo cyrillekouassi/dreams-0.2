@@ -922,7 +922,7 @@ public class TraitementIndicateurMAJ180620191 {
 		System.err.println("dateDebuts = " + dateDebuts + " // dateFins = " + dateFins);
 		// System.out.println("dateDebuts = " + dateDebuts);
 		// System.out.println("dateFins = " + dateFins);
-		// System.out.println("laPeriode = " + laPeriode);
+		System.out.println("laPeriode = " + laPeriode);
 		// System.out.println();
 		gestionOrganisation();
 	}
@@ -1547,6 +1547,8 @@ public class TraitementIndicateurMAJ180620191 {
 			}
 		}
 
+		total = ancien_15_19 + ancien_10_14 + nouveau_15_19 + nouveau_10_14;
+		enregistreRapport(nbreBenefEnrole);
 		total = ancien_15_19 + ancien_10_14 + nouveau_15_19 + nouveau_10_14;
 		enregistreRapport(nbreBenefEnrole);
 

@@ -10,10 +10,20 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
     dataInstance = angular.copy(dataInstanceEntete);
     $scope.enrolA = {};
     $rootScope.enrolementData = [];
+    $rootScope.benefNewEnrolData = {};
+    $rootScope.beneficiaireData = {};
     var centreSocial = {};
     var plateForme = {};
     var beneficiaire = {};
     $scope.chargeList = true;
+    $scope.suivantDisabled = false;
+    $scope.styleIdDreams = {};
+    $scope.idDreamsInfo = "";
+    var backgroundRed = {'background-color': 'red'};
+    var colorRed = {'color': 'red'};
+    var noStyle = {};
+    //$scope.styleIdDreams = colorRed;
+
     var enrolSectionA = ["district","plateform_cod","centre_social","ong","codeSafespace","nom_enqueteur","num_fiche",
         "nom","pren","dat_nais","dat_enrol","age_enrol","porte_entre_bene","autre_porte_entre_bene","statut_mat_bene",
         "ocup","oc_aut","tel","region","departement","sousPrefect","village","repere","no_benef","id_dreams",
@@ -58,8 +68,8 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
 
     }
 
-
     function mappigData() {
+      console.error("$rootScope.enrolementData = ",$rootScope.enrolementData);
         for(var i = 0;i<enrolSectionA.length;i++){
             var id = getElementId(enrolSectionA[i]);
             if(id){
@@ -74,6 +84,47 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
             }
         }
         console.log("mappigData() $scope.enrolA = ",$scope.enrolA);
+        //getBeneficiare($scope.enrolA.id_dreams);
+        if(dataInstanceEntete.instance){
+          getBeneficiareInstance(dataInstanceEntete.instance);
+        }
+    }
+
+    function getBeneficiareInstance(instance){
+      var url = valueBeneficiaire+"/instance/"+instance;
+      console.log("getBeneficiareInstance() url = ", url);
+      $http.get(url).then(function (response) {
+            console.log("getBeneficiareInstance() response = ", response);
+            if(response.data.length == 1){
+              $rootScope.beneficiaireSelect = response.data[0];
+              console.log("$rootScope.beneficiaireSelect = ",$rootScope.beneficiaireSelect);
+            }else {
+              console.log(err);
+            }
+
+
+      }, function (err) {
+          console.log(err);
+      });
+
+    }
+
+    function getBeneficiare(idDreams){
+      var url = valueBeneficiaire+"/id?idDreams="+idDreams;
+      console.log("getBeneficiare() url = ", url);
+      $http.get(url).then(function (response) {
+            console.log("getdata() response = ", response);
+              if(response.data.id){
+                $scope.suivantDisabled = true;
+                $scope.styleIdDreams = colorRed;
+                $scope.idDreamsInfo = "existe"
+                console.log("getdata() Controle = ");
+              }
+
+      }, function (err) {
+          console.log(err);
+      });
+
     }
 
     function initialDom() {
@@ -114,6 +165,22 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
         var mois = $scope.enrolA.dat_enrol.substring(3,5);
         var annee = $scope.enrolA.dat_enrol.substring(8,10);
         $scope.enrolA.id_dreams = "D/"+plateForme.code+"/"+centreSocial.code+"/"+annee+"/"+mois+"/"+$scope.enrolA.codeSafespace+"/"+$scope.enrolA.no_benef;
+        var id = $scope.enrolA.id_dreams;
+        $scope.styleIdDreams = noStyle;
+        $scope.idDreamsInfo = "";
+        if(id.length != 22){
+          console.log("$scope.enrolA.id_dreams != 22");
+          $scope.styleIdDreams = colorRed;
+          $scope.idDreamsInfo = "incorrect"
+          $scope.suivantDisabled = true;
+          return;
+        }
+        $scope.suivantDisabled = false;
+        console.log("$scope.enrolA.id_dreams == 22");
+        if(id != $rootScope.beneficiaireSelect.id_dreams){
+          getBeneficiare($scope.enrolA.id_dreams);
+        }
+
     };
 
     $scope.savePage = function () {
@@ -126,12 +193,12 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
         dataInstance.order = 1;
         if(!dataInstance.instance){
             delete dataInstance.instance;
-            getElementid();
-            createBeneficiaire();
-        }else{
-            getElementid();
-            saveData();
         }
+        getElementid();
+        createBeneficiaire();
+        succesSave();
+        //saveData();
+
     };
 
     function getElementid() {
@@ -151,6 +218,7 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
             }
         }
         console.log("dataInstance = ",dataInstance);
+        $rootScope.benefNewEnrolData = dataInstance;
 
     }
 
@@ -188,7 +256,9 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
     }
 
     function succesSave() {
-        $state.go('enrolSB',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
+      console.log("succesSave() $rootScope.benefNewEnrolData = ",$rootScope.benefNewEnrolData);
+      console.log("succesSave() $rootScope.beneficiaireData = ",$rootScope.beneficiaireData);
+      $state.go('enrolSB',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
     }
 
     function createBeneficiaire() {
@@ -202,7 +272,11 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
         beneficiaire.dateEnrolement = $scope.enrolA.dat_enrol;
         beneficiaire.organisation = {};
         beneficiaire.organisation.id = dataInstance.organisation;
-        saveBenef();
+        if($rootScope.beneficiaireSelect.id){
+          beneficiaire.id = $rootScope.beneficiaireSelect.id;
+        }
+        $rootScope.beneficiaireData = beneficiaire;
+        //saveBenef();
     }
 
     function saveBenef() {
@@ -226,7 +300,6 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
             toastr["success"]("Impossible de créer ce bénéficiaire");
         });
     }
-
 
     function gestionDate(){
 

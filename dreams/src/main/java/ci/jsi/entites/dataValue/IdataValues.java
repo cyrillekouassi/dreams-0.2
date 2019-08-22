@@ -15,6 +15,7 @@ public interface IdataValues {
 	public String saveDataValueInstance(String instance,String user, String element, String value);
 	public String updateDataValue(String instance, String element, String value,int numero);
 	public DataValueTDO getDataValueTDO(String instance, String element);
+	public List<DataValue> getDataValueTDO(String instance, List<String> element);
 	public DataInstance getDataInstance(String instance);
 	public String deleteDataValue(String instance, String element);
 	public Page<DataInstance> getDataValueOrganisation(String programme,String organisation,Pageable pageable);
@@ -25,6 +26,7 @@ public interface IdataValues {
 	public List<DataInstance> dataAnalysePeriode(List<String> organisation, String programme,String debut, String fin);
 	public List<DataValue> dataAnalyseElementPeriode(List<String> organisation, String programme,String element,String debut, String fin);
 	public List<DataValue> dataAnalyseElementListPeriode(List<String> organisation, String programme,List<String> element,String debut, String fin);
+	public List<DataValue> dataAnalyseElementList(List<String> organisation, String programme,List<String> element);
 	public List<DataInstance> dataAnalysePreview(List<String> organisation, String programme, String fin);
 	public List<DataValue> dataAnalyseElementPreview(List<String> organisation, String programme,String element, String fin);
 	public List<DataValue> dataAnalyseElementListPreview(List<String> organisation, String programme,List<String> element, String fin);

@@ -1,18 +1,19 @@
 saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$stateParams','$state','$timeout',function ($scope,$rootScope,$http,$stateParams,$state,$timeout) {
-    //console.log("entrer dans activiteGroupeCTRL");
+    console.log("entrer dans activiteGroupeCTRL");
     var dataInstanceValue = serverAdresse+"dataValue/";
     var dataValueUrl = serverAdresse+'dataValue';
-    var searchBeneficiaire = serverAdresse+"beneficiaire?";
-    $scope.vadData = {};
+    var searchBeneficiaire = serverAdresse+"beneficiaire";
+    //$scope.vadData = {};
     $scope.groupeSession = {};
     $scope.groupe = {};
     var modifSession = {};
     var dataInstance = {};
     var elementCode = [];
     var instanceValue = [];
-    var instanceValueEnrolement = [];
+
     var dataInstanceEntete = {};
     var autocompleteData = [];
+    var instanceValueEnrolement = [];
     var materielQte = {};
     var tempData=[];
     dataInstanceEntete.programme = $stateParams.prog;
@@ -36,10 +37,21 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
     var benefValue = {};
     var autreCibleValue = {};
     var origin = "";
+
+    var collecteData=[];
+    var sessionValue = [];
+    var benefValue = [];
+    var listeBeneficiaire = [];
+    var benefSelected = {};
+    var listeBenefInitial = [];
+
+    var autreValue = [];
+    var listeAutreBenefCode = [];
+    var autreBenefCodeSelected = {};
+    var listeAutreBenefCodeInitial = [];
+
+
     initOrg();
-
-
-
 
     $scope.thematique = {
         model: 'myString',
@@ -60,7 +72,6 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
         ]
     };
 
-
     gestElements();
 
     function initOrg() {
@@ -70,10 +81,11 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
         $scope.groupe.sousPrefect = $rootScope.orgUnitSelect.sousPrefecture;
         $scope.groupe.commune = $rootScope.orgUnitSelect.commune;
         //$scope.groupe.district = $rootScope.orgUnitSelect.commune;
-        $scope.groupe.quartier = $rootScope.orgUnitSelect.quartier;
+        //$scope.groupe.quartier = $rootScope.orgUnitSelect.quartier;
     }
 
     if(dataInstanceEntete.instance){
+      //console.log("$rootScope.allData = ",$rootScope.allData);
         if($rootScope.allData){
             for(var i=0;i<$rootScope.allData.length;i++){
                 if($rootScope.allData[i].instance == dataInstanceEntete.instance){
@@ -89,6 +101,7 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
 
 
     }
+
     function getdataInstace(instance){
         console.log("getdataInstace()");
          var InstanceValue = dataInstanceValue + instance;
@@ -102,6 +115,7 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
             console.log("getdataInstace() err",err);
         });
     }
+
     function getRoute() {
         if(origin == "init"){
             mappigData();
@@ -117,12 +131,15 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
     }
 
     function mappigData() {
-        console.log("mappigData");
-        collecteGroupeData();
-        collecteSessionData();
-        collecteBenefData();
-        collecteAutreCibleData();
+        //console.log("mappigData");
+        instanceValue = collecteGroupeData(instanceValue);
+        instanceValue = collecteSessionData(instanceValue);
+        instanceValue = collecteBenefData(instanceValue);
+        instanceValue = collecteAutreCibleData(instanceValue);
         initOrg();
+        checkBenefListe();
+        //updateBeneficiaireListe();
+        //console.log("$scope.sessionData = ",angular.copy($scope.sessionData));
     }
 
     $scope.saveMaterial = function () {
@@ -161,9 +178,9 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
             dataInstance = dataInstanceEntete;
             dataInstance.dateActivite = $scope.groupeSession.dateSession;
             dataInstance.dataValue = [];
-            if(!dataInstanceEntete.instance){
+            /*if(!dataInstanceEntete.instance){
                 delete dataInstance.instance;
-                tempData.push($scope.groupe);
+                //tempData.push($scope.groupe);
                 tempData.push($scope.groupeSession);
                 //dataInstance.dataValue = [];
                 machting();
@@ -174,7 +191,15 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
                 }else{
                     ajoutSession();
                 }
-            }
+            }*/
+
+                elementCode = Object.keys($scope.groupeSession);
+                if(angular.isObject(modifSession) && !isEmpty(modifSession)){
+                    isValeurModifier();
+                }else{
+                    ajoutSession();
+                }
+
         }
     };
 
@@ -210,9 +235,27 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
         }
         if(dataInstance.dataValue.length != 0){
             console.log("isValeurModifier() dataInstance.dataValue = ",dataInstance);
-            saveData();
+            modifSessionListe(dataInstance.dataValue);
+            //saveData();
         }
         iniSession();
+    }
+
+    function modifSessionListe(value) {
+      console.log("modifSessionListe() sessionValue = ",angular.copy(sessionValue));
+      console.log("modifSessionListe() value = ",angular.copy(value));
+      for(var i = 0;i<value.length;i++){
+        for(var j = 0;j<sessionValue.length;j++){
+          if(value[i].element == sessionValue[j].element && value[i].numero == sessionValue[j].numero){
+            console.log("addSessionListe() sessionData[j] = ",angular.copy(sessionValue[j])," value = ",angular.copy(value[i]));
+            sessionValue[j].value = value[i].value;
+            console.log("sessionData[j] = ",angular.copy(sessionValue[j]));
+            break;
+          }
+        }
+      }
+
+      collecteSessionData(sessionValue);
     }
 
     function ajoutSession() {
@@ -231,9 +274,22 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
         if(dataInstance.dataValue.length != 0){
             //console.log("ajoutSession() dataValue exite");
             console.log("ajoutSession() dataInstance.dataValue = ",dataInstance.dataValue);
-            saveData();
+            addSessionListe(dataInstance.dataValue);
+            //saveData();
         }
         iniSession();
+    }
+
+    function addSessionListe(value) {
+      console.log("addSessionListe() sessionValue = ",angular.copy(sessionValue));
+      console.log("addSessionListe() sessionData = ",angular.copy($scope.sessionData));
+      console.log("addSessionListe() value = ",angular.copy(value));
+      for(var i = 0,j=value.length;i<j;i++){
+        value[i].numero = $scope.sessionData.length + 1;
+        sessionValue.push(value[i]);
+      }
+      console.log("addSessionListe() sessionValue = ",angular.copy(sessionValue));
+      collecteSessionData(sessionValue);
     }
 
     function iniSession() {
@@ -259,9 +315,9 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
                 element[prop] = tmp[prop];
             }
         }
-        //console.log("machting() element = ",element);
+        console.log("machting() element = ",element);
         elementCode = Object.keys(element);
-        //console.log("elementCode = ",elementCode);
+        console.log("elementCode = ",elementCode);
         getElementid(element)
     }
 
@@ -313,7 +369,7 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
     $scope.saveValue = function (element,value) {
         console.log("saveValue() element =",element,"//value =",value);
 
-        if(dataInstanceEntete.instance){
+        /*if(dataInstanceEntete.instance){
             origin = "autre";
             var valueTDO = {};
             valueTDO.element = getElementId(element);
@@ -324,10 +380,10 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
             dataInstance.dataValue = [];
             dataInstance.dataValue.push(valueTDO);
             console.log("saveValue() valueTDO = ",valueTDO);
-            saveData();
+            //saveData();
             //getdataInstace(dataInstanceEntete.instance);
             //sendValueTDO(valueTDO);
-        }
+        }*/
     };
 
     $scope.searchId = function (valeur) {
@@ -338,7 +394,7 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
             var org = "organisation="+dataInstanceEntete.organisation;
             var value = "idDreams="+valeur;
 
-            var datavalueSearch = searchBeneficiaire+org+"&"+value;
+            var datavalueSearch = searchBeneficiaire+"?"+org+"&"+value;
             $http.get(datavalueSearch).then(function (response) {
                 console.log("searchId() response",response);
                 autocompleteData = response.data;
@@ -379,19 +435,18 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
         for(var i =0,j=autocompleteData.length;i<j;i++){
             if(string == autocompleteData[i].id_dreams){
                 gestComplete(autocompleteData[i]);
-
             }
         }
     }
 
-    function gestComplete(BenefInfo) {
-        $scope.groupeBenef.nomPrenomBenef = BenefInfo.name+" "+BenefInfo.firstName;
-
-
+    function gestComplete(benefInfo) {
+        $scope.groupeBenef.nomPrenomBenef = benefInfo.name+" "+benefInfo.firstName;
+        benefSelected = benefInfo;
+        console.log("gestComplete() benefSelected= ",benefSelected);
     }
 
     function gestElements() {
-        console.log("entrer dans gestElements()");
+        //console.log("entrer dans gestElements()");
         groupeElement = [];
         sessionElement = [];
         benefElement = [];
@@ -438,48 +493,54 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
 
         }
         //console.log("gestElements() $rootScope.elementProgramme = ", $rootScope.elementProgramme);
-        console.log("gestElements() groupeElement", groupeElement);
+        /*console.log("gestElements() groupeElement", groupeElement);
         console.log("gestElements() sessionElement", sessionElement);
         console.log("gestElements() benefElement", benefElement);
-        console.log("gestElements() autreCibleElement", autreCibleElement);
+        console.log("gestElements() autreCibleElement", autreCibleElement);*/
 
     }
 
-    function collecteSessionData() {
+    function collecteSessionData(value) {
         console.log("collecteSessionData()");
+        sessionValue = [];
         $scope.sessionData = [];
         for(var i = 0,j=sessionElement.length;i<j;i++){
-          console.log("sessionElement = ",sessionElement);
+          //console.log("sessionElement = ",sessionElement);
             var l=0;
-            while(l<instanceValue.length){
-                if(sessionElement[i].id == instanceValue[l].element && instanceValue[l].value){
+            while(l<value.length){
+                if(sessionElement[i].id == value[l].element && value[l].value){
                     var tmp = {};
-                    var numer = instanceValue[l].numero;
+                    var numer = value[l].numero;
                     tmp.numero = numer;
                     if(sessionElement[i].ensembleOption != null && sessionElement[i].code != "themeAborde"){
                         tmp[sessionElement[i].code] = {};
-                        tmp[sessionElement[i].code] =  chargeOptionValue(sessionElement[i].ensembleOption.options,instanceValue[l].value);
-                        tmp[sessionElement[i].code]["ancVal"] = instanceValue[l];
+                        tmp[sessionElement[i].code] =  chargeOptionValue(sessionElement[i].ensembleOption.options,value[l].value);
+                        tmp[sessionElement[i].code]["ancVal"] = value[l];
+                        sessionValue.push(value[l]);
                         if(sessionElement[i].code == "materielQuantite"){
                             tmp[sessionElement[i].code] = chargeQuantite(tmp[sessionElement[i].code]);
                         }
                     }else{
                         var tp = {};
                         tp.ancVal = {};
-                        tp.ancVal = instanceValue[l];
-                        tp.value = instanceValue[l].value;
+                        tp.ancVal = value[l];
+                        sessionValue.push(value[l]);
+                        tp.value = value[l].value;
                         tmp[sessionElement[i].code] = tp;
                         //tmp[sessionElement[i].code] = instanceValue[l].value;
                     }
                     $scope.sessionData = eachPosition(tmp,$scope.sessionData);
-                    instanceValue.splice(l,1);
+                    value.splice(l,1);
                     l--;
                 }
                 l++;
             }
         }
-        //console.log("collecteSessionData() $scope.sessionData = ",$scope.sessionData);
+
+        console.log("collecteSessionData() $scope.sessionData = ",$scope.sessionData);
         //console.log("collecteSessionData() $scope.groupe = ",$scope.groupe);
+        console.log("collecteSessionData() sessionValue = ",angular.copy(sessionValue));
+        return value;
     }
 
     function eachPosition(objet, tableau) {
@@ -514,57 +575,57 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
         return tableau;
     }
 
-    function collecteBenefData() {
-        //console.log("collecteBenefData()");
-        //console.log("collecteBenefData() > benefElement = ",benefElement);
+    function collecteBenefData(value) {
         $scope.ListBenef = [];
+        benefValue = [];
+        listeBenefInitial = [];
         for(var i = 0,j=benefElement.length;i<j;i++){
             var l=0;
-            while(l<instanceValue.length){
-                if(benefElement[i].id == instanceValue[l].element){
+            while(l<value.length){
+                if(benefElement[i].id == value[l].element){
                     var tmp = {};
-                    var numer = instanceValue[l].numero;
+                    var numer = value[l].numero;
                     tmp.numero = numer;
+                    benefValue.push(value[l]);
                     if(benefElement[i].ensembleOption != null){
-                        //console.log("collecteBenefData() ensembleOption existe");
                         if("totalBenefSession" == benefElement[i].code){
                             tmp[benefElement[i].code] = [];
-                            tmp[benefElement[i].code] = separeSpaceParseInt(instanceValue[l].value);
+                            tmp[benefElement[i].code] = separeSpaceParseInt(value[l].value);
                         }else{
-                            //console.log("collecteBenefData() tmp[benefElement[i].code]",benefElement[i].code);
                             tmp[benefElement[i].code] = {};
-                            tmp[benefElement[i].code] =  chargeOptionSet(benefElement[i].ensembleOption.options,instanceValue[l].value);
+                            tmp[benefElement[i].code] =  chargeOptionSet(benefElement[i].ensembleOption.options,value[l].value);
                         }
 
                     }else{
                         //console.log("collecteBenefData() pas de ensembleOption");
                         if("totalBenefAyantTernime" == benefElement[i].code){
-                            tmp[benefElement[i].code] = parseInt(instanceValue[l].value, 10);
+                            tmp[benefElement[i].code] = parseInt(value[l].value, 10);
                         }else if("benefAyantTernime" == benefElement[i].code){
-                            tmp[benefElement[i].code] = parseBoolean(instanceValue[l].value)
+                            tmp[benefElement[i].code] = parseBoolean(value[l].value)
                         }else{
                             var tp = {};
                             tp.ancVal = {};
-                            tp.ancVal = instanceValue[l];
-                            tp.value = instanceValue[l].value;
+                            tp.ancVal = value[l];
+                            tp.value = value[l].value;
                             tmp[benefElement[i].code] = tp;
+                            if("id_dreams" == benefElement[i].code){
+                              listeBenefInitial.push(value[l]);
+                            }
                         }
                     }
                     if("totalBenefSession" != benefElement[i].code && "totalBenefAyantTernime" != benefElement[i].code){
-                        //console.log("collecteBenefData() tmp = ",angular.copy(tmp));
                         $scope.ListBenef = eachPosition(tmp,$scope.ListBenef);
                     }else{
-                        //console.log("collecteBenefData() tmp = ",angular.copy(tmp));
                         $scope.TotalBenef[benefElement[i].code] = tmp;
                     }
-                    //console.log("collecteBenefData() $scope.ListBenef = ",angular.copy($scope.ListBenef)," // $scope.TotalBenef = ",angular.copy($scope.TotalBenef));
-                    instanceValue.splice(l,1);
+                    value.splice(l,1);
                     l--;
                 }
                 l++;
             }
         }
-        console.log("collecteBenefData() $scope.ListBenef = ",$scope.ListBenef," // $scope.TotalBenef = ",$scope.TotalBenef);
+        console.log("collecteBenefData() listeBenefInitial = ",listeBenefInitial);
+        return value;
     }
 
     function chargeOptionSet(option,value) {
@@ -587,8 +648,9 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
         //console.log("chargeOptionSet() > tmpIndex = ",tmpIndex);
         return tmpIndex;
     }
+
     function chargeOptionName(option,value) {
-        console.log("chargeOptionName() > option = ",option," // value = ",value);
+        //console.log("chargeOptionName() > option = ",option," // value = ",value);
         var tmp = {};
         if(!value){
             return tmp;
@@ -604,78 +666,84 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
         return tmp;
     }
 
-    function collecteAutreCibleData() {
+    function collecteAutreCibleData(value) {
         console.log("collecteAutreCibleData()");
         $scope.ListAutreCible = [];
         $scope.TotalAutreCible = {};
+        autreValue = [];
+        listeAutreBenefCodeInitial = [];
         for(var i = 0,j=autreCibleElement.length;i<j;i++){
             var l=0;
-            while(l<instanceValue.length){
-                if(autreCibleElement[i].id == instanceValue[l].element){
+            while(l<value.length){
+                if(autreCibleElement[i].id == value[l].element){
                     var tmp = {};
-                    var numer = instanceValue[l].numero;
+                    var numer = value[l].numero;
                     tmp.numero = numer;
+                    autreValue.push(value[l]);
                     if(autreCibleElement[i].ensembleOption != null){
                         //console.log("collecteAutreCibleData() ensembleOption existe");
                         if("totalAutreCibleSession" == autreCibleElement[i].code){
                             tmp[autreCibleElement[i].code] = [];
-                            tmp[autreCibleElement[i].code] = separeSpaceParseInt(instanceValue[l].value);
+                            tmp[autreCibleElement[i].code] = separeSpaceParseInt(value[l].value);
                         }else if("sexeAutreCible" == autreCibleElement[i].code){
                             tmp[autreCibleElement[i].code] = {};
-                            tmp[autreCibleElement[i].code] = chargeOptionName(autreCibleElement[i].ensembleOption.options,instanceValue[l].value);
+                            tmp[autreCibleElement[i].code] = chargeOptionName(autreCibleElement[i].ensembleOption.options,value[l].value);
                         }else{
                             tmp[autreCibleElement[i].code] = {};
-                            tmp[autreCibleElement[i].code] =  chargeOptionSet(autreCibleElement[i].ensembleOption.options,instanceValue[l].value);
+                            tmp[autreCibleElement[i].code] =  chargeOptionSet(autreCibleElement[i].ensembleOption.options,value[l].value);
                         }
 
                     }else{
                         //console.log("collecteAutreCibleData() pas de ensembleOption");
                         if("totalAutreCibleAyantTernimeMasc" == autreCibleElement[i].code || "totalAutreCibleAyantTernimeFem" == autreCibleElement[i].code){
-                            tmp[autreCibleElement[i].code] = parseInt(instanceValue[l].value, 10);
+                            tmp[autreCibleElement[i].code] = parseInt(value[l].value, 10);
                         }else if("autreCibleAyantTernimeMasc" == autreCibleElement[i].code || "autreCibleAyantTernimeFem" == autreCibleElement[i].code){
-                            tmp[autreCibleElement[i].code] = parseBoolean(instanceValue[l].value)
+                            tmp[autreCibleElement[i].code] = parseBoolean(value[l].value)
                         }else{
                             var tp = {};
                             tp.ancVal = {};
-                            tp.ancVal = instanceValue[l];
-                            tp.value = instanceValue[l].value;
+                            tp.ancVal = value[l];
+                            tp.value = value[l].value;
                             tmp[autreCibleElement[i].code] = tp;
+                            if("codeBenef" == autreCibleElement[i].code){
+                              listeAutreBenefCodeInitial.push(value[l]);
+                            }
                         }
                     }
                     if("totalAutreCibleSession" != autreCibleElement[i].code && "totalAutreCibleAyantTernimeMasc" != autreCibleElement[i].code && "totalAutreCibleAyantTernimeFem" != autreCibleElement[i].code){
-                        //console.log("collecteAutreCibleData() tmp = ",angular.copy(tmp));
                         $scope.ListAutreCible = eachPosition(tmp,$scope.ListAutreCible);
                     }else{
-                        //console.log("collecteAutreCibleData() tmp = ",angular.copy(tmp));
                         $scope.TotalAutreCible[autreCibleElement[i].code] = tmp;
                     }
-                    //console.log("collecteAutreCibleData() $scope.ListBenef = ",angular.copy($scope.ListBenef)," // $scope.TotalBenef = ",angular.copy($scope.TotalBenef));
-                    instanceValue.splice(l,1);
+                    value.splice(l,1);
                     l--;
                 }
                 l++;
             }
         }
         console.log("collecteBenefData() $scope.ListAutreCible = ",$scope.ListAutreCible," // $scope.TotalAutreCible = ",$scope.TotalAutreCible);
+        return value;
     }
-    function collecteGroupeData() {
+
+    function collecteGroupeData(value) {
         //console.log("collecteGroupeData() groupeElement = ",angular.copy(groupeElement)," // instanceValue = ",angular.copy(instanceValue));
         $scope.groupe = {};
         for(var i = 0,j=groupeElement.length;i<j;i++){
             var l=0;
-            while(l<instanceValue.length){
-                if(groupeElement[i].id == instanceValue[l].element){
+            while(l<value.length){
+                if(groupeElement[i].id == value[l].element){
                     //console.log("collecteGroupeData() code = ",groupeElement[i].code," //instanceValue[l] = ",angular.copy(instanceValue[l]));
-                    $scope.groupe[groupeElement[i].code] = instanceValue[l].value;
-                    $scope.groupe.numero = instanceValue[l].numero;
-                    instanceValue.splice(l,1);
+                    $scope.groupe[groupeElement[i].code] = value[l].value;
+                    //$scope.groupe.numero = instanceValue[l].numero;
+                    value.splice(l,1);
                     l--;
                     break;
                 }
                 l++;
             }
         }
-        console.log("collecteGroupeData() $scope.groupe = ",angular.copy($scope.groupe));
+      //  console.log("collecteGroupeData() $scope.groupe = ",angular.copy($scope.groupe));
+        return value;
     }
 
     function chargeOption(ensemble) {
@@ -719,6 +787,7 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
         }
         return lesData;
     }
+
     function separeSpaceParseInt(data) {
         var lesData = [];
         if(!data){return lesData;}
@@ -736,6 +805,7 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
         }
         return lesData;
     }
+
     function parseBoolean(data) {
         if(data == 'true')
             return true;
@@ -743,6 +813,7 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
             return false;
         return null;
     }
+
     function getValue(option,origValue) {
         //console.log("entrer dans getValue");
         //console.log("getValue() > option = ",option," origValue = ",origValue);
@@ -785,6 +856,7 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
             $('#modalLoginForm').modal('show');
         });
     };
+
     $scope.outilfocus = function () {
         //console.log("outilfocus()");
         $(function () {
@@ -792,6 +864,7 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
             $('#modalOutil').modal('show');
         });
     };
+
     $scope.methodfocus = function () {
         //console.log("methodfocus()");
         $(function () {
@@ -799,6 +872,7 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
             $('#modalMethod').modal('show');
         });
     };
+
     $scope.saveOutils = function () {
         //console.log("saveOutils () $scope.outils",$scope.outil);
         //console.log("saveOutils () sessionElement",sessionElement);
@@ -829,6 +903,7 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
         }
         return value;
     }
+
     function getOption(element,code) {
         //console.log("entrer dans getOptionValue");
         for(var k=0;k<element.length;k++){
@@ -859,6 +934,7 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
             }
         }
     };
+
     $scope.modifierSession = function (session) {
         //console.log("modifierSession() > session = ",session);
         iniSession();
@@ -886,6 +962,7 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
         }
         $scope.saveMethode();
     }
+
     function OutilsModif(origine) {
         $scope.outil = {};
         for(var i=0;i<origine.length;i++){
@@ -893,6 +970,7 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
         }
         $scope.saveOutils();
     }
+
     function MaterielQuantiteModif(origine) {
         $scope.materiel = {};
         for(var i=0;i<origine.length;i+=2){
@@ -903,6 +981,7 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
         }
         $scope.saveMaterial();
     }
+
     function isEmpty(obj) {
         for(var prop in obj) {
             if(obj.hasOwnProperty(prop))
@@ -914,12 +993,14 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
     $scope.saveBenef = function () {
         /*console.log("saveBenef()");
         console.log("saveBenef() groupeBenef = ",$scope.groupeBenef);
-        console.log("saveBenef() benefElement = ",benefElement);
-        console.log("saveBenef() dataInstance = ",dataInstance);*/
-        if(checkbenef() && dataInstance.instance){
+        console.log("saveBenef() benefElement = ",benefElement);*/
+        console.log("saveBenef() benefValue = ",angular.copy(benefValue));
+        //if(checkbenef() && dataInstance.instance){
+        if(checkbenef()){
             origin = "benef";
             //console.log("saveBenef() $scope.sessionData = ",$scope.sessionData);
-            dataInstance.dreamsId = $scope.groupeBenef.id_dreams;
+            //dataInstance.dreamsId = $scope.groupeBenef.id_dreams;
+            listeBeneficiaire.push(benefSelected);
             dataInstance.dateActivite = $scope.sessionData[0].dateSession.value;
             dataInstance.order = 1;
             var code = Object.keys($scope.groupeBenef);
@@ -935,15 +1016,26 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
                 dataInstance.dataValue.push(data);
             }
             if(dataInstance.dataValue.length != 0){
-                console.log("saveBenef() dataInstance = ",dataInstance);
-                saveData();
+                //console.log("saveBenef() dataInstance = ",dataInstance);
+                addListeBenef(dataInstance.dataValue);
+              //  saveData();
             }
         }
         initBenef();
     };
 
-    function checkbenef() {
-        if(!$scope.groupeBenef.id_dreams && !isExiste()){
+    function addListeBenef(value) {
+      //console.log("addListeBenef() value = ",angular.copy(value)," // benefValue = ",angular.copy(benefValue));
+      for(var i = 0;i<value.length;i++){
+          value[i].numero = $scope.ListBenef.length +1;
+          benefValue.push(value[i]);
+      }
+      //console.log("addListeBenef() benefValue = ",angular.copy(benefValue));
+      collecteBenefData(benefValue);
+    }
+
+    function checkbenef(benef) {
+        if(!$scope.groupeBenef.id_dreams || isExiste($scope.groupeBenef.id_dreams)){
             return false;
         }
         if(!$scope.groupeBenef.nomPrenomBenef){
@@ -962,13 +1054,14 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
         console.log("checkbenef() > $scope.groupeBenef = ",$scope.groupeBenef);
         return true;
     }
+
     function initBenef() {
         $scope.groupeBenef = {}
     }
 
-    function isExiste() {
-        for(var i = 0,j=instanceValue.length;i<j;i++){
-            if(benefID.idDreams == instanceValue[i].element){
+    function isExiste(benefID) {
+        for(var i = 0,j=listeBeneficiaire.length;i<j;i++){
+            if(benefID == listeBeneficiaire[i].id_dreams){
                 return true;
             }
         }
@@ -983,6 +1076,7 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
             }
         }
     }
+
     function getAutreCibleElementId(code) {
         //console.log("getElementId() code = ",code," // groupeElement = ",groupeElement);
         for(var j=0;j<autreCibleElement.length;j++){
@@ -993,22 +1087,23 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
     }
 
     $scope.changeSessionBenef = function (benef,key,value,index) {
-        console.log("entrer dans changeSessionBenef() > benef= ",angular.copy(benef),"// key = ",key," // value = ",value," // index = ",index);
+        //console.log("entrer dans changeSessionBenef() > benef= ",angular.copy(benef),"// key = ",key," // value = ",value," // index = ",index);
         benef.benefSession[key] = value;
         //console.log("changeSessionBenef() > benef= ",angular.copy(benef));
         //console.log("changeSessionBenef() > $scope.ListBenef= ",angular.copy($scope.ListBenef)," // $scope.TotalBenef = ",$scope.TotalBenef);
-        if(dataInstance.instance && index < $scope.sessionData.length){
+        //if(dataInstance.instance && index < $scope.sessionData.length){
+        if(index < $scope.sessionData.length){
             origin = "benef";
-            console.log("changeSessionBenef() $scope.sessionData = ",$scope.sessionData);
+          //  console.log("changeSessionBenef() $scope.sessionData = ",angular.copy($scope.sessionData));
             dataInstance.dreamsId = benef.id_dreams.value;
             dataInstance.dateActivite = $scope.sessionData[index].dateSession.value;
             dataInstance.order = index + 1;
             dataInstance.codeId = null;
-            if(value){
+            /*if(value){
                 dataInstance.organisation = "ajouter";
             }else{
                 dataInstance.organisation = "delete";
-            }
+            }*/
             dataInstance.dataValue = [];
             var benefSes = "";
             for(var pop in benef.benefSession){
@@ -1048,15 +1143,34 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
 
 
             if(dataInstance.dataValue.length != 0){
-                console.log("changeSessionBenef() dataInstance = ",dataInstance);
-                saveData();
+                //console.log("changeSessionBenef() dataInstance = ",angular.copy(dataInstance));
+                ajustebenefSession(dataInstance.dataValue);
+                //saveData();
             }
         }
     };
 
+    function ajustebenefSession(value) {
+      console.log("ajustebenefSession()");
+      /*console.log("ajustebenefSession() benefValue = ",angular.copy(benefValue));
+      console.log("ajustebenefSession() value = ",angular.copy(value));*/
+
+      for(var i = 0;i<value.length;i++){
+        for(var j = 0;j<benefValue.length;j++){
+          if(value[i].element == benefValue[j].element && value[i].numero == benefValue[j].numero){
+            console.log("value = ",angular.copy(value[i]),"benefValue = ",angular.copy(benefValue[j]));
+            benefValue[j].value = value[i].value;
+            break;
+          }
+        }
+      }
+    //  console.log("ajustebenefSession() benefValue = ",angular.copy(benefValue));
+      //collecteBenefData(benefValue);
+    }
+
     $scope.changeSessionBenefTermine = function (benef,value) {
-        //console.log("entrer dans changeSessionBenefTermine() > benef= ",angular.copy(benef)," // value = ",value);
-        if(dataInstance.instance){
+        console.log("entrer dans changeSessionBenefTermine() > benef= ",angular.copy(benef)," // value = ",value);
+        //if(dataInstance.instance){
             origin = "benef";
             dataInstance.dataValue = [];
             var data = {};
@@ -1065,16 +1179,16 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
             data.element = getBenfElementId("benefAyantTernime");
             dataInstance.dataValue.push(data);
 
-            dataInstance.dreamsId = benef.id_dreams.value;
+            //dataInstance.dreamsId = benef.id_dreams.value;
             dataInstance.dateActivite = $scope.sessionData[0].dateSession.value;
             dataInstance.order = 1;
             dataInstance.codeId = data.element;
 
-            if(value){
+          /*  if(value){
                 dataInstance.organisation = "ajouter";
             }else{
                 dataInstance.organisation = "delete";
-            }
+            }*/
 
             if(value){
                 $scope.TotalBenef.totalBenefAyantTernime.totalBenefAyantTernime += 1;
@@ -1089,18 +1203,19 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
 
             if(dataInstance.dataValue.length != 0){
                 console.log("changeSessionBenef() dataInstance = ",dataInstance);
-                saveData();
+                ajustebenefSession(dataInstance.dataValue);
+              //  saveData();
             }
-        }
+      //  }
     };
 
     $scope.searchCode = function (valeur) {
-        console.log("searchCode valeur = ",valeur);
+        //console.log("searchCode valeur = ",valeur);
         if(valeur.length > 2){
-            console.log("searchId valeur = ",valeur);
+          //  console.log("searchId valeur = ",valeur);
             var org = "organisation="+dataInstanceEntete.organisation;
             var value = "idDreams="+valeur;
-            var datavalueSearch = searchBeneficiaire+org+"&"+value;
+            var datavalueSearch = searchBeneficiaire+"?"+org+"&"+value;
             $http.get(datavalueSearch).then(function (response) {
                 console.log("searchId() response",response);
                 autocompleteData = response.data;
@@ -1125,18 +1240,19 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
         $scope.valueCompleteCode=null;
     };
 
-
     $scope.saveAutreCible = function () {
         console.log("saveAutreCible()");
-        console.log("saveAutreCible() groupeAutreCible = ",$scope.groupeAutreCible);
+        /*console.log("saveAutreCible() groupeAutreCible = ",$scope.groupeAutreCible);
         console.log("saveAutreCible() autreCibleElement = ",autreCibleElement);
-        console.log("saveAutreCible() dataInstance = ",dataInstance);
-        if(checkAutreCible() && dataInstance.instance){
+        console.log("saveAutreCible() dataInstance = ",dataInstance);*/
+        //if(checkAutreCible() && dataInstance.instance){
+        if(checkAutreCible()){
             origin = "autreCible";
             /*dataInstance.dreamsId = $scope.groupeAutreCible.codeBenef;
             dataInstance.dateActivite = $scope.sessionData[0].dateSession.value;
             dataInstance.order = 1;*/
             dataInstance.dataValue = [];
+            ajouteBenefAutreCible(autreBenefCodeSelected);
             for(var pop in $scope.groupeAutreCible){
                 if(!autreCibleValue[pop]){
                     autreCibleValue[pop] = getAutreCibleElementId(pop);
@@ -1149,14 +1265,36 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
             }
             if(dataInstance.dataValue.length != 0){
                 console.log("saveAutreCible() dataInstance = ",dataInstance);
-                saveData();
+                  addListeAutreCible(dataInstance.dataValue);
+                //saveData();
             }
         }
         initAutreCible();
     };
 
+    function ajouteBenefAutreCible(benef) {
+      console.log("ajouteBenefAutreCible() debut listeAutreBenefCode = ",angular.copy(listeAutreBenefCode));
+      for(var i = 0,j=listeAutreBenefCode.length;i<j;i++){
+          if(benef.id_dreams == listeAutreBenefCode[i].id_dreams){
+              return;
+          }
+      }
+      listeAutreBenefCode.push(benef);
+      console.log("ajouteBenefAutreCible() fin listeAutreBenefCode = ",angular.copy(listeAutreBenefCode));
+    }
+
+    function addListeAutreCible(value) {
+      //console.log("addListeBenef() value = ",angular.copy(value)," // benefValue = ",angular.copy(benefValue));
+      for(var i = 0;i<value.length;i++){
+          value[i].numero = $scope.ListAutreCible.length +1;
+          autreValue.push(value[i]);
+      }
+      console.log("addListeAutreCible() autreValue = ",angular.copy(autreValue));
+      collecteAutreCibleData(autreValue);
+    }
+
     function checkAutreCible() {
-        if(!$scope.groupeAutreCible.codeBenef && !isCodeExiste($scope.groupeAutreCible.codeBenef)){
+        if(!$scope.groupeAutreCible.codeBenef || !isCodeExiste($scope.groupeAutreCible.codeBenef)){
             return false;
         }
         if(!$scope.groupeAutreCible.nomPrenomAutreCible){
@@ -1190,22 +1328,28 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
     }
 
     function isCodeExiste(code) {
+      //console.log("isCodeExiste() > autocompleteData = ",autocompleteData);
         for(var i = 0,j=autocompleteData.length;i<j;i++){
-            if(code == autocompleteData[i].value){
+            if(code == autocompleteData[i].id_dreams){
+              //console.log("isCodeExiste() > autocompleteData = ",autocompleteData[i]);
+              autreBenefCodeSelected = autocompleteData[i];
                 return true;
             }
         }
         return false;
     }
+
     function initAutreCible() {
       $scope.groupeAutreCible.sexeAutreCible = "";
         $scope.groupeAutreCible = {};
     }
+
     $scope.changeSessionAutre = function (autre,key,value,index) {
-        console.log('changeSessionAutre() > autre = ',autre," // key = ",key," // value = ",value," // index= ",index);
+        //console.log('changeSessionAutre() > autre = ',autre," // key = ",key," // value = ",value," // index= ",index);
         //console.log("entrer dans changeSessionBenef() > benef= ",angular.copy(benef),"// key = ",key," // value = ",value," // index = ",index);
         autre.autreCibleSession[key] = value;
-        if(dataInstance.instance && index < $scope.sessionData.length ){
+        //if(dataInstance.instance && index < $scope.sessionData.length ){
+        if(index < $scope.sessionData.length ){
             origin = "autreCible";
             dataInstance.dataValue = [];
             var autreCibleSess = "";
@@ -1247,15 +1391,34 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
 
             if(dataInstance.dataValue.length != 0){
                 console.log("changeSessionBenef() dataInstance = ",dataInstance);
-                saveData();
+                ajusteSessionAutre(dataInstance.dataValue);
+              //  saveData();
             }
         }
 
     };
 
+    function ajusteSessionAutre(value) {
+      console.log("ajusteSessionAutre()");
+      /*console.log("ajustebenefSession() benefValue = ",angular.copy(benefValue));
+      console.log("ajustebenefSession() value = ",angular.copy(value));*/
+
+      for(var i = 0;i<value.length;i++){
+        for(var j = 0;j<autreValue.length;j++){
+          if(value[i].element == autreValue[j].element && value[i].numero == autreValue[j].numero){
+            console.log("value = ",angular.copy(value[i]),"autreValue = ",angular.copy(autreValue[j]));
+            autreValue[j].value = value[i].value;
+            break;
+          }
+        }
+      }
+    console.log("ajusteSessionAutre() autreValue = ",angular.copy(autreValue));
+      //collecteBenefData(benefValue);
+    }
+
     $scope.changeSessionAutreTermineMasc = function (autre, value) {
         //console.log("changeSessionAutreTermineMasc() autre = ",autre," // value = ",value," // $scope.TotalAutreCible= ",$scope.TotalAutreCible);
-        if(dataInstance.instance){
+      //  if(dataInstance.instance){
             origin = "autreCible";
             dataInstance.dataValue = [];
             var data = {};
@@ -1277,14 +1440,15 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
 
             if(dataInstance.dataValue.length != 0){
                 console.log("changeSessionBenef() dataInstance = ",dataInstance);
-                saveData();
+                ajusteSessionAutre(dataInstance.dataValue);
+              //  saveData();
             }
-        }
+        //}
     };
 
     $scope.changeSessionAutreTermineFem = function (autre, value) {
         //console.log("changeSessionAutreTermineMasc() autre = ",autre," // value = ",value," // $scope.TotalAutreCible= ",$scope.TotalAutreCible);
-        if(dataInstance.instance){
+      //  if(dataInstance.instance){
             origin = "autreCible";
             dataInstance.dataValue = [];
             var data = {};
@@ -1306,9 +1470,185 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
 
             if(dataInstance.dataValue.length != 0){
                 console.log("changeSessionBenef() dataInstance = ",dataInstance);
-                saveData();
+                ajusteSessionAutre(dataInstance.dataValue);
+                //saveData();
             }
+      //  }
+    }
+
+    $scope.saveActiviteGroupe = function () {
+      console.log("entrer dans saveActiviteGroupe()");
+
+      console.log("$scope.sessionData = ",angular.copy($scope.sessionData));
+      collecteData = [];
+      compileGroupe();
+      compileData(sessionValue);
+      compileData(benefValue);
+      compileData(autreValue);
+      //console.log("sessionValue = ",angular.copy(sessionValue));
+      console.log("collecteData = ",angular.copy(collecteData));
+
+      //compileData();
+
+
+    }
+
+    function compileGroupe() {
+      console.log("$scope.groupe = ",$scope.groupe);
+      for (var prop in $scope.groupe) {
+        //element[prop] = tmp[prop];
+        if($scope.groupe[prop]){
+          var data = {};
+          data.element = getoneElementid(prop);
+          data.numero = 1;
+          data.value = $scope.groupe[prop];
+          collecteData.push(data);
         }
+      }
+      console.log("$scope.groupeSession = ",angular.copy(collecteData));
+    }
+
+    function compileData(data) {
+      console.log("data = ",angular.copy(data));
+      for(var j = 0;j<data.length;j++){
+        collecteData.push(data[j]);
+      }
+
+    }
+
+    function getoneElementid(valeur) {
+
+      for(var j = 0;j<$rootScope.programmeSelect.elements.length;j++){
+        if($rootScope.programmeSelect.elements[j].element.code == valeur){
+          return $rootScope.programmeSelect.elements[j].element.id;
+        }
+      }
+      return null;
+
+    }
+
+    function checkBenefListe() {
+      if (!dataInstanceEntete.instance) {
+        return;
+      }
+      var valuesUrl = searchBeneficiaire+"/instance/"+dataInstanceEntete.instance;
+      $http.get(valuesUrl).then(function (response) {
+          console.log("checkBenefListe() response = ", response);
+          checkBenefExistInList(response.data);
+      }, function (err) {
+          console.log(err);
+      });
+    }
+
+    function getAllBenefListe(tmpBenef, origin) {
+      var temps = [];
+      if (tmpBenef.length == 0) {
+        return;
+      }else{
+        for (var i = 0; i < tmpBenef.length; i++) {
+          temps.push(tmpBenef[i].value);
+        }
+      }
+      //console.log("getAllBenefListe() tmpBenef = ", tmpBenef," // temps = ",temps);
+      var valuesUrl = searchBeneficiaire+"/iddreams?id="+temps;
+      $http.get(valuesUrl).then(function (response) {
+          console.log("getAllBenefListe() response = ", response);
+          constiBenefList(response.data, origin, tmpBenef);
+      }, function (err) {
+          console.log(err);
+      });
+    }
+
+    function checkBenefExistInList(benefRecu) {
+      console.log("checkBenefExistInList() listeBenefInitial = ",angular.copy(listeBenefInitial)," // benefRecu = ",angular.copy(benefRecu));
+      listeBenefInitial = deletebenefDoublon(listeBenefInitial);
+      var tmpBenef = [];
+      for(var i=0;i<listeBenefInitial.length;i++){
+        var trouve = false;
+        for(var j=0;j<benefRecu.length;j++){
+          if(listeBenefInitial[i].value == benefRecu[j].id_dreams){
+            listeBeneficiaire.push(benefRecu[j]);
+            trouve = true;
+            break;
+          }
+        }
+        if (!trouve) {
+          tmpBenef.push(listeBenefInitial[i]);
+        }
+      }
+      console.log("checkBenefExistInList() listeBeneficiaire = ", listeBeneficiaire," // tmpBenef = ",tmpBenef);
+
+      console.log("checkBenefExistInList() listeBenefInitial = ",angular.copy(listeBenefInitial)," // benefRecu = ",angular.copy(benefRecu));
+      listeAutreBenefCodeInitial = deletebenefDoublon(listeAutreBenefCodeInitial);
+      var tmpAutre = [];
+      for(var i=0;i<listeAutreBenefCodeInitial.length;i++){
+        var trouve = false;
+        for(var j=0;j<benefRecu.length;j++){
+          if(listeAutreBenefCodeInitial[i].value == benefRecu[j].id_dreams){
+            listeAutreBenefCode.push(benefRecu[j]);
+            trouve = true;
+            break;
+          }
+        }
+        if (!trouve) {
+          tmpAutre.push(listeAutreBenefCodeInitial[i]);
+        }
+      }
+      console.log("checkAutreCibleExistInList() listeAutreBenefCode = ", listeAutreBenefCode," // tmpAutre = ",tmpAutre);
+
+      getAllBenefListe(tmpBenef, "benef");
+      getAllBenefListe(tmpAutre, "autre");
+    }
+
+    function constiBenefList(benef, origin, benefOrigine) {
+      console.log("constiBenefList() benef = ", benef," /// origin = ",origin," /// benefOrigine = ",benefOrigine);
+      var inconnu = [];
+      for (var j = 0; j < benefOrigine.length; j++) {
+        var trouve = false;
+        for (var i = 0; i < benef.length; i++) {
+          if(benefOrigine[j].value == benef[i].id_dreams){
+            trouve = true;
+            if(origin == "benef"){
+              listeBeneficiaire.push(benef[i]);
+            }
+            if(origin == "autre"){
+              listeAutreBenefCode.push(benef[i]);
+            }
+          }
+        }
+        if (!trouve) {
+          inconnu.push(benefOrigine[j]);
+        }
+      }
+      if(inconnu.length != 0){
+        if(origin == "benef"){
+
+        }
+        if(origin == "autre"){
+
+        }
+      }
+
+    }
+
+    function deletebenefDoublon(benef) {
+      var pas = 0;
+      var i = pas + 1;
+      while (i<benef.length) {
+        if (benef[i].value == benef[pas].value) {
+          benef.splice(i,1);
+          i--;
+        }
+        i++;
+        if(i==benef.length){
+          pas++;
+          if(pas<benef.length){
+            i = pas+1;
+          }
+        }
+      }
+      //console.log("deletebenefDoublon() out benef = ",angular.copy(benef));
+      return benef;
     }
 
 }]);

@@ -1,6 +1,7 @@
 saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$http','$filter','$state', function ($scope, $rootScope, $stateParams, $http,$filter,$state) {
     console.log("entrer dans enrolSIJKctrl");
     var ValueUrl = serverAdresse+'dataValue';
+    var valueBeneficiaire = serverAdresse+'beneficiaire';
 	var dataInstanceEntete = {};
     var dataInstance = {};
     dataInstanceEntete.programme = $stateParams.prog;
@@ -61,7 +62,8 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
         //dataInstance.dateActivite = $scope.enrolA.dat_enrol;
 		dataInstance.dataValue = [];
 		getElement();
-		saveData();
+    updateEnrolData();
+		saveBenef();
 
 	}
 
@@ -148,7 +150,7 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
             }
         };
 
-        $http.post(ValueUrl, dataInstance, config).then(function(succes){
+        $http.post(ValueUrl, $rootScope.benefNewEnrolData, config).then(function(succes){
             console.log("saveData() succes = ",succes);
             //dataInstance.instance =
             if(succes.data.status == "ok"){
@@ -164,10 +166,50 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
         });
     }
 
+    function saveBenef() {
+
+        var config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+
+        $http.post(valueBeneficiaire, $rootScope.beneficiaireData, config).then(function(succes){
+            console.log("saveBenef() > succes = ",succes);
+            if(succes.data.status == "OK"){
+                saveData();
+                toastr["success"]("Bénéficiaire créé");
+            }else{
+                toastr["success"]("Impossible de créer ce bénéficiaire");
+            }
+        }, function(error){
+            console.log("saveBenef() > error = ",error);
+            toastr["success"]("Impossible de créer ce bénéficiaire");
+        });
+    }
+
+    function updateEnrolData() {
+        console.log("IJK updateEnrolData() dataInstance = ",dataInstance);
+        console.log("IJK updateEnrolData() $rootScope.benefNewEnrolData = ",$rootScope.benefNewEnrolData);
+        for (var i = 0; i < dataInstance.dataValue.length; i++) {
+          var trouve = false;
+          for (var j = 0; j < $rootScope.benefNewEnrolData.dataValue.length; j++) {
+            if($rootScope.benefNewEnrolData.dataValue[j].element == dataInstance.dataValue[i].element){
+              $rootScope.benefNewEnrolData.dataValue[j].value == dataInstance.dataValue[i].value;
+              touve = true;
+            }
+          }
+          if (!trouve) {
+            $rootScope.benefNewEnrolData.dataValue.push(dataInstance.dataValue[i]);
+          }
+        }
+    }
+
 	function succesSave() {
         $state.go('enrol_List',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
       }
-        function initiParticipation(valeur){
+
+  function initiParticipation(valeur){
           console.log("initiParticipation => valeur = ",valeur);
           if(!valeur || valeur == "" || valeur == " "){return;}
 
@@ -186,7 +228,7 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
           }
         }
 
-        function initiRepas(valeur){
+    function initiRepas(valeur){
           console.log("initiRepas => valeur = ",valeur);
           if(!valeur || valeur == "" || valeur == " "){return;}
 
@@ -205,9 +247,7 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
           }
         }
 
-
-
-        function executeDossierBesoins() {
+    function executeDossierBesoins() {
             var instance = "instance=" + $stateParams.inst;
             var beneficiaireID = "beneficiaireID=" + getValue("id_dreams");
             var dateEnrolement = "dateEnrolement=" + getValue("dat_enrol");

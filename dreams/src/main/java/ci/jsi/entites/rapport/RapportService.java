@@ -94,4 +94,19 @@ public class RapportService implements Irapport {
 		return "OK";
 	}
 
+	@Override
+	public List<Rapport> getRapportOptionRapportCodeNull(List<String> organisation, String element,
+			List<String> periode) {
+		List<Rapport> rapports = new ArrayList<Rapport>();
+		rapports = RapportRepository.findByOrganisationUidInAndElementCodeAndPeriodeIn(organisation, element, periode);
+		return rapports;
+	}
+
+	@Override
+	public List<Rapport> getRapportOptionRapportCodeNull(String organisation, String element, List<String> periode) {
+		List<Rapport> rapports = new ArrayList<Rapport>();
+		rapports = RapportRepository.findByOrganisationUidAndElementCodeAndPeriodeIn(organisation, element, periode);
+		return rapports;
+	}
+
 }

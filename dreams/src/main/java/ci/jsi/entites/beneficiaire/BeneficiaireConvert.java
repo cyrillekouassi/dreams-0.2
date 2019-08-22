@@ -6,11 +6,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import ci.jsi.entites.dataValue.DataValue;
 import ci.jsi.entites.dataValue.DataValueTDO;
 import ci.jsi.entites.dataValue.IdataValues;
 import ci.jsi.entites.element.Element;
 import ci.jsi.entites.element.Ielement;
+import ci.jsi.entites.instance.Iinstance;
+import ci.jsi.entites.instance.Instance;
 import ci.jsi.entites.organisation.OrganisationConvertEntitie;
 import ci.jsi.entites.programme.Iprogramme;
 import ci.jsi.entites.programme.Programme;
@@ -35,6 +39,12 @@ public class BeneficiaireConvert {
 	Iprogramme iprogramme;
 	@Autowired
 	IdataValues idataValues;
+	@Autowired
+	BeneficiaireRepository beneficiaireRepository;
+	@Autowired
+	Iinstance iinstance;
+	@Autowired
+	InstanceBeneficiaireRepository instanceBeneficiaireRepository;
 
 	public BeneficiaireTDO getBeneficiaireTDO(Beneficiaire beneficiaire) {
 		BeneficiaireTDO beneficiaireTDO = new BeneficiaireTDO();
@@ -133,8 +143,6 @@ public class BeneficiaireConvert {
 		beneficiaire.setCode(beneficiaireTDO.getCode());
 		beneficiaire.setTelephone(beneficiaireTDO.getTelephone());
 		if (beneficiaireTDO.getDateNaissance() != null) {
-
-			
 				laDate = convertDate.getDateParse(beneficiaireTDO.getDateNaissance());
 				if (laDate == null) {
 					return null;
@@ -235,13 +243,7 @@ public class BeneficiaireConvert {
 			}
 			statusBeneficiaires.add(statusBeneficiaire);
 		}
-		
-		//numeroOrdre
-		//porteEntree
-		//categorieDreams
-		//quatier
-		
-		
+
 		return statusBeneficiaires;
 	}
 	
@@ -295,5 +297,137 @@ public class BeneficiaireConvert {
 		
 		return statusBeneficiaire;
 	}
+	
+	public List<BeneficiaireOEV> getBeneficiairesOEV(List<Beneficiaire> beneficiaires) {
+
+		List<BeneficiaireOEV> listBeneficiaireOEV = new ArrayList<BeneficiaireOEV>();
+		List<DataValue> dataValue = new ArrayList<DataValue>();;
+		Programme programmeEnrolement = null;
+		BeneficiaireOEV beneficiaireOEV;
+		programmeEnrolement = iprogramme.getOneProgrammeByCode("enrolement");
+		List<String> elementCodeOEV = new ArrayList<String>();;
+		elementCodeOEV.add("_01_participation_program");
+		elementCodeOEV.add("codeOEV");
+		
+				
+				
+		for(int i = 0;i<beneficiaires.size();i++) {
+			beneficiaireOEV = getOEVBeneficiaires(beneficiaires.get(i));
+			for(int j=0;j<beneficiaires.get(i).getInstanceBeneficiaires().size();j++) {
+				if(beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getProgramme() == programmeEnrolement) {
+					dataValue = idataValues.getDataValueTDO(beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getUid(), elementCodeOEV);
+					String codeOEV = null;
+					boolean oev = false;
+					for(int a = 0; a<dataValue.size();a++) {
+						if(dataValue.get(a) != null && dataValue.get(a).getValue() != null) {
+							if(dataValue.get(a).getValue().contains("OEV")) {
+								oev = true;
+							}
+							
+						}
+						if(dataValue.get(a).getElement().getCode().equals("codeOEV")) {
+							codeOEV = dataValue.get(a).getValue();
+							
+						}
+					}
+					
+					if(oev) {
+						beneficiaireOEV.setCodeOEV(codeOEV);
+						listBeneficiaireOEV.add(beneficiaireOEV);
+					}
+				}
+				
+			}
+			
+		}
+
+		listBeneficiaireOEV = searchBBOEVvalue(listBeneficiaireOEV);
+	
+		return listBeneficiaireOEV;
+	}
+	
+	private BeneficiaireOEV getOEVBeneficiaires(Beneficiaire beneficiaire) {
+		BeneficiaireOEV beneficiaireOEV = new BeneficiaireOEV();
+		beneficiaireOEV.setId(beneficiaire.getUid());
+		beneficiaireOEV.setName(beneficiaire.getName());
+		beneficiaireOEV.setFirstName(beneficiaire.getFirstName());
+		beneficiaireOEV.setIdDreams(beneficiaire.getId_dreams());
+		beneficiaireOEV.setAgeEnrolement(beneficiaire.getAgeEnrolement());
+		beneficiaireOEV.setDateEnrolement(beneficiaire.getDateEnrolement().toString());
+		beneficiaireOEV.setTelephone(beneficiaire.getTelephone());		
+		beneficiaireOEV.setDateNaissance(beneficiaire.getDateEnrolement().toString());
+		beneficiaireOEV.setDateCreation(beneficiaire.getDateCreation().toString());
+		beneficiaireOEV.setDateUpdate(beneficiaire.getDateUpdate().toString());
+		beneficiaireOEV.setInstance(
+				instanceBeneficiaireConvert.getInstanceBeneficiaires(beneficiaire.getInstanceBeneficiaires()));
+		beneficiaireOEV.setOrganisation(organisationConvertEntitie.getOrganisation(beneficiaire.getOrganisation()));
+		
+		return beneficiaireOEV;
+	}
+	
+	private List<BeneficiaireOEV> searchBBOEVvalue(List<BeneficiaireOEV> beneficiaireOEV) {
+		
+
+	    final String uri = "http://localhost/api/?menage=014AGK20130001";
+	     
+	    RestTemplate restTemplate = new RestTemplate();
+	    String result = restTemplate.getForObject(uri, String.class);
+	     
+	    System.out.println(result);
+		
+		return beneficiaireOEV;
+	}
+	public List<Beneficiaire> deleteBeneficiaireInstance(List<Beneficiaire> beneficiaires,String instance){
+		
+		List<InstanceBeneficiaire> deleteInstanceBeneficiaires = new ArrayList<InstanceBeneficiaire>();
+		int pas = 0;
+		int i = pas+1;
+		while(i<beneficiaires.size()) {
+			if(beneficiaires.get(i).getUid().equals(beneficiaires.get(pas).getUid())) {
+				beneficiaires.remove(i);
+				i--;
+			}
+			i++;
+			if(i==beneficiaires.size()) {
+				pas++;
+				if(pas<beneficiaires.size()) {
+					i = pas+1;
+				}
+			}
+		}
+		
+		for(int j=0;j<beneficiaires.size();j++) {
+			List<InstanceBeneficiaire> instanceBeneficiaires = new ArrayList<InstanceBeneficiaire>();
+			Beneficiaire beneficiaire = new Beneficiaire();
+			beneficiaire = beneficiaires.get(j);
+			instanceBeneficiaires = beneficiaire.getInstanceBeneficiaires();
+			pas = 0;
+			i = pas+1;
+			//boolean trouve = false;
+			while(i<instanceBeneficiaires.size()) {
+				
+				if(instanceBeneficiaires.get(i).getInstance().getUid().equals(instanceBeneficiaires.get(pas).getInstance().getUid())) {
+					deleteInstanceBeneficiaires.add(instanceBeneficiaires.get(i));
+					instanceBeneficiaires.remove(i);
+					i--;
+				}
+				i++;
+				if(i==instanceBeneficiaires.size()) {
+					pas++;
+					if(pas<instanceBeneficiaires.size()) {
+						i = pas+1;
+					}
+				}
+			}
+			//beneficiaire.setInstanceBeneficiaires(instanceBeneficiaires);
+			//beneficiaire.setDateUpdate(new Date());
+			//beneficiaire = beneficiaireRepository.save(beneficiaire);
+		}
+		instanceBeneficiaireRepository.delete(deleteInstanceBeneficiaires);
+		return beneficiaires;
+		
+	}
 
 }
+
+

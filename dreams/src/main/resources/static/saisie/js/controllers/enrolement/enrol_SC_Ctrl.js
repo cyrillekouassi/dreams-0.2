@@ -67,7 +67,9 @@ function ($scope, $rootScope, $stateParams, $http,$filter,$state,$timeout) {
         //dataInstance.dateActivite = $scope.enrolA.dat_enrol;
 		dataInstance.dataValue = [];
 		getElement();
-		saveData();
+		//saveData();
+    updateEnrolData();
+    succesSave();
 
 	}
 
@@ -132,12 +134,29 @@ function ($scope, $rootScope, $stateParams, $http,$filter,$state,$timeout) {
         });
     }
 
+  function updateEnrolData() {
+      console.log("C updateEnrolData() dataInstance = ",dataInstance);
+      console.log("C updateEnrolData() $rootScope.benefNewEnrolData = ",$rootScope.benefNewEnrolData);
+      for (var i = 0; i < dataInstance.dataValue.length; i++) {
+        var trouve = false;
+        for (var j = 0; j < $rootScope.benefNewEnrolData.dataValue.length; j++) {
+          if($rootScope.benefNewEnrolData.dataValue[j].element == dataInstance.dataValue[i].element){
+            $rootScope.benefNewEnrolData.dataValue[j].value == dataInstance.dataValue[i].value;
+            touve = true;
+          }
+        }
+        if (!trouve) {
+          $rootScope.benefNewEnrolData.dataValue.push(dataInstance.dataValue[i]);
+        }
+      }
+  }
+
 	function succesSave() {
     console.log("succesSave()");
         $state.go('enrolSD',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
-    }
+  }
 
-$scope.changeniveau = function(value){
+  $scope.changeniveau = function(value){
   console.log("changeniveau, value = ",value);
   $scope.enrolC._02_a_classe = null;
   $scope.classePRIMECOND = false;
@@ -159,33 +178,7 @@ $scope.changeniveau = function(value){
 
 }
 
-/*function initialClasse() {
-  $timeout( function(){
-    $scope.$apply(function() {
-      if($scope.enrolC){
-        if($scope.enrolC._02_a_classe){
-          if($scope.enrolC._02_a_classe != null;){
-            if($scope.enrolC._02_niv_scolaire == "PRIM"){
-              $scope.niveau.classe = primaire;
-              $scope.classePRIMECOND = true;
-            }
-            if($scope.enrolC._02_niv_scolaire == "SECOND"){
-              $scope.niveau.classe = secondaire;
-              $scope.classePRIMECOND = true;
-            }
-            $(document).ready(function () {
-                $('.mdb-select').material_select();
-            });
-          }
-        }
-      }
-
-    });
-  },10);
-}*/
-
-
-function initialClasse() {
+  function initialClasse() {
   console.log("initialClasse()");
   $timeout( function(){
     $scope.$apply(function() {

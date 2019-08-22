@@ -10,9 +10,13 @@ public interface BeneficiaireRepository extends JpaRepository<Beneficiaire, Long
 	
 	public Beneficiaire findByUidIsNotNullAndDreamsId(String idDreams);
 	
+	public List<Beneficiaire> findByUidIsNotNullAndDreamsIdIn(List<String> idDreams);
+	
 	public Beneficiaire findByUid(String uid);
 	
-	//public Beneficiaire findByUidIsNotNull
+	public List<Beneficiaire> findByUidIsNotNullAndInstanceBeneficiairesInstanceUid(String instanceUid);
+	
+		
 	
 	public List<Beneficiaire> findByUidIsNotNullAndOrganisationUidAndDreamsIdContaining(String organisation,String dreamsId);
 	

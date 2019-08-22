@@ -15,8 +15,10 @@ public interface InstanceRepository extends JpaRepository<Instance, Long> {
 	@Query("select i from Instance i where i.deleted = false")
 	public List<Instance> getAllInstance();
 	
-	@Query("select i from Instance i where i.deleted = false and i.uid like :uid")
-	public Instance getOneInstance(@Param("uid")String uid);
+	/*@Query("select i from Instance i where i.deleted = false and i.uid like :uid")
+	public Instance getOneInstance(@Param("uid")String uid);*/
+	
+	public Instance findAllByDeletedIsFalseAndUid(String uid);
 	
 	public Page<Instance> findAllByDeletedIsFalseAndProgrammeUidAndOrganisationUid(String programmeuid,String organisationuid,Pageable pageable);
 	
@@ -24,4 +26,5 @@ public interface InstanceRepository extends JpaRepository<Instance, Long> {
 
 	public List<Instance> findAllByDeletedIsFalseAndOrganisationUidInAndProgrammeUidAndDateActiviteLessThan(List<String> organisationUid,String programmeuid,Date finActivite);
 
+	public List<Instance> findAllByDeletedIsFalseAndOrganisationUidInAndProgrammeUid(List<String> organisationUid,String programmeuid);
 }

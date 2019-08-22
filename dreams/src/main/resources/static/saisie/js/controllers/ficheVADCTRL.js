@@ -8,6 +8,7 @@ saisie.controller('ficheVADCTRL',['$scope','$rootScope','$http','$stateParams','
     $scope.vadData = {};
     var vadDataOrigine = {};
     $scope.motif = {};
+    $scope.idDreamsDisabled = false;
     var dataInstance = {};
     var elementCode = [];
     var instanceValue = [];
@@ -23,6 +24,7 @@ saisie.controller('ficheVADCTRL',['$scope','$rootScope','$http','$stateParams','
     initOrg();
 
     if(dataInstanceEntete.instance){
+      $scope.idDreamsDisabled = true;
         if($rootScope.allData && $rootScope.allData.length != 0){
             for(var i=0;i<$rootScope.allData.length;i++){
                 if($rootScope.allData[i].instance == dataInstanceEntete.instance){
@@ -35,7 +37,7 @@ saisie.controller('ficheVADCTRL',['$scope','$rootScope','$http','$stateParams','
         }
     }
     function getdataInstace(instance,orig){
-        
+
         var dataInstanceValue = dataValueUrl+instance;
         $http.get(dataInstanceValue).then(function (response) {
             console.log("getdataInstace() response",response);
@@ -54,9 +56,9 @@ saisie.controller('ficheVADCTRL',['$scope','$rootScope','$http','$stateParams','
     function initOrg() {
         $scope.vadData.nomSafespace = $rootScope.orgUnitSelect.name;
     }
-    
+
     function mappigData() {
-        
+
         var temp = {};
         for(var i=0;i<instanceValue.length;i++){
             for(var j=0;j<$rootScope.programmeSelect.elements.length;j++){
@@ -72,7 +74,7 @@ saisie.controller('ficheVADCTRL',['$scope','$rootScope','$http','$stateParams','
         vadDataOrigine = angular.copy($scope.vadData);
         initOrg();
     }
-    
+
     function initMotif() {
         $scope.motif = {};
         $scope.motif.psycho = false;
@@ -111,16 +113,19 @@ saisie.controller('ficheVADCTRL',['$scope','$rootScope','$http','$stateParams','
 
         }
     }
-    
+
 
     $scope.saveVAD = function () {
+      console.log("saveVAD, dataInstanceEntete  = ",angular.copy(dataInstanceEntete));
+      console.log("saveVAD, vadDataOrigine  = ",angular.copy(vadDataOrigine));
+      console.log("saveVAD, $scope.vadData  = ",angular.copy($scope.vadData));
         if(dataInstanceEntete.instance && vadDataOrigine == $scope.vadData){
-            console.log("vadMeta.instance existe = "+dataInstanceEntete.instance);
+            console.log("vadMeta.instance existe = ",dataInstanceEntete.instance);
             $state.go('ficheVADList',{org: $rootScope.orgUnitSelect.id});
         }else{
-            console.log("dataInstanceEntete = "+angular.copy(dataInstanceEntete));
-            console.log("dataInstanceEntete.instance = "+angular.copy(dataInstanceEntete.instance));
-            delete dataInstanceEntete.instance;
+            console.log("dataInstanceEntete = ",angular.copy(dataInstanceEntete));
+            console.log("dataInstanceEntete.instance = ",angular.copy(dataInstanceEntete.instance));
+            //delete dataInstanceEntete.instance;
             checkMotif();
             dataInstance = dataInstanceEntete;
             dataInstance.dreamsId = $scope.vadData.id_dreams;
@@ -142,7 +147,7 @@ saisie.controller('ficheVADCTRL',['$scope','$rootScope','$http','$stateParams','
         var anne = date.substring(6,date.length);
         return anne+"-"+mois+"-"+jour;
     }
-    
+
     function checkMotif() {
         console.log("checkMotif() $scope.vadData = ",$scope.vadData);
         for (var prop in $scope.motif) {
@@ -157,7 +162,7 @@ saisie.controller('ficheVADCTRL',['$scope','$rootScope','$http','$stateParams','
             }
         }
     }
-    
+
     function getElementid() {
         console.log("getElementid() $scope.vadData = ",$scope.vadData);
         var data = {};
@@ -177,9 +182,9 @@ saisie.controller('ficheVADCTRL',['$scope','$rootScope','$http','$stateParams','
         console.log("dataInstance = ",dataInstance);
         saveData();
     }
-    
+
     function saveData() {
-        
+
         var config = {
             headers: {
                 'Content-Type': 'application/json'
@@ -233,10 +238,10 @@ saisie.controller('ficheVADCTRL',['$scope','$rootScope','$http','$stateParams','
         //$timeout(envoieDonnees(element,value), 500);
 
     };
-    
+
 
     function sendValueTDO(valueTDO) {
-        
+
         var config = {
             headers: {
                 'Content-Type': 'application/json'
@@ -249,14 +254,14 @@ saisie.controller('ficheVADCTRL',['$scope','$rootScope','$http','$stateParams','
             console.log("sendValueTDO error = ",error);
         });
     }
-    
+
     $scope.searchId = function (element, valeur) {
 
         if(valeur.length > 2){
             console.log("searchId valeur = ",valeur);
             var org = "organisation="+dataInstanceEntete.organisation;
             var value = "idDreams="+valeur;
-            
+
             var datavalueSearch = searchbeneficiaire+org+"&"+value;
             $http.get(datavalueSearch).then(function (response) {
                 console.log("searchId() response",response);
@@ -276,7 +281,7 @@ saisie.controller('ficheVADCTRL',['$scope','$rootScope','$http','$stateParams','
             }
         }
     }
-    
+
     function getProgrammeId(code) {
         for(var j=0;j<$rootScope.programme.length;j++){
             if(code == $rootScope.programme[j].code){
@@ -284,7 +289,7 @@ saisie.controller('ficheVADCTRL',['$scope','$rootScope','$http','$stateParams','
             }
         }
     }
-    
+
     function chargeData() {
         $scope.valueComplete = [];
         for(var i = 0, j=autocompleteData.length;i<j;i++){
@@ -317,5 +322,5 @@ saisie.controller('ficheVADCTRL',['$scope','$rootScope','$http','$stateParams','
         $scope.vadData.nomBeneficiaire = BenefInfo.name+" "+BenefInfo.firstName;
 
     }
-    
+
 }]);

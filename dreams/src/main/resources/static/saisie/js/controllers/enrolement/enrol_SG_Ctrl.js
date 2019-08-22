@@ -68,8 +68,9 @@ var enrolSectionG = ["_01_humil_public",
         //dataInstance.dateActivite = $scope.enrolA.dat_enrol;
 		dataInstance.dataValue = [];
 		getElement();
-		saveData();
-
+		//saveData();
+    updateEnrolData();
+    succesSave();
 	}
 
 	$scope.previewPage = function (){
@@ -171,7 +172,24 @@ var enrolSectionG = ["_01_humil_public",
 
 	function succesSave() {
         $state.go('enrolSH',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
-    }
+  }
+
+  function updateEnrolData() {
+      console.log("G updateEnrolData() dataInstance = ",dataInstance);
+      console.log("G updateEnrolData() $rootScope.benefNewEnrolData = ",$rootScope.benefNewEnrolData);
+      for (var i = 0; i < dataInstance.dataValue.length; i++) {
+        var trouve = false;
+        for (var j = 0; j < $rootScope.benefNewEnrolData.dataValue.length; j++) {
+          if($rootScope.benefNewEnrolData.dataValue[j].element == dataInstance.dataValue[i].element){
+            $rootScope.benefNewEnrolData.dataValue[j].value == dataInstance.dataValue[i].value;
+            touve = true;
+          }
+        }
+        if (!trouve) {
+          $rootScope.benefNewEnrolData.dataValue.push(dataInstance.dataValue[i]);
+        }
+      }
+  }
 
     function initiAupres(valeur){
       console.log("initiAupres => valeur = ",valeur);

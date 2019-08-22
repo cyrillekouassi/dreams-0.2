@@ -31,7 +31,7 @@ saisie.controller('activiteGroupeListCTRL',['$scope','$http','$rootScope','$stat
                 //$rootScope.VadInfo.programme = $rootScope.programme[i].id;
                 $rootScope.programmeSelect = $rootScope.lesProgrammes[i];
                 //prog = prog + $rootScope.programmeSelect.id;
-                console.log("$rootScope.programmeSelect = ", $rootScope.programmeSelect);
+                //console.log("$rootScope.programmeSelect = ", $rootScope.programmeSelect);
                 if($rootScope.programmeSelect.elements.length == 0){
                     toastr["success"]("Aucune Element n'existe");
                     return;
@@ -85,7 +85,7 @@ saisie.controller('activiteGroupeListCTRL',['$scope','$http','$rootScope','$stat
             laPage += 1;
             $scope.infoSearch.pagging.push(laPage);
         }
-        console.log("getdata() infoSearch = ", $scope.infoSearch);
+        //console.log("getdata() infoSearch = ", $scope.infoSearch);
     }
 
     function getElements() {
@@ -155,7 +155,7 @@ saisie.controller('activiteGroupeListCTRL',['$scope','$http','$rootScope','$stat
     };
 
     function getOptions(options, value) {
-        console.log("getOptions() > options",options," // value = ",value);
+        //console.log("getOptions() > options",options," // value = ",value);
         var conti = true;
         var debut = 0, point = 0;
         var list = []; var opt = "";
@@ -186,7 +186,7 @@ saisie.controller('activiteGroupeListCTRL',['$scope','$http','$rootScope','$stat
     }
 
     $scope.affichePage = function (page) {
-        console.log("affichePage() > page = ",page);
+        //console.log("affichePage() > page = ",page);
         if(page != $scope.infoSearch.page){
             var aller = "&page="+page;
             getdata(aller);

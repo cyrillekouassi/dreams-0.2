@@ -8,6 +8,8 @@ public interface Irapport {
 	public List<RapportTDO> getRapportOptionRapportTDOCodeNull(String organisation,String element,String periode);
 	public List<Rapport> getRapportOptionRapportCodeNull(List<String> organisation,String element,String periode);
 	public List<Rapport> getRapportOptionRapportCodeNull(String organisation,String element,String periode);
+	public List<Rapport> getRapportOptionRapportCodeNull(List<String> organisation,String element,List<String> periode);
+	public List<Rapport> getRapportOptionRapportCodeNull(String organisation,String element,List<String> periode);
 	public String saveRapportTDO(RapportTDO rapportTDO);
 	public String saveRapport(List<Rapport> rapport);
 }

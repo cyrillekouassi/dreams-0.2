@@ -55,7 +55,7 @@ public class DataValueConvert {
 	Programme programme = null;
 	Organisation organisation = null;
 
-	public DataValue saveDataValueTDO(DataValueTDO dataValueTDO) {
+	public DataValue saveDataValueTDO(DataValueTDO dataValueTDO,Instance instance) {
 
 		DataValue dataValue = new DataValue();
 		dataValue.setDateUpdate(new Date());
@@ -67,16 +67,8 @@ public class DataValueConvert {
 		else
 			dataValue.setNumero(1);
 
-		if (dataValueTDO.getInstance() != null) {
-			instance = iinstance.getOneInstance(dataValueTDO.getInstance());
-			if (instance != null) {
-				dataValue.setInstance(instance);
-			} else
-				return null;
-
-		} else
-			return null;
-
+		dataValue.setInstance(instance);
+		
 		if (dataValueTDO.getUser() != null) {
 			user = iuser.getUser(dataValueTDO.getUser());
 			dataValue.setUser(user);
@@ -187,7 +179,51 @@ public class DataValueConvert {
 		// été ignoré");
 		return dataValues;
 	}
+	
+	public List<DataValue> saveDataValuesNew(List<DataValueTDO> dataValueTDOs, Instance instance) {
+		List<DataValue> dataValues = new ArrayList<DataValue>();
+		List<DataValue> newDataValues = new ArrayList<DataValue>();
+		
+		dataValues = dataValueRepository.findByInstanceUid(instance.getUid());
 
+		for (int i = 0; i < dataValueTDOs.size(); i++) {
+			int j =0; boolean trouve = false;
+			while(j<dataValues.size()) {
+				if(dataValues.get(j).getElement().getUid().equals(dataValueTDOs.get(i).getElement()) && dataValues.get(j).getNumero() == dataValueTDOs.get(i).getNumero() ) {
+					System.err.println("Element Dv = "+dataValues.get(j).getElement().getUid()+" ; tdo = "+dataValueTDOs.get(i).getElement()+" // Numero: Dv = "+dataValues.get(j).getNumero()+" ; tdo = "+dataValueTDOs.get(i).getNumero());
+					System.out.println("Value Dv = "+dataValues.get(j).getValue()+" ; tdo = "+dataValueTDOs.get(i).getValue());
+					trouve = true;
+					dataValues.get(j).setValue(dataValueTDOs.get(i).getValue());
+					dataValues.get(j).setDateUpdate(new Date());
+					newDataValues.add(dataValues.get(j));
+					dataValues.remove(j);
+					j--;
+					break;
+				}
+				j++;
+			}
+			if(!trouve) {
+				DataValue dataValue = saveDataValueTDO(dataValueTDOs.get(i),instance);
+				if (dataValue != null)
+					newDataValues.add(dataValue);
+			}
+		}
+		
+		deleteResteValues(dataValues);
+		return newDataValues;
+	}
+
+	public void deleteResteValues(List<DataValue> dataValues) {
+		// int nbre = instancedataValues.size();
+		dataValueRepository.delete(dataValues);
+		/*while (!dataValues.isEmpty()) {
+			dataValueRepository.delete(dataValues.get(0));
+			dataValues.remove(0);
+		}*/
+		
+	}
+
+	
 	public DataValue contituerDataValue(String instance1, String user1, String element1) {
 		System.out.println("Entrer dans contituerDataValue");
 		System.out.println("instance1 :" + instance1 + "// user1 :" + user1 + "// element1:" + element1);
@@ -273,7 +309,7 @@ public class DataValueConvert {
 	}
 
 	public Beneficiaire createBeneficiaire(DataInstance dataInstance, Instance instance) {
-		Beneficiaire beneficiaire = ibeneficiaire.getOneBeneficiaireByIdDreams(dataInstance.getDreamsId());
+		Beneficiaire beneficiaire = ibeneficiaire.getOneBeneficiaireByInstance(instance.getUid());
 		if (beneficiaire == null) {
 			return null;
 		}
@@ -295,7 +331,7 @@ public class DataValueConvert {
 	public Beneficiaire updateBeneficiaire(DataInstance dataInstance, Instance instance) {
 		boolean trouve = false;
 		Date dateActiv;
-		Beneficiaire beneficiaire = ibeneficiaire.getOneBeneficiaireByIdDreams(dataInstance.getDreamsId());
+		Beneficiaire beneficiaire = ibeneficiaire.getOneBeneficiaireByInstance(instance.getUid());
 		if (beneficiaire == null) {
 			return null;
 		}

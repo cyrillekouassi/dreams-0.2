@@ -9,6 +9,7 @@ saisie.controller('enrol_List_Ctrl', ['$scope', '$rootScope', '$http', '$filter'
     var listeInstance = [];
     $scope.searchForm = false;
     $rootScope.leProgramme = {};
+    $rootScope.beneficiaireSelect = {};
     //$rootScope.elementProgramme = [];
     var nosElements = [];
     var data = [];
@@ -107,7 +108,7 @@ saisie.controller('enrol_List_Ctrl', ['$scope', '$rootScope', '$http', '$filter'
       data = donnee.content;
       gestPagging(donnee);
       if (data.length > 0) {
-          //console.log("getdata() data = ", data);
+          console.log("getdata() data = ", data);
           $rootScope.allData = data;
           getElements();
       }else{

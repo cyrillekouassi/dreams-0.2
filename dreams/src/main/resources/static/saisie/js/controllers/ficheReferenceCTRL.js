@@ -13,6 +13,7 @@ saisie.controller('ficheReferenceCTRL',['$scope','$stateParams','$rootScope','$h
     var instanceValueEnrolement = [];
     var dataInstanceEntete = {};
     var autocompleteData = [];
+    $scope.idDreamsDisabled = false;
     //var vadMeta = {};
     dataInstanceEntete.programme = $stateParams.prog;
     dataInstanceEntete.organisation = $stateParams.org;
@@ -26,6 +27,7 @@ saisie.controller('ficheReferenceCTRL',['$scope','$stateParams','$rootScope','$h
     initOrg();
 
     if(dataInstanceEntete.instance){
+      $scope.idDreamsDisabled = true;
         if($rootScope.allData){
             for(var i=0;i<$rootScope.allData.length;i++){
                 if($rootScope.allData[i].instance == dataInstanceEntete.instance){
@@ -46,7 +48,7 @@ saisie.controller('ficheReferenceCTRL',['$scope','$stateParams','$rootScope','$h
         $scope.refData.quartier = $rootScope.orgUnitSelect.quartier;
     }
     function getdataInstace(instance,orig){
-        
+
         dataInstanceValue += instance;
         $http.get(dataInstanceValue).then(function (response) {
             console.log("getdataInstace() response",response);
@@ -239,7 +241,7 @@ saisie.controller('ficheReferenceCTRL',['$scope','$stateParams','$rootScope','$h
     }
 
     function saveData() {
-        
+
         var config = {
             headers: {
                 'Content-Type': 'application/json'
@@ -295,7 +297,7 @@ saisie.controller('ficheReferenceCTRL',['$scope','$stateParams','$rootScope','$h
 
 
     function sendValueTDO(valueTDO) {
-               
+
         var config = {
             headers: {
                 'Content-Type': 'application/json'
@@ -320,7 +322,7 @@ saisie.controller('ficheReferenceCTRL',['$scope','$stateParams','$rootScope','$h
 
 
 /*
-    
+
     function chargeData() {
         $scope.valueComplete = [];
         for(var i = 0, j=autocompleteData.length;i<j;i++){
@@ -345,12 +347,12 @@ saisie.controller('ficheReferenceCTRL',['$scope','$stateParams','$rootScope','$h
     }
 */
     $scope.searchId = function (valeur) {
-       
+
         if(valeur.length > 2){
             console.log("searchId valeur = ",valeur);
             var org = "organisation="+dataInstanceEntete.organisation;
             var value = "idDreams="+valeur;
-            
+
             var datavalueSearch = searchbeneficiaire+org+"&"+value;
             $http.get(datavalueSearch).then(function (response) {
                 console.log("searchId() response",response);
