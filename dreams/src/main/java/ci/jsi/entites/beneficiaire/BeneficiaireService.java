@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ci.jsi.entites.instance.Iinstance;
 import ci.jsi.entites.instance.Instance;
 import ci.jsi.initialisation.ConvertDate;
 import ci.jsi.initialisation.ResultatRequete;
@@ -22,6 +23,8 @@ public class BeneficiaireService implements Ibeneficiaire {
 	BeneficiaireConvert beneficiaireConvert;
 	@Autowired
 	ConvertDate convertDate;
+	@Autowired
+	Iinstance iinstance;
 	
 	
 	
@@ -142,27 +145,68 @@ public class BeneficiaireService implements Ibeneficiaire {
 
 	@Override
 	public Beneficiaire deleteBeneficiaireInstance(Beneficiaire beneficiaire, Instance instance) {
-		List<InstanceBeneficiaire> instanceBeneficiaires = new ArrayList<InstanceBeneficiaire>();
-		instanceBeneficiaires = beneficiaire.getInstanceBeneficiaires();
 		
+		List<InstanceBeneficiaire> beneficiairesInstance = new ArrayList<InstanceBeneficiaire>();
+		List<InstanceBeneficiaire> instancesBeneficiaire = new ArrayList<InstanceBeneficiaire>();
+		List<InstanceBeneficiaire> deleteinstanceBeneficiaires = new ArrayList<InstanceBeneficiaire>();
+		beneficiairesInstance = beneficiaire.getInstanceBeneficiaires();
+		instancesBeneficiaire = instance.getInstanceBeneficiaires();
+				
 		int i = 0;
-		while(i < instanceBeneficiaires.size()) {
-			if(instanceBeneficiaires.get(i).getInstance() == instance) {
-				instanceBeneficiaires.remove(i);
+		while(i < beneficiairesInstance.size()) {
+			//if(beneficiairesInstance.get(i).getInstance().getUid().equals(instance.getUid())) {
+			if(beneficiairesInstance.get(i).getInstance().getInstanceid() == instance.getInstanceid()) {
+				deleteinstanceBeneficiaires.add(beneficiairesInstance.get(i));
+				beneficiairesInstance.remove(i);
 			}
 			i++;
 		}
-		beneficiaire.setInstanceBeneficiaires(instanceBeneficiaires);
+		
+		int b = 0;
+		while(b < instancesBeneficiaire.size()) {
+			//if(instancesBeneficiaire.get(b).getBeneficiaire().getUid().equals(beneficiaire.getUid())) {
+			if(instancesBeneficiaire.get(b).getBeneficiaire().getBeneficiaireid() == beneficiaire.getBeneficiaireid()) {
+				instancesBeneficiaire.remove(b);
+			}
+			b++;
+		}
+		
+		beneficiaireConvert.deleteBeneficiaireInstance(deleteinstanceBeneficiaires);
+		beneficiaire.setInstanceBeneficiaires(beneficiairesInstance);
+		instance.setInstanceBeneficiaires(instancesBeneficiaire);
+		//instance = iinstance.saveInstance(instance);
 		beneficiaire = updateOneBeneficiaire(beneficiaire);
+		System.out.println("deleteBeneficiaireInstance");
 		return beneficiaire;
 	}
 
 	@Override
 	public ResultatRequete deleteBeneficiaire(String beneficiaireUid) {
 		ResultatRequete resultatRequete = new ResultatRequete();
+		List<Instance>  instances =  new ArrayList<Instance>();
+		
 		Beneficiaire beneficiaire = beneficiaireRepository.findByUid(beneficiaireUid);
+		//deleteBeneficiaireInstance(Beneficiaire beneficiaire, Instance instance)
 		if(beneficiaire != null) {
+			int i = 0;
+			while(i < beneficiaire.getInstanceBeneficiaires().size()) {
+				instances.add(beneficiaire.getInstanceBeneficiaires().get(i).getInstance());
+				beneficiaire = deleteBeneficiaireInstance(beneficiaire, beneficiaire.getInstanceBeneficiaires().get(i).getInstance());
+			}
+			int b = 0;
+			while(b<instances.size()) {
+				Instance instance = iinstance.getOneInstance(instances.get(b).getUid());
+				if(instance != null) {
+					if(instance.getInstanceBeneficiaires().isEmpty()) {
+						iinstance.deleteCompleteInstance(instance);
+					}
+				}/*else {
+					iinstance.deleteCompleteInstance(instance);
+				}*/
+				b++;
+			}
 			
+			beneficiaire.setOrganisation(null);
 			beneficiaireRepository.delete(beneficiaire);
 			resultatRequete.setStatus("OK");
 			resultatRequete.setId(beneficiaire.getUid());
@@ -204,7 +248,7 @@ public class BeneficiaireService implements Ibeneficiaire {
 		List<BeneficiaireTDO> beneficiaireTDOs = new ArrayList<BeneficiaireTDO>();
 		beneficiaires = beneficiaireRepository.findByUidIsNotNullAndInstanceBeneficiairesInstanceUid(instance);
 		if(!beneficiaires.isEmpty()) {
-			beneficiaires = beneficiaireConvert.deleteBeneficiaireInstance(beneficiaires,instance);
+			beneficiaires = beneficiaireConvert.deleteBeneficiaireInstances(beneficiaires,instance);
 			//beneficiaires = beneficiaireRepository.save(beneficiaires);
 			beneficiaireTDOs = beneficiaireConvert.getBeneficiaireTDOs(beneficiaires);
 		}
@@ -232,6 +276,47 @@ public class BeneficiaireService implements Ibeneficiaire {
 		}
 		
 		return beneficiaireTDOs;
+	}
+
+	@Override
+	public ResultatRequete deleteBeneficiaireByDossier(String dossierInstance) {
+		ResultatRequete resultatRequete = new ResultatRequete();
+		Beneficiaire beneficiaire = getOneBeneficiaireByInstance(dossierInstance);
+		resultatRequete = deleteBeneficiaire(beneficiaire.getUid());
+		return resultatRequete;
+	}
+
+	@Override
+	public Integer erasedBeneficiaireDeleting() {
+		List<Beneficiaire> beneficiaires = new ArrayList<Beneficiaire>();
+		List<Instance>  instances =  new ArrayList<Instance>();
+		beneficiaires = beneficiaireRepository.findByUidIsNull();
+		int i =0;
+		while(i<beneficiaires.size()) {
+			instances.clear();
+			while(!beneficiaires.get(i).getInstanceBeneficiaires().isEmpty()) {
+				instances.add(beneficiaires.get(i).getInstanceBeneficiaires().get(0).getInstance());
+				Beneficiaire beneficiaire = deleteBeneficiaireInstance(beneficiaires.get(i), beneficiaires.get(i).getInstanceBeneficiaires().get(0).getInstance());
+				beneficiaires.set(i, beneficiaire);
+			}
+			int b = 0;
+			while(b<instances.size()) {
+				Instance instance = iinstance.getOneInstance(instances.get(b).getUid());
+				if(instance != null) {
+					if(instance.getInstanceBeneficiaires().isEmpty()) {
+						iinstance.deleteCompleteInstance(instance);
+					}
+				}
+				b++;
+			}
+			
+			beneficiaires.get(i).setOrganisation(null);
+			beneficiaireRepository.delete(beneficiaires.get(i));
+	
+			i++;
+		}
+		
+		return beneficiaires.size();
 	}
 
 

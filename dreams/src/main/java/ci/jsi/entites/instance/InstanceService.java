@@ -1,5 +1,6 @@
 package ci.jsi.entites.instance;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import ci.jsi.entites.beneficiaire.Ibeneficiaire;
 import ci.jsi.entites.programme.Iprogramme;
 import ci.jsi.entites.programme.Programme;
 
@@ -20,6 +22,8 @@ public class InstanceService implements Iinstance {
 	InstanceRepository instanceRepository;
 	@Autowired
 	Iprogramme iprogramme;
+	@Autowired
+	Ibeneficiaire ibeneficiaire;
 	
 	Instance instance = null;
 	InstanceTDO instanceTDO = null;
@@ -63,15 +67,23 @@ public class InstanceService implements Iinstance {
 
 	@Override
 	public String deleteInstanceTDO(String id) {
-		Programme dossierProg = iprogramme.getOneProgrammeByCode("dossierBeneficiare");
+		/*Programme dossierProg = iprogramme.getOneProgrammeByCode("dossierBeneficiare");
 		instance = instanceRepository.findAllByDeletedIsFalseAndUid(id);
 		if(instance != null) {
 			if(dossierProg == instance.getProgramme()) {
 				instanceConvert.deleteBeneficiaireAllInstance(instance.getInstanceBeneficiaires());
 			}else {
-				instanceConvert.deleteInBeneficiaire(instance.getInstanceBeneficiaires());
+				instanceConvert.deleteInBeneficiaire(instance.getInstanceBeneficiaires(),instance);
 				deleteInstance(instance);
 			}
+			return "Success Deleted";
+		}
+		return "fail";*/
+		
+		instance = instanceRepository.findAllByDeletedIsFalseAndUid(id);
+		if(instance != null) {
+			instanceConvert.deleteInBeneficiaire(instance.getInstanceBeneficiaires(),instance);
+			deleteInstance(instance);
 			return "Success Deleted";
 		}
 		return "fail";
@@ -131,6 +143,26 @@ public class InstanceService implements Iinstance {
 	@Override
 	public List<Instance> getAllInstanceAnalyse(List<String> organisation, String programme) {
 		return instanceRepository.findAllByDeletedIsFalseAndOrganisationUidInAndProgrammeUid(organisation, programme);
+	}
+
+	@Override
+	public Integer erasedInstanceDeleting() {
+		
+		List<Instance> instances = new ArrayList<Instance>();
+		instances = instanceRepository.findAllByDeletedIsTrue();
+		
+		for(int i = 0; i < instances.size(); i++) {
+			while(!instances.get(i).getInstanceBeneficiaires().isEmpty()) {
+				//if(instances.get(i).getInstanceBeneficiaires().get(0).getBeneficiaire().getUid() != null) {
+					ibeneficiaire.deleteBeneficiaireInstance(instances.get(i).getInstanceBeneficiaires().get(0).getBeneficiaire(), instances.get(i));
+				//}
+			}
+			deleteCompleteInstance(instances.get(i));
+		}
+		return instances.size();
+		
+		
+		
 	}
 
 	

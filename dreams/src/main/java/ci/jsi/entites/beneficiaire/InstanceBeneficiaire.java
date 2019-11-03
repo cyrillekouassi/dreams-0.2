@@ -54,6 +54,14 @@ public class InstanceBeneficiaire {
 		this.dateAction = dateAction;
 	}
 
+	public Long getInstanceBeneficiareid() {
+		return InstanceBeneficiareid;
+	}
+
+	public void setInstanceBeneficiareid(Long instanceBeneficiareid) {
+		InstanceBeneficiareid = instanceBeneficiareid;
+	}
+
 	public Instance getInstance() {
 		return instance;
 	}

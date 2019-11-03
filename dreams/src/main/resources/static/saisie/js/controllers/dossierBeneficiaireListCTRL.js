@@ -3,6 +3,7 @@ saisie.controller('dossierBeneficiaireListCTRL',['$scope','$http','$rootScope','
     var dataValuesUrl = serverAdresse+"dataValue/orgPro";
     var instanceUrl = serverAdresse+"instance";
     var searchUrl = serverAdresse+"dataValue/search";
+    var beneficiaireUrl = serverAdresse+"beneficiaire";
     var DATE_FORMAT = 'dd-MM-yyyy HH:mm:ss';
     var prog = "prog=";
     var org = "org=";
@@ -150,8 +151,10 @@ saisie.controller('dossierBeneficiaireListCTRL',['$scope','$http','$rootScope','
     }
 
     $scope.deleteInstance = function (instance) {
+      var r = confirm("Vous etes sur le point de supprimer le dossier de la beneficiaire!\nLa beneficiaire aussi sera supprimer ainsi que ses activités.\n\nVoulez-vous continuer?");
+      if (r == true) {
         console.log("instance = " + instance);
-        var instanceDelete = instanceUrl + "/" + instance;
+        var instanceDelete = beneficiaireUrl + "?dossierInstance=" + instance;
         $http.delete(instanceDelete).then(function (response) {
             console.log(response);
             formateMetaData();
@@ -159,6 +162,7 @@ saisie.controller('dossierBeneficiaireListCTRL',['$scope','$http','$rootScope','
             console.log(err);
             formateMetaData();
         });
+      }
     };
 
     function getOptions(options, value) {
@@ -216,6 +220,7 @@ saisie.controller('dossierBeneficiaireListCTRL',['$scope','$http','$rootScope','
 //Croix pour masquer la zone de recherche
     $scope.closeSearchForm = function(){
       $scope.searchForm = false;// desactiver l'affichage de la zone de recherche
+      $scope.search = {};
       formateMetaData();// annuler les recherche effectuées
     }
 

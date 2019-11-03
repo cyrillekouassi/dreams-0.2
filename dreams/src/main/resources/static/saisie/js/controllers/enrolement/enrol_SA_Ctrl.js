@@ -4,13 +4,14 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
     var valueBeneficiaire = serverAdresse+'beneficiaire';
     var dataInstanceEntete = {};
     var dataInstance = {};
+    $rootScope.dataInstance = {};
     dataInstanceEntete.programme = $stateParams.prog;
     dataInstanceEntete.organisation = $stateParams.org;
     dataInstanceEntete.instance = $stateParams.inst;
     dataInstance = angular.copy(dataInstanceEntete);
     $scope.enrolA = {};
-    $rootScope.enrolementData = [];
-    $rootScope.benefNewEnrolData = {};
+    //$rootScope.enrolementData = [];
+    //$rootScope.benefNewEnrolData = {};
     $rootScope.beneficiaireData = {};
     var centreSocial = {};
     var plateForme = {};
@@ -34,19 +35,20 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
     initialDom();
     lancerAffichage();
     function lancerAffichage(){
-      if(dataInstance.instance){
+      console.log("lancerAffichage() l'enrolement selectionné = ",angular.copy($rootScope.enrolementData));
+      if(dataInstance.instance && $rootScope.enrolementData.length == 0){
           if($rootScope.allData && $rootScope.allData.length != 0){
               for(var i=0;i<$rootScope.allData.length;i++){
                   if($rootScope.allData[i].instance == dataInstanceEntete.instance){
                       $rootScope.enrolementData = $rootScope.allData[i].dataValue;
                       console.log("l'enrolement selectionné = ",$rootScope.enrolementData);
-                      mappigData();
-                      initial();
-                      gestionDate();
                   }
               }
           }
       }
+      mappigData();
+      initial();
+      gestionDate();
       $scope.chargeList = false;
     }
 
@@ -194,6 +196,7 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
         if(!dataInstance.instance){
             delete dataInstance.instance;
         }
+        $rootScope.dataInstance = dataInstance;
         getElementid();
         createBeneficiaire();
         succesSave();
@@ -201,11 +204,11 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
 
     };
 
-    function getElementid() {
+    /*function getElementid() {
         //console.log("getElementid()");
         for(var pop in $scope.enrolA){
             if($scope.enrolA[pop] != null && $scope.enrolA[pop] && $scope.enrolA[pop] != ""){
-                var id = getElementId(pop);
+                //var id = getElementId(pop);
                 if(id){
                     var data = {};
                     data.element = id;
@@ -220,7 +223,58 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
         console.log("dataInstance = ",dataInstance);
         $rootScope.benefNewEnrolData = dataInstance;
 
+    }*/
+
+    function getElementid() {
+        //console.log("getElementid()");
+        for(var pop in $scope.enrolA){
+          var id = getElementId(pop);
+          if(id){
+              if($scope.enrolA[pop] != null && $scope.enrolA[pop] && $scope.enrolA[pop] != ""){
+
+                      var data = {};
+                      data.element = id;
+                      data.value = $scope.enrolA[pop];
+                      data.numero = 1;
+                      //dataInstance.dataValue.push(data);
+                      updateEnrolData(data);
+              }else {
+                  console.info("getElementid(). Element sans valeur, code = ",pop," // valeur = ",$scope.enrolA[pop]);
+                  deleteEnrolData(id);
+              }
+          }
+        }
+        console.log("dataInstance = ",dataInstance);
+      //  $rootScope.benefNewEnrolData = dataInstance;
+
     }
+
+    function updateEnrolData(data) {
+      var trouve = false;
+      for(var j = 0;j<$rootScope.enrolementData.length;j++){
+        if($rootScope.enrolementData[j].element == data.element){
+          $rootScope.enrolementData[j] = data;
+          trouve = true;
+          break;
+        }
+      }
+      if(!trouve){
+        $rootScope.enrolementData.push(data);
+      }
+    }
+
+    function deleteEnrolData(element) {
+      var a = 0;
+      while(a<$rootScope.enrolementData.length){
+        if($rootScope.enrolementData[a].element == element){
+          $rootScope.enrolementData.splice(a, 1);
+          trouve = true;
+          break;
+        }
+        a++;
+      }
+    }
+
 
     function getElementId(code) {
         for(var j = 0;j<$rootScope.programmeSelect.elements.length;j++){
@@ -256,7 +310,7 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
     }
 
     function succesSave() {
-      console.log("succesSave() $rootScope.benefNewEnrolData = ",$rootScope.benefNewEnrolData);
+      console.log("succesSave() $rootScope.enrolementData = ",$rootScope.enrolementData);
       console.log("succesSave() $rootScope.beneficiaireData = ",$rootScope.beneficiaireData);
       $state.go('enrolSB',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
     }

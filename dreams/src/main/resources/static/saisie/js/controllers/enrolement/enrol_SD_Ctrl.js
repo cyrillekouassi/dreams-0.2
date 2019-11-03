@@ -46,7 +46,7 @@ var enrolSectionD = ["_01_resultat_algo","_01_test_vih","_02_dernier_test","_03_
 		dataInstance.dataValue = [];
 		getElement();
 		//saveData();
-    updateEnrolData();
+    //updateEnrolData();
     succesSave();
 
 	}
@@ -57,7 +57,7 @@ var enrolSectionD = ["_01_resultat_algo","_01_test_vih","_02_dernier_test","_03_
 
 	}
 
-	function getElement() {
+	/*function getElement() {
         console.log("getElement()");
         $scope.enrolD._03_prkoi_jam_teste = gesttestVih();
         console.log("$scope.enrolD = ",$scope.enrolD);
@@ -79,7 +79,33 @@ var enrolSectionD = ["_01_resultat_algo","_01_test_vih","_02_dernier_test","_03_
         }
         console.log("dataInstance = ",dataInstance);
 
-    }
+    }*/
+
+    function getElement() {
+          console.log("getElement()");
+          $scope.enrolD._03_prkoi_jam_teste = gesttestVih();
+          console.log("$scope.enrolD = ",$scope.enrolD);
+          for(var pop in $scope.enrolD){
+            var id = getElementId(pop);
+            if(id){
+              if($scope.enrolD[pop] != null && $scope.enrolD[pop] && $scope.enrolD[pop] != ""){
+                      var data = {};
+                      data.element = id;
+                      data.value = $scope.enrolD[pop];
+                      data.numero = 1;
+                      //dataInstance.dataValue.push(data);
+                      updateEnrolData(data);
+
+              }else {
+                  console.info("getElement(). Element sans valeur, code = ",pop," // valeur = ",$scope.enrolD[pop]);
+                  deleteEnrolData(id);
+              }
+            }else{
+                console.error("getElement(). Element non trouvé, code = ",pop);
+            }
+          }
+
+      }
 
 	function gesttestVih(){
 		console.log("$scope.testvih = ",$scope.testvih);
@@ -130,7 +156,7 @@ var enrolSectionD = ["_01_resultat_algo","_01_test_vih","_02_dernier_test","_03_
         });
     }
 
-    function updateEnrolData() {
+    /*function updateEnrolData() {
         console.log("D updateEnrolData() dataInstance = ",dataInstance);
         console.log("D updateEnrolData() $rootScope.benefNewEnrolData = ",$rootScope.benefNewEnrolData);
         for (var i = 0; i < dataInstance.dataValue.length; i++) {
@@ -145,12 +171,11 @@ var enrolSectionD = ["_01_resultat_algo","_01_test_vih","_02_dernier_test","_03_
             $rootScope.benefNewEnrolData.dataValue.push(dataInstance.dataValue[i]);
           }
         }
-    }
+    }*/
 
 	function succesSave() {
         $state.go('enrolSE',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
     }
-
 
     function initiTest(valeur){
       console.log("initiTest => valeur = ",valeur);
@@ -168,6 +193,32 @@ var enrolSectionD = ["_01_resultat_algo","_01_test_vih","_02_dernier_test","_03_
               conti = false;
           }
           $scope.testvih[option] = true;
+      }
+    }
+
+    function updateEnrolData(data) {
+      var trouve = false;
+      for(var j = 0;j<$rootScope.enrolementData.length;j++){
+        if($rootScope.enrolementData[j].element == data.element){
+          $rootScope.enrolementData[j] = data;
+          trouve = true;
+          break;
+        }
+      }
+      if(!trouve){
+        $rootScope.enrolementData.push(data);
+      }
+    }
+
+    function deleteEnrolData(element) {
+      var a = 0;
+      while(a<$rootScope.enrolementData.length){
+        if($rootScope.enrolementData[a].element == element){
+          $rootScope.enrolementData.splice(a, 1);
+          trouve = true;
+          break;
+        }
+        a++;
       }
     }
 

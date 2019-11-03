@@ -69,7 +69,7 @@ var enrolSectionG = ["_01_humil_public",
 		dataInstance.dataValue = [];
 		getElement();
 		//saveData();
-    updateEnrolData();
+    //updateEnrolData();
     succesSave();
 	}
 
@@ -79,7 +79,7 @@ var enrolSectionG = ["_01_humil_public",
 
 	}
 
-	function getElement() {
+	/*function getElement() {
         console.log("getElement()");
         $scope.enrolG._09_aupris_de_qui = gestaupres();
         $scope.enrolG._10_secours = gestsecours();
@@ -102,7 +102,32 @@ var enrolSectionG = ["_01_humil_public",
         }
         console.log("dataInstance = ",dataInstance);
 
-    }
+    }*/
+
+    function getElement() {
+          console.log("getElement()");
+          $scope.enrolG._09_aupris_de_qui = gestaupres();
+          $scope.enrolG._10_secours = gestsecours();
+          console.log("$scope.enrolG = ",$scope.enrolG);
+          for(var pop in $scope.enrolG){
+            var id = getElementId(pop);
+            if(id){
+              if($scope.enrolG[pop] != null && $scope.enrolG[pop] && $scope.enrolG[pop] != ""){
+                      var data = {};
+                      data.element = id;
+                      data.value = $scope.enrolG[pop];
+                      data.numero = 1;
+                      //dataInstance.dataValue.push(data);
+                      updateEnrolData(data);
+              }else {
+                  console.info("getElement(). Element sans valeur, code = ",pop," // valeur = ",$scope.enrolG[pop]);
+                  deleteEnrolData(id);
+              }
+            }else{
+                console.error("getElement(). Element non trouvé, code = ",pop);
+            }
+          }
+      }
 
 	function gestaupres(){
 		console.log("$scope.aupres = ",$scope.aupres);
@@ -174,7 +199,7 @@ var enrolSectionG = ["_01_humil_public",
         $state.go('enrolSH',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
   }
 
-  function updateEnrolData() {
+  /*function updateEnrolData() {
       console.log("G updateEnrolData() dataInstance = ",dataInstance);
       console.log("G updateEnrolData() $rootScope.benefNewEnrolData = ",$rootScope.benefNewEnrolData);
       for (var i = 0; i < dataInstance.dataValue.length; i++) {
@@ -189,7 +214,7 @@ var enrolSectionG = ["_01_humil_public",
           $rootScope.benefNewEnrolData.dataValue.push(dataInstance.dataValue[i]);
         }
       }
-  }
+  }*/
 
     function initiAupres(valeur){
       console.log("initiAupres => valeur = ",valeur);
@@ -226,6 +251,33 @@ var enrolSectionG = ["_01_humil_public",
               conti = false;
           }
           $scope.secours[option] = true;
+      }
+    }
+
+
+    function updateEnrolData(data) {
+      var trouve = false;
+      for(var j = 0;j<$rootScope.enrolementData.length;j++){
+        if($rootScope.enrolementData[j].element == data.element){
+          $rootScope.enrolementData[j] = data;
+          trouve = true;
+          break;
+        }
+      }
+      if(!trouve){
+        $rootScope.enrolementData.push(data);
+      }
+    }
+
+    function deleteEnrolData(element) {
+      var a = 0;
+      while(a<$rootScope.enrolementData.length){
+        if($rootScope.enrolementData[a].element == element){
+          $rootScope.enrolementData.splice(a, 1);
+          trouve = true;
+          break;
+        }
+        a++;
       }
     }
 

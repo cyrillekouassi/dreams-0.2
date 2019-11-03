@@ -35,4 +35,8 @@ public interface Ibeneficiaire {
 	public List<BeneficiaireOEV> getBeneficiaireOEV(List<String> organisation,String debut,String fin);
 	
 	public ResultatRequete deleteBeneficiaire(String beneficiaireUid);
+	
+	public ResultatRequete deleteBeneficiaireByDossier(String dossierInstance);
+	
+	public Integer erasedBeneficiaireDeleting();
 }

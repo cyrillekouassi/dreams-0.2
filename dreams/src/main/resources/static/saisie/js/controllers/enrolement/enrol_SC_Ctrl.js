@@ -68,7 +68,7 @@ function ($scope, $rootScope, $stateParams, $http,$filter,$state,$timeout) {
 		dataInstance.dataValue = [];
 		getElement();
 		//saveData();
-    updateEnrolData();
+    //updateEnrolData();
     succesSave();
 
 	}
@@ -79,7 +79,7 @@ function ($scope, $rootScope, $stateParams, $http,$filter,$state,$timeout) {
 
 	}
 
-	function getElement() {
+	/*function getElement() {
         console.log("getElement()");
         //console.log("$scope.enrolC = ",$scope.enrolC);
         for(var pop in $scope.enrolC){
@@ -100,7 +100,33 @@ function ($scope, $rootScope, $stateParams, $http,$filter,$state,$timeout) {
         }
         console.log("dataInstance = ",dataInstance);
 
-    }
+    }*/
+
+    function getElement() {
+          console.log("getElement()");
+          //console.log("$scope.enrolC = ",$scope.enrolC);
+          for(var pop in $scope.enrolC){
+            var id = getElementId(pop);
+            if(id){
+              if($scope.enrolC[pop] != null && $scope.enrolC[pop] && $scope.enrolC[pop] != ""){
+                      var data = {};
+                      data.element = id;
+                      data.value = $scope.enrolC[pop];
+                      data.numero = 1;
+                      //dataInstance.dataValue.push(data);
+                      updateEnrolData(data);
+
+              }else {
+                  console.info("getElement(). Element sans valeur, code = ",pop," // valeur = ",$scope.enrolC[pop]);
+                  deleteEnrolData(id);
+              }
+            }else{
+                console.error("getElement(). Element non trouvé, code = ",pop);
+            }
+          }
+          console.log("dataInstance = ",dataInstance);
+
+      }
 
 	function getElementId(code) {
         for(var j = 0;j<$rootScope.programmeSelect.elements.length;j++){
@@ -134,7 +160,7 @@ function ($scope, $rootScope, $stateParams, $http,$filter,$state,$timeout) {
         });
     }
 
-  function updateEnrolData() {
+  /*function updateEnrolData() {
       console.log("C updateEnrolData() dataInstance = ",dataInstance);
       console.log("C updateEnrolData() $rootScope.benefNewEnrolData = ",$rootScope.benefNewEnrolData);
       for (var i = 0; i < dataInstance.dataValue.length; i++) {
@@ -149,11 +175,37 @@ function ($scope, $rootScope, $stateParams, $http,$filter,$state,$timeout) {
           $rootScope.benefNewEnrolData.dataValue.push(dataInstance.dataValue[i]);
         }
       }
-  }
+  }*/
 
 	function succesSave() {
     console.log("succesSave()");
         $state.go('enrolSD',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
+  }
+
+  function updateEnrolData(data) {
+    var trouve = false;
+    for(var j = 0;j<$rootScope.enrolementData.length;j++){
+      if($rootScope.enrolementData[j].element == data.element){
+        $rootScope.enrolementData[j] = data;
+        trouve = true;
+        break;
+      }
+    }
+    if(!trouve){
+      $rootScope.enrolementData.push(data);
+    }
+  }
+
+  function deleteEnrolData(element) {
+    var a = 0;
+    while(a<$rootScope.enrolementData.length){
+      if($rootScope.enrolementData[a].element == element){
+        $rootScope.enrolementData.splice(a, 1);
+        trouve = true;
+        break;
+      }
+      a++;
+    }
   }
 
   $scope.changeniveau = function(value){

@@ -295,30 +295,43 @@ public class ServicesDreams {
 		//System.out.println("Sortir de ServicesDreams - genererService");
 	}
 	
-	public void evaluerService(String instanceID,String dateEnrol) {
+	public void evaluerService(String enrolInstanceID,String dateEnrol) {
 		
 		System.out.println("Entrer dans ServicesDreams - evaluerService");
+		Beneficiaire beneficiaire = ibeneficiaire.getOneBeneficiaireByInstance(enrolInstanceID);
+		if(beneficiaire == null) {
+			return;
+		}
 		dataValues = new ArrayList<DataValue>();
 		dataValueTDOs = new ArrayList<DataValueTDO>();
 		InstanceTDO instanceTDO = new InstanceTDO();
-		Instance instance = iinstance.getOneInstance(instanceID);
+		Instance enrolInstance = iinstance.getOneInstance(enrolInstanceID);
 		programme = iprogramme.getOneProgrammeByCode("besoinBeneficiare");
 		
-		dataInstance = idataValues.getDataInstance(instance.getUid());
+		dataInstance = idataValues.getDataInstance(enrolInstance.getUid());
 		dataValueTDOs = dataInstance.getDataValue();
 		
-		instanceTDO.setOrganisation(instance.getOrganisation().getUid());
+		instanceTDO.setOrganisation(enrolInstance.getOrganisation().getUid());
 		instanceTDO.setProgramme(programme.getUid());
-		if(instance.getUser() != null)
-			instanceTDO.setUser(instance.getUser().getUid());
+		if(enrolInstance.getUser() != null)
+			instanceTDO.setUser(enrolInstance.getUser().getUid());
 		instanceTDO.setDateActivite(dateEnrol);
-		this.instance = iinstance.saveInstance(instanceTDO);
+		
+		Instance Linstance = dossierExiste(beneficiaire,programme);
+		if(Linstance != null) {
+			idataValues.deleteInstanceData(Linstance.getUid());
+			this.instance = Linstance;
+		}else {
+			this.instance = iinstance.saveInstance(instanceTDO);
+		}
+		
 		
 		lesService();
 		dataValues = idataValues.saveAllDataValue(dataValues);
 
 		//System.out.println("Sortir de ServicesDreams - evaluerService");
-		getBeneficiaire(this.instance);
+		//getBeneficiaire(this.instance);
+		getBeneficiaire(beneficiaire, this.instance);
 		
 		//return this.instance;
 	}
@@ -1031,22 +1044,46 @@ public class ServicesDreams {
 		
 	}
 	
-	private void getBeneficiaire(Instance instance) {
-		Beneficiaire beneficiaire = ibeneficiaire.getOneBeneficiaireByIdDreams(IDdreams);
-		for(int i =0;i<beneficiaire.getInstanceBeneficiaires().size();i++) {
+	private void getBeneficiaire(Beneficiaire beneficiaire, Instance instance) {
+		int i =0;
+		while(i<beneficiaire.getInstanceBeneficiaires().size()) {
 			if(beneficiaire.getInstanceBeneficiaires().get(i).getInstance().getProgramme().getUid().equals(programme.getUid())) {
-				iinstance.deleteInstanceTDO(beneficiaire.getInstanceBeneficiaires().get(i).getInstance().getUid());
+				
+				Instance instanceSelected = beneficiaire.getInstanceBeneficiaires().get(i).getInstance();
+				beneficiaire = ibeneficiaire.deleteBeneficiaireInstance(beneficiaire,instanceSelected);
+				if(!instanceSelected.getUid().equals(instance.getUid())) {
+					iinstance.deleteCompleteInstance(instanceSelected);
+				}
+				i--;
 			}
+			i++;
 		}
-		beneficiaire = ibeneficiaire.getOneBeneficiaireByIdDreams(IDdreams);
+		
 		InstanceBeneficiaire instanceBeneficiaire = new InstanceBeneficiaire();
 		instanceBeneficiaire.setInstance(instance);
 		instanceBeneficiaire.setBeneficiaire(beneficiaire);
 		instanceBeneficiaire.setDateAction(instance.getDateActivite());
 		instanceBeneficiaire.setOrdre(1);
 		beneficiaire.getInstanceBeneficiaires().add(instanceBeneficiaire);
+		instance.getInstanceBeneficiaires().add(instanceBeneficiaire);
+		//instance = iinstance.saveInstance(instance);
 		beneficiaire = ibeneficiaire.updateOneBeneficiaire(beneficiaire);
+		System.out.println("////////////////");
 		
+	}
+	
+	private Instance dossierExiste(Beneficiaire beneficiaire,Programme programme) {
+		for(int i = 0; i<beneficiaire.getInstanceBeneficiaires().size(); i++) {
+			//Instance instance = iinstance.getOneInstance(beneficiaire.getInstanceBeneficiaires().get(i).getInstance().getUid());
+			Instance instance = beneficiaire.getInstanceBeneficiaires().get(i).getInstance();
+			if(instance.getProgramme().getUid().equals(programme.getUid())) {
+				Instance instanceNoDeleting = iinstance.getOneInstance(instance.getUid());
+				if(instanceNoDeleting != null) {
+					return instanceNoDeleting;
+				}
+			}
+		}
+		return null;
 	}
 	
 	

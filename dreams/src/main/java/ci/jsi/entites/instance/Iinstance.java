@@ -22,4 +22,5 @@ public interface Iinstance {
 	public List<Instance> getInstanceAnalysePreview(List<String> organisation, String programme, Date dateFin);
 	public List<Instance> getAllInstanceAnalyse(List<String> organisation, String programme);
 	public void deleteCompleteInstance(Instance instance);
+	public Integer erasedInstanceDeleting();
 }

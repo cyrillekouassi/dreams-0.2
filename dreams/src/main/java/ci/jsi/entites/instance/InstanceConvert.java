@@ -11,6 +11,7 @@ import ci.jsi.entites.beneficiaire.Beneficiaire;
 import ci.jsi.entites.beneficiaire.Ibeneficiaire;
 import ci.jsi.entites.beneficiaire.InstanceBeneficiaire;
 import ci.jsi.entites.beneficiaire.InstanceBeneficiaireConvert;
+import ci.jsi.entites.dataValue.IdataValues;
 import ci.jsi.entites.organisation.Iorganisation;
 import ci.jsi.entites.organisation.Organisation;
 import ci.jsi.entites.programme.Iprogramme;
@@ -49,6 +50,8 @@ public class InstanceConvert {
 	Ibeneficiaire ibeneficiaire;
 	@Autowired
 	InstanceService instanceService;
+	@Autowired
+	IdataValues idataValues;
 	
 	
 	Organisation organisation = null;
@@ -154,48 +157,24 @@ public class InstanceConvert {
 	}
 	
 	public Instance deleteInstance(Instance instance) {
+		deleteInBeneficiaire(instance.getInstanceBeneficiaires(), instance);
+		idataValues.deleteInstanceData(instance.getUid());
 		instance.setProgramme(null);
 		instance.setOrganisation(null);
 		instance.setUser(null);
-		instance.setInstanceBeneficiaires(null);
+		//instance.setInstanceBeneficiaires(null);
 		return instance;
 	}
 
-	public void deleteInBeneficiaire(List<InstanceBeneficiaire> instanceBeneficiaire) {
+	public void deleteInBeneficiaire(List<InstanceBeneficiaire> instanceBeneficiaire, Instance instance) {
 		System.out.println("InstanceConvert - deleteInBeneficiaire");
 		Beneficiaire beneficiaire;
 		for(int i = 0; i<instanceBeneficiaire.size();i++) {
 			beneficiaire = instanceBeneficiaire.get(i).getBeneficiaire();
-			ibeneficiaire.deleteBeneficiaireInstance(beneficiaire, instanceBeneficiaire.get(i).getInstance());
+			ibeneficiaire.deleteBeneficiaireInstance(beneficiaire, instance);
 		}
 		
 		
-	}
-
-	public void deleteBeneficiaireAllInstance(List<InstanceBeneficiaire> instanceBeneficiaires) {
-		System.out.println("InstanceConvert - deleteBeneficiaireAllInstance");
-		
-		Beneficiaire beneficiaire = instanceBeneficiaires.get(0).getBeneficiaire();
-		for(int i = 0;i<beneficiaire.getInstanceBeneficiaires().size();i++) {
-			if(!beneficiaire.getInstanceBeneficiaires().get(i).getInstance().getProgramme().getCode().equals("groupe")) {
-				instanceService.deleteInstance(beneficiaire.getInstanceBeneficiaires().get(i).getInstance());
-			}
-		}
-		
-		/*while(beneficiaire.getInstanceBeneficiaires().size() != 0) {
-			beneficiaire.getInstanceBeneficiaires().remove(0);
-		}*/
-		//beneficiaire.setOrganisation(null);
-		beneficiaire.setUid(null);
-		//beneficiaire.setId_dreams(null);
-		beneficiaire = ibeneficiaire.updateOneBeneficiaire(beneficiaire);
-		//ibeneficiaire.deleteBeneficiaire(beneficiaire.getUid());
-		System.out.println(beneficiaire);
-		
-	}
-	
-	
-	
-	
+	}	
 	
 }

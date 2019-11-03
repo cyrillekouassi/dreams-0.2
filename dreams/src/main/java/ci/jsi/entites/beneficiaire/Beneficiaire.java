@@ -31,7 +31,7 @@ public class Beneficiaire implements Serializable {
 	private String uid;
 	private String name;
 	private String firstName;
-	//@Column(unique=true)
+	@Column(unique=true)
 	private String dreamsId;
 	private String code;
 	private String telephone;

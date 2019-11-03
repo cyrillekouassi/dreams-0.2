@@ -18,7 +18,15 @@ saisie.controller('enrolSBctrl', ['$scope', '$rootScope', '$stateParams', '$http
 		"_12_c_1_nbre_f_m10","_12_c_2_nbre_f_10_14","_12_c_3_nbre_f_15_19","_12_d_1_nbre_h_m10",
 		"_12_d_2_nbre_h_10_14","_12_d_3_nbre_h_15_19","_12_nbre_mbre_menage"];
 
+
+  updateenrolementData();
 	mappigData();
+
+  function updateenrolementData() {
+    console.error("updateenrolementData(), $rootScope.benefNewEnrolData = ",$rootScope.benefNewEnrolData);
+    console.log("updateenrolementData(), $rootScope.enrolementData = ",$rootScope.enrolementData);
+
+  }
 
 	// Fonction pour afficher les valeurs dans bouton radios
 	 function mappigData() {
@@ -73,7 +81,8 @@ saisie.controller('enrolSBctrl', ['$scope', '$rootScope', '$stateParams', '$http
 		dataInstance.dataValue = [];
 		getElement();
 		//saveData();
-    updateEnrolData();
+    //updateEnrolData();
+    console.log("B updateEnrolData() $rootScope.benefNewEnrolData = ",$rootScope.benefNewEnrolData);
     succesSave();
 
 	}
@@ -84,10 +93,38 @@ saisie.controller('enrolSBctrl', ['$scope', '$rootScope', '$stateParams', '$http
 
 	}
 	// Fonction d'envoi des données vers le serveur
-	function getElement() {
+  function getElement() {
         console.log("getElement()");
         $scope.enrolB._11_handicap = gesthandicap();
         console.log("$scope.enrolB = ",$scope.enrolB);
+
+        for(var pop in $scope.enrolB){
+          var id = getElementId(pop);
+          if(id){
+            if($scope.enrolB[pop] != null && $scope.enrolB[pop] && $scope.enrolB[pop] != ""){
+                    var data = {};
+                    data.element = id;
+                    data.value = $scope.enrolB[pop];
+                    data.numero = 1;
+                    //dataInstance.dataValue.push(data);
+                    updateEnrolData(data);
+            }else {
+                console.info("getElement(). Element sans valeur, code = ",pop," // valeur = ",$scope.enrolB[pop]);
+                deleteEnrolData(id);
+            }
+          }else{
+              console.error("getElement(). Element non trouvé, code = ",pop);
+          }
+        }
+        //console.log("dataInstance = ",dataInstance);
+
+    }
+
+	/*function getElement() {
+        console.log("getElement()");
+        $scope.enrolB._11_handicap = gesthandicap();
+        console.log("$scope.enrolB = ",$scope.enrolB);
+
         for(var pop in $scope.enrolB){
             if($scope.enrolB[pop] != null && $scope.enrolB[pop] && $scope.enrolB[pop] != ""){
                 var id = getElementId(pop);
@@ -106,7 +143,7 @@ saisie.controller('enrolSBctrl', ['$scope', '$rootScope', '$stateParams', '$http
         }
         console.log("dataInstance = ",dataInstance);
 
-    }
+    }*/
 	// Fonction de gestion des bottons checkbox
 	function gesthandicap(){
 		console.log("$scope.handicap = ",$scope.handicap);
@@ -162,7 +199,7 @@ saisie.controller('enrolSBctrl', ['$scope', '$rootScope', '$stateParams', '$http
         $state.go('enrolSC',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
   }
 
-  function updateEnrolData() {
+  /*function updateEnrolData() {
     console.log("B updateEnrolData() dataInstance = ",dataInstance);
     console.log("B updateEnrolData() $rootScope.benefNewEnrolData = ",$rootScope.benefNewEnrolData);
     for (var i = 0; i < dataInstance.dataValue.length; i++) {
@@ -176,6 +213,33 @@ saisie.controller('enrolSBctrl', ['$scope', '$rootScope', '$stateParams', '$http
       if (!trouve) {
         $rootScope.benefNewEnrolData.dataValue.push(dataInstance.dataValue[i]);
       }
+    }
+  }*/
+
+  //mettre à jour les données
+  function updateEnrolData(data) {
+    var trouve = false;
+    for(var j = 0;j<$rootScope.enrolementData.length;j++){
+      if($rootScope.enrolementData[j].element == data.element){
+        $rootScope.enrolementData[j] = data;
+        trouve = true;
+        break;
+      }
+    }
+    if(!trouve){
+      $rootScope.enrolementData.push(data);
+    }
+  }
+
+  function deleteEnrolData(element) {
+    var a = 0;
+    while(a<$rootScope.enrolementData.length){
+      if($rootScope.enrolementData[a].element == element){
+        $rootScope.enrolementData.splice(a, 1);
+        trouve = true;
+        break;
+      }
+      a++;
     }
   }
 

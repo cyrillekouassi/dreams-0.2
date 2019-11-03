@@ -319,6 +319,7 @@ saisie.run(['$rootScope','$http', function ($rootScope,$http) {
         }
         $rootScope.arbre = meDataView;
         $rootScope.arbrePret = true;
+        console.log("$rootScope.arbre = ",$rootScope.arbre);
     }
 
 

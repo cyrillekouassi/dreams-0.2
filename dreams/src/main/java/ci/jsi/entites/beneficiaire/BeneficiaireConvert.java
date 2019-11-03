@@ -99,18 +99,18 @@ public class BeneficiaireConvert {
 		}
 		if (beneficiaireTDO.getDateNaissance() != null) {
 
-				laDate = convertDate.getDateParse(beneficiaireTDO.getDateNaissance());
-				if (laDate == null) {
-					return null;
-				}
-			
+			laDate = convertDate.getDateParse(beneficiaireTDO.getDateNaissance());
+			if (laDate == null) {
+				return null;
+			}
+
 		}
 		if (beneficiaireTDO.getDateEnrolement() != null) {
-				laDateEnrol = convertDate.getDateParse(beneficiaireTDO.getDateEnrolement());
-				if (laDateEnrol == null) {
-					return null;
-				}
-			
+			laDateEnrol = convertDate.getDateParse(beneficiaireTDO.getDateEnrolement());
+			if (laDateEnrol == null) {
+				return null;
+			}
+
 		}
 
 		beneficiaire.setUid(uid.getUid());
@@ -143,17 +143,17 @@ public class BeneficiaireConvert {
 		beneficiaire.setCode(beneficiaireTDO.getCode());
 		beneficiaire.setTelephone(beneficiaireTDO.getTelephone());
 		if (beneficiaireTDO.getDateNaissance() != null) {
-				laDate = convertDate.getDateParse(beneficiaireTDO.getDateNaissance());
-				if (laDate == null) {
-					return null;
-				}
+			laDate = convertDate.getDateParse(beneficiaireTDO.getDateNaissance());
+			if (laDate == null) {
+				return null;
+			}
 		}
 		if (beneficiaireTDO.getDateEnrolement() != null) {
-				laDateEnrol = convertDate.getDateParse(beneficiaireTDO.getDateNaissance());
-				if (laDateEnrol == null) {
-					return null;
-				}
-			
+			laDateEnrol = convertDate.getDateParse(beneficiaireTDO.getDateNaissance());
+			if (laDateEnrol == null) {
+				return null;
+			}
+
 		}
 		beneficiaire.setDateEnrolement(laDateEnrol);
 		beneficiaire.setDateNaissance(laDate);
@@ -162,7 +162,7 @@ public class BeneficiaireConvert {
 
 		beneficiaire.setOrganisation(organisationConvertEntitie.setOneOrganisation(beneficiaireTDO.getOrganisation()));
 
-		beneficiaire.setInstanceBeneficiaires(instanceBeneficiaireConvert.getInstances(beneficiaireTDO.getInstance()));
+		// beneficiaire.setInstanceBeneficiaires(instanceBeneficiaireConvert.getInstances(beneficiaireTDO.getInstance()));
 		return beneficiaire;
 	}
 
@@ -191,54 +191,65 @@ public class BeneficiaireConvert {
 		StatusBeneficiaire statusBeneficiaire;
 		programmeEnrolement = iprogramme.getOneProgrammeByCode("enrolement");
 		programmeDossierBeneficiare = iprogramme.getOneProgrammeByCode("dossierBeneficiare");
-		String[] elementCode = {"no_benef","porteEntree","categorieDreams","quatierBenef"};
-		String[] elementCodeSatuts = { "conceptSexualite", "conceptsGenre", "connaissanceCorpsOrgane", "aspectsNegatifs",
-				"promotionDepistage", "participationActivites", "participationCauseries", "ecouteConseils", "suivi",
-				"referenceVersExperts", "businessPlus", "participationAVEC", "fraisScolaire", "fournitures",
-				"uniformes", "autre", "alphabetisation", "utilisationPreservatifs", "distributionPreservatifs",
-				"referencePreservatifs", "referencVersPF", "referenceServicesVIH", "referenceMedical",
-				"referencePsychoSocial", "referenceJuridique", "referenceAbri", "fraisMedicaux", "fraisJuridiques",
-				"referenceNutritionnel", "fraisDocument", "sinovoyu", "AVEC", "educationFinanciere" };
-		
-		for(int i=0;i<elementCode.length;i++) {
+		String[] elementCode = { "no_benef", "porteEntree", "categorieDreams", "quatierBenef" };
+		String[] elementCodeSatuts = { "conceptSexualite", "conceptsGenre", "connaissanceCorpsOrgane",
+				"aspectsNegatifs", "promotionDepistage", "participationActivites", "participationCauseries",
+				"ecouteConseils", "suivi", "referenceVersExperts", "businessPlus", "participationAVEC", "fraisScolaire",
+				"fournitures", "uniformes", "autre", "alphabetisation", "utilisationPreservatifs",
+				"distributionPreservatifs", "referencePreservatifs", "referencVersPF", "referenceServicesVIH",
+				"referenceMedical", "referencePsychoSocial", "referenceJuridique", "referenceAbri", "fraisMedicaux",
+				"fraisJuridiques", "referenceNutritionnel", "fraisDocument", "sinovoyu", "AVEC",
+				"educationFinanciere" };
+
+		for (int i = 0; i < elementCode.length; i++) {
 			element = ielement.getOneElmentByCode(elementCode[i]);
-			if(element != null) {
+			if (element != null) {
 				elements.add(element);
-			}else {
-				System.err.println("Element introuvable: code = "+elementCode[i]);
-				//return null;
+			} else {
+				System.err.println("Element introuvable: code = " + elementCode[i]);
+				// return null;
 			}
 		}
-		for(int i=0;i<elementCodeSatuts.length;i++) {
+		for (int i = 0; i < elementCodeSatuts.length; i++) {
 			element = ielement.getOneElmentByCode(elementCodeSatuts[i]);
-			if(element != null) {
+			if (element != null) {
 				elementsStatus.add(element);
-			}else {
-				System.err.println("Element introuvable: code = "+elementCodeSatuts[i]);
-				//return null;
+			} else {
+				System.err.println("Element introuvable: code = " + elementCodeSatuts[i]);
+				// return null;
 			}
 		}
-		
-		for(int i = 0;i<beneficiaires.size();i++) {
+
+		for (int i = 0; i < beneficiaires.size(); i++) {
 			statusBeneficiaire = getStatusBeneficiaire(beneficiaires.get(i));
-			for(int j=0;j<beneficiaires.get(i).getInstanceBeneficiaires().size();j++) {
-				if(beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getProgramme() == programmeEnrolement) {
-					dataValueTDO = idataValues.getDataValueTDO(beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getUid(), elements.get(0).getCode());
-					//if(dataValueTDO != null) {
-						statusBeneficiaire.setNumeroOrdre(dataValueTDO.getValue());
-					//}
+			for (int j = 0; j < beneficiaires.get(i).getInstanceBeneficiaires().size(); j++) {
+				if (beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance()
+						.getProgramme() == programmeEnrolement) {
+					dataValueTDO = idataValues.getDataValueTDO(
+							beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getUid(),
+							elements.get(0).getCode());
+					// if(dataValueTDO != null) {
+					statusBeneficiaire.setNumeroOrdre(dataValueTDO.getValue());
+					// }
 				}
-				if(beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getProgramme() == programmeDossierBeneficiare) {
-					
-					dataValueTDO = idataValues.getDataValueTDO(beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getUid(), elements.get(3).getCode());
+				if (beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance()
+						.getProgramme() == programmeDossierBeneficiare) {
+
+					dataValueTDO = idataValues.getDataValueTDO(
+							beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getUid(),
+							elements.get(3).getCode());
 					statusBeneficiaire.setQuatier(dataValueTDO.getValue());
-					dataValueTDO = idataValues.getDataValueTDO(beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getUid(), elements.get(1).getCode());
-					statusBeneficiaire.setPorteEntree(elementValue(elements.get(1),dataValueTDO.getValue()));
-					dataValueTDO = idataValues.getDataValueTDO(beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getUid(), elements.get(2).getCode());
-					statusBeneficiaire.setCategorieDreams(elementValue(elements.get(1),dataValueTDO.getValue()));
-					statusBeneficiaire.setStatus(getStatus(elementsStatus,beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getUid()));
-					
-					
+					dataValueTDO = idataValues.getDataValueTDO(
+							beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getUid(),
+							elements.get(1).getCode());
+					statusBeneficiaire.setPorteEntree(elementValue(elements.get(1), dataValueTDO.getValue()));
+					dataValueTDO = idataValues.getDataValueTDO(
+							beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getUid(),
+							elements.get(2).getCode());
+					statusBeneficiaire.setCategorieDreams(elementValue(elements.get(1), dataValueTDO.getValue()));
+					statusBeneficiaire.setStatus(getStatus(elementsStatus,
+							beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getUid()));
+
 				}
 			}
 			statusBeneficiaires.add(statusBeneficiaire);
@@ -246,33 +257,34 @@ public class BeneficiaireConvert {
 
 		return statusBeneficiaires;
 	}
-	
+
 	private String elementValue(Element element, String valeur) {
 		String lesValeurs = null;
-		for(int i =0;i<element.getEnsembleOption().getOptions().size();i++) {
-			if(!element.getEnsembleOption().isMultiple()) {
-				if(element.getEnsembleOption().getOptions().get(i).getCode().equals(valeur)){
+		for (int i = 0; i < element.getEnsembleOption().getOptions().size(); i++) {
+			if (!element.getEnsembleOption().isMultiple()) {
+				if (element.getEnsembleOption().getOptions().get(i).getCode().equals(valeur)) {
 					return element.getEnsembleOption().getOptions().get(i).getName();
 				}
-			}else {
-				if(valeur.indexOf(element.getEnsembleOption().getOptions().get(i).getCode()) != -1) {
-					if(lesValeurs == null) {
+			} else {
+				if (valeur.indexOf(element.getEnsembleOption().getOptions().get(i).getCode()) != -1) {
+					if (lesValeurs == null) {
 						lesValeurs = element.getEnsembleOption().getOptions().get(i).getName();
-					}else {
-						lesValeurs = lesValeurs + ";" +element.getEnsembleOption().getOptions().get(i).getName();
+					} else {
+						lesValeurs = lesValeurs + ";" + element.getEnsembleOption().getOptions().get(i).getName();
 					}
 				}
 			}
 		}
-		
+
 		return lesValeurs;
 	}
-	
-	private String getStatus(List<Element> elementsStatus,String instance) {
-		for(int i = 0;i<elementsStatus.size();i++) {
+
+	private String getStatus(List<Element> elementsStatus, String instance) {
+		for (int i = 0; i < elementsStatus.size(); i++) {
 			DataValueTDO dataValueTDO = null;
 			dataValueTDO = idataValues.getDataValueTDO(instance, elementsStatus.get(i).getCode());
-			if(dataValueTDO.getValue() != null && !dataValueTDO.getValue().equals("") && !dataValueTDO.getValue().equals(" ")) {
+			if (dataValueTDO.getValue() != null && !dataValueTDO.getValue().equals("")
+					&& !dataValueTDO.getValue().equals(" ")) {
 				return "active";
 			}
 		}
@@ -287,65 +299,68 @@ public class BeneficiaireConvert {
 		statusBeneficiaire.setIdDreams(beneficiaire.getId_dreams());
 		statusBeneficiaire.setAgeEnrolement(beneficiaire.getAgeEnrolement());
 		statusBeneficiaire.setDateEnrolement(beneficiaire.getDateEnrolement().toString());
-		statusBeneficiaire.setTelephone(beneficiaire.getTelephone());		
+		statusBeneficiaire.setTelephone(beneficiaire.getTelephone());
 		statusBeneficiaire.setDateNaissance(beneficiaire.getDateEnrolement().toString());
 		statusBeneficiaire.setDateCreation(beneficiaire.getDateCreation().toString());
 		statusBeneficiaire.setDateUpdate(beneficiaire.getDateUpdate().toString());
 		statusBeneficiaire.setInstance(
 				instanceBeneficiaireConvert.getInstanceBeneficiaires(beneficiaire.getInstanceBeneficiaires()));
 		statusBeneficiaire.setOrganisation(organisationConvertEntitie.getOrganisation(beneficiaire.getOrganisation()));
-		
+
 		return statusBeneficiaire;
 	}
-	
+
 	public List<BeneficiaireOEV> getBeneficiairesOEV(List<Beneficiaire> beneficiaires) {
 
 		List<BeneficiaireOEV> listBeneficiaireOEV = new ArrayList<BeneficiaireOEV>();
-		List<DataValue> dataValue = new ArrayList<DataValue>();;
+		List<DataValue> dataValue = new ArrayList<DataValue>();
+		;
 		Programme programmeEnrolement = null;
 		BeneficiaireOEV beneficiaireOEV;
 		programmeEnrolement = iprogramme.getOneProgrammeByCode("enrolement");
-		List<String> elementCodeOEV = new ArrayList<String>();;
+		List<String> elementCodeOEV = new ArrayList<String>();
+		;
 		elementCodeOEV.add("_01_participation_program");
 		elementCodeOEV.add("codeOEV");
-		
-				
-				
-		for(int i = 0;i<beneficiaires.size();i++) {
+
+		for (int i = 0; i < beneficiaires.size(); i++) {
 			beneficiaireOEV = getOEVBeneficiaires(beneficiaires.get(i));
-			for(int j=0;j<beneficiaires.get(i).getInstanceBeneficiaires().size();j++) {
-				if(beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getProgramme() == programmeEnrolement) {
-					dataValue = idataValues.getDataValueTDO(beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getUid(), elementCodeOEV);
+			for (int j = 0; j < beneficiaires.get(i).getInstanceBeneficiaires().size(); j++) {
+				if (beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance()
+						.getProgramme() == programmeEnrolement) {
+					dataValue = idataValues.getDataValueTDO(
+							beneficiaires.get(i).getInstanceBeneficiaires().get(j).getInstance().getUid(),
+							elementCodeOEV);
 					String codeOEV = null;
 					boolean oev = false;
-					for(int a = 0; a<dataValue.size();a++) {
-						if(dataValue.get(a) != null && dataValue.get(a).getValue() != null) {
-							if(dataValue.get(a).getValue().contains("OEV")) {
+					for (int a = 0; a < dataValue.size(); a++) {
+						if (dataValue.get(a) != null && dataValue.get(a).getValue() != null) {
+							if (dataValue.get(a).getValue().contains("OEV")) {
 								oev = true;
 							}
-							
+
 						}
-						if(dataValue.get(a).getElement().getCode().equals("codeOEV")) {
+						if (dataValue.get(a).getElement().getCode().equals("codeOEV")) {
 							codeOEV = dataValue.get(a).getValue();
-							
+
 						}
 					}
-					
-					if(oev) {
+
+					if (oev) {
 						beneficiaireOEV.setCodeOEV(codeOEV);
 						listBeneficiaireOEV.add(beneficiaireOEV);
 					}
 				}
-				
+
 			}
-			
+
 		}
 
 		listBeneficiaireOEV = searchBBOEVvalue(listBeneficiaireOEV);
-	
+
 		return listBeneficiaireOEV;
 	}
-	
+
 	private BeneficiaireOEV getOEVBeneficiaires(Beneficiaire beneficiaire) {
 		BeneficiaireOEV beneficiaireOEV = new BeneficiaireOEV();
 		beneficiaireOEV.setId(beneficiaire.getUid());
@@ -354,80 +369,80 @@ public class BeneficiaireConvert {
 		beneficiaireOEV.setIdDreams(beneficiaire.getId_dreams());
 		beneficiaireOEV.setAgeEnrolement(beneficiaire.getAgeEnrolement());
 		beneficiaireOEV.setDateEnrolement(beneficiaire.getDateEnrolement().toString());
-		beneficiaireOEV.setTelephone(beneficiaire.getTelephone());		
+		beneficiaireOEV.setTelephone(beneficiaire.getTelephone());
 		beneficiaireOEV.setDateNaissance(beneficiaire.getDateEnrolement().toString());
 		beneficiaireOEV.setDateCreation(beneficiaire.getDateCreation().toString());
 		beneficiaireOEV.setDateUpdate(beneficiaire.getDateUpdate().toString());
 		beneficiaireOEV.setInstance(
 				instanceBeneficiaireConvert.getInstanceBeneficiaires(beneficiaire.getInstanceBeneficiaires()));
 		beneficiaireOEV.setOrganisation(organisationConvertEntitie.getOrganisation(beneficiaire.getOrganisation()));
-		
-		return beneficiaireOEV;
-	}
-	
-	private List<BeneficiaireOEV> searchBBOEVvalue(List<BeneficiaireOEV> beneficiaireOEV) {
-		
 
-	    final String uri = "http://localhost/api/?menage=014AGK20130001";
-	     
-	    RestTemplate restTemplate = new RestTemplate();
-	    String result = restTemplate.getForObject(uri, String.class);
-	     
-	    System.out.println(result);
-		
 		return beneficiaireOEV;
 	}
-	public List<Beneficiaire> deleteBeneficiaireInstance(List<Beneficiaire> beneficiaires,String instance){
-		
+
+	private List<BeneficiaireOEV> searchBBOEVvalue(List<BeneficiaireOEV> beneficiaireOEV) {
+
+		final String uri = "http://localhost/api/?menage=014AGK20130001";
+
+		RestTemplate restTemplate = new RestTemplate();
+		String result = restTemplate.getForObject(uri, String.class);
+
+		System.out.println(result);
+
+		return beneficiaireOEV;
+	}
+
+	public List<Beneficiaire> deleteBeneficiaireInstances(List<Beneficiaire> beneficiaires, String instance) {
+
 		List<InstanceBeneficiaire> deleteInstanceBeneficiaires = new ArrayList<InstanceBeneficiaire>();
 		int pas = 0;
-		int i = pas+1;
-		while(i<beneficiaires.size()) {
-			if(beneficiaires.get(i).getUid().equals(beneficiaires.get(pas).getUid())) {
+		int i = pas + 1;
+		while (i < beneficiaires.size()) {
+			if (beneficiaires.get(i).getUid().equals(beneficiaires.get(pas).getUid())) {
 				beneficiaires.remove(i);
 				i--;
 			}
 			i++;
-			if(i==beneficiaires.size()) {
+			if (i == beneficiaires.size()) {
 				pas++;
-				if(pas<beneficiaires.size()) {
-					i = pas+1;
+				if (pas < beneficiaires.size()) {
+					i = pas + 1;
 				}
 			}
 		}
-		
-		for(int j=0;j<beneficiaires.size();j++) {
+
+		for (int j = 0; j < beneficiaires.size(); j++) {
 			List<InstanceBeneficiaire> instanceBeneficiaires = new ArrayList<InstanceBeneficiaire>();
 			Beneficiaire beneficiaire = new Beneficiaire();
 			beneficiaire = beneficiaires.get(j);
 			instanceBeneficiaires = beneficiaire.getInstanceBeneficiaires();
 			pas = 0;
-			i = pas+1;
-			//boolean trouve = false;
-			while(i<instanceBeneficiaires.size()) {
-				
-				if(instanceBeneficiaires.get(i).getInstance().getUid().equals(instanceBeneficiaires.get(pas).getInstance().getUid())) {
+			i = pas + 1;
+			// boolean trouve = false;
+			while (i < instanceBeneficiaires.size()) {
+
+				if (instanceBeneficiaires.get(i).getInstance().getUid()
+						.equals(instanceBeneficiaires.get(pas).getInstance().getUid())) {
 					deleteInstanceBeneficiaires.add(instanceBeneficiaires.get(i));
 					instanceBeneficiaires.remove(i);
 					i--;
 				}
 				i++;
-				if(i==instanceBeneficiaires.size()) {
+				if (i == instanceBeneficiaires.size()) {
 					pas++;
-					if(pas<instanceBeneficiaires.size()) {
-						i = pas+1;
+					if (pas < instanceBeneficiaires.size()) {
+						i = pas + 1;
 					}
 				}
 			}
-			//beneficiaire.setInstanceBeneficiaires(instanceBeneficiaires);
-			//beneficiaire.setDateUpdate(new Date());
-			//beneficiaire = beneficiaireRepository.save(beneficiaire);
 		}
 		instanceBeneficiaireRepository.delete(deleteInstanceBeneficiaires);
 		return beneficiaires;
-		
+
+	}
+
+	public void deleteBeneficiaireInstance(List<InstanceBeneficiaire> deleteInstanceBeneficiaires) {
+		instanceBeneficiaireRepository.delete(deleteInstanceBeneficiaires);
 	}
 
 }
-
-

@@ -3,6 +3,7 @@ package ci.jsi.importExport.traitement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import ci.jsi.entites.beneficiaire.Beneficiaire;
 import ci.jsi.entites.beneficiaire.Ibeneficiaire;
 import ci.jsi.entites.dataValue.DataInstance;
+import ci.jsi.entites.dataValue.DataValue;
 import ci.jsi.entites.dataValue.DataValueTDO;
 import ci.jsi.entites.dataValue.IdataValues;
 import ci.jsi.entites.element.Element;
@@ -41,9 +43,12 @@ public class CreateDossierBeneficiaire {
 
 	public Instance createDossierBeneficiare(String instanceID,String beneficiaireID) {
 		System.out.println("enter dans createDossierBeneficiare");
+		DataInstance dataInstanceExiste = new DataInstance();
 		DataInstance dataInstance = new DataInstance();
 		List<DataValueTDO> dataValueTDOs = new ArrayList<DataValueTDO>();
+		//List<DataValue> dataValues = new ArrayList<DataValue>();
 		//DataValueTDO dataValueTDO = new DataValueTDO();
+				
 		ResultatRequete resultatRequete = null;
 		Instance instance = iinstance.getOneInstance(instanceID);
 		Beneficiaire beneficiaire = ibeneficiaire.getOneBeneficiaireByIdDreams(beneficiaireID);
@@ -58,7 +63,9 @@ public class CreateDossierBeneficiaire {
 		}
 		String Linstance = dossierExiste(beneficiaire,dossierProg);
 		if(Linstance != null) {
-			dataInstance.setInstance(Linstance);
+			dataInstanceExiste = idataValues.getDataInstance(Linstance);
+			/*dataInstance.setInstance(Linstance);
+			dataValues = idataValues.getDataValues(Linstance);*/
 		}
 		
 		dataInstance.setDreamsId(beneficiaire.getId_dreams());
@@ -131,14 +138,17 @@ public class CreateDossierBeneficiaire {
 		contactParent.setNumero(1);
 		contactParent.setValue(benefElementValue(instance, "tel_charg_benef"));
 		dataValueTDOs.add(contactParent);
-		
-		
 		dataInstance.setDataValue(dataValueTDOs);
+		
+		if(dataInstanceExiste.getInstance() != null) {
+			dataInstance.setInstance(Linstance);
+			dataInstance = updateDossier(dataInstance,dataInstanceExiste);
+		}
+		
 		resultatRequete = idataValues.saveDataInstance(dataInstance);
 		if(resultatRequete.getStatus().equals("ok")) {
 			return iinstance.getOneInstance(resultatRequete.getId());
 		}
-		
 		return null;
 	}
 	
@@ -158,15 +168,47 @@ public class CreateDossierBeneficiaire {
 	}
 	
 	private String dossierExiste(Beneficiaire beneficiaire,Programme programme) {
-		
+		List<Instance> instances = new ArrayList<Instance>();
+		Instance instanceBon = new Instance();
 		for(int i = 0; i<beneficiaire.getInstanceBeneficiaires().size(); i++) {
-			//Instance instance = iinstance.getOneInstance(beneficiaire.getInstanceBeneficiaires().get(i).getInstance().getUid());
 			Instance instance = beneficiaire.getInstanceBeneficiaires().get(i).getInstance();
 			if(instance.getProgramme().getUid().equals(programme.getUid())) {
-				return instance.getUid();
+				Instance instanceNoDeleting = iinstance.getOneInstance(instance.getUid());
+				if(instanceNoDeleting != null && instanceBon.getUid() == null) {
+					instanceBon = instanceNoDeleting;
+				}else {
+					instances.add(instance);
+				}
+			}
+			
+		}
+		
+		int a = 0;
+		while(a<instances.size()) {
+			iinstance.deleteCompleteInstance(instances.get(a));
+			instances.remove(a);
+		}
+		return instanceBon.getUid();
+	}
+	
+	private DataInstance updateDossier(DataInstance dataInstance,DataInstance dataInstanceExiste) {
+		List<DataValueTDO> dataValueTDOs = new ArrayList<DataValueTDO>();
+		List<DataValueTDO> dataValueTDOsExistant = new ArrayList<DataValueTDO>();
+		dataValueTDOs = dataInstance.getDataValue();
+		dataValueTDOsExistant = dataInstanceExiste.getDataValue();
+		
+		for(int i = 0; i<dataValueTDOs.size(); i++) {
+			for(int j = 0; j<dataValueTDOsExistant.size(); j++) {
+				if(dataValueTDOsExistant.get(j).getElement().equals(dataValueTDOs.get(i).getElement())) {
+					dataValueTDOsExistant.get(j).setValue(dataValueTDOs.get(i).getValue());
+					break;
+				}
 			}
 		}
-		return null;
+		
+		dataInstance.setDataValue(dataValueTDOsExistant);
+		return dataInstance;
+		
 	}
 	
 }

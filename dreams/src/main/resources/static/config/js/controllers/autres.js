@@ -2,8 +2,11 @@ conf.controller('autresCTRL',['$scope','$http','$rootScope','$interval',function
     console.log("entrer dans autresCTRL");
     var executeRapportUrl = serverAdresse+"api/executeRapport?action=execute";
     var statusRapportUrl = serverAdresse+"api/executeRapport?action=status";
+    var erasedDeletingUrl = serverAdresse+"api/erasedDeleting";
     $rootScope.ongletSelect = "autres";
     $scope.resultRapport = {};
+    $scope.deletingRapport = {};
+    $scope.deletingResultat = [];
     $scope.dateDerniereExecution = ".....";
     var stop;
     statusExecuteRapport();
@@ -37,6 +40,19 @@ conf.controller('autresCTRL',['$scope','$http','$rootScope','$interval',function
               $scope.dateDerniereExecution = $scope.resultRapport.id;
           }
 
+      }, function (err) {
+          console.log(err);
+      });
+    }
+
+    $scope.SupprimerDefinitivement = function(){
+      $scope.deletingRapport.enCours = true;
+      deletingResultat = [];
+      $http.get(erasedDeletingUrl).then(function (response) {
+          console.log("SupprimerDefinitivement ==>",response);
+          $scope.deletingResultat = response.data.raisonNonImport;
+          $scope.deletingRapport.enCours = false;
+          $scope.deletingRapport.fini = true;
       }, function (err) {
           console.log(err);
       });

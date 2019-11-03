@@ -16,6 +16,7 @@ public interface IdataValues {
 	public String updateDataValue(String instance, String element, String value,int numero);
 	public DataValueTDO getDataValueTDO(String instance, String element);
 	public List<DataValue> getDataValueTDO(String instance, List<String> element);
+	public List<DataValue> getDataValues(String instance);
 	public DataInstance getDataInstance(String instance);
 	public String deleteDataValue(String instance, String element);
 	public Page<DataInstance> getDataValueOrganisation(String programme,String organisation,Pageable pageable);
@@ -38,4 +39,6 @@ public interface IdataValues {
 	public List<DataValue> saveAllDataValue(List<DataValue> dataValues);
 	
 	public Page<DataInstance> searchDataValue(SearchElement searchElement);
+	
+	public void deleteInstanceData(String instance);
 }

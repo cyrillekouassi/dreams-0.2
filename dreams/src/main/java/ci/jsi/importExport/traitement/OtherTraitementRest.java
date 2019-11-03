@@ -61,15 +61,21 @@ public class OtherTraitementRest {
 		
 	}
 	
-	/*private void serviceBeneficiaire(Instance instance,Beneficiaire beneficiaire) {
-		InstanceBeneficiaire instanceBeneficiaire = new InstanceBeneficiaire();
-		instanceBeneficiaire.setInstance(instance);
-		instanceBeneficiaire.setBeneficiaire(beneficiaire);
-		instanceBeneficiaire.setDateAction(instance.getDateActivite());
-		instanceBeneficiaire.setOrdre(1);
+	
+	@RequestMapping(value="api/erasedDeleting", method=RequestMethod.GET)
+	public ResultatRequete supprimerDefinitivement(){
 		
-		beneficiaire.getInstanceBeneficiaires().add(instanceBeneficiaire);
-		beneficiaire = ibeneficiaire.updateOneBeneficiaire(beneficiaire);
-	}*/
+		ResultatRequete resultatRequete = new ResultatRequete();
+		
+		resultatRequete.getRaisonNonImport().add("Instance erased: "+ iinstance.erasedInstanceDeleting());
+		resultatRequete.getRaisonNonImport().add("Beneficiaire erased: "+ ibeneficiaire.erasedBeneficiaireDeleting());
+		
+		//iinstance.erasedInstanceDeleting();
+		//ibeneficiaire.erasedBeneficiaireDeleting();
+		resultatRequete.setStatus("ok");
+		//resultatRequete.setId(instanceID);
+		return resultatRequete;
+		
+	}
 	
 }

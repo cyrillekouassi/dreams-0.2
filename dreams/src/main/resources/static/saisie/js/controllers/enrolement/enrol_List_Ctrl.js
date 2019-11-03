@@ -11,6 +11,7 @@ saisie.controller('enrol_List_Ctrl', ['$scope', '$rootScope', '$http', '$filter'
     $rootScope.leProgramme = {};
     $rootScope.beneficiaireSelect = {};
     //$rootScope.elementProgramme = [];
+    $rootScope.enrolementData = [];
     var nosElements = [];
     var data = [];
     $rootScope.VadInfo = {};
@@ -256,6 +257,7 @@ saisie.controller('enrol_List_Ctrl', ['$scope', '$rootScope', '$http', '$filter'
       console.log("searchElement() > $rootScope.programmeSelect = ",$rootScope.programmeSelect);
       console.log("searchElement() > $rootScope.orgUnitSelect = ",$rootScope.orgUnitSelect);
       $rootScope.elementProgramme = [];
+      $scope.lesEnrol = [];
       var recherche = {};
       recherche.valueSearchs = []
       for(var pop in $scope.search){
@@ -313,6 +315,7 @@ saisie.controller('enrol_List_Ctrl', ['$scope', '$rootScope', '$http', '$filter'
 
   $scope.closeSearchForm = function(){
     $scope.searchForm = false;
+    $scope.search = {};
     formateMetaData();
   }
 

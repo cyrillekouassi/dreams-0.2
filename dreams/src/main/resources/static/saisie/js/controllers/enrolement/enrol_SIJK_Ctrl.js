@@ -60,9 +60,10 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 		console.log("$rootScope.programmeSelect = ",$rootScope.programmeSelect);
 		//dataInstance.dreamsId = $scope.enrolA.id_dreams;
         //dataInstance.dateActivite = $scope.enrolA.dat_enrol;
+    dataInstance = $rootScope.dataInstance;
 		dataInstance.dataValue = [];
 		getElement();
-    updateEnrolData();
+    //updateEnrolData();
 		saveBenef();
 
 	}
@@ -73,7 +74,7 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 
 	}
 
-	function getElement() {
+	/*function getElement() {
         console.log("getElement()");
         $scope.enrolIJK._01_participation_program = gestparticipation();
         $scope.enrolIJK._02_element_repas = gestrepas();
@@ -96,7 +97,35 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
         }
         console.log("dataInstance = ",dataInstance);
 
-    }
+    }*/
+
+    function getElement() {
+          console.log("getElement()");
+          $scope.enrolIJK._01_participation_program = gestparticipation();
+          $scope.enrolIJK._02_element_repas = gestrepas();
+          console.log("$scope.enrolH = ",$scope.enrolIJK);
+          for(var pop in $scope.enrolIJK){
+            var id = getElementId(pop);
+            if(id){
+              if($scope.enrolIJK[pop] != null && $scope.enrolIJK[pop] && $scope.enrolIJK[pop] != ""){
+                      var data = {};
+                      data.element = id;
+                      data.value = $scope.enrolIJK[pop];
+                      data.numero = 1;
+                      //dataInstance.dataValue.push(data);
+                      updateEnrolData(data);
+              }else {
+                  console.info("getElement(). Element sans valeur, code = ",pop," // valeur = ",$scope.enrolIJK[pop]);
+                  deleteEnrolData(id);
+              }
+            }else{
+                console.error("getElement(). Element non trouvé, code = ",pop);
+            }
+          }
+          dataInstance.dataValue = $rootScope.enrolementData;
+          console.log("dataInstance = ",dataInstance);
+
+      }
 
 	function gestparticipation(){
 		console.log("$scope.participation = ",$scope.participation);
@@ -150,11 +179,12 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
             }
         };
 
-        $http.post(ValueUrl, $rootScope.benefNewEnrolData, config).then(function(succes){
+        $http.post(ValueUrl, dataInstance, config).then(function(succes){
+        //$http.post(ValueUrl, $rootScope.benefNewEnrolData, config).then(function(succes){
             console.log("saveData() succes = ",succes);
             //dataInstance.instance =
             if(succes.data.status == "ok"){
-                //dataInstance.instance = succes.data.id;
+                dataInstance.instance = succes.data.id;
                 //succesSave();
                 executeDossierBesoins();
             }else{
@@ -166,7 +196,7 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
         });
     }
 
-    function saveBenef() {
+  function saveBenef() {
 
         var config = {
             headers: {
@@ -186,23 +216,6 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
             console.log("saveBenef() > error = ",error);
             toastr["success"]("Impossible de créer ce bénéficiaire");
         });
-    }
-
-    function updateEnrolData() {
-        console.log("IJK updateEnrolData() dataInstance = ",dataInstance);
-        console.log("IJK updateEnrolData() $rootScope.benefNewEnrolData = ",$rootScope.benefNewEnrolData);
-        for (var i = 0; i < dataInstance.dataValue.length; i++) {
-          var trouve = false;
-          for (var j = 0; j < $rootScope.benefNewEnrolData.dataValue.length; j++) {
-            if($rootScope.benefNewEnrolData.dataValue[j].element == dataInstance.dataValue[i].element){
-              $rootScope.benefNewEnrolData.dataValue[j].value == dataInstance.dataValue[i].value;
-              touve = true;
-            }
-          }
-          if (!trouve) {
-            $rootScope.benefNewEnrolData.dataValue.push(dataInstance.dataValue[i]);
-          }
-        }
     }
 
 	function succesSave() {
@@ -248,7 +261,7 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
         }
 
     function executeDossierBesoins() {
-            var instance = "instance=" + $stateParams.inst;
+            var instance = "instance=" + dataInstance.instance;
             var beneficiaireID = "beneficiaireID=" + getValue("id_dreams");
             var dateEnrolement = "dateEnrolement=" + getValue("dat_enrol");
             var apiDossierBesoin = serverAdresse+"api/genererBesoinAndDossier"
@@ -277,6 +290,32 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
                     return $rootScope.enrolementData[j].value;
                 }
             }
+          }
+        }
+
+        function updateEnrolData(data) {
+          var trouve = false;
+          for(var j = 0;j<$rootScope.enrolementData.length;j++){
+            if($rootScope.enrolementData[j].element == data.element){
+              $rootScope.enrolementData[j] = data;
+              trouve = true;
+              break;
+            }
+          }
+          if(!trouve){
+            $rootScope.enrolementData.push(data);
+          }
+        }
+
+        function deleteEnrolData(element) {
+          var a = 0;
+          while(a<$rootScope.enrolementData.length){
+            if($rootScope.enrolementData[a].element == element){
+              $rootScope.enrolementData.splice(a, 1);
+              trouve = true;
+              break;
+            }
+            a++;
           }
         }
 }]);

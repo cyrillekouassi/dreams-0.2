@@ -44,7 +44,7 @@ var enrolSectionE = ["_01_rela_sexuel","_02_ag_sexuel","_03_nbr_part_sexuel","_0
 		dataInstance.dataValue = [];
 		getElement();
 		//saveData();
-    updateEnrolData();
+    //updateEnrolData();
     succesSave();
 	}
 
@@ -54,7 +54,7 @@ var enrolSectionE = ["_01_rela_sexuel","_02_ag_sexuel","_03_nbr_part_sexuel","_0
 
 	}
 
-	function getElement() {
+	/*function getElement() {
         console.log("getElement()");
         for(var pop in $scope.enrolE){
             if($scope.enrolE[pop] != null && $scope.enrolE[pop] && $scope.enrolE[pop] != ""){
@@ -74,7 +74,31 @@ var enrolSectionE = ["_01_rela_sexuel","_02_ag_sexuel","_03_nbr_part_sexuel","_0
         }
         console.log("dataInstance = ",dataInstance);
 
-    }
+    }*/
+
+    function getElement() {
+          console.log("getElement()");
+          for(var pop in $scope.enrolE){
+            var id = getElementId(pop);
+            if(id){
+              if($scope.enrolE[pop] != null && $scope.enrolE[pop] && $scope.enrolE[pop] != ""){
+                  var data = {};
+                  data.element = id;
+                  data.value = $scope.enrolE[pop];
+                  data.numero = 1;
+                  //dataInstance.dataValue.push(data);
+                  updateEnrolData(data);
+              }else {
+                  console.info("getElement(). Element sans valeur, code = ",pop," // valeur = ",$scope.enrolE[pop]);
+                  deleteEnrolData(id);
+              }
+            }else{
+                console.error("getElement(). Element non trouvé, code = ",pop);
+            }
+          }
+          console.log("dataInstance = ",dataInstance);
+
+      }
 
 	function getElementId(code) {
         for(var j = 0;j<$rootScope.programmeSelect.elements.length;j++){
@@ -108,7 +132,7 @@ var enrolSectionE = ["_01_rela_sexuel","_02_ag_sexuel","_03_nbr_part_sexuel","_0
         });
     }
 
-    function updateEnrolData() {
+    /*function updateEnrolData() {
         console.log("E updateEnrolData() dataInstance = ",dataInstance);
         console.log("E updateEnrolData() $rootScope.benefNewEnrolData = ",$rootScope.benefNewEnrolData);
         for (var i = 0; i < dataInstance.dataValue.length; i++) {
@@ -123,12 +147,37 @@ var enrolSectionE = ["_01_rela_sexuel","_02_ag_sexuel","_03_nbr_part_sexuel","_0
             $rootScope.benefNewEnrolData.dataValue.push(dataInstance.dataValue[i]);
           }
         }
-    }
+    }*/
 
 	function succesSave() {
         $state.go('enrolSF',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
     }
 
+    function updateEnrolData(data) {
+      var trouve = false;
+      for(var j = 0;j<$rootScope.enrolementData.length;j++){
+        if($rootScope.enrolementData[j].element == data.element){
+          $rootScope.enrolementData[j] = data;
+          trouve = true;
+          break;
+        }
+      }
+      if(!trouve){
+        $rootScope.enrolementData.push(data);
+      }
+    }
+
+    function deleteEnrolData(element) {
+      var a = 0;
+      while(a<$rootScope.enrolementData.length){
+        if($rootScope.enrolementData[a].element == element){
+          $rootScope.enrolementData.splice(a, 1);
+          trouve = true;
+          break;
+        }
+        a++;
+      }
+    }
 
 
 }]);

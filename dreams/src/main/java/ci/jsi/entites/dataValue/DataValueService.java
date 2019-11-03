@@ -149,7 +149,7 @@ public class DataValueService implements IdataValues {
 		}else {
 			instance = dataValueConvert.createNewInstance(dataInstance);
 			if(instance != null && dataInstance.getDreamsId() != null) {
-				beneficiaire = dataValueConvert.createBeneficiaire(dataInstance, instance);
+				beneficiaire = dataValueConvert.createBeneficiaireInstance(dataInstance, instance);
 				if(beneficiaire == null) {
 					iinstance.deleteCompleteInstance(instance);
 					resultatRequete.setStatus("fail");
@@ -161,7 +161,8 @@ public class DataValueService implements IdataValues {
 		
 		if(instance != null) {
 			//dataValues = dataValueConvert.saveDataValues(dataInstance.getDataValue(), instance);
-			dataValues = dataValueConvert.saveDataValuesNew(dataInstance.getDataValue(), instance);
+			//dataValues = dataValueConvert.saveDataValuesNew(dataInstance.getDataValue(), instance);
+			dataValues = dataValueConvert.saveDataValuesUnique(dataInstance.getDataValue(), instance);
 			if(!dataValues.isEmpty()) {
 				dataValues = dataValueRepository.save(dataValues);
 			}
@@ -462,6 +463,20 @@ public class DataValueService implements IdataValues {
 		//dataValue = dataValueConvert.getDataValueSepare(instance, element);
 		dataValues = dataValueRepository.findByInstanceUidAndElementCodeIn(instance, elementsCodes);
 		
+		return dataValues;
+	}
+
+	@Override
+	public void deleteInstanceData(String instance) {
+		dataValueConvert.deleteResteValues(instance);
+		
+	}
+
+	@Override
+	public List<DataValue> getDataValues(String instance) {
+		System.out.println("Entrer dans DataValueService - getDataValues");
+		List<DataValue> dataValues = new ArrayList<DataValue>();
+		dataValues = dataValueRepository.findByInstanceUid(instance);
 		return dataValues;
 	}
 

@@ -59,7 +59,7 @@ saisie.controller('enrolSHctrl', ['$scope', '$rootScope', '$stateParams', '$http
 		dataInstance.dataValue = [];
 		getElement();
 		//saveData();
-    updateEnrolData();
+    //updateEnrolData();
     succesSave();
 	}
 
@@ -69,7 +69,7 @@ saisie.controller('enrolSHctrl', ['$scope', '$rootScope', '$stateParams', '$http
 
 	}
 
-	function getElement() {
+	/*function getElement() {
         console.log("getElement()");
         $scope.enrolH._05_type_drogue = gesttypeDrogue();
         $scope.enrolH._06_raison_conso_drogue = gestraisonConsoDrogue();
@@ -92,7 +92,33 @@ saisie.controller('enrolSHctrl', ['$scope', '$rootScope', '$stateParams', '$http
         }
         console.log("dataInstance = ",dataInstance);
 
-    }
+    }*/
+
+    function getElement() {
+          console.log("getElement()");
+          $scope.enrolH._05_type_drogue = gesttypeDrogue();
+          $scope.enrolH._06_raison_conso_drogue = gestraisonConsoDrogue();
+          console.log("$scope.enrolH = ",$scope.enrolH);
+          for(var pop in $scope.enrolH){
+            var id = getElementId(pop);
+            if(id){
+              if($scope.enrolH[pop] != null && $scope.enrolH[pop] && $scope.enrolH[pop] != ""){
+                      var data = {};
+                      data.element = id;
+                      data.value = $scope.enrolH[pop];
+                      data.numero = 1;
+                      //dataInstance.dataValue.push(data);
+                      updateEnrolData(data);
+              }else {
+                  console.info("getElement(). Element sans valeur, code = ",pop," // valeur = ",$scope.enrolH[pop]);
+                  deleteEnrolData(id);
+              }
+            }else{
+                console.error("getElement(). Element non trouvé, code = ",pop);
+            }
+          }
+
+      }
 
 	function gesttypeDrogue(){
 		console.log("$scope.typeDrogue = ",$scope.typeDrogue);
@@ -160,7 +186,7 @@ saisie.controller('enrolSHctrl', ['$scope', '$rootScope', '$stateParams', '$http
         });
     }
 
-    function updateEnrolData() {
+    /*function updateEnrolData() {
         console.log("H updateEnrolData() dataInstance = ",dataInstance);
         console.log("H updateEnrolData() $rootScope.benefNewEnrolData = ",$rootScope.benefNewEnrolData);
         for (var i = 0; i < dataInstance.dataValue.length; i++) {
@@ -175,7 +201,7 @@ saisie.controller('enrolSHctrl', ['$scope', '$rootScope', '$stateParams', '$http
             $rootScope.benefNewEnrolData.dataValue.push(dataInstance.dataValue[i]);
           }
         }
-    }
+    }*/
 
 	function succesSave() {
         $state.go('enrolSIJK',{org: $rootScope.orgUnitSelect.id, prog: dataInstance.programme, inst: dataInstance.instance});
@@ -215,6 +241,32 @@ saisie.controller('enrolSHctrl', ['$scope', '$rootScope', '$stateParams', '$http
               conti = false;
           }
           $scope.raisonConsoDrogue[option] = true;
+      }
+    }
+
+    function updateEnrolData(data) {
+      var trouve = false;
+      for(var j = 0;j<$rootScope.enrolementData.length;j++){
+        if($rootScope.enrolementData[j].element == data.element){
+          $rootScope.enrolementData[j] = data;
+          trouve = true;
+          break;
+        }
+      }
+      if(!trouve){
+        $rootScope.enrolementData.push(data);
+      }
+    }
+
+    function deleteEnrolData(element) {
+      var a = 0;
+      while(a<$rootScope.enrolementData.length){
+        if($rootScope.enrolementData[a].element == element){
+          $rootScope.enrolementData.splice(a, 1);
+          trouve = true;
+          break;
+        }
+        a++;
       }
     }
 

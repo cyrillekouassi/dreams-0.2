@@ -55,4 +55,9 @@ public class BeneficiaireRestService {
 		return ibeneficiaire.getListBeneficiaireTDOByIdDreams(idDreams);
 	}
 	
+	@RequestMapping(method=RequestMethod.DELETE)
+	public ResultatRequete deleteOneInstanceTDO(@RequestParam(name="dossierInstance")String dossierInstance) {
+		return ibeneficiaire.deleteBeneficiaireByDossier(dossierInstance);
+	}
+	
 }

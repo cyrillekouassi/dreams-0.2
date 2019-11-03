@@ -209,18 +209,26 @@ public class DataValueConvert {
 			}
 		}
 		
-		deleteResteValues(dataValues);
+		//deleteResteValues(dataValues);
 		return newDataValues;
 	}
-
-	public void deleteResteValues(List<DataValue> dataValues) {
-		// int nbre = instancedataValues.size();
-		dataValueRepository.delete(dataValues);
-		/*while (!dataValues.isEmpty()) {
-			dataValueRepository.delete(dataValues.get(0));
-			dataValues.remove(0);
-		}*/
+	
+	public List<DataValue> saveDataValuesUnique(List<DataValueTDO> dataValueTDOs, Instance instance) {
+		List<DataValue> dataValues = new ArrayList<DataValue>();
+		//List<DataValue> newDataValues = new ArrayList<DataValue>();
 		
+		//dataValues = dataValueRepository.findByInstanceUid(instance.getUid());
+		deleteResteValues(instance.getUid());
+		
+		dataValues = saveDataValues(dataValueTDOs, instance);
+		return dataValues;
+	}
+
+	public void deleteResteValues(String instance) {
+		List<DataValue> dataValues = new ArrayList<DataValue>();
+		dataValues = dataValueRepository.findByInstanceUid(instance);
+		dataValueRepository.delete(dataValues);
+				
 	}
 
 	
@@ -308,7 +316,7 @@ public class DataValueConvert {
 		return iinstance.saveInstance(instanceTDO);
 	}
 
-	public Beneficiaire createBeneficiaire(DataInstance dataInstance, Instance instance) {
+	public Beneficiaire createBeneficiaireInstance(DataInstance dataInstance, Instance instance) {
 		Beneficiaire beneficiaire = ibeneficiaire.getOneBeneficiaireByInstance(instance.getUid());
 		if (beneficiaire == null) {
 			return null;
@@ -338,36 +346,13 @@ public class DataValueConvert {
 		dateActiv = convertDate.getDateParse(dataInstance.getDateActivite());
 		if (dateActiv == null)
 			return null;
-
+		//beneficiaire = deleteInstanceBeneficiairesDoublon(beneficiaire);
 		for (int i = 0; i < beneficiaire.getInstanceBeneficiaires().size(); i++) {
 			if (instance.getUid().equals(beneficiaire.getInstanceBeneficiaires().get(i).getInstance().getUid())) {
-				if (beneficiaire.getInstanceBeneficiaires().get(i).getOrdre() == dataInstance.getOrder()) {
-					if (dataInstance.getCodeId() == null
-							&& beneficiaire.getInstanceBeneficiaires().get(i).getCodeId() == null) {
-						trouve = true;
-						if (dataInstance.getOrganisation().equals("delete")) {
-							beneficiaire.getInstanceBeneficiaires().get(i).setDateAction(null);
-						} else {
-							beneficiaire.getInstanceBeneficiaires().get(i).setDateAction(dateActiv);
-						}
-
-					} else {
-						if (dataInstance.getCodeId() != null
-								&& beneficiaire.getInstanceBeneficiaires().get(i).getCodeId() != null) {
-							if (dataInstance.getCodeId()
-									.equals(beneficiaire.getInstanceBeneficiaires().get(i).getCodeId())) {
-								trouve = true;
-								if (dataInstance.getOrganisation().equals("delete")) {
-									beneficiaire.getInstanceBeneficiaires().get(i).setDateAction(null);
-								} else {
-									beneficiaire.getInstanceBeneficiaires().get(i).setDateAction(dateActiv);
-								}
-							}
-						}
-
-					}
-
-				}
+				trouve = true;
+				beneficiaire.getInstanceBeneficiaires().get(i).setDateAction(dateActiv);
+				break;
+				
 			}
 		}
 
@@ -537,6 +522,29 @@ public class DataValueConvert {
 			dataValueRepository.delete(deletingDataValue);
 		}
 		return dataValues;
+	}
+	
+	public Beneficiaire deleteInstanceBeneficiairesDoublon(Beneficiaire beneficiaire) {
+		int deb = 0;
+		int pas = deb+1;
+		if(beneficiaire.getInstanceBeneficiaires().isEmpty()) {
+			return beneficiaire;
+		}
+		
+		while (deb < beneficiaire.getInstanceBeneficiaires().size()-1) {
+			if (beneficiaire.getInstanceBeneficiaires().get(deb).getInstance().getUid().equals(beneficiaire.getInstanceBeneficiaires().get(pas).getInstance().getUid())) {
+				//deletingDataValue.add(dataValues.get(pas));
+				beneficiaire.getInstanceBeneficiaires().remove(pas);
+				pas--;
+			}
+			pas++;
+			if(beneficiaire.getInstanceBeneficiaires().size() == pas) {
+				deb++;
+				pas = deb+1;
+			}
+		}
+		
+		return beneficiaire;
 	}
 
 }

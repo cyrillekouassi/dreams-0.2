@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 public interface InstanceRepository extends JpaRepository<Instance, Long> {
 
@@ -19,6 +18,8 @@ public interface InstanceRepository extends JpaRepository<Instance, Long> {
 	public Instance getOneInstance(@Param("uid")String uid);*/
 	
 	public Instance findAllByDeletedIsFalseAndUid(String uid);
+	
+	public List<Instance> findAllByDeletedIsTrue();
 	
 	public Page<Instance> findAllByDeletedIsFalseAndProgrammeUidAndOrganisationUid(String programmeuid,String organisationuid,Pageable pageable);
 	
