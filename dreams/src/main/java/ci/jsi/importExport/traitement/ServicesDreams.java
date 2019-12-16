@@ -298,10 +298,18 @@ public class ServicesDreams {
 	public void evaluerService(String enrolInstanceID,String dateEnrol) {
 		
 		System.out.println("Entrer dans ServicesDreams - evaluerService");
-		Beneficiaire beneficiaire = ibeneficiaire.getOneBeneficiaireByInstance(enrolInstanceID);
-		if(beneficiaire == null) {
+		List<Beneficiaire> beneficiairesInstance = new ArrayList<Beneficiaire>();
+		beneficiairesInstance = ibeneficiaire.getBeneficiaireByInstance(enrolInstanceID);
+		if(beneficiairesInstance.size() != 1) {
 			return;
 		}
+		
+		Beneficiaire beneficiaire = beneficiairesInstance.get(0);
+				
+		/*Beneficiaire beneficiaire = ibeneficiaire.getOneBeneficiaireByInstance(enrolInstanceID);
+		if(beneficiaire == null) {
+			return;
+		}*/
 		dataValues = new ArrayList<DataValue>();
 		dataValueTDOs = new ArrayList<DataValueTDO>();
 		InstanceTDO instanceTDO = new InstanceTDO();

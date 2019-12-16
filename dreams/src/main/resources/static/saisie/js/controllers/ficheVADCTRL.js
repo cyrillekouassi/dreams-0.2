@@ -128,7 +128,9 @@ saisie.controller('ficheVADCTRL',['$scope','$rootScope','$http','$stateParams','
             //delete dataInstanceEntete.instance;
             checkMotif();
             dataInstance = dataInstanceEntete;
-            dataInstance.dreamsId = $scope.vadData.id_dreams;
+            dataInstance.dreamsId = [];
+            dataInstance.dreamsId.push($scope.vadData.id_dreams);
+            //dataInstance.dreamsId = $scope.vadData.id_dreams;
             dataInstance.dateActivite = $scope.vadData.dateVAD;
             //  dataInstance.dateActivite = formadate($scope.vadData.dateVAD);
             console.log("dataInstance.dateActivite = ",dataInstance.dateActivite);
@@ -149,7 +151,9 @@ saisie.controller('ficheVADCTRL',['$scope','$rootScope','$http','$stateParams','
     }
 
     function checkMotif() {
-        console.log("checkMotif() $scope.vadData = ",$scope.vadData);
+        console.log("checkMotif() $scope.vadData = ", angular.copy($scope.vadData));
+        console.log("checkMotif() $scope.motif = ", angular.copy($scope.motif));
+        $scope.vadData.motifVAD = null;
         for (var prop in $scope.motif) {
             //console.log('checkMotif() prop=', prop);
            // console.log('checkMotif() prop=', $scope.motif[prop]);
@@ -161,6 +165,7 @@ saisie.controller('ficheVADCTRL',['$scope','$rootScope','$http','$stateParams','
                 }
             }
         }
+        console.log("fin checkMotif() $scope.vadData = ", angular.copy($scope.vadData));
     }
 
     function getElementid() {

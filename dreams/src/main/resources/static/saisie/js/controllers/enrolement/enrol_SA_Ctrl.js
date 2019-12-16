@@ -190,7 +190,9 @@ saisie.controller('enrolSActrl', ['$scope', '$rootScope', '$stateParams', '$http
         //console.log("entrer dans savePage(),$scope.enrolA = ",$scope.enrolA);
         //console.log("entrer dans savePage(),dataInstance = ",dataInstance);
         dataInstance.dataValue = [];
-        dataInstance.dreamsId = $scope.enrolA.id_dreams;
+        dataInstance.dreamsId = [];
+        //dataInstance.dreamsId = $scope.enrolA.id_dreams;
+        dataInstance.dreamsId.push($scope.enrolA.id_dreams);
         dataInstance.dateActivite = $scope.enrolA.dat_enrol;
         dataInstance.order = 1;
         if(!dataInstance.instance){

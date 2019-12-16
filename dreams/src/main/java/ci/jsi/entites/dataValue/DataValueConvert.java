@@ -316,58 +316,122 @@ public class DataValueConvert {
 		return iinstance.saveInstance(instanceTDO);
 	}
 
-	public Beneficiaire createBeneficiaireInstance(DataInstance dataInstance, Instance instance) {
-		Beneficiaire beneficiaire = ibeneficiaire.getOneBeneficiaireByInstance(instance.getUid());
-		if (beneficiaire == null) {
+	public List<Beneficiaire> createBeneficiaireInstance(DataInstance dataInstance, Instance instance) {
+		List<Beneficiaire> beneficiaires = new ArrayList<Beneficiaire>();
+		beneficiaires = ibeneficiaire.getListBeneficiaireByIdDreams(dataInstance.getDreamsId());
+		//Beneficiaire beneficiaire = ibeneficiaire.getOneBeneficiaireByInstance(instance.getUid());
+		if (beneficiaires.isEmpty()) {
 			return null;
 		}
-		InstanceBeneficiaire instanceBeneficiaire = new InstanceBeneficiaire();
-		instanceBeneficiaire.setInstance(instance);
-		instanceBeneficiaire.setBeneficiaire(beneficiaire);
-		instanceBeneficiaire.setDateAction(instance.getDateActivite());
-		if (dataInstance.getOrder() == 0) {
-			instanceBeneficiaire.setOrdre(1);
-		} else {
-			instanceBeneficiaire.setOrdre(dataInstance.getOrder());
-		}
+		
+		for(int i = 0;i<beneficiaires.size();i++) {
+			//Beneficiaire beneficiaire = beneficiaires.get(i);
+			/*InstanceBeneficiaire instanceBeneficiaire = new InstanceBeneficiaire();
+			instanceBeneficiaire.setInstance(instance);
+			instanceBeneficiaire.setBeneficiaire(beneficiaire);
+			instanceBeneficiaire.setDateAction(instance.getDateActivite());
+			if (dataInstance.getOrder() == 0) {
+				instanceBeneficiaire.setOrdre(1);
+			} else {
+				instanceBeneficiaire.setOrdre(dataInstance.getOrder());
+			}
 
-		beneficiaire.getInstanceBeneficiaires().add(instanceBeneficiaire);
-		beneficiaire = ibeneficiaire.updateOneBeneficiaire(beneficiaire);
+			beneficiaire.getInstanceBeneficiaires().add(instanceBeneficiaire);
+			beneficiaire = ibeneficiaire.updateOneBeneficiaire(beneficiaire);*/
+			
+			Beneficiaire beneficiaire = createOneBeneficiaireInstance(beneficiaires.get(i), instance);
+		}
+		
+		
+		return beneficiaires;
+	}
+	
+	public Beneficiaire createOneBeneficiaireInstance(Beneficiaire beneficiaire, Instance instance) {
+		
+			InstanceBeneficiaire instanceBeneficiaire = new InstanceBeneficiaire();
+			instanceBeneficiaire.setInstance(instance);
+			instanceBeneficiaire.setBeneficiaire(beneficiaire);
+			instanceBeneficiaire.setDateAction(instance.getDateActivite());
+			instanceBeneficiaire.setOrdre(1);
+			beneficiaire.getInstanceBeneficiaires().add(instanceBeneficiaire);
+			beneficiaire = ibeneficiaire.updateOneBeneficiaire(beneficiaire);
+		
 		return beneficiaire;
 	}
 
-	public Beneficiaire updateBeneficiaire(DataInstance dataInstance, Instance instance) {
-		boolean trouve = false;
+	public List<Beneficiaire> updateBeneficiaire(DataInstance dataInstance, Instance instance) {
+		
 		Date dateActiv;
-		Beneficiaire beneficiaire = ibeneficiaire.getOneBeneficiaireByInstance(instance.getUid());
-		if (beneficiaire == null) {
+		List<Beneficiaire> beneficiairesInstance = new ArrayList<Beneficiaire>();
+		List<Beneficiaire> newBeneficiairesDataInstance = new ArrayList<Beneficiaire>();
+		List<Beneficiaire> beneficiairesRetenu = new ArrayList<Beneficiaire>();
+		List<String> idDreamsList = new ArrayList<String>();
+		
+		idDreamsList = dataInstance.getDreamsId();
+		beneficiairesInstance = ibeneficiaire.getBeneficiaireByInstance(instance.getUid());
+		//beneficiairesDataInstance = ibeneficiaire.getListBeneficiaireByIdDreams(dataInstance.getDreamsId());
+		
+		if (beneficiairesInstance.isEmpty()) {
 			return null;
 		}
 		dateActiv = convertDate.getDateParse(dataInstance.getDateActivite());
 		if (dateActiv == null)
 			return null;
-		//beneficiaire = deleteInstanceBeneficiairesDoublon(beneficiaire);
-		for (int i = 0; i < beneficiaire.getInstanceBeneficiaires().size(); i++) {
-			if (instance.getUid().equals(beneficiaire.getInstanceBeneficiaires().get(i).getInstance().getUid())) {
-				trouve = true;
-				beneficiaire.getInstanceBeneficiaires().get(i).setDateAction(dateActiv);
-				break;
-				
+		
+		int nbre = 0;
+		
+		while(nbre<beneficiairesInstance.size()) {
+			int id = 0;
+			while(id<idDreamsList.size()) {
+				if(beneficiairesInstance.get(nbre).getId_dreams().equals(idDreamsList.get(id))) {
+					beneficiairesRetenu.add(beneficiairesInstance.get(nbre));
+					beneficiairesInstance.remove(nbre);
+					idDreamsList.remove(id);
+					nbre--;
+					break;
+				}
+				id++;
 			}
+			nbre++;
 		}
-
-		if (!trouve) {
-			InstanceBeneficiaire instanceBeneficiaire = new InstanceBeneficiaire();
-			instanceBeneficiaire.setInstance(instance);
-			instanceBeneficiaire.setBeneficiaire(beneficiaire);
-			instanceBeneficiaire.setDateAction(dateActiv);
-			instanceBeneficiaire.setCodeId(dataInstance.getCodeId());
-			instanceBeneficiaire.setOrdre(dataInstance.getOrder());
-			beneficiaire.getInstanceBeneficiaires().add(instanceBeneficiaire);
+		
+		for(int a = 0; a<beneficiairesInstance.size();a++) {
+			Beneficiaire BeneficiaireD = beneficiairesInstance.get(a);
+			BeneficiaireD = ibeneficiaire.deleteBeneficiaireInstance(BeneficiaireD,instance);
 		}
+		
+		if(!idDreamsList.isEmpty()) {
+			newBeneficiairesDataInstance = ibeneficiaire.getListBeneficiaireByIdDreams(idDreamsList);
+			beneficiairesRetenu.addAll(newBeneficiairesDataInstance);
+		}
+		
+		
+		for (int b = 0; b < beneficiairesRetenu.size(); b++) {
+			boolean trouve = false;
+			Beneficiaire beneficiaire = beneficiairesRetenu.get(b);
+			//beneficiaire = deleteInstanceBeneficiairesDoublon(beneficiaire);
+			for (int i = 0; i < beneficiaire.getInstanceBeneficiaires().size(); i++) {
+				if (instance.getUid().equals(beneficiaire.getInstanceBeneficiaires().get(i).getInstance().getUid())) {
+					trouve = true;
+					beneficiaire.getInstanceBeneficiaires().get(i).setDateAction(dateActiv);
+					break;
+				}
+			}
 
-		beneficiaire = ibeneficiaire.updateOneBeneficiaire(beneficiaire);
-		return beneficiaire;
+			if (!trouve) {
+				InstanceBeneficiaire instanceBeneficiaire = new InstanceBeneficiaire();
+				instanceBeneficiaire.setInstance(instance);
+				instanceBeneficiaire.setBeneficiaire(beneficiaire);
+				instanceBeneficiaire.setDateAction(dateActiv);
+				instanceBeneficiaire.setCodeId(dataInstance.getCodeId());
+				instanceBeneficiaire.setOrdre(dataInstance.getOrder());
+				beneficiaire.getInstanceBeneficiaires().add(instanceBeneficiaire);
+			}
+
+			beneficiaire = ibeneficiaire.updateOneBeneficiaire(beneficiaire);
+		}
+		
+		return beneficiairesRetenu;
 	}
 
 	public DataValueTDO getDataValueTDO(DataValue dataValue) {

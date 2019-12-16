@@ -257,13 +257,13 @@ public class BeneficiaireService implements Ibeneficiaire {
 	}
 
 	@Override
-	public Beneficiaire getOneBeneficiaireByInstance(String instance) {
-		List<Beneficiaire> beneficiaires = new ArrayList<Beneficiaire>();
+	public List<Beneficiaire> getBeneficiaireByInstance(String instance) {
+		/*List<Beneficiaire> beneficiaires = new ArrayList<Beneficiaire>();
 		beneficiaires = beneficiaireRepository.findByUidIsNotNullAndInstanceBeneficiairesInstanceUid(instance);
 		if(beneficiaires.size() == 1) {
 			return beneficiaires.get(0);
-		}
-		return null;
+		}*/
+		return beneficiaireRepository.findByUidIsNotNullAndInstanceBeneficiairesInstanceUid(instance);
 	}
 
 	@Override
@@ -277,12 +277,22 @@ public class BeneficiaireService implements Ibeneficiaire {
 		
 		return beneficiaireTDOs;
 	}
+	
+	@Override
+	public List<Beneficiaire> getListBeneficiaireByIdDreams(List<String> idDreams) {
+		
+		return beneficiaireRepository.findByUidIsNotNullAndDreamsIdIn(idDreams);
+	}
 
 	@Override
 	public ResultatRequete deleteBeneficiaireByDossier(String dossierInstance) {
 		ResultatRequete resultatRequete = new ResultatRequete();
-		Beneficiaire beneficiaire = getOneBeneficiaireByInstance(dossierInstance);
-		resultatRequete = deleteBeneficiaire(beneficiaire.getUid());
+		List<Beneficiaire> beneficiaires = new ArrayList<Beneficiaire>();
+		
+		beneficiaires = getBeneficiaireByInstance(dossierInstance);
+		if(beneficiaires.size() == 1)
+			resultatRequete = deleteBeneficiaire(beneficiaires.get(0).getUid());
+		//resultatRequete = deleteBeneficiaire(beneficiaire.getUid());
 		return resultatRequete;
 	}
 

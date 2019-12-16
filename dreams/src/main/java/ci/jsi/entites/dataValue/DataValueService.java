@@ -142,6 +142,7 @@ public class DataValueService implements IdataValues {
 		System.out.println("Entrer dans DataValueService - saveDataInstance");
 		ResultatRequete resultatRequete = new ResultatRequete();
 		List<DataValue> dataValues = new ArrayList<DataValue>();
+		List<Beneficiaire> beneficiaires = new ArrayList<Beneficiaire>();
 		if(dataInstance.getInstance() != null) {
 			instance = iinstance.getOneInstance(dataInstance.getInstance());
 			instance = dataValueConvert.updateInstance(instance,dataInstance);
@@ -149,8 +150,8 @@ public class DataValueService implements IdataValues {
 		}else {
 			instance = dataValueConvert.createNewInstance(dataInstance);
 			if(instance != null && dataInstance.getDreamsId() != null) {
-				beneficiaire = dataValueConvert.createBeneficiaireInstance(dataInstance, instance);
-				if(beneficiaire == null) {
+				beneficiaires = dataValueConvert.createBeneficiaireInstance(dataInstance, instance);
+				if(beneficiaires.isEmpty()) {
 					iinstance.deleteCompleteInstance(instance);
 					resultatRequete.setStatus("fail");
 					resultatRequete.setIgnore(1);

@@ -227,7 +227,9 @@ saisie.controller('dossierBeneficiaireCTRL', ['$scope', '$rootScope', '$http', '
         console.log("dossierBenef = ",dossierBenef);
         console.log("getElement() $rootScope.programmeSelect = ",$rootScope.programmeSelect);
         dataInstance.dataValue = [];
-        dataInstance.dreamsId = $scope.dossier.id_dreams;
+        dataInstance.dreamsId = [];
+        dataInstance.dreamsId.push($scope.dossier.id_dreams);
+        //dataInstance.dreamsId = $scope.dossier.id_dreams;
         //dataInstance.dateActivite = $filter('date')(new Date(), 'dd-MM-yyyy');
         dataInstance.dateActivite = $scope.dossier.dateEnrolement;
         dataInstance.order = 1;

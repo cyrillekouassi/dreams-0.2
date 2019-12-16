@@ -47,7 +47,7 @@
                               <td>{{vad.dateVAD}}</td>
                               <td>{{vad.id_dreams}}</td>
                               <td>
-                                  <p ng-repeat="motif in vad.motifVAD">{{motif}}</p>
+                                  <p ng-repeat="motif in vad.motifVAD track by $index">{{motif}}</p>
 
                               </td>
                               <td><a ui-sref='ficheVAD({ prog: programmeSelect.id, org: orgUnitSelect.id, inst: vad.instance })'><i class="fa fa-pencil indigo-text" aria-hidden="true">edit</i></a> <span

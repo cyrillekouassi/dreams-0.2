@@ -68,7 +68,10 @@ public class CreateDossierBeneficiaire {
 			dataValues = idataValues.getDataValues(Linstance);*/
 		}
 		
-		dataInstance.setDreamsId(beneficiaire.getId_dreams());
+		List<String> idDreamsList = new ArrayList<String>();
+		idDreamsList.add(beneficiaire.getId_dreams());
+		dataInstance.setDreamsId(idDreamsList);
+		
 		DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         String dateActivite = formatter.format(instance.getDateActivite());
 		//dataInstance.setDateActivite(instance.getDateActivite().toString());

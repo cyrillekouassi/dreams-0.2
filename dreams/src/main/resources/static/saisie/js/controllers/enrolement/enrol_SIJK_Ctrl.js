@@ -26,10 +26,10 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 		"_02_element_repas",
 		"Comment"];
 
-	mappigData();
+	mappingData();
 
 
-	 function mappigData() {
+	 function mappingData() {
 	        for(var i = 0;i<enrolSectionIJK.length;i++){
 	            var id = getElementId(enrolSectionIJK[i]);
 	            if(id){
@@ -49,7 +49,7 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
                   }
 	            }
 	        }
-	        console.log("mappigData() $scope.enrolIJK = ",$scope.enrolIJK);
+	        console.log("mappingData() $scope.enrolIJK = ",$scope.enrolIJK);
           $scope.chargeList = false;
 	    }
 
@@ -74,30 +74,6 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
 
 	}
 
-	/*function getElement() {
-        console.log("getElement()");
-        $scope.enrolIJK._01_participation_program = gestparticipation();
-        $scope.enrolIJK._02_element_repas = gestrepas();
-        console.log("$scope.enrolH = ",$scope.enrolIJK);
-        for(var pop in $scope.enrolIJK){
-            if($scope.enrolIJK[pop] != null && $scope.enrolIJK[pop] && $scope.enrolIJK[pop] != ""){
-                var id = getElementId(pop);
-                if(id){
-                    var data = {};
-                    data.element = id;
-                    data.value = $scope.enrolIJK[pop];
-                    data.numero = 1;
-                    dataInstance.dataValue.push(data);
-                }else{
-                    console.error("getElement(). Element non trouvé, code = ",pop);
-                }
-            }else {
-                console.info("getElement(). Element sans valeur, code = ",pop," // valeur = ",$scope.enrolIJK[pop]);
-            }
-        }
-        console.log("dataInstance = ",dataInstance);
-
-    }*/
 
     function getElement() {
           console.log("getElement()");
@@ -208,7 +184,7 @@ saisie.controller('enrolSIJKctrl', ['$scope', '$rootScope', '$stateParams', '$ht
             console.log("saveBenef() > succes = ",succes);
             if(succes.data.status == "OK"){
                 saveData();
-                toastr["success"]("Bénéficiaire créé");
+                toastr["success"]("Bénéficiaire OK");
             }else{
                 toastr["success"]("Impossible de créer ce bénéficiaire");
             }

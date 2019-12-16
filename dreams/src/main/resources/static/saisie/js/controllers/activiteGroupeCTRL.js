@@ -624,7 +624,10 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
                 l++;
             }
         }
-        console.log("collecteBenefData() listeBenefInitial = ",listeBenefInitial);
+        console.log("collecteBenefData() CYRILEE::::::::");
+        console.log("collecteBenefData() listeBenefInitial = ",angular.copy(listeBenefInitial));
+        console.log("collecteBenefData() $scope.ListBenef = ",angular.copy($scope.ListBenef));
+        console.log("collecteBenefData() $scope.ListBenef = ",angular.copy(benefValue));
         return value;
     }
 
@@ -1480,13 +1483,15 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
       console.log("entrer dans saveActiviteGroupe()");
 
       console.log("$scope.sessionData = ",angular.copy($scope.sessionData));
+      console.log("saveActiviteGroupe, sessionValue = ",angular.copy(sessionValue));
+      console.log("saveActiviteGroupe, benefValue = ",angular.copy(benefValue));
+      console.log("saveActiviteGroupe, autreValue = ",angular.copy(autreValue));
       collecteData = [];
       compileGroupe();
       compileData(sessionValue);
       compileData(benefValue);
       compileData(autreValue);
-      //console.log("sessionValue = ",angular.copy(sessionValue));
-      console.log("collecteData = ",angular.copy(collecteData));
+      console.log("saveActiviteGroupe, collecteData = ",angular.copy(collecteData));
 
       //compileData();
 
@@ -1649,6 +1654,20 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
       }
       //console.log("deletebenefDoublon() out benef = ",angular.copy(benef));
       return benef;
+    }
+
+    $scope.deleteBeneficiaire = function (numero){
+      console.log("deleteBeneficiaire, numero = ",angular.copy(numero));
+      var i = 0;
+      while(i<benefValue.length){
+        if(benefValue[i].numero == numero){
+          benefValue.splice(i, 1);
+          i--;
+        }
+        i++;
+      }
+      console.log("deleteBeneficiaire, benefValue = ",angular.copy(benefValue));
+      collecteBenefData(benefValue);
     }
 
 }]);

@@ -8,7 +8,7 @@ public class DataInstance {
 	private String organisation;
 	private String user;
 	private String instance;
-	private String dreamsId;
+	private List<String> dreamsId;
 	private String dateActivite;
 	private String codeId;
 	private int order;
@@ -58,11 +58,11 @@ public class DataInstance {
 		this.dataValue = dataValue;
 	}
 
-	public String getDreamsId() {
+	public List<String> getDreamsId() {
 		return dreamsId;
 	}
 
-	public void setDreamsId(String dreamsId) {
+	public void setDreamsId(List<String> dreamsId) {
 		this.dreamsId = dreamsId;
 	}
 

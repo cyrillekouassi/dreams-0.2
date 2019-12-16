@@ -181,7 +181,9 @@ saisie.controller('ficheReferenceCTRL',['$scope','$stateParams','$rootScope','$h
         checkMotifRef();
         checkServiceOff();
         dataInstance = dataInstanceEntete;
-        dataInstance.dreamsId = $scope.refData.id_dreams;
+        dataInstance.dreamsId = [];
+        dataInstance.dreamsId.push($scope.refData.id_dreams);
+        //dataInstance.dreamsId = $scope.refData.id_dreams;
         dataInstance.dateActivite = $scope.refData.dateRef;
         dataInstance.order = 1;
         dataInstance.dataValue = [];

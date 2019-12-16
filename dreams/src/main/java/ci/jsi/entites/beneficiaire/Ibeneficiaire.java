@@ -16,11 +16,13 @@ public interface Ibeneficiaire {
 	
 	public List<BeneficiaireTDO> getListBeneficiaireTDOByIdDreams(List<String> idDreams);
 	
+	public List<Beneficiaire> getListBeneficiaireByIdDreams(List<String> idDreams);
+	
 	public ResultatRequete saveBeneficiaireTDO(BeneficiaireTDO beneficiaireTDO);
 	
 	public Beneficiaire getOneBeneficiaireByUid(String uid);
 	public Beneficiaire getOneBeneficiaireByIdDreams(String idDreams);
-	public Beneficiaire getOneBeneficiaireByInstance(String instance);
+	public List<Beneficiaire> getBeneficiaireByInstance(String instance);
 	public Beneficiaire updateOneBeneficiaire(Beneficiaire beneficiaire);
 	public Beneficiaire saveOneBeneficiaire(Beneficiaire beneficiaire);
 	public Beneficiaire convertBeneficiaireTDO(BeneficiaireTDO beneficiaireTDO);
