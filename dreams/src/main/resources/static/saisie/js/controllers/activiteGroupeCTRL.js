@@ -624,10 +624,10 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
                 l++;
             }
         }
-        console.log("collecteBenefData() CYRILEE::::::::");
+        /*console.log("collecteBenefData() CYRILEE::::::::");
         console.log("collecteBenefData() listeBenefInitial = ",angular.copy(listeBenefInitial));
         console.log("collecteBenefData() $scope.ListBenef = ",angular.copy($scope.ListBenef));
-        console.log("collecteBenefData() $scope.ListBenef = ",angular.copy(benefValue));
+        console.log("collecteBenefData() $scope.ListBenef = ",angular.copy(benefValue));*/
         return value;
     }
 
@@ -725,6 +725,10 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
             }
         }
         console.log("collecteBenefData() $scope.ListAutreCible = ",$scope.ListAutreCible," // $scope.TotalAutreCible = ",$scope.TotalAutreCible);
+        /*console.log("collecteBenefData() CYRILEE::::::::");
+        console.log("collecteBenefData() listeAutreBenefCodeInitial = ",angular.copy(listeBenefInitial));
+        console.log("collecteBenefData() $scope.ListAutreCible = ",angular.copy($scope.ListAutreCible));
+        console.log("collecteBenefData() autreValue = ",angular.copy(autreValue));*/
         return value;
     }
 
@@ -1091,11 +1095,12 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
 
     $scope.changeSessionBenef = function (benef,key,value,index) {
         //console.log("entrer dans changeSessionBenef() > benef= ",angular.copy(benef),"// key = ",key," // value = ",value," // index = ",index);
-        benef.benefSession[key] = value;
+
         //console.log("changeSessionBenef() > benef= ",angular.copy(benef));
         //console.log("changeSessionBenef() > $scope.ListBenef= ",angular.copy($scope.ListBenef)," // $scope.TotalBenef = ",$scope.TotalBenef);
         //if(dataInstance.instance && index < $scope.sessionData.length){
         if(index < $scope.sessionData.length){
+          benef.benefSession[key] = value;
             origin = "benef";
           //  console.log("changeSessionBenef() $scope.sessionData = ",angular.copy($scope.sessionData));
             dataInstance.dreamsId = benef.id_dreams.value;
@@ -1143,8 +1148,6 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
             data.element = getBenfElementId("totalBenefSession");
             dataInstance.dataValue.push(data);
 
-
-
             if(dataInstance.dataValue.length != 0){
                 //console.log("changeSessionBenef() dataInstance = ",angular.copy(dataInstance));
                 ajustebenefSession(dataInstance.dataValue);
@@ -1161,24 +1164,24 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
       for(var i = 0;i<value.length;i++){
         for(var j = 0;j<benefValue.length;j++){
           if(value[i].element == benefValue[j].element && value[i].numero == benefValue[j].numero){
-            console.log("value = ",angular.copy(value[i]),"benefValue = ",angular.copy(benefValue[j]));
+            //console.log("value = ",angular.copy(value[i]),"benefValue = ",angular.copy(benefValue[j]));
             benefValue[j].value = value[i].value;
             break;
           }
         }
       }
-    //  console.log("ajustebenefSession() benefValue = ",angular.copy(benefValue));
+      //console.log("ajustebenefSession() fin benefValue = ",angular.copy(benefValue));
       //collecteBenefData(benefValue);
     }
 
     $scope.changeSessionBenefTermine = function (benef,value) {
-        console.log("entrer dans changeSessionBenefTermine() > benef= ",angular.copy(benef)," // value = ",value);
+      console.log("entrer dans changeSessionBenefTermine() > benef= ",angular.copy(benef)," // value = ",value);
         //if(dataInstance.instance){
             origin = "benef";
             dataInstance.dataValue = [];
             var data = {};
             data.numero = benef.numero;
-            data.value = benef.benefAyantTernime;
+            data.value = ""+benef.benefAyantTernime;
             data.element = getBenfElementId("benefAyantTernime");
             dataInstance.dataValue.push(data);
 
@@ -1343,16 +1346,17 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
     }
 
     function initAutreCible() {
-      $scope.groupeAutreCible.sexeAutreCible = "";
         $scope.groupeAutreCible = {};
+        $scope.groupeAutreCible.sexeAutreCible = "";
     }
 
     $scope.changeSessionAutre = function (autre,key,value,index) {
-        //console.log('changeSessionAutre() > autre = ',autre," // key = ",key," // value = ",value," // index= ",index);
+        console.log('changeSessionAutre() > autre = ',autre," // key = ",key," // value = ",value," // index= ",index);
         //console.log("entrer dans changeSessionBenef() > benef= ",angular.copy(benef),"// key = ",key," // value = ",value," // index = ",index);
-        autre.autreCibleSession[key] = value;
+
         //if(dataInstance.instance && index < $scope.sessionData.length ){
         if(index < $scope.sessionData.length ){
+          autre.autreCibleSession[key] = value;
             origin = "autreCible";
             dataInstance.dataValue = [];
             var autreCibleSess = "";
@@ -1426,7 +1430,7 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
             dataInstance.dataValue = [];
             var data = {};
             data.numero = autre.numero;
-            data.value = autre.autreCibleAyantTernimeMasc;
+            data.value = ""+autre.autreCibleAyantTernimeMasc;
             data.element = getAutreCibleElementId("autreCibleAyantTernimeMasc");
             dataInstance.dataValue.push(data);
 
@@ -1442,7 +1446,7 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
             dataInstance.dataValue.push(data);
 
             if(dataInstance.dataValue.length != 0){
-                console.log("changeSessionBenef() dataInstance = ",dataInstance);
+                //console.log("changeSessionBenef() dataInstance = ",dataInstance);
                 ajusteSessionAutre(dataInstance.dataValue);
               //  saveData();
             }
@@ -1456,7 +1460,7 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
             dataInstance.dataValue = [];
             var data = {};
             data.numero = autre.numero;
-            data.value = autre.autreCibleAyantTernimeFem;
+            data.value = ""+autre.autreCibleAyantTernimeFem;
             data.element = getAutreCibleElementId("autreCibleAyantTernimeFem");
             dataInstance.dataValue.push(data);
 
@@ -1472,7 +1476,7 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
             dataInstance.dataValue.push(data);
 
             if(dataInstance.dataValue.length != 0){
-                console.log("changeSessionBenef() dataInstance = ",dataInstance);
+                //console.log("changeSessionBenef() dataInstance = ",dataInstance);
                 ajusteSessionAutre(dataInstance.dataValue);
                 //saveData();
             }
@@ -1565,7 +1569,7 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
     }
 
     function checkBenefExistInList(benefRecu) {
-      console.log("checkBenefExistInList() listeBenefInitial = ",angular.copy(listeBenefInitial)," // benefRecu = ",angular.copy(benefRecu));
+    //  console.log("checkBenefExistInList() listeBenefInitial = ",angular.copy(listeBenefInitial)," // benefRecu = ",angular.copy(benefRecu));
       listeBenefInitial = deletebenefDoublon(listeBenefInitial);
       var tmpBenef = [];
       for(var i=0;i<listeBenefInitial.length;i++){
@@ -1656,9 +1660,31 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
       return benef;
     }
 
-    $scope.deleteBeneficiaire = function (numero){
-      console.log("deleteBeneficiaire, numero = ",angular.copy(numero));
+    $scope.deleteBeneficiaire = function (benef){
+      console.log("deleteBeneficiaire, benef = ",angular.copy(benef));
+      var befNom = "Nom: "+benef.nomPrenomBenef.value;
+      var befCode = "Code: "+benef.id_dreams.value;
+      var txt = "Attention, Vous êtes sur le point de supprimer\n"+befNom+"\n"+befCode;
+      if (!confirm(txt)) {
+        return;
+      }
       var i = 0;
+      for (var sess in benef.benefSession) {
+        //console.log("deleteBeneficiaire, i = ",angular.copy(i));
+        if(benef.benefSession[sess]){
+          $scope.changeSessionBenef(benef,sess,false,i);
+        }
+
+        i++;
+      }
+      if(benef.benefAyantTernime){
+        $scope.changeSessionBenefTermine(benef,false);
+      }
+
+
+
+      i = 0;
+      var numero = benef.numero;
       while(i<benefValue.length){
         if(benefValue[i].numero == numero){
           benefValue.splice(i, 1);
@@ -1666,8 +1692,97 @@ saisie.controller('activiteGroupeCTRL',['$scope','$rootScope','$http','$statePar
         }
         i++;
       }
-      console.log("deleteBeneficiaire, benefValue = ",angular.copy(benefValue));
+      //console.log("deleteBeneficiaire, benefValue = ",angular.copy(benefValue));
+      benefValue = ajusterNumero(numero, benefValue)
+      console.log("deleteBeneficiaire, after benefValue = ",angular.copy(benefValue));
       collecteBenefData(benefValue);
     }
+
+    function ajusterNumero(numero, value) {
+      for(var i = 0;i<value.length;i++){
+        if(value[i].numero > numero){
+          value[i].numero--;
+        }
+      }
+      return value;
+    }
+
+    $scope.deleteAutreCible = function (autre){
+      //console.log("deleteAutreCible, autreValue = ",angular.copy(autreValue));
+      console.log("deleteAutreCible, autre = ",angular.copy(autre));
+      //$scope.changeSessionAutre = function (autre,key,value,index)
+
+      var befNom = "Nom: "+autre.nomPrenomAutreCible.value;
+      var befCode = "Code: "+autre.codeBenef.value;
+      var txt = "Attention, Vous êtes sur le point de supprimer\n"+befNom+"\n"+befCode;
+      if (!confirm(txt)) {
+        return;
+      }
+
+      var i = 0;
+      for (var sess in autre.autreCibleSession) {
+        //console.log("deleteBeneficiaire, i = ",angular.copy(i));
+        if(autre.autreCibleSession[sess]){
+          $scope.changeSessionAutre(autre,sess,false,i);
+        }
+
+        i++;
+      }
+
+      if(autre.autreCibleAyantTernimeMasc){
+        $scope.changeSessionAutreTermineMasc(autre,false);
+      }
+      if(autre.autreCibleAyantTernimeFem){
+        $scope.changeSessionAutreTermineFem(autre,false);
+      }
+
+
+      i = 0;
+      var numero = autre.numero;
+      while(i<autreValue.length){
+        if(autreValue[i].numero == numero){
+          autreValue.splice(i, 1);
+          i--;
+        }
+        i++;
+      }
+      //console.log("deleteBeneficiaire, autreValue = ",angular.copy(autreValue));
+      autreValue = ajusterNumero(numero, autreValue);
+      //console.log("deleteBeneficiaire, after autreValue = ",angular.copy(autreValue));
+      collecteAutreCibleData(autreValue);
+    }
+
+    $scope.deleteSession = function (session){
+      console.log("deleteSession() > session = ",angular.copy(session));
+      console.log("deleteSession() > sessionValue = ",angular.copy(sessionValue));
+      console.log("deleteSession() > $scope.TotalBenef = ",angular.copy($scope.TotalBenef));
+      //$scope.TotalBenef.totalBenefSession.totalBenefSession
+      console.log("deleteSession() > $scope.TotalAutreCible = ",angular.copy($scope.TotalAutreCible));
+      //$scope.TotalBenef.totalBenefSession.totalBenefSession
+      var bef = "Session du "+session.dateSession.value;
+      var txt = "Attention, Vous êtes sur le point de supprimer\n"+bef
+      if (!confirm(txt)) {
+        return;
+      }
+
+      var i = 0;
+      var numero = session.numero;
+      while(i<sessionValue.length){
+        if(sessionValue[i].numero == numero){
+          sessionValue.splice(i, 1);
+          i--;
+        }
+        i++;
+      }
+      console.log("deleteSession() > sessionValue = ",angular.copy(sessionValue));
+      sessionValue = ajusterNumero(numero, sessionValue);
+      console.log("deleteSession() > sessionValue = ",angular.copy(sessionValue));
+      collecteSessionData(sessionValue);
+
+      console.log("deleteSession() > sessionValue = ",angular.copy(sessionValue));
+      console.log("deleteSession() > sessionValue = ",angular.copy(sessionValue));
+      console.log("deleteSession() > sessionValue = ",angular.copy(sessionValue));
+    }
+
 
 }]);
